@@ -12,7 +12,7 @@ A dirty utility to fetch, create & update fuzzing wordlists
 ### **Installation**:
  - **Bash**: 
 ```bash
-sudo curl -qfsSL "https://raw.githubusercontent.com/Azathothas/Utils/main/Binaries/Tools/Arsenal/wordium/wordium.sh" -o /usr/local/bin/wordium ;\
+sudo curl -qfsSL "https://raw.githubusercontent.com/Azathothas/Arsenal/main/wordium/wordium.sh" -o /usr/local/bin/wordium ;\
 sudo chmod +xwr "/usr/local/bin/wordium" && wordium --help
 ``` 
 ### Usage:
