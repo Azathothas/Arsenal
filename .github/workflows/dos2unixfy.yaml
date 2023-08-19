@@ -2,10 +2,10 @@ name: 🐧 dos2unixfy scripts 🖳
 #MAX_RUNTIME: 02 Minutes */10 * * * * 
 
 on:
-  push:
+  #push:
   workflow_dispatch:
-  schedule:
-    - cron: "*/10 * * * *"  # Every 10 Mins
+  #schedule:
+  #  - cron: "*/10 * * * *"  # Every 10 Mins
   # https://crontab.guru
   # https://savvytime.com/converter/utc-to-nepal-kathmandu
 
@@ -35,10 +35,10 @@ jobs:
           cd "$GITHUB_WORKSPACE/main"
           find . -type f -exec dos2unix {} \;
 
-      - name: Git Pull
-        run: |
-           cd "$GITHUB_WORKSPACE/main" && git pull origin main
-        continue-on-error: true
+     # - name: Git Pull
+     #   run: |
+     #      cd "$GITHUB_WORKSPACE/main" && git pull origin main
+     #   continue-on-error: true
 
       - uses: stefanzweifel/git-auto-commit-action@v4
         with:
