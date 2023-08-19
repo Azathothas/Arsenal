@@ -1,3 +1,3 @@
-module github.com/Azathothas/Utils/Binaries/Tools/Arsenal/inscope
+module github.com/Azathothas/Arsenal/inscope
 
 go 1.20
