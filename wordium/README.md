@@ -12,8 +12,16 @@ A dirty utility to fetch, create & update fuzzing wordlists
 ### **Installation**:
  - **Bash**: 
 ```bash
-sudo curl -qfsSL "https://raw.githubusercontent.com/Azathothas/Arsenal/main/wordium/wordium.sh" -o /usr/local/bin/wordium ;\
-sudo chmod +xwr "/usr/local/bin/wordium" && wordium --help
+!# With ROOT
+sudo curl -qfsSL "https://raw.githubusercontent.com/Azathothas/Arsenal/main/wordium/wordium.sh" -o "/usr/local/bin/wordium" && sudo chmod +xwr "/usr/local/bin/wordium"
+sudo eget "https://raw.githubusercontent.com/Azathothas/Arsenal/main/wordium/wordium.sh" --to "/usr/local/bin/wordium"
+
+!# No Root
+curl -qfsSL "https://raw.githubusercontent.com/Azathothas/Arsenal/main/wordium/wordium.sh" -o "$HOME/bin/wordium" && chmod +xwr "$HOME/bin/wordium"
+eget "https://raw.githubusercontent.com/Azathothas/Arsenal/main/wordium/wordium.sh" --to "$HOME/bin/wordium"
+
+!# InstallationLess
+bash <(curl -qfsSL "https://raw.githubusercontent.com/Azathothas/Arsenal/main/wordium/wordium.sh")
 ``` 
 ### Usage:
 `wordium --help`
@@ -29,12 +37,11 @@ sudo chmod +xwr "/usr/local/bin/wordium" && wordium --help
 Extended Help
 -w,  --wordlist-dir     Specify where to create your wordlists (Required, else specify as $WORDLIST in $ENV:VAR)
 -q,  --quick            Quick Mode [Only Use if not first time]
--up, --update           Update wordium
 ```
 ### Practical Uses:
 ```bash
-Look at 'https://github.com/Azathothas/Utils/tree/main/Wordlists'
-This uses wordium in Github Actions ('https://github.com/Azathothas/Utils/blob/main/.github/workflows/fetch_update_wordlists.yaml') to fetch the latest lists every 12 hrs
+Look at 'https://github.com/Azathothas/Wordlists'
+This uses wordium in Github Actions ('https://github.com/Azathothas/Wordlists/blob/main/.github/workflows/fetch_update_wordlists.yaml') to fetch the latest lists every 12 hrs
 ```
 ### Some Tips:
 1. You want to add a new word to the wordlist? [Example: /api/v1/graphql]
