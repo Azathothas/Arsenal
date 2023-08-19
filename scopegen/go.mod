@@ -1,3 +1,3 @@
-module github.com/Azathothas/Utils/Binaries/Tools/Arsenal/scopegen
+module github.com/Azathothas/Arsenal/scopegen
 
 go 1.20
