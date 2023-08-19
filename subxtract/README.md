@@ -22,11 +22,11 @@
  - **Bash**: 
 ```bash
 !# With root
-sudo curl -qfsSL "https://raw.githubusercontent.com/Azathothas/BugGPT-Tools/main/subxtract/subxtract.sh" -o "/usr/local/bin/subxtract" && sudo chmod +xwr "/usr/local/bin/subxtract"
-sudo eget "https://raw.githubusercontent.com/Azathothas/BugGPT-Tools/main/subxtract/subxtract.sh" --to "/usr/local/bin/subxtract"
+sudo curl -qfsSL "https://raw.githubusercontent.com/Azathothas/Arsenal/main/subxtract/subxtract.sh" -o "/usr/local/bin/subxtract" && sudo chmod +xwr "/usr/local/bin/subxtract"
+sudo eget "https://raw.githubusercontent.com/Azathothas/Arsenal/main/subxtract/subxtract.sh" --to "/usr/local/bin/subxtract"
 !# With no root
-curl -qfsSL "https://raw.githubusercontent.com/Azathothas/BugGPT-Tools/main/subxtract/subxtract.sh" -o "$HOME/bin/subxtract" && chmod +xwr "$HOME/bin/subxtract"
-eget "https://raw.githubusercontent.com/Azathothas/BugGPT-Tools/main/subxtract/subxtract.sh" --to "$HOME/bin/subxtract"
+curl -qfsSL "https://raw.githubusercontent.com/Azathothas/Arsenal/main/subxtract/subxtract.sh" -o "$HOME/bin/subxtract" && chmod +xwr "$HOME/bin/subxtract"
+eget "https://raw.githubusercontent.com/Azathothas/Arsenal/main/subxtract/subxtract.sh" --to "$HOME/bin/subxtract"
 !# With no Installaton
 bash <(curl -qfsSL "https://raw.githubusercontent.com/Azathothas/Arsenal/main/subxtract/subxtract.sh") {OPTIONS_HERE}
 ```
