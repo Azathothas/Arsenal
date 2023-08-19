@@ -10,17 +10,17 @@
  - **Bash**: 
 ```bash
 !# With root
-sudo curl -qfsSL "https://raw.githubusercontent.com/Azathothas/Utils/main/Binaries/Tools/Arsenal/scopeview/scopeview.sh" -o "/usr/local/bin/scopeview" && sudo chmod +xwr "/usr/local/bin/scopeview"
-sudo eget "https://raw.githubusercontent.com/Azathothas/Utils/main/Binaries/Tools/Arsenal/scopeview/scopeview.sh" --to "/usr/local/bin/scopeview"
+sudo curl -qfsSL "https://raw.githubusercontent.com/Azathothas/Arsenal/main/scopeview/scopeview.sh" -o "/usr/local/bin/scopeview" && sudo chmod +xwr "/usr/local/bin/scopeview"
+sudo eget "https://raw.githubusercontent.com/Azathothas/Arsenal/main/scopeview/scopeview.sh" --to "/usr/local/bin/scopeview"
 !# With no root
-curl -qfsSL "https://raw.githubusercontent.com/Azathothas/Utils/main/Binaries/Tools/Arsenal/scopeview/scopeview.sh" -o "$HOME/bin/scopeview" && chmod +xwr "$HOME/bin/scopeview"
-eget "https://raw.githubusercontent.com/Azathothas/Utils/main/Binaries/Tools/Arsenal/scopeview/scopeview.sh" --to "$HOME/bin/scopeview"
+curl -qfsSL "https://raw.githubusercontent.com/Azathothas/Arsenal/main/scopeview/scopeview.sh" -o "$HOME/bin/scopeview" && chmod +xwr "$HOME/bin/scopeview"
+eget "https://raw.githubusercontent.com/Azathothas/Arsenal/main/scopeview/scopeview.sh" --to "$HOME/bin/scopeview"
 !# With no Installaton
-bash <(curl -qfsSL "https://raw.githubusercontent.com/Azathothas/Utils/main/Binaries/Tools/Arsenal/scopeview/scopeview.sh") {OPTIONS_HERE}
+bash <(curl -qfsSL "https://raw.githubusercontent.com/Azathothas/Arsenal/main/scopeview/scopeview.sh") {OPTIONS_HERE}
 ```
 ---
 ### Usage
-> - Generate a **`.scope`** file using [scopegen](https://github.com/Azathothas/Utils/main/Binaries/Tools/Arsenal/scopegen)
+> - Generate a **`.scope`** file using [scopegen](https://github.com/Azathothas/Arsenal/tree/main/scopegen)
 > ```bash
 > ➼ cat inscope-domains.txt
 >        example.com
@@ -48,10 +48,10 @@ bash <(curl -qfsSL "https://raw.githubusercontent.com/Azathothas/Utils/main/Bina
 !# This assumes there is a **`.scope`** file in your working directory or cwd's parent.
 cat your-data-to-be-filtered.ext | scopeview
 !# Or Via STDIN
-cat your-data-to-be-filtered.ext | bash <(curl -qfsSL "https://raw.githubusercontent.com/Azathothas/Utils/main/Binaries/Tools/Arsenal/scopeview/scopeview.sh")
+cat your-data-to-be-filtered.ext | bash <(curl -qfsSL "https://raw.githubusercontent.com/Azathothas/Arsenal/main/scopeview/scopeview.sh")
 
 !# Using -s 
 cat your-data-to-be-filtered.ext | scopeview -s .scope-file
 !# Or Via STDIN
-cat your-data-to-be-filtered.ext | bash <(curl -qfsSL "https://raw.githubusercontent.com/Azathothas/Utils/main/Binaries/Tools/Arsenal/scopeview/scopeview.sh") -s .scope-file
+cat your-data-to-be-filtered.ext | bash <(curl -qfsSL "https://raw.githubusercontent.com/Azathothas/Arsenal/main/scopeview/scopeview.sh") -s .scope-file
 ```
