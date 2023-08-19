@@ -1,19 +1,19 @@
 ### About:
 - #### What ? :
-> - Generates **`.scope`** compatible format for [**ScopeView**](https://github.com/Azathothas/Utils/tree/main/Binaries/Tools/Arsenal/scopeview) (based on TomNomNom's [Inscope](https://github.com/tomnomnom/hacks/tree/master/inscope))                                              
-> - [**BurpScope**](https://github.com/Azathothas/Utils/tree/main/Binaries/Tools/Arsenal/burpscope) (based on Edoardottt's [genscope](https://github.com/edoardottt/lit-bb-hack-tools/tree/main/genscope)) is a similar tool for generating **Burpsuite**'s `scope.json`
+> - Generates **`.scope`** compatible format for [**ScopeView**](https://github.com/Azathothas/Arsenal/main/scopeview) (based on TomNomNom's [Inscope](https://github.com/tomnomnom/hacks/tree/master/inscope))                                              
+> - [**BurpScope**](https://github.com/Azathothas/Arsenal/main/burpscope) (based on Edoardottt's [genscope](https://github.com/edoardottt/lit-bb-hack-tools/tree/main/genscope)) is a similar tool for generating **Burpsuite**'s `scope.json`
 - #### Why ? :
 > - Take a look at [`reconftw.cfg`](https://github.com/six2dez/reconftw/blob/main/reconftw.cfg) which uses the same format for scope parsing
 ---
 ### **Installation**
 ```bash
 !# With root
-sudo curl -qfsSL "https://raw.githubusercontent.com/Azathothas/Utils/main/Binaries/Toolpacks/x86_64/scopegen" -o "/usr/local/bin/scopegen" && sudo chmod +xwr "/usr/local/bin/scopegen"
-sudo eget "https://raw.githubusercontent.com/Azathothas/Utils/main/Binaries/Toolpacks/x86_64/scopegen" --to "/usr/local/bin/scopegen"
+sudo curl -qfsSL "https://raw.githubusercontent.com/Azathothas/Toolpacks/main/x86_64/scopegen" -o "/usr/local/bin/scopegen" && sudo chmod +xwr "/usr/local/bin/scopegen"
+sudo eget "https://raw.githubusercontent.com/Azathothas/Toolpacks/main/x86_64/scopegen" --to "/usr/local/bin/scopegen"
 
 !# Without ROOT
-curl -qfsSL "https://raw.githubusercontent.com/Azathothas/Utils/main/Binaries/Toolpacks/x86_64/scopegen" -o "$HOME/bin/scopegen" && chmod +xwr "$HOME/bin/scopegen"
-eget "https://raw.githubusercontent.com/Azathothas/Utils/main/Binaries/Toolpacks/x86_64/scopegen" --to "$HOME/bin/scopegen"
+curl -qfsSL "https://raw.githubusercontent.com/Azathothas/Toolpacks/main/x86_64/scopegen" -o "$HOME/bin/scopegen" && chmod +xwr "$HOME/bin/scopegen"
+eget "https://raw.githubusercontent.com/Azathothas/Toolpacks/main/x86_64/scopegen" --to "$HOME/bin/scopegen"
 
 !# Using go
 go install -v "github.com/Azathothas/Utils/Binaries/Tools/Arsenal/scopegen@main"
@@ -75,7 +75,7 @@ cat outscope-domains.txt | scopegen -os
 ---
 - **`Wildcard`** `*.` Regexes:
 > Note on `wildcards`:
-> - Use [subxtract](https://github.com/Azathothas/Utils/tree/main/Binaries/Tools/Arsenal/subxtract) to filter first
+> - Use [subxtract](https://github.com/Azathothas/Arsenal/main/subxtract) to filter first
 > ```bash
 > #using subxtract, extract only root domains
 > subxtract -i inscope-domains.txt | scopegen -wl
