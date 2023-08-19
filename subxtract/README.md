@@ -16,7 +16,7 @@
 > - Tools like [tomnomnom/unfurl](https://github.com/tomnomnom/unfurl) rely on [Hardcoded Regexes](https://github.com/tomnomnom/unfurl/blob/master/main.go) and thus fail to properly separate tld-suffix from actual domains
 > - Instead, [go-fasttld](https://github.com/elliotwutingfeng/go-fasttld) uses [Public Suffix List](https://raw.githubusercontent.com/publicsuffix/list/master/public_suffix_list.dat) which is autoupdated regularly.
 - #### Where ? :
-> Used as a helper utility in tools like [Scopegen](https://github.com/Azathothas/Utils/tree/main/Binaries/Tools/Arsenal/scopegen) & [Burpscope](https://github.com/Azathothas/Utils/tree/main/Binaries/Tools/Arsenal/burpscope) to generate scopes, among other places.
+> Used as a helper utility in tools like [Scopegen](https://github.com/Azathothas/Arsenal/tree/main/scopegen) & [Burpscope](https://github.com/Azathothas/Arsenal/tree/main/burpscope) to generate scopes, among other places.
 ---
 ### **Installation**:
  - **Bash**: 
@@ -28,7 +28,7 @@ sudo eget "https://raw.githubusercontent.com/Azathothas/BugGPT-Tools/main/subxtr
 curl -qfsSL "https://raw.githubusercontent.com/Azathothas/BugGPT-Tools/main/subxtract/subxtract.sh" -o "$HOME/bin/subxtract" && chmod +xwr "$HOME/bin/subxtract"
 eget "https://raw.githubusercontent.com/Azathothas/BugGPT-Tools/main/subxtract/subxtract.sh" --to "$HOME/bin/subxtract"
 !# With no Installaton
-bash <(curl -qfsSL "https://raw.githubusercontent.com/Azathothas/Utils/main/Binaries/Tools/Arsenal/subxtract/subxtract.sh") {OPTIONS_HERE}
+bash <(curl -qfsSL "https://raw.githubusercontent.com/Azathothas/Arsenal/main/subxtract/subxtract.sh") {OPTIONS_HERE}
 ```
 ---
 ### Usage:
@@ -45,7 +45,7 @@ bash <(curl -qfsSL "https://raw.githubusercontent.com/Azathothas/Utils/main/Bina
                  `  -=-  '
 
 ➼ Usage: subxtract -i </path/to/domain/urls.txt> 
-InstallLess: bash <(curl -qfsSL "https://raw.githubusercontent.com/Azathothas/Utils/main/Binaries/Tools/Arsenal/subxtract/subxtract.sh") {OPTIONS_HERE}
+InstallLess: bash <(curl -qfsSL "https://raw.githubusercontent.com/Azathothas/Arsenal/main/subxtract/subxtract.sh") {OPTIONS_HERE}
        
 Extended Help:
 -i,  --input     Specify input file containing domains or urls (Required)
@@ -81,9 +81,9 @@ cat domains.txt | subxtract
 ```
 >```bash
 > !# InstallationLess
-> bash <(curl -qfsSL "https://raw.githubusercontent.com/Azathothas/Utils/main/Binaries/Tools/Arsenal/subxtract/subxtract.sh") -i domains.txt
+> bash <(curl -qfsSL "https://raw.githubusercontent.com/Azathothas/Arsenal/main/subxtract/subxtract.sh") -i domains.txt
 > !# Or via Stdin
-> cat domains.txt | bash <(curl -qfsSL "https://raw.githubusercontent.com/Azathothas/Utils/main/Binaries/Tools/Arsenal/subxtract/subxtract.sh")
+> cat domains.txt | bash <(curl -qfsSL "https://raw.githubusercontent.com/Azathothas/Arsenal/main/subxtract/subxtract.sh")
 > ```
 - #### Output
 ```bash
@@ -100,9 +100,9 @@ cat domains.txt | subxtract -s
 ```
 >```bash
 > !# InstallationLess
-> bash <(curl -qfsSL "https://raw.githubusercontent.com/Azathothas/Utils/main/Binaries/Tools/Arsenal/subxtract/subxtract.sh") -i domains.txt -s
+> bash <(curl -qfsSL "https://raw.githubusercontent.com/Azathothas/Arsenal/main/subxtract/subxtract.sh") -i domains.txt -s
 > !# Or via Stdin
-> cat domains.txt | bash <(curl -qfsSL "https://raw.githubusercontent.com/Azathothas/Utils/main/Binaries/Tools/Arsenal/subxtract/subxtract.sh") -s
+> cat domains.txt | bash <(curl -qfsSL "https://raw.githubusercontent.com/Azathothas/Arsenal/main/subxtract/subxtract.sh") -s
 > ```
 - #### Output
 ```bash
