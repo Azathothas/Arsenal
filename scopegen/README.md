@@ -1,7 +1,7 @@
 ### About:
 - #### What ? :
-> - Generates **`.scope`** compatible format for [**ScopeView**](https://github.com/Azathothas/Arsenal/main/scopeview) (based on TomNomNom's [Inscope](https://github.com/tomnomnom/hacks/tree/master/inscope))                                              
-> - [**BurpScope**](https://github.com/Azathothas/Arsenal/main/burpscope) (based on Edoardottt's [genscope](https://github.com/edoardottt/lit-bb-hack-tools/tree/main/genscope)) is a similar tool for generating **Burpsuite**'s `scope.json`
+> - Generates **`.scope`** compatible format for [**ScopeView**](https://github.com/Azathothas/Arsenal/tree/main/scopeview) (based on TomNomNom's [Inscope](https://github.com/tomnomnom/hacks/tree/master/inscope))                                              
+> - [**BurpScope**](https://github.com/Azathothas/Arsenal/tree/main/burpscope) (based on Edoardottt's [genscope](https://github.com/edoardottt/lit-bb-hack-tools/tree/main/genscope)) is a similar tool for generating **Burpsuite**'s `scope.json`
 - #### Why ? :
 > - Take a look at [`reconftw.cfg`](https://github.com/six2dez/reconftw/blob/main/reconftw.cfg) which uses the same format for scope parsing
 ---
@@ -75,7 +75,7 @@ cat outscope-domains.txt | scopegen -os
 ---
 - **`Wildcard`** `*.` Regexes:
 > Note on `wildcards`:
-> - Use [subxtract](https://github.com/Azathothas/Arsenal/main/subxtract) to filter first
+> - Use [subxtract](https://github.com/Azathothas/Arsenal/tree/main/subxtract) to filter first
 > ```bash
 > #using subxtract, extract only root domains
 > subxtract -i inscope-domains.txt | scopegen -wl
