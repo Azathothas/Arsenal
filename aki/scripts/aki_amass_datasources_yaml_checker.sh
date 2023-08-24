@@ -22,7 +22,7 @@ EOF
 echo -e "${NC}"
 
 # Straight from GIT
-
+#bash <( curl -qfsSL "https://raw.githubusercontent.com/Azathothas/Arsenal/main/aki/scripts/aki_amass_datasources_yaml_checker.sh") -a "/path/to/amass/datasources.yaml" --quota
 
 #Help / Usage
 if [[ "$*" == *"-h"* ]] || [[ "$*" == *"--help"* ]] || [[ "$*" == *"help"* ]] ; then
