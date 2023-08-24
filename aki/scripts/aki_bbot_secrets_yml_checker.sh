@@ -36,7 +36,7 @@ if [[ "$*" == *"-h"* ]] || [[ "$*" == *"--help"* ]] || [[ "$*" == *"help"* ]] ; 
         echo -e "        ${BLUE}-b${NC},  ${BLUE}--bbot${NC}     ${GREEN}<your/bbot/secrets.yml>${NC} (${YELLOW}Required${NC})\n"
     else
         echo -e "➼ By ${BLUE}default ${YELLOW}$HOME/.config/bbot/secrets.yml${NC} will be used\n  To ${BLUE}change${NC} it use:"
-        echo -e "                   ${BLUE}-a${NC},  ${BLUE}--bbot${NC}     ${GREEN}<your/bbot/secrets.yml>${NC}\n"
+        echo -e "                   ${BLUE}-b${NC},  ${BLUE}--bbot${NC}     ${GREEN}<your/bbot/secrets.yml>${NC}\n"
     fi   
     echo -e "${BLUE}Optional flags${NC} :"
          echo -e " ${BLUE}-q${NC},   ${BLUE}--quota${NC}      ${YELLOW}Show ${PURPLE}Usage Quota${NC} (${BLUE}limited${NC})"                    
