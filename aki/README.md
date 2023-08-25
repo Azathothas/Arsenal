@@ -66,6 +66,13 @@ curl -qsk "https://api.github.com/user" -H "Authorization: Bearer $api_key" -H "
 ```bash
 curl -qsk "https://gitlab.com/api/v4/user" -H "PRIVATE-TOKEN: $api_key" -H "Accept: application/json"
 ```
+- [**Google Custom Search API**](https://developers.google.com/custom-search/v1/overview#search_engine_id)
+```bash
+curl -qsk "https://customsearch.googleapis.com/customsearch/v1?q=test&cx=$search_engine_id&key=$google_api_key" -H "Accept: application/json"
+```
+> - Create API_KEY --> https://developers.google.com/custom-search/v1/overview#api_key
+> - Create a new search engine --> https://programmablesearchengine.google.com/controlpanel/create
+> - Enable: `Search the entire web`
 - [**Hunter**](https://hunter.io/api-documentation/v2#account)
 ```bash
 curl -qsk "https://api.hunter.io/v2/account?api_key=$api_key" -H "Accept: application/json"
