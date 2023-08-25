@@ -50,6 +50,10 @@ curl -qsk "https://api.cloudflare.com/client/v4/accounts" -H "Authorization: Bea
 ```bash
 curl -qsk "https://graph.facebook.com/oauth/access_token?client_id=$apikey&client_secret=$secret&redirect_uri=&grant_type=client_credentials"
 ```
+- [**Fofa**](https://en.fofa.info/api/info)
+```bash
+curl -qsk "https://fofa.info/api/v1/info/my?email=your_email_in_lowercase&key=your_api_key" 
+```
 - [**FullHunt**](https://api-docs.fullhunt.io/#authentication)
 ```bash
 curl -qsk "https://fullhunt.io/api/v1/auth/status" -H "X-API-KEY: $api_key" -H "Accept: application/json"
