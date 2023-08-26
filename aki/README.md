@@ -46,6 +46,8 @@ curl -qsk "https://dns.projectdiscovery.io/dns/example.com/subdomains" -H "Autho
 ```bash
 curl -qsk "https://api.cloudflare.com/client/v4/accounts" -H "Authorization: Bearer $api_key" -H "Content-Type: application/json" -H "Accept: application/json"
 ```
+> - Create API Token >> Templates >> **`Read All Resources`**
+> - This Should be a **`BEARER Token`** **NOT** API Key
 - [**Facebook**](https://developers.facebook.com/docs/facebook-login/guides/access-tokens#apptokens)
 ```bash
 curl -qsk "https://graph.facebook.com/oauth/access_token?client_id=$apikey&client_secret=$secret&redirect_uri=&grant_type=client_credentials"
