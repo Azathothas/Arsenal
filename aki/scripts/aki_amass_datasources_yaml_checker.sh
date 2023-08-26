@@ -505,7 +505,7 @@ echo -e "${NC}"
                      fi
                           response=$(curl -qski  "https://api.cloudflare.com/client/v4/accounts" -H "Authorization: Bearer $api_key" -H "Content-Type: application/json")
                           status_code=$(echo "$response" | awk '/HTTP/{print $2}')
-                     if [ "$status_code" = "401" ] || [ "$status_code" = "403" ]; then
+                     if [ "$status_code" = "400" ] || [ "$status_code" = "401" ] || [ "$status_code" = "403" ]; then
                        echo -e "ⓘ ${VIOLET} Cloudflare${NC} ${YELLOW}API key${NC} = ${BLUE}$api_key${NC} ${RED}\u2717 Invalid${NC}"
                        invalid_key_found=true
                      fi
@@ -520,7 +520,7 @@ echo -e "${NC}"
 # yq eval '.datasources[] | select(.name == "Deepinfo") | .creds.account.apikey' $amass_config_parsed | grep -v 'null'
 # yq eval '.datasources[] | select(.name == "Detectify") | .creds.account.apikey' $amass_config_parsed | grep -v 'null'         
    #FacebookCT  
-    FacebookCT_api_keys=$(yq eval '.datasources[] | select(.name == "FacebookCT") | .creds' $amass_config_parsed -o json | jq -r '.[] | "\(.apikey):\(.secret)"')
+    FacebookCT_api_keys=$(yq eval '.datasources[] | select(.name == "FacebookCT") | .creds' $amass_config_parsed -o json | jq -r '.[] | "\(.apikey):\(.secret)"' | grep -v 'null' )
         invalid_key_found=false
      if [ -n "$FacebookCT_api_keys" ]; then
               i=1
@@ -547,7 +547,34 @@ echo -e "${NC}"
          if ! $invalid_key_found; then
             echo -e "ⓘ ${VIOLET} FacebookCT${NC} : ${GREEN}\u2713${NC}"  
          fi  
-      fi         
+      fi  
+   #fofa  
+    fofa_api_keys=$(yq eval '.datasources[] | select(.name == "FOFA") | .creds' $amass_config_parsed -o json | jq -r '.[] | "\(.username):\(.apikey)"' | grep -v 'null')
+     invalid_key_found=false
+     if [ -n "$fofa_api_keys" ]; then
+              i=1
+              while read -r api_key; do
+              varname="fofa_cred_$i"
+              eval "$varname=\"$api_key\""
+               i=$((i+1))
+             done <<< "$fofa_api_keys"
+            # curl
+             for ((j=1; ; j++)); do
+               var_name="fofa_cred_$j"
+               api_key=${!var_name}
+               if [ -z "$api_key" ]; then
+                break
+                fi
+              response=$(curl -qfsSL "https://fofa.info/api/v1/info/my?email=${api_key%:*}&key=${api_key#*:}" -H "Accept: application/json" | jq -r '.error')
+              if echo "$response" | grep -q "true"; then
+                  echo -e "ⓘ ${VIOLET} fofa${NC} ${YELLOW}fofa_api_email : fofa_api_key${NC} = ${BLUE}${NC}${api_key} ${RED}\u2717 Invalid${NC}"
+                  invalid_key_found=true
+              fi
+            done
+         if ! $invalid_key_found; then
+            echo -e "ⓘ ${VIOLET} fofa${NC} : ${GREEN}\u2713${NC}"  
+         fi  
+      fi        
    #FullHunt  
     FullHunt_api_keys=$(yq eval '.datasources[] | select(.name == "FullHunt") | .creds.account.apikey' $amass_config_parsed | grep -v 'null')
     invalid_key_found=false
@@ -970,6 +997,42 @@ echo -e "${NC}"
                   echo -e "ⓘ ${VIOLET} PublicWWW${NC} : ${GREEN}\u2713${NC}"  
               fi  
          fi
+   #quake  
+    quake_api_keys=$(yq eval '.datasources[] | select(.name == "Quake") | .creds.account.apikey' $amass_config_parsed | grep -v 'null')
+    invalid_key_found=false
+          if [ -n "$quake_api_keys" ]; then
+                  i=1
+                  while read -r api_key; do
+                  var_name="quake_api_key_$i"
+                  eval "$var_name=\"$api_key\""
+                  i=$((i+1))
+                  done <<< "$quake_api_keys"
+                     #curl
+                    for ((j=1; ; j++)); do
+                          var_name="quake_api_key_$j"
+                          api_key=${!var_name}
+                     if [ -z "$api_key" ]; then
+                       break
+                     fi
+                          response=$(curl -qfsSL "https://quake.360.net/api/v3/user/info" -H "X-QuakeToken: $api_key" -H "Accept: application/json" | jq .)
+                          status_code=$(curl -qski "https://quake.360.net/api/v3/user/info" -H "X-QuakeToken: $api_key" -H "Accept: application/json" | awk '/HTTP/{print $2}')
+                      if [ "$status_code" = "401" ] || [ "$status_code" = "403" ]; then  
+                       echo -e "ⓘ ${VIOLET} quake${NC} ${YELLOW}API key${NC} = ${BLUE}$api_key${NC} ${RED}! Invalid${NC}" 
+                       invalid_key_found=true
+                      elif echo "$response" | jq -r '.data.baned' | grep -q "true"; then
+                       echo -e "ⓘ ${VIOLET} quake${NC} ${YELLOW}API key${NC} = ${BLUE}$api_key${NC} ${RED}\u2717 Banned${NC}"
+                       invalid_key_found=true
+                     elif [[ -n "$quota" ]]; then
+                          echo -e "ⓘ ${VIOLET} quake${NC}"
+                           echo -e "${YELLOW}API key${NC} : ${PURPLE}$api_key${NC}" 
+                           echo -e "${BLUE} Remaining Credits = ${YELLOW}$(echo $response | jq -r '.data.month_remaining_credit')${NC}"
+                           echo -e "\n"                           
+                     fi
+              done
+              if ! $invalid_key_found; then
+                  echo -e "ⓘ ${VIOLET} quake${NC} : ${GREEN}\u2713${NC}"  
+              fi  
+         fi          
    #Shodan  
     Shodan_api_keys=$(yq eval '.datasources[] | select(.name == "Shodan") | .creds.account.apikey' $amass_config_parsed | grep -v 'null')
     invalid_key_found=false
