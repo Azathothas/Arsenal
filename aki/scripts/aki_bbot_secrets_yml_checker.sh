@@ -374,7 +374,7 @@ echo -e "${NC}\n"
         invalid_key_found=false
           if [ -n "$Censys_api_keys" ]; then
                     i=1
-                    while read -r apikey && read -r secret; do
+                    while IFS=':' read -r apikey secret; do
                     encoded=$(echo -n "$apikey:$secret" | base64 | tr -d '[:space:]')
                     varname="Censys_cred_$i"
                     eval "$varname=\"$encoded\""
@@ -513,7 +513,7 @@ echo -e "${NC}\n"
                      fi
                           response=$(curl -qski  "https://api.cloudflare.com/client/v4/accounts" -H "Authorization: Bearer $api_key" -H "Content-Type: application/json")
                           status_code=$(echo "$response" | awk '/HTTP/{print $2}')
-                     if [ "$status_code" = "401" ] || [ "$status_code" = "403" ]; then
+                     if [ "$status_code" = "400" ] || [ "$status_code" = "401" ] || [ "$status_code" = "403" ]; then
                        echo -e "ⓘ ${VIOLET} Cloudflare${NC} ${YELLOW}API key${NC} = ${BLUE}$api_key${NC} ${RED}\u2717 Invalid${NC}"
                        invalid_key_found=true
                      fi
