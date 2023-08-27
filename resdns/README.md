@@ -1,4 +1,11 @@
-
+```console
+                _____  _   _  _____ 
+               |  __ \| \ | |/ ____|
+  _ __ ___  ___| |  | |  \| | (___  
+ | '__/ _ \/ __| |  | | . ` |\___ \     : Wrapper around [dnsx + puredns + shuffledns] for Efficient DNS Resolution
+ | | |  __/\__ \ |__| | |\  |____) |
+ |_|  \___||___/_____/|_| \_|_____/ 
+```
 ---
 ### About:
 - #### What ? :
