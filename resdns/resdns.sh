@@ -378,4 +378,9 @@ if [ -n "$be_extensive" ] ; then
     resolve_with_puredns ; resolve_with_shuffledns ; resolve_with_puredns ; resolve_with_shuffledns
 fi
 #----------------------------------------------------------------------------#
+# Filter
+echo -e "\n${YELLOW}ⓘ You Must Further ${PINK}Filter${YELLOW} your ${BLUE}$output_file ${NC}"
+echo -e "${YELLOW}ⓘ Generate Scope ${DGREEN}--> ${BLUE} https://github.com/Azathothas/Arsenal/tree/main/scopege${NC}"
+echo -e "${YELLOW}ⓘ Filter Scope ${DGREEN}--> ${BLUE} https://github.com/Azathothas/Arsenal/tree/main/scopeview${NC}"
+#----------------------------------------------------------------------------#
 #EOF
