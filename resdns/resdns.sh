@@ -337,7 +337,7 @@ resolve_with_shuffledns(){
        tmp_shuff_base="$(mktemp)"
        echo -e "\n-----------------------------\n${YELLOW}ⓘ Base Domain : ${BLUE}${shuff_domains}${NC}"
        grep -i "${shuff_domains}" "$domains_file" > "$tmp_shuff_base"
-       echo -e "${YELLOW}ⓘ Domains To Resolve : ${PINK}$(wc -l < $tmp_shuff_base)${NC}"
+       echo -e "${YELLOW}ⓘ Domains To Resolve : ${PINK}$(wc -l < $tmp_shuff_base)${NC}\n"
       #Run 
         #For some reasons, fails to find massdns path
          shuffledns -disable-update-check -domain "${shuff_domains}" -list "$tmp_shuff_base" -resolver "$resolvers_ipv4" -strict-wildcard -t "$rate_limit" -wt "$wildcard_limit" -m "$tmp_bin/massdns" -output "$tmp_shuff_dir/${shuff_domains}.txt"
