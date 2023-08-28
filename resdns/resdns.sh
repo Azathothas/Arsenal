@@ -380,7 +380,7 @@ fi
 #----------------------------------------------------------------------------#
 # Filter
 echo -e "\n${YELLOW}ⓘ You Must Further ${PINK}Filter${YELLOW} your ${BLUE}$output_file ${NC}"
-echo -e "${YELLOW}ⓘ Generate Scope ${DGREEN}--> ${BLUE} https://github.com/Azathothas/Arsenal/tree/main/scopege${NC}"
+echo -e "${YELLOW}ⓘ Generate Scope ${DGREEN}--> ${BLUE} https://github.com/Azathothas/Arsenal/tree/main/scopegen${NC}"
 echo -e "${YELLOW}ⓘ Filter Scope ${DGREEN}--> ${BLUE} https://github.com/Azathothas/Arsenal/tree/main/scopeview${NC}"
 #----------------------------------------------------------------------------#
 #EOF
