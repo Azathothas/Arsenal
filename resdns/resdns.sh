@@ -228,8 +228,10 @@ if [ -n "$base_domains" ] && [ -e "$base_domains" ]; then
       # Parse
        parse_domains
       #Filter root domains  
-       cat "$base_domains" | subxtract -s | sed -e '/^$/d' -e '/public[s ]*suffix[s ]*list[s ]*updated/Id' | sponge "$base_domains"
-       sed -e '/^$/d' -e '/public[s ]*suffix[s ]*list[s ]*updated/Id' -i "$base_domains"
+     if command -v subxtract >/dev/null 2>&1; then 
+        cat "$base_domains" | subxtract -s | sed -e '/^$/d' -e '/public[s ]*suffix[s ]*list[s ]*updated/Id' | sponge "$base_domains"
+        sed -e '/^$/d' -e '/public[s ]*suffix[s ]*list[s ]*updated/Id' -i "$base_domains"
+     fi  
 else
     echo -e "${RED}\u2717${NC} ${YELLOW} No ${BLUE}Base Domains File ${YELLOW}Specified ${BLUE} [ -b | --base ]${NC}"
     exit 1     
