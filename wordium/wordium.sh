@@ -245,7 +245,7 @@ echo -e "➼ ${BLUE}x_lhf_large.txt${NC}  : ${GREEN}$(cat $WORDLIST/bbFuzzing.tx
 ## --> thehlopster/hfuzz
 echo -e "➼ ${YELLOW}Fetching & Updating${NC} ${DGREEN}<-- ${BLUE}thehlopster/hfuzz${NC}" 
 echo -e "➼ ${BLUE}x_lhf_mini.txt${NC}  : ${GREEN}$(grep -E '^\.' $WORDLIST/hfuzz/hfuzz.txt | anew $WORDLIST/x_lhf_mini.txt | wc -l)${NC}" 
-echo -e "➼ ${BLUE}x-lhf-large.tx${NC}  : ${GREEN}$(sed '/[0-9]/d' $WORDLIST/hfuzz/hfuzz.txt | sed '/^[[:space:]]*$/d' | sed 's#^/##' |  grep -Ei 'api|build|conf|dev|env|git|graph|helm|json|kube|k8|sql|swagger|xml|yaml|yml|wadl|wsdl' | anew $WORDLIST/x_lhf_large.txt | wc -l)${NC}\n" 
+echo -e "➼ ${BLUE}x-lhf-large.txt${NC}  : ${GREEN}$(sed '/[0-9]/d' $WORDLIST/hfuzz/hfuzz.txt | sed '/^[[:space:]]*$/d' | sed 's#^/##' |  grep -Ei 'api|build|conf|dev|env|git|graph|helm|json|kube|k8|sql|swagger|xml|yaml|yml|wadl|wsdl' | anew $WORDLIST/x_lhf_large.txt | wc -l)${NC}\n" 
 #----------------------------------------------------------------------------#
 ## --> ayoubfathi/leaky-paths
 echo -e "➼ ${YELLOW}Fetching & Updating${NC} ${DGREEN}<-- ${BLUE}ayoubfathi/leaky-paths${NC}" 
