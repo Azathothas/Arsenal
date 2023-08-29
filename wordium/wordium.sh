@@ -53,34 +53,6 @@ if [[ "$*" == *"-h"* ]] || [[ "$*" == *"--help"* ]] || [[ "$*" == *"help"* ]] ; 
   exit 0
 fi
 
-# Update. Github caches take several minutes to reflect globally  
-# if [[ $# -gt 0 && ( "$*" == *"up"* || "$*" == *"-up"* || "$*" == *"update"* || "$*" == *"--update"* ) ]]; then
-#   echo -e "➼ ${YELLOW}Checking For ${BLUE}Updates${NC}"
-#       if ping -c 2 github.com > /dev/null; then
-#       REMOTE_FILE=$(mktemp)
-#       curl -s -H "Cache-Control: no-cache" https://raw.githubusercontent.com/Azathothas/Utils/main/Binaries/Tools/Arsenal/wordium/wordium.sh -o "$REMOTE_FILE"
-#          if ! diff --brief /usr/local/bin/wordium "$REMOTE_FILE" >/dev/null 2>&1; then
-#              echo -e "➼ ${YELLOW}NEW!! Update Found! ${BLUE}Updating ..${NC}" 
-#              dos2unix $REMOTE_FILE > /dev/null 2>&1 
-#              sudo mv "$REMOTE_FILE" /usr/local/bin/wordium && echo -e "➼ ${GREEN}Updated${NC} to ${BLUE}@latest${NC}\n" 
-#              echo -e "➼ ${YELLOW}ChangeLog:${NC} ${DGREEN}$(curl -s https://api.github.com/repos/Azathothas/Utils/commits?path=Binaries/Tools/Arsenal/wordium/wordium.sh | jq -r '.[0].commit.message')${NC}"
-#              echo -e "➼ ${YELLOW}Pushed at${NC}: ${DGREEN}$(curl -s https://api.github.com/repos/Azathothas/Utils/commits?path=Binaries/Tools/Arsenal/wordium/wordium.sh | jq -r '.[0].commit.author.date')${NC}\n"
-#              sudo chmod +xwr /usr/local/bin/wordium
-#              rm -f "$REMOTE_FILE" 2>/dev/null
-#              else
-#              echo -e "➼ ${YELLOW}Already ${BLUE}UptoDate${NC}"
-#              echo -e "➼ Most ${YELLOW}recent change${NC} was on: ${DGREEN}$(curl -s https://api.github.com/repos/Azathothas/Utils/commits?path=Binaries/Tools/Arsenal/wordium/wordium.sh | jq -r '.[0].commit.author.date')${NC} [${DGREEN}$(curl -s https://api.github.com/repos/Azathothas/Utils/commits?path=Binaries/Tools/Arsenal/wordium/wordium.sh | jq -r '.[0].commit.message')${NC}]\n"             
-#              rm -f "$REMOTE_FILE" 2>/dev/null
-#              exit 0
-#              fi
-#      else
-#          echo -e "➼ ${YELLOW}Github.com${NC} is ${RED}unreachable${NC}"
-#          echo -e "➼ ${YELLOW}Try again later!${NC} "
-#          exit 1
-#      fi
-#   exit 0
-# fi
-
 # Parse command line arguments
 while [[ $# -gt 0 ]]; do
     key="$1"
@@ -178,7 +150,7 @@ setup_dirs_base(){
     git config --global --add safe.directory $(pwd)
     #Rood's base for lhf wordlists
     wordium_rood_lhf=$(mktemp)
-    wget --quiet https://raw.githubusercontent.com/Azathothas/BugGPT-Tools/main/misc/wordlists/rood_lhf.txt -O $wordium_rood_lhf
+    wget --quiet https://raw.githubusercontent.com/Azathothas/Arsenal/main/wordium/Deps/rood_lhf.txt -O $wordium_rood_lhf
     cat "$wordium_rood_lhf" | anew -q "$WORDLIST/x_lhf_mini.txt"
 }
 setup_dirs_submodules(){
@@ -328,7 +300,7 @@ echo -e "➼ ${YELLOW}Generating ${BLUE}x_api.txt${NC} "
 #Prefetch base for x_mini.txt
 tmp_wordium_api=$(mktemp)
 #Base
-wget --quiet "https://raw.githubusercontent.com/Azathothas/Utils/main/Wordlists/Deps/g_api.txt" -O $tmp_wordium_api
+wget --quiet "https://raw.githubusercontent.com/Azathothas/Arsenal/main/wordium/Deps/g_api.txt" -O $tmp_wordium_api
 cat $tmp_wordium_api | anew -q $WORDLIST/x_api_tiny.txt
 #Trim space, remove /
 cat $WORDLIST/x_massive.txt | sed '/^[[:space:]]*$/d' | sed 's#^/##' |  grep -Ei 'api|api2|api3|graph|json|rest|soap|swagger|v1|v2|v3|v4|xml|wadl|wsdl' | anew -q $tmp_wordium_api
@@ -340,7 +312,7 @@ echo -e "➼ ${YELLOW}Generating ${BLUE}x_dns.txt${NC} "
 tmp_wordium_dns=$(mktemp)
 tmp_wordium_nokovo=$(mktemp)
 #Base
-wget --quiet "https://raw.githubusercontent.com/Azathothas/Utils/main/Wordlists/Deps/dns_sub_permutate.txt" -O $tmp_wordium_dns
+wget --quiet "https://raw.githubusercontent.com/Azathothas/Arsenal/main/wordium/Deps/dns_sub_permutate.txt" -O $tmp_wordium_dns
 cat $tmp_wordium_dns | anew -q $WORDLIST/x_dns_tiny.txt
 #n0kovo_subdomains tiny
 wget --quiet "https://raw.githubusercontent.com/n0kovo/n0kovo_subdomains/main/n0kovo_subdomains_small.txt" -O $tmp_wordium_nokovo
@@ -353,7 +325,7 @@ echo -e "➼ ${YELLOW}Newly added${NC}: ${GREEN}$(cat $tmp_wordium_dns | anew $W
 echo -e "➼ ${YELLOW}Generating ${BLUE}x_mini.txt${NC} " 
 #Prefetch base for x_mini.txt
 tmp_wordium_mini=$(mktemp)
-wget --quiet "https://raw.githubusercontent.com/Azathothas/Utils/main/Wordlists/Deps/fuzz_mini.txt" -O $tmp_wordium_mini
+wget --quiet "https://raw.githubusercontent.com/Azathothas/Arsenal/main/wordium/Deps/fuzz_mini.txt" -O $tmp_wordium_mini
 cat $WORDLIST/fuzz.txt/fuzz.txt $WORDLIST/leaky-paths/leaky-paths.txt | sed 's#^/##' | anew -q $tmp_wordium_mini
 grep -E '^\.' $WORDLIST/x_lhf_large.txt | anew -q $tmp_wordium_mini
 sort -u $tmp_wordium_mini -o $tmp_wordium_mini
@@ -372,19 +344,5 @@ echo -e "➼ ${BLUE}x_lhf_large.txt${NC} : ${GREEN}$(wc -l $WORDLIST/x_lhf_large
 echo -e "➼ ${BLUE}x_massive.txt${NC}   : ${GREEN}$(wc -l $WORDLIST/x_massive.txt)${NC}\n" 
 
 #Sort -u -o everything , again
-find $WORDLIST -maxdepth 1 -type f -name "*.txt" -not -name ".*" -exec sort -u {} -o {} \;  
-
-#Check For Update on Script end
-#Update. Github caches take several minutes to reflect globally  
-   # if ping -c 2 github.com > /dev/null; then
-   #    REMOTE_FILE=$(mktemp)
-   #    curl -qfksSL "https://raw.githubusercontent.com/Azathothas/Utils/main/Binaries/Tools/Arsenal/wordium/wordium.sh" -H "Cache-Control: no-cache" -o "$REMOTE_FILE"
-   #       if ! diff --brief /usr/local/bin/wordium "$REMOTE_FILE" >/dev/null 2>&1; then
-   #            echo ""
-   #            echo -e "➼ ${YELLOW}Update Found!${NC} ${BLUE}updating ..${NC} $(wordium -up)" 
-   #       else
-   #          rm -f "$REMOTE_FILE" 2>/dev/null
-   #            exit 0
-   #       fi
-   # fi
+find $WORDLIST -maxdepth 1 -type f -name "*.txt" -not -name ".*" -exec sort -u {} -o {} \;
 #EOF
