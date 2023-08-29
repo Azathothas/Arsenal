@@ -11,7 +11,7 @@ PURPLE='\033[35m'
 PINK='\033[38;5;206m'
 RESET='\033[0m'
 NC='\033[0m'
-
+#----------------------------------------------------------------------------#
 #Banner
 echo -e "${PURPLE}"
 cat << "EOF"
@@ -34,7 +34,7 @@ echo -e "${NC}"
 # x_lhf_mid.txt   --> ~ < 100K
 # x_lhf_large.txt --> ~ < 500K
 # x_massive.txt   --> ~ <   1M
-
+#----------------------------------------------------------------------------#
 #Help / Usage
 if [[ "$*" == *"-h"* ]] || [[ "$*" == *"--help"* ]] || [[ "$*" == *"help"* ]] ; then
   echo -e "${YELLOW}➼ Usage${NC}: ${PURPLE}wordium${NC} ${BLUE}-w${NC} ${GREEN}</path/to/your/wordlist/directory> ${NC}"
@@ -46,13 +46,12 @@ if [[ "$*" == *"-h"* ]] || [[ "$*" == *"--help"* ]] || [[ "$*" == *"help"* ]] ; 
   echo -e "${YELLOW}Extended Help${NC}"
   echo -e "${BLUE}-w${NC},  ${BLUE}--wordlist-dir${NC}     Specify where to create your wordlists (${YELLOW}Required${NC}, else specify as ${GREEN}\$WORDLIST${NC} in ${RED}\$ENV:VAR)${NC}\n"
   echo -e "${BLUE}-q${NC},  ${BLUE}--quick${NC}            ${GREEN}Quick Mode${NC} [${YELLOW}Only Use if ${RED}not first time${NC}]"
-  echo -e "${BLUE}-up${NC}, ${BLUE}--update${NC}           ${GREEN}Update ${PURPLE}wordium${NC}\n"
   echo -e "${YELLOW}Example Usage${NC}: "
   echo -e "${PURPLE}wordium${NC} -w ${BLUE}/tmp/wordlists${NC}\n"  
   echo -e "➼ ${YELLOW}Don't Worry${NC} if your ${RED}Terminal Hangs${NC} for a bit.. It's a feature not a bug"
   exit 0
 fi
-
+#----------------------------------------------------------------------------#
 # Parse command line arguments
 while [[ $# -gt 0 ]]; do
     key="$1"
@@ -72,6 +71,7 @@ while [[ $# -gt 0 ]]; do
         ;;
     esac
 done
+#----------------------------------------------------------------------------#
 #Check Git
 # For Github runner, pings are disabled
 # https://github.com/actions/runner-images/issues/1519
@@ -86,7 +86,7 @@ else
         exit 1
     fi
 fi
-
+#----------------------------------------------------------------------------#
 # Check if WORDLIST is already set in the environment
 if [ -z "$WORDLIST" ]; then
   echo -e "Path for ${BLUE}WORDLIST${NC} is ${RED}not set in the environment or specified as an option.${NC}" >&2
@@ -100,44 +100,18 @@ else
   echo -e "➼ ${YELLOW}Specified Wordlist Directory${NC}: ${BLUE}$(echo $WORDLIST)${NC}\n" && sleep 5s
   mkdir -p "$WORDLIST" && cd "$WORDLIST"
 fi
-
-#Sanity Checks
-#Get ENV:PATH
-if [[ ":$PATH:" != *":$HOME/bin:"* ]]; then
-  if ! [ -d "$HOME/bin" ] ; then
-    mkdir -p "$HOME/bin" 
-  fi  
-    export PATH="$HOME/bin:$PATH"
-fi
-#Get Dir Ready
-if ! [ -d "$HOME/bin" ] ; then
-    mkdir -p "$HOME/bin" 
-fi
-#Download eget
-curl -qfsSL "https://zyedidia.github.io/eget.sh" | bash
-if [ -f "./eget" ]; then
-    mv "./eget" "$HOME/bin" && chmod +xwr "$HOME/bin/eget"
-else
-   pushd $(mktemp -d)
-   curl -qfLJO $(curl -qfsSL "https://api.github.com/repos/zyedidia/eget/releases/latest" | jq -r '.assets[].browser_download_url' | grep -i 'linux.*amd64')
-   find . -type f -name '*.tar.gz' -exec tar -xzvf {} \;
-   find . -type f -name 'eget*' -exec strip {} \; >/dev/null 2>&1
-   find . -type f -name 'eget' -exec mv {} "$HOME/bin/eget" \;
-   chmod +xwr "$HOME/bin/eget"
-   popd
-fi
-#Dependency Checks
+#----------------------------------------------------------------------------#
+# Sanity Checks
+tmp_bin="$(mktemp -d)" && export tmp_bin="$tmp_bin"
+export PATH="$tmp_bin:$PATH"
 #anew
-if ! command -v anew &> /dev/null; then
-   echo "➼ anew is not installed. Installing..." 
-   eget "tomnomnom/anew" --asset "amd64" --asset "linux" --to "$HOME/bin/anew"
+if ! command -v anew >/dev/null 2>&1; then
+   curl -qfsSL "https://raw.githubusercontent.com/Azathothas/Toolpacks/main/x86_64/anew" -o "$tmp_bin/anew"
+   chmod +xwr "$tmp_bin/anew"
 fi
-#dos2unix, for updates
-if ! command -v dos2unix >/dev/null 2>&1; then
-    echo "➼ dos2unix is not installed. Installing..."
-    sudo apt-get update && sudo apt-get install dos2unix -y
-fi
+#----------------------------------------------------------------------------#
 
+#----------------------------------------------------------------------------#
 #Dirs
 dirs=("$WORDLIST/bbFuzzing.txt" "$WORDLIST/fuzz.txt" "$WORDLIST/hfuzz" "$WORDLIST/leaky-paths" "$WORDLIST/OneListForAll" "$WORDLIST/WordList")
 #paths for redundancy 
@@ -175,6 +149,7 @@ setup_dirs_clones(){
     git clone https://github.com/six2dez/OneListForAll
     git clone https://github.com/rix4uni/WordList
 }
+#----------------------------------------------------------------------------#
 #main check
 setup_wordlist(){
    for dir in "${dirs[@]}"; do
@@ -197,7 +172,9 @@ setup_wordlist(){
       fi      
    done
 }
+#----------------------------------------------------------------------------#
 
+#----------------------------------------------------------------------------#
 #Git Pull
 for path in "${paths[@]}"; do
   if [ ! -f "$path" ]; then
@@ -233,7 +210,7 @@ for path in "${paths[@]}"; do
     fi    
   fi  
 done
-
+#----------------------------------------------------------------------------#
 
 # #Sync Repos to @latest
 # find "$WORDLIST" -type d -exec sh -c 'cd "$0" && git config --global --add safe.directory "$(pwd)"' {} \; 2>/dev/null
@@ -241,6 +218,7 @@ done
 # find "$WORDLIST" -maxdepth 1 -type d -exec sh -c '(cd {} && echo "Updating {} to @latest" && git pull 2>/dev/null )' \;
 # echo -e "\n"
 
+#----------------------------------------------------------------------------#
 #Begins
 #echo -e "➼${YELLOW}Fetching & Updating${NC} from ${BLUE}WORDLIST/WORDLIST${NC} \n" 
 #echo -e "➼ ${BLUE}x_lhf_mini.txt${NC}  : $()${NC}" 
@@ -256,35 +234,35 @@ echo ""
 echo -e "➼ ${YELLOW}Fetching & Updating${NC} ${DGREEN}<-- ${BLUE}Bo0oM/fuzz.txt${NC}" 
 echo -e "➼ ${BLUE}x_lhf_mini.txt${NC}  : ${GREEN}$(grep -E '^\.' $WORDLIST/fuzz.txt/fuzz.txt | anew $WORDLIST/x_lhf_mini.txt | wc -l)${NC}" 
 echo -e "➼ ${BLUE}x_lhf_mid.txt${NC}  : ${GREEN}$(cat $WORDLIST/fuzz.txt/fuzz.txt | anew $WORDLIST/x_lhf_mid.txt | wc -l)${NC}\n" 
-
+#----------------------------------------------------------------------------#
 ## --> reewardius/bbFuzzing.txt
 echo -e "➼ ${YELLOW}Fetching & Updating${NC} ${DGREEN}<-- ${BLUE}reewardius/bbFuzzing.txt${NC}"
 echo -e "➼ ${BLUE}x_lhf_mini.txt${NC}  : ${GREEN}$(grep -E '^\.' $WORDLIST/bbFuzzing.txt/bbFuzzing.txt | anew $WORDLIST/x_lhf_mini.txt | wc -l)${NC}" 
 echo -e "➼ ${BLUE}x_lhf_mid.txt ${NC}  : ${GREEN}$(cat $WORDLIST/bbFuzzing.txt/bbFuzzing.txt | grep -Ei 'api|build|conf|dev|env|git|graph|helm|json|kube|k8|sql|swagger|xml|yaml|yml|wadl|wsdl' | anew $WORDLIST/x_lhf_mid.txt | wc -l)${NC}" 
 echo -e "➼ ${BLUE}x_lhf_large.txt${NC}  : ${GREEN}$(cat $WORDLIST/bbFuzzing.txt/bbFuzzing.txt | anew $WORDLIST/x_lhf_large.txt | wc -l)${NC}\n" 
-
+#----------------------------------------------------------------------------#
 ## --> thehlopster/hfuzz
 echo -e "➼ ${YELLOW}Fetching & Updating${NC} ${DGREEN}<-- ${BLUE}thehlopster/hfuzz${NC}" 
 echo -e "➼ ${BLUE}x_lhf_mini.txt${NC}  : ${GREEN}$(grep -E '^\.' $WORDLIST/hfuzz/hfuzz.txt | anew $WORDLIST/x_lhf_mini.txt | wc -l)${NC}" 
 echo -e "➼ ${BLUE}x-lhf-large.tx${NC}  : ${GREEN}$(sed '/[0-9]/d' $WORDLIST/hfuzz/hfuzz.txt | sed '/^[[:space:]]*$/d' | sed 's#^/##' |  grep -Ei 'api|build|conf|dev|env|git|graph|helm|json|kube|k8|sql|swagger|xml|yaml|yml|wadl|wsdl' | anew $WORDLIST/x_lhf_large.txt | wc -l)${NC}\n" 
-
+#----------------------------------------------------------------------------#
 ## --> ayoubfathi/leaky-paths
 echo -e "➼ ${YELLOW}Fetching & Updating${NC} ${DGREEN}<-- ${BLUE}ayoubfathi/leaky-paths${NC}" 
 echo -e "➼ ${BLUE}x_lhf_mini.txt${NC}  : ${GREEN}$(sed '/[0-9]/d' $WORDLIST/leaky-paths/leaky-paths.txt | sed '/^[[:space:]]*$/d' | anew $WORDLIST/x_lhf_mini.txt | wc -l)${NC}\n" 
-
+#----------------------------------------------------------------------------#
 ## --> Six2dez/OneListForAll
 echo -e "➼ ${YELLOW}Fetching & Updating${NC} ${DGREEN}<-- ${BLUE}Six2dez/OneListForAll${NC}" 
 echo -e "➼ ${BLUE}x_lhf_mini.txt${NC}  : ${GREEN}$(grep -E '^\.' $WORDLIST/OneListForAll/onelistforallmicro.txt | anew $WORDLIST/x_lhf_mini.txt | wc -l)${NC}" 
 echo -e "➼ ${BLUE}x_lhf_large.txt${NC}  : ${GREEN}$(cat $WORDLIST/OneListForAll/onelistforallshort.txt | grep -Ei 'api|build|conf|dev|env|git|graph|helm|json|kube|k8|sql|swagger|xml|yaml|yml|wadl|wsdl' | anew $WORDLIST/x_lhf_large.txt | wc -l)${NC}" 
 echo -e "➼ ${BLUE}x_massive.txt${NC}  : ${GREEN}$(cat $WORDLIST/OneListForAll/onelistforallshort.txt | anew $WORDLIST/x_massive.txt | wc -l)${NC}\n" 
-
+#----------------------------------------------------------------------------#
 ## --> rix4uni/WordList
 echo -e "➼ ${YELLOW}Fetching & Updating${NC} ${DGREEN}<-- ${BLUE}rix4uni/WordList${NC}" 
 echo -e "➼ ${BLUE}x_lhf_mini.txt${NC}  : ${GREEN}$(grep -E '^\.' $WORDLIST/WordList/onelistforall.txt | anew $WORDLIST/x_lhf_mini.txt | wc -l) , $(grep -E '^\.' $WORDLIST/WordList/onelistforshort.txt | anew $WORDLIST/x_lhf_mini.txt | wc -l)${NC}" 
 echo -e "➼ ${BLUE}x_lhf_mid.txt${NC}  : ${GREEN}$(cat $WORDLIST/WordList/admin-panel-paths.txt | anew $WORDLIST/x_lhf_mid.txt | wc -l)${NC}" 
 echo -e "➼ ${BLUE}x_lhf_large.txt${NC}  : ${GREEN}$(cat $WORDLIST/WordList/onelistforshort.txt | sed 's#^/##' | anew $WORDLIST/x_lhf_large.txt | wc -l)${NC}" 
 echo -e "➼ ${BLUE}x_massive.txt${NC}  : ${GREEN}$(sed '/[0-9]/d' $WORDLIST/WordList/onelistforall.txt | sed '/^[[:space:]]*$/d' | sed 's#^/##' |  grep -Ei 'api|build|conf|dev|env|git|graph|helm|json|kube|k8|sql|swagger|xml|yaml|yml|wadl|wsdl' | anew $WORDLIST/x_massive.txt | wc -l)${NC}\n" 
-
+#----------------------------------------------------------------------------#
 #Anew & CleanUP
 echo -e "➼ ${YELLOW}New Additions${NC} "
 x_lhf_mini_lines=$(wc -l < "$WORDLIST/x_lhf_mini.txt")
@@ -294,7 +272,7 @@ echo -e "➼ ${BLUE}x_lhf_large.txt${NC} : ${GREEN}$(cat $WORDLIST/x_lhf_mid.txt
 echo -e "➼ ${BLUE}x_massive.txt${NC}   : ${GREEN}$(cat $WORDLIST/x_lhf_large.txt | anew $WORDLIST/x_massive.txt | wc -l)${NC}\n" 
 #Sort -u -o everything 
 find $WORDLIST -maxdepth 1 -type f -name "*.txt" -not -name ".*" -exec sort -u {} -o {} \;  
-
+#----------------------------------------------------------------------------#
 #x_api.txt
 echo -e "➼ ${YELLOW}Generating ${BLUE}x_api.txt${NC} " 
 #Prefetch base for x_mini.txt
@@ -306,7 +284,7 @@ cat $tmp_wordium_api | anew -q $WORDLIST/x_api_tiny.txt
 cat $WORDLIST/x_massive.txt | sed '/^[[:space:]]*$/d' | sed 's#^/##' |  grep -Ei 'api|api2|api3|graph|json|rest|soap|swagger|v1|v2|v3|v4|xml|wadl|wsdl' | anew -q $tmp_wordium_api
 sort -u $tmp_wordium_api -o $tmp_wordium_api
 echo -e "➼ ${YELLOW}Newly added${NC}: ${GREEN}$(cat $tmp_wordium_api | anew $WORDLIST/x_api.txt | wc -l)${NC}\n"
-
+#----------------------------------------------------------------------------#
 #x_dns.txt
 echo -e "➼ ${YELLOW}Generating ${BLUE}x_dns.txt${NC} " 
 tmp_wordium_dns=$(mktemp)
@@ -320,7 +298,7 @@ wget --quiet "https://raw.githubusercontent.com/n0kovo/n0kovo_subdomains/main/n0
 cat $tmp_wordium_nokovo | tr -s '\n' | grep '^[[:alpha:]]\+$' | sort -u | anew -q $tmp_wordium_dns
 sort -u $tmp_wordium_dns -o $tmp_wordium_dns
 echo -e "➼ ${YELLOW}Newly added${NC}: ${GREEN}$(cat $tmp_wordium_dns | anew $WORDLIST/x_dns.txt | wc -l)${NC}\n"
-
+#----------------------------------------------------------------------------#
 #x_mini.txt
 echo -e "➼ ${YELLOW}Generating ${BLUE}x_mini.txt${NC} " 
 #Prefetch base for x_mini.txt
@@ -330,7 +308,7 @@ cat $WORDLIST/fuzz.txt/fuzz.txt $WORDLIST/leaky-paths/leaky-paths.txt | sed 's#^
 grep -E '^\.' $WORDLIST/x_lhf_large.txt | anew -q $tmp_wordium_mini
 sort -u $tmp_wordium_mini -o $tmp_wordium_mini
 echo -e "➼ ${YELLOW}Newly added${NC}: ${GREEN}$(cat $tmp_wordium_mini | anew $WORDLIST/x_mini.txt | wc -l)${NC}\n"
-
+#----------------------------------------------------------------------------#
 #WordCount After each run:
 echo -e "➼${YELLOW}Updated Wordlists${NC}:" 
 echo -e "➼ ${BLUE}x_api.txt${NC}       : ${GREEN}$(wc -l $WORDLIST/x_api.txt)${NC}" 
@@ -342,7 +320,8 @@ echo -e "➼ ${BLUE}x_lhf_mini.txt${NC}  : ${GREEN}$(wc -l $WORDLIST/x_lhf_mini.
 echo -e "➼ ${BLUE}x_lhf_mid.txt${NC}   : ${GREEN}$(wc -l $WORDLIST/x_lhf_mid.txt)${NC}" 
 echo -e "➼ ${BLUE}x_lhf_large.txt${NC} : ${GREEN}$(wc -l $WORDLIST/x_lhf_large.txt)${NC}"
 echo -e "➼ ${BLUE}x_massive.txt${NC}   : ${GREEN}$(wc -l $WORDLIST/x_massive.txt)${NC}\n" 
-
+#----------------------------------------------------------------------------#
 #Sort -u -o everything , again
 find $WORDLIST -maxdepth 1 -type f -name "*.txt" -not -name ".*" -exec sort -u {} -o {} \;
 #EOF
+#----------------------------------------------------------------------------#
