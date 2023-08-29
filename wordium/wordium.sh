@@ -229,6 +229,7 @@ done
 #Init
 echo "test" | anew -q $WORDLIST/x_lhf_mini.txt
 lhf_mini_lines=$(wc -l < $WORDLIST/x_lhf_mini.txt)
+#----------------------------------------------------------------------------#
 ## --> Bo0oM/fuzz.txt
 echo ""
 echo -e "➼ ${YELLOW}Fetching & Updating${NC} ${DGREEN}<-- ${BLUE}Bo0oM/fuzz.txt${NC}" 
