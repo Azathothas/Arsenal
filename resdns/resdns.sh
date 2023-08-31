@@ -38,17 +38,18 @@ if [[ "$*" == *"-h"* ]] || [[ "$*" == *"--help"* ]] || [[ "$*" == *"help"* ]] ; 
     echo "Resolve a list of raw domains using dnsx (-d) | puredns (-p) | shuffledns (-s)"
     echo ""
     echo "Options:"
-    echo "-a, --all         {DOMAINS_FILE}  Use dnsx (Noisy) + PureDNS + ShuffleDNS"    
-    echo "-b, --base        {/path/to/your/root/domains/file}"
-    echo "-e, --extensive   Runs PureDNS + ShuffleDNS Multiple (2x) Times"
-    echo "-i, --input       {/path/to/your/unresolved/domains/file}"
-    echo "-o, --output      {/path/to/output/file/after/resolving}"
-    echo "-d, --dnsx        {DOMAINS_FILE}  Use dnsX to Resolve (Fast But Very Noisy)"
-    echo "-p, --puredns     {DOMAINS_FILE}  Use PureDNS to Resolve (All Domains at Once)"
-    echo "-r, --rate        Rate Limit (DNS Requests (Queries)/Second) [Default: 5000]"
-    echo "-s, --shuffledns  {DOMAINS_FILE}  Use ShuffleDNS to Resolve (Per Domain | Recommended)"
-    echo "-w, --wildcard    Wildcard Limit (How many checks to perform) [Default: 100]"
-    echo "-h, --help        Show this Help Message"                 
+    echo "-a, --all              {DOMAINS_FILE}  Use dnsx (Noisy) + PureDNS + ShuffleDNS"    
+    echo "-b, --base             {/path/to/your/root/domains/file}"
+    echo "-d, --dnsx             {DOMAINS_FILE}  Use dnsX to Resolve (Fast But Very Noisy)"
+    echo "-e, --extensive        Runs PureDNS + ShuffleDNS Multiple (2x) Times"
+    echo "-i, --input            {/path/to/your/unresolved/domains/file}"
+    echo "-nv, --no-validation   Skips Cleaning, Filtering & Validation of Input"
+    echo "-o, --output           {/path/to/output/file/after/resolving}"
+    echo "-p, --puredns          {DOMAINS_FILE}  Use PureDNS to Resolve (All Domains at Once)"
+    echo "-r, --rate             Rate Limit (DNS Requests (Queries)/Second) [Default: 5000]"
+    echo "-s, --shuffledns       {DOMAINS_FILE}  Use ShuffleDNS to Resolve (Per Domain | Recommended)"
+    echo "-w, --wildcard         Wildcard Limit (How many checks to perform) [Default: 100]"
+    echo "-h, --help             Show this Help Message"                 
  exit 0      
 fi   
 # Unset 
@@ -58,6 +59,7 @@ output_file=
 rate_limit=
 wildcard_limit=
 be_extensive=
+skip_validation=
 use_all=
 use_dnsx=
 use_puredns=
@@ -96,6 +98,10 @@ while [[ $# -gt 0 ]]; do
             shift
             shift
             ;;
+        -nv|--no-validation)
+            skip_validation=1
+            shift
+            ;;              
         -o|--output)
             if [ -z "$2" ]; then
                 echo -e "${RED}Error: ${YELLOW}Output File${NC} is missing for option ${BLUE}'-o | --output'${NC}"
@@ -225,21 +231,29 @@ if [ -z "$wildcard_limit" ]; then
 fi
 # Base Domains
 if [ -n "$base_domains" ] && [ -e "$base_domains" ]; then
-      # Parse
-       parse_domains
-    #Filter root domains  
-     #if command -v subxtract >/dev/null 2>&1; then 
-     #   cat "$base_domains" | subxtract -s | sed -e '/^$/d' -e '/public[s ]*suffix[s ]*list[s ]*updated/Id' | sponge "$base_domains"
-     #   sed -e '/^$/d' -e '/public[s ]*suffix[s ]*list[s ]*updated/Id' -i "$base_domains"
-     #fi  
+    if [ -n "$skip_validation" ] ; then 
+       echo -e "\n${YELLOW}ⓘ Skipping Input Validation for ${BLUE}$base_domains${NC}\n"
+    else
+        # Parse
+         parse_domains
+       #Filter root domains  
+        #if command -v subxtract >/dev/null 2>&1; then 
+        #   cat "$base_domains" | subxtract -s | sed -e '/^$/d' -e '/public[s ]*suffix[s ]*list[s ]*updated/Id' | sponge "$base_domains"
+        #   sed -e '/^$/d' -e '/public[s ]*suffix[s ]*list[s ]*updated/Id' -i "$base_domains"
+        #fi 
+    fi 
 else
     echo -e "${RED}\u2717${NC} ${YELLOW} No ${BLUE}Base Domains File ${YELLOW}Specified ${BLUE} [ -b | --base ]${NC}"
     exit 1     
 fi
 # Domains File
 if [ -n "$domains_file" ] && [ -e "$domains_file" ]; then
-      # Parse
+    if [ -n "$skip_validation" ] ; then 
+       echo -e "\n${YELLOW}ⓘ Skipping Input Validation for ${BLUE}$domains_file${NC}\n"
+    else
+       # Parse
        parse_domains
+    fi   
 else
     echo -e "${RED}\u2717${NC} ${YELLOW} No ${BLUE}Domains File ${YELLOW}Specified ${BLUE} [ -i | --input ]${NC}"
     exit 1 
