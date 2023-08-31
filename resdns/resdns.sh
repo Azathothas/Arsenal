@@ -38,18 +38,18 @@ if [[ "$*" == *"-h"* ]] || [[ "$*" == *"--help"* ]] || [[ "$*" == *"help"* ]] ; 
     echo "Resolve a list of raw domains using dnsx (-d) | puredns (-p) | shuffledns (-s)"
     echo ""
     echo "Options:"
-    echo "-a, --all              {DOMAINS_FILE}  Use dnsx (Noisy) + PureDNS + ShuffleDNS"    
-    echo "-b, --base             {/path/to/your/root/domains/file}"
-    echo "-d, --dnsx             {DOMAINS_FILE}  Use dnsX to Resolve (Fast But Very Noisy)"
-    echo "-e, --extensive        Runs PureDNS + ShuffleDNS Multiple (2x) Times"
-    echo "-i, --input            {/path/to/your/unresolved/domains/file}"
-    echo "-nv, --no-validation   Skips Cleaning, Filtering & Validation of Input"
-    echo "-o, --output           {/path/to/output/file/after/resolving}"
-    echo "-p, --puredns          {DOMAINS_FILE}  Use PureDNS to Resolve (All Domains at Once)"
-    echo "-r, --rate             Rate Limit (DNS Requests (Queries)/Second) [Default: 5000]"
-    echo "-s, --shuffledns       {DOMAINS_FILE}  Use ShuffleDNS to Resolve (Per Domain | Recommended)"
-    echo "-w, --wildcard         Wildcard Limit (How many checks to perform) [Default: 100]"
-    echo "-h, --help             Show this Help Message"                 
+    echo "-a,  --all              {DOMAINS_FILE}  Use dnsx (Noisy) + PureDNS + ShuffleDNS"    
+    echo "-b,  --base             {/path/to/your/root/domains/file}"
+    echo "-d,  --dnsx             {DOMAINS_FILE}  Use dnsX to Resolve (Fast But Very Noisy)"
+    echo "-e,  --extensive        Runs PureDNS + ShuffleDNS Multiple (2x) Times"
+    echo "-i,  --input            {/path/to/your/unresolved/domains/file}"
+    echo "-nv, --no-validation    Skips Cleaning, Filtering & Validation of Input"
+    echo "-o,  --output           {/path/to/output/file/after/resolving}"
+    echo "-p,  --puredns          {DOMAINS_FILE}  Use PureDNS to Resolve (All Domains at Once)"
+    echo "-r,  --rate             Rate Limit (DNS Requests (Queries)/Second) [Default: 5000]"
+    echo "-s,  --shuffledns       {DOMAINS_FILE}  Use ShuffleDNS to Resolve (Per Domain | Recommended)"
+    echo "-w,  --wildcard         Wildcard Limit (How many checks to perform) [Default: 100]"
+    echo "-h,  --help             Show this Help Message"                 
  exit 0      
 fi   
 # Unset 
@@ -101,7 +101,7 @@ while [[ $# -gt 0 ]]; do
         -nv|--no-validation)
             skip_validation=1
             shift
-            ;;              
+            ;;
         -o|--output)
             if [ -z "$2" ]; then
                 echo -e "${RED}Error: ${YELLOW}Output File${NC} is missing for option ${BLUE}'-o | --output'${NC}"
@@ -119,7 +119,7 @@ while [[ $# -gt 0 ]]; do
             rate_limit="$2"
             shift
             shift
-            ;;            
+            ;;
         -p|--puredns)
             use_puredns=1
             shift
@@ -136,7 +136,7 @@ while [[ $# -gt 0 ]]; do
             wildcard_limit="$2"
             shift
             shift
-            ;;              
+            ;;
         *)
             echo -e "${RED}Error: Invalid option ${YELLOW}'$key'${NC}, try ${BLUE}--help${NC} for Usage"
             exit 1
