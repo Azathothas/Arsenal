@@ -43,6 +43,7 @@ if [[ "$*" == *"-h"* ]] || [[ "$*" == *"--help"* ]] || [[ "$*" == *"help"* ]] ; 
     echo "-d,  --dnsx             {DOMAINS_FILE}  Use dnsX to Resolve (Fast But Very Noisy)"
     echo "-e,  --extensive        Runs PureDNS + ShuffleDNS Multiple (2x) Times"
     echo "-i,  --input            {/path/to/your/unresolved/domains/file}"
+    echo "-nr, --no-rate-limit    Unlimited Rate Limit for PureDNS | ShuffleDNS"
     echo "-nv, --no-validation    Skips Cleaning, Filtering & Validation of Input"
     echo "-o,  --output           {/path/to/output/file/after/resolving}"
     echo "-p,  --puredns          {DOMAINS_FILE}  Use PureDNS to Resolve (All Domains at Once)"
@@ -57,6 +58,7 @@ base_domains=
 domains_file=
 output_file=
 rate_limit=
+no_rate_limit=
 wildcard_limit=
 be_extensive=
 skip_validation=
@@ -102,6 +104,10 @@ while [[ $# -gt 0 ]]; do
             skip_validation=1
             shift
             ;;
+        -nr|--no-rate-limit)
+            no_rate_limit=1
+            shift
+            ;;            
         -o|--output)
             if [ -z "$2" ]; then
                 echo -e "${RED}Error: ${YELLOW}Output File${NC} is missing for option ${BLUE}'-o | --output'${NC}"
@@ -221,8 +227,12 @@ if [ -z "$output_file" ]; then
 fi
 #RateLimit
 if [ -z "$rate_limit" ]; then 
-   echo -e "\n${YELLOW}Rate Limit wasn't Specified.${NC}\n${YELLOW}Using ${RED}5000${YELLOW} as Default Value${NC}\n"
-   export rate_limit="5000"
+   if [ -z "$no_rate_limit" ]; then 
+       echo -e "\n${YELLOW}Rate Limit wasn't Specified.${NC}\n${YELLOW}Using ${RED}5000${YELLOW} as Default Value${NC}\n"
+       export rate_limit="5000"
+   else
+       export rate_limit="Unlimited"
+   fi 
 fi
 #Wildcard
 if [ -z "$wildcard_limit" ]; then 
@@ -309,7 +319,13 @@ resolve_with_dnsx(){
      dnsx_tmp_out="$(mktemp)" && export dnsx_tmp_out="$dnsx_tmp_out"
      echo -e "\n${YELLOW}ⓘ Rate Limit: ${RED} $rate_limit ${NC}"
      echo -e "\n${YELLOW}ⓘ Wildcard Limit: ${RED} $wildcard_limit ${NC}\n"
-     dnsx -disable-update-check -list "$domains_file" -resolver "$resolvers_ipv4" -rate-limit "$rate_limit" -wildcard-threshold "$wildcard_limit" -silent -output "$dnsx_tmp_out"
+     if [ -n "$no_rate_limit" ] ; then
+       #Run with Unlimited Queries/Second
+        dnsx -disable-update-check -list "$domains_file" -resolver "$resolvers_ipv4" -wildcard-threshold "$wildcard_limit" -silent -output "$dnsx_tmp_out"
+     else
+       #Run With Specified Rate Limit
+        dnsx -disable-update-check -list "$domains_file" -resolver "$resolvers_ipv4" -rate-limit "$rate_limit" -wildcard-threshold "$wildcard_limit" -silent -output "$dnsx_tmp_out"
+     fi   
       # Filter 
      sort -u "$dnsx_tmp_out" | anew -q "$output_file"
      sort -u "$output_file" -o "$output_file"
@@ -325,13 +341,19 @@ resolve_with_puredns(){
      echo -e "\n${YELLOW}ⓘ Rate Limit: ${RED} $rate_limit ${NC}"
      echo -e "\n${YELLOW}ⓘ Wildcard Limit: ${RED} $wildcard_limit ${NC}\n"
      puredns_tmp_out="$(mktemp)" && export puredns_tmp_out="$puredns_tmp_out"
-     puredns resolve "$domains_file" --resolvers "$resolvers_ipv4" --skip-sanitize --rate-limit "$rate_limit" --wildcard-tests "$wildcard_limit" --write "$puredns_tmp_out"
+     if [ -n "$no_rate_limit" ] ; then
+       #Run with Unlimited Queries/Second
+        puredns resolve "$domains_file" --resolvers "$resolvers_ipv4" --skip-sanitize --wildcard-tests "$wildcard_limit" --write "$puredns_tmp_out"
+     else
+       #Run With Specified Rate Limit
+       puredns resolve "$domains_file" --resolvers "$resolvers_ipv4" --skip-sanitize --rate-limit "$rate_limit" --wildcard-tests "$wildcard_limit" --write "$puredns_tmp_out"
+     fi  
    # Filter 
      sort -u "$puredns_tmp_out" | anew -q "$output_file"
      sort -u "$output_file" -o "$output_file"
      echo -e "\nTotal Resolved Domains : $(wc -l < $output_file)" 
 }
-export -f resolve_with_puredns            
+export -f resolve_with_puredns
 #----------------------------------------------------------------------------#
 #ShuffleDNS
 resolve_with_shuffledns(){
@@ -353,8 +375,14 @@ resolve_with_shuffledns(){
        grep -i "${shuff_domains}" "$domains_file" > "$tmp_shuff_base"
        echo -e "${YELLOW}ⓘ Domains To Resolve : ${PINK}$(wc -l < $tmp_shuff_base)${NC}\n"
       #Run 
-        #For some reasons, fails to find massdns path
-         shuffledns -disable-update-check -domain "${shuff_domains}" -list "$tmp_shuff_base" -resolver "$resolvers_ipv4" -strict-wildcard -t "$rate_limit" -wt "$wildcard_limit" -m "$tmp_bin/massdns" -output "$tmp_shuff_dir/${shuff_domains}.txt"
+        #For some reason, fails to find massdns path
+        if [ -n "$no_rate_limit" ] ; then
+          #Run with Unlimited Queries/Second
+           shuffledns -disable-update-check -domain "${shuff_domains}" -list "$tmp_shuff_base" -resolver "$resolvers_ipv4" -strict-wildcard -wt "$wildcard_limit" -m "$tmp_bin/massdns" -output "$tmp_shuff_dir/${shuff_domains}.txt"
+        else
+          #Run With Specified Rate Limit
+           shuffledns -disable-update-check -domain "${shuff_domains}" -list "$tmp_shuff_base" -resolver "$resolvers_ipv4" -strict-wildcard -t "$rate_limit" -wt "$wildcard_limit" -m "$tmp_bin/massdns" -output "$tmp_shuff_dir/${shuff_domains}.txt"
+        fi
     done
    # Filter 
      find "$tmp_shuff_dir" -type f -name '*.txt' -exec cat {} + | sort -u | anew -q "$output_file"
