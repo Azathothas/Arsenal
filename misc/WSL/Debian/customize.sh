@@ -1,15 +1,17 @@
 #!/usr/bin/env bash
 
 # Usage: 
-# bash <(curl -qfsSL "https://raw.githubusercontent.com/Azathothas/Utils/main/Scripts/WSL/Debian/customize.sh")
+# bash <(curl -qfsSL "https://raw.githubusercontent.com/Azathothas/Arsenal/main/misc/WSL/Debian/customize.sh")
 
 # Install some deps
 sudo apt-get update -y ; sudo apt-get dist-upgrade -y ; sudo apt-get upgrade -y
 sudo apt install curl dos2unix git htop -y
 rm "$HOME/bin/git" >/dev/null 2>&1
 # Install eget + Bins
-mkdir -p $HOME/bin && pushd $HOME/bin ; curl -qfsSL "https://zyedidia.github.io/eget.sh" | bash ; "./eget" "Azathothas/Utils" --asset "toolpack_x86_64.tar.bz2" --all --to "$HOME/bin" ; popd 
+mkdir -p $HOME/bin && pushd $HOME/bin ; curl -qfsSL "https://zyedidia.github.io/eget.sh" | bash ; "./eget" "Azathothas/Toolpacks" --asset "toolpack_x86_64.tar.bz2" --all --to "$HOME/bin" ; popd 
 export "PATH=$HOME/bin:$PATH"
+# Del Certain things
+sudo rm -rf "$HOME/bin/git" 2>/dev/null
 # Symlink Certain things
 ln -s "$HOME/bin/bat" "$HOME/bin/batcat" ; ln -s "$HOME/bin/fd" "$HOME/bin/fdfind" ; ln -s "$HOME/bin/fd" "$HOME/bin/fd-find" ; ln -s "$HOME/bin/gfx" "$HOME/bin/gf" ; ln -s "$HOME/bin/hxn" "$HOME/bin/haylxon" ; ln -s "$HOME/bin/ripgrep" "$HOME/bin/rg" ; ln -s "$HOME/bin/zoxide" "$HOME/bin/z" 
 # Already assume miniconda is installed, if not exit
@@ -31,11 +33,11 @@ sudo apt install tmux zsh -y
 # Fetch Config files
 mkdir -p "$HOME/.config" 
 # $HOME/.tmux.conf
-curl -qfsSL "https://raw.githubusercontent.com/Azathothas/Utils/main/Scripts/WSL/Debian/.tmux.conf" -o "$HOME/.tmux.conf"
+curl -qfsSL "https://raw.githubusercontent.com/Azathothas/Arsenal/main/misc/WSL/Debian/.tmux.conf" -o "$HOME/.tmux.conf"
 tmux source-file "$HOME/.tmux.conf" >/dev/null 2>&1
 # $HOME/.zshrc
 touch "$HOME/.zsh_history" ; sudo touch "/root/.zsh_history" 
-curl -qfsSL "https://raw.githubusercontent.com/Azathothas/Utils/main/Scripts/WSL/Debian/.zshrc" -o "$HOME/.zshrc"
+curl -qfsSL "https://raw.githubusercontent.com/Azathothas/Arsenal/main/misc/WSL/Debian/.zshrc" -o "$HOME/.zshrc"
 dos2unix --quiet "$HOME/.zshrc" >/dev/null 2>&1
 #echo 'ZSH_DISABLE_COMPFIX="true"' | sudo tee "/root/.zshrc"
 #cat "$HOME/.zshrc" | sed "s|\$HOME|$HOME|g" | sudo tee -a "/root/.zshrc"
