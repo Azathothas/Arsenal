@@ -27,6 +27,8 @@
 > !# Check pip
 > export PATH="$HOME/miniconda3/bin:$HOME/miniconda3/condabin:$PATH"
 > pip install archey4 ; archey
+> !# Edit your $HOME/.bashrc | $HOME/.zshrc and add:
+> export PATH="$HOME/miniconda3/bin:$HOME/miniconda3/condabin:$PATH"
 > ```
 - #### Customize (Optional)
 ```bash
