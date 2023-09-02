@@ -9,6 +9,7 @@ sudo apt install curl dos2unix git htop -y
 rm "$HOME/bin/git" >/dev/null 2>&1
 # Install eget + Bins
 mkdir -p $HOME/bin && pushd $HOME/bin ; curl -qfsSL "https://zyedidia.github.io/eget.sh" | bash ; "./eget" "Azathothas/Toolpacks" --asset "toolpack_x86_64.tar.bz2" --all --to "$HOME/bin" ; popd 
+sudo cp "./eget" "/usr/local/bin/eget" && sudo chmod +xwr "/usr/local/bin/eget"
 export "PATH=$HOME/bin:$PATH"
 # Del Certain things
 sudo rm -rf "$HOME/bin/git" 2>/dev/null
