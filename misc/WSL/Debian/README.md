@@ -35,7 +35,10 @@
 
 !# Installs broot + fzf + starship + tailscale + tmux + zsh & more
 bash <(curl -qfsSL "https://raw.githubusercontent.com/Azathothas/Arsenal/main/misc/WSL/Debian/customize.sh")
+!# If that doesn't work then:
+wget "https://raw.githubusercontent.com/Azathothas/Arsenal/main/misc/WSL/Debian/customize.sh" && dos2unix "./customize.sh" && chmod +xwr "./customize.sh"
 !# Edit your $HOME/.zshrc and update certain things (Example: Username etc)
+!# Also add the miniconda path
 
 !# If you only want the binaries then:
 sudo curl -qfsSL "https://raw.githubusercontent.com/Azathothas/Toolpacks/main/x86_64/eget" -o "/usr/local/bin/eget" && sudo chmod +xwr "/usr/local/bin/eget"
