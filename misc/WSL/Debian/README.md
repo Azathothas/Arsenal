@@ -8,7 +8,7 @@
 > ```bash
 > sudo apt-get update -y ; sudo apt-get dist-upgrade -y ; sudo apt-get upgrade -y
 > !# May need to run this Twice
-> sudo apt install autoconf automake autopoint binutils bison build-essential ca-certificates coreutils curl dos2unix git gcc htop flex file jq moreutils -y
+> sudo apt install autoconf automake autopoint binutils bison build-essential ca-certificates coreutils curl dos2unix git gcc htop flex file jq moreutils wget -y
 > ```
 > - **Systemd**
 > ```bash
