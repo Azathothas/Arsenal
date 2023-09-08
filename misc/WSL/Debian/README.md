@@ -84,6 +84,6 @@ wget "https://raw.githubusercontent.com/Azathothas/Arsenal/main/misc/WSL/Debian/
 ```
 > ```bash
 > !# Final PATH in $HOME/.bashrc || $HOME/.zshrc
-> export PATH=$HOME/bin:$HOME/miniconda3/bin:$HOME/miniconda3/condabin:/usr/local/zig:/usr/local/zig/lib:/usr/local/zig/lib/include:$PATH
+> export PATH="$HOME/bin:$HOME/.cargo/bin:$HOME/.cargo/env:$HOME/.go/bin:$HOME/go/bin:$HOME/miniconda3/bin:$HOME/miniconda3/condabin:/usr/local/zig:/usr/local/zig/lib:/usr/local/zig/lib/include:$PATH"
 > ```
 ---
