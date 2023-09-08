@@ -72,9 +72,8 @@
 >  export PATH="/usr/local/zig:/usr/local/zig/lib:/usr/local/zig/lib/include:$PATH"
 > ```
 ---
-- #### Customize (Optional)
+- #### [**Customize**](https://github.com/Azathothas/Arsenal/blob/main/misc/WSL/Debian/customize.sh) (Optional)
 ```bash
-
 !# Installs broot + fzf + starship + tailscale + tmux + zsh & more
 bash <(curl -qfsSL "https://raw.githubusercontent.com/Azathothas/Arsenal/main/misc/WSL/Debian/customize.sh")
 !# If that doesn't work then:
