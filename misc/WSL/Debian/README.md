@@ -66,7 +66,7 @@
 - ##### Install [**Ziglang**](https://ziglang.org/learn/getting-started/) (Optional)
 > ```bash
 > !# Install
->  push $(mktemp -d) && curl -qfSLJO $(curl -qfsSL "https://ziglang.org/download/index.json" | jq -r '.master | ."x86_64-linux".tarball')
+>  pushd "$(mktemp -d)" && curl -qfSLJO $(curl -qfsSL "https://ziglang.org/download/index.json" | jq -r '.master | ."x86_64-linux".tarball')
 >  find . -type f -name '*.tar*' -exec tar -xvf {} \; && sudo mkdir -p "/usr/local/zig" && sudo mv "$(find . -maxdepth 1 -type d | grep -v '^.$')"/* "/usr/local/zig" ; popd
 >  !# Add this to $HOME/.bashrc | $HOME/.zshrc
 >  export PATH="/usr/local/zig:/usr/local/zig/lib:/usr/local/zig/lib/include:$PATH"
@@ -82,4 +82,8 @@ wget "https://raw.githubusercontent.com/Azathothas/Arsenal/main/misc/WSL/Debian/
 !# Edit your $HOME/.zshrc and update certain things (Example: Username etc)
 !# Also add the miniconda path
 ```
+> ```bash
+> !# Final PATH in $HOME/.bashrc || $HOME/.zshrc
+> export PATH=$HOME/bin:$HOME/miniconda3/bin:$HOME/miniconda3/condabin:/usr/local/zig:/usr/local/zig/lib:/usr/local/zig/lib/include:$PATH
+> ```
 ---
