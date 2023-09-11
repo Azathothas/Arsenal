@@ -297,6 +297,8 @@ cat $tmp_wordium_dns | anew -q $WORDLIST/x_dns_tiny.txt
 wget --quiet "https://raw.githubusercontent.com/n0kovo/n0kovo_subdomains/main/n0kovo_subdomains_small.txt" -O $tmp_wordium_nokovo
 #Separate by dots & dashes
 cat $tmp_wordium_nokovo | tr -s '\n' | grep '^[[:alpha:]]\+$' | sort -u | anew -q $tmp_wordium_dns
+#Add from tiny
+cat "$WORDLIST/x_dns_tiny.txt" | anew -q "$tmp_wordium_dns"
 sort -u $tmp_wordium_dns -o $tmp_wordium_dns
 echo -e "➼ ${YELLOW}Newly added${NC}: ${GREEN}$(cat $tmp_wordium_dns | anew $WORDLIST/x_dns.txt | wc -l)${NC}\n"
 #----------------------------------------------------------------------------#
