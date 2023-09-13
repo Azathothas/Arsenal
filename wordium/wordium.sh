@@ -297,11 +297,11 @@ cat "$tmp_wordium_dns" | anew -q "$WORDLIST/x_dns_tiny.txt"
 #n0kovo_subdomains tiny
 wget --quiet "https://raw.githubusercontent.com/n0kovo/n0kovo_subdomains/main/n0kovo_subdomains_small.txt" -O "$tmp_wordium_nokovo"
 #Separate by dots & dashes
-cat "$tmp_wordium_nokovo" | tr -s '\n' | grep '^[[:alpha:]]\+$' | sort -u | anew -q "$tmp_wordium_dns"
+cat "$tmp_wordium_nokovo" | tr -s '\n' | sed -E 's/[[:alpha:]]*[[:digit:]][[:alpha:]]*//g; /^[[:space:]]*$/d' | sort -u | anew -q "$tmp_wordium_dns"
 #Trickest
 wget --quiet "https://raw.githubusercontent.com/trickest/wordlists/main/inventory/subdomains.txt" -O "$tmp_wordium_trickest"
 #Separate by dots & dashes
-cat "$tmp_wordium_trickest" | tr -s '\n' | grep '^[[:alpha:]]\+$' | sort -u | anew -q "$tmp_wordium_dns"
+cat "$tmp_wordium_trickest" | tr -s '\n' | sed -E 's/[[:alpha:]]*[[:digit:]][[:alpha:]]*//g; /^[[:space:]]*$/d' | sort -u | anew -q "$tmp_wordium_dns"
 #Add from tiny
 cat "$WORDLIST/x_dns_tiny.txt" | anew -q "$tmp_wordium_dns"
 sort -u "$tmp_wordium_dns" -o "$tmp_wordium_dns"
