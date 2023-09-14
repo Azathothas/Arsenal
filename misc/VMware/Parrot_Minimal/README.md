@@ -21,6 +21,11 @@
 > > **Disable**: 3D Graphics
 > > 
 > > ![image](https://github.com/Azathothas/Arsenal/assets/58171889/12000c66-05ea-4ed9-8017-a8a420987f50)
+> >
+> > **Side Channels**
+> > 
+> > ![image](https://github.com/Azathothas/Arsenal/assets/58171889/b6763735-ba42-4733-8387-3889cc12e199)
+> > 
 ---
 - #### Setup
 > - **Passwordless**
