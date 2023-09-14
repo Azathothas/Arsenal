@@ -47,6 +47,23 @@
 > !#Reboot
 >  sudo update-grub ; reboot 
 > ```
+> - **SSH**
+> ```bash
+> !# Check if it exists and already enabled
+>  sudo systemctl status sshd
+> !# If it's not then:
+> !# Install
+>  sudo apt-get update
+>  sudo apt-get install openssh-server
+> !# Enable
+>  sudo systemctl enable ssh
+>  sudo systemctl enable sshd
+> !# Start
+>  sudo systemctl start ssh
+>  sudo systemctl start sshd
+> !# Recheck
+>  sudo systemctl status sshd
+> ```
 ---
 - #### Install Addons & Utils
 - ##### [**Static-Bins**](https://github.com/Azathothas/Toolpacks) (Essential)
@@ -57,6 +74,14 @@
 > !# Example: sudo rm "/usr/local/bin/git" # (As git doesn't work)
 > !# Reinstall git from apt: sudo apt-get install git
 > !# Also, needs to uninstall nmap: sudo rm /usr/local/bin/nmap
+>
+> !# TailScale
+> curl -fsSL https://pkgs.tailscale.com/stable/debian/bookworm.noarmor.gpg | sudo tee /usr/share/keyrings/tailscale-archive-keyring.gpg >/dev/null
+> curl -fsSL https://pkgs.tailscale.com/stable/debian/bookworm.tailscale-keyring.list | sudo tee /etc/apt/sources.list.d/tailscale.list
+> sudo apt-get update -y
+> sudo apt-get install tailscale -y
+> sudo tailscale up --hostname "Parrot-Minimal"
+> 
 > ```
  - ##### [Python (**MiniConda**)](https://docs.conda.io/projects/miniconda/en/latest/) (Essential)
 > ```bash
