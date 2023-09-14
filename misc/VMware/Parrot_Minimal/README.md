@@ -63,6 +63,15 @@
 >  sudo systemctl start sshd
 > !# Recheck
 >  sudo systemctl status sshd
+>
+> !# Configs
+> mkdir -p "$HOME/.ssh"
+> !# Put your id_rsa.pub in:
+> nano $HOME/.ssh/authorized_keys
+> !# Disable Password login
+> sudo sed -i 's/^#PasswordAuthentication yes/PasswordAuthentication no/' /etc/ssh/sshd_config
+> !# Restart SSH
+> sudo systemctl restart ssh
 > ```
 ---
 - #### Install Addons & Utils
