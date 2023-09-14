@@ -38,6 +38,8 @@
 > sudo apt-get update -y ; sudo apt-get dist-upgrade -y ; sudo apt-get upgrade -y
 > !# May need to run this Twice
 > sudo apt install autoconf automake autopoint binutils bison build-essential ca-certificates coreutils curl dos2unix git gcc htop flex file jq moreutils wget -y
+> sudo apt install curl coreutils dos2unix gcc git jq libpcap-dev nmap wget xsltproc -y
+> sudo nmap --script-updatedb -y
 > ```
 > - **Grub**
 > ```bash
@@ -54,6 +56,7 @@
 > !# You may need to Remove | Symlink Certain things
 > !# Example: sudo rm "/usr/local/bin/git" # (As git doesn't work)
 > !# Reinstall git from apt: sudo apt-get install git
+> !# Also, needs to uninstall nmap: sudo rm /usr/local/bin/nmap
 > ```
  - ##### [Python (**MiniConda**)](https://docs.conda.io/projects/miniconda/en/latest/) (Essential)
 > ```bash
