@@ -97,7 +97,7 @@
 > curl -qfSL "https://repo.anaconda.com/miniconda/Miniconda3-latest-Linux-x86_64.sh" -o /tmp/install_conda.sh && chmod +xwr "/tmp/install_conda.sh" && /tmp/install_conda.sh -b
 > !# Check pip
 > export PATH="$HOME/miniconda3/bin:$HOME/miniconda3/condabin:$PATH"
-> pip install archey4 ; archey
+> pip install ansi2txt archey4 apprise ; archey
 > !# Edit your $HOME/.bashrc | $HOME/.zshrc and add:
 > export PATH="$HOME/miniconda3/bin:$HOME/miniconda3/condabin:$PATH"
 > ```
