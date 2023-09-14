@@ -37,8 +37,8 @@
 > ```bash
 > sudo apt-get update -y ; sudo apt-get dist-upgrade -y ; sudo apt-get upgrade -y
 > !# May need to run this Twice
-> sudo apt install autoconf automake autopoint binutils bison build-essential ca-certificates coreutils curl dos2unix git gcc htop flex file jq moreutils wget -y
-> sudo apt install curl coreutils dos2unix gcc git jq libpcap-dev nmap wget xsltproc -y
+> sudo apt install autoconf automake autopoint binutils bison build-essential ca-certificates coreutils curl dos2unix git gcc htop flex file jq moreutils wget xclip -y
+> sudo apt install curl coreutils dos2unix gcc git jq libpcap-dev nmap wget xclip xsltproc -y
 > sudo nmap --script-updatedb -y
 > ```
 > - **Grub**
@@ -123,6 +123,7 @@
 >  export PATH="/usr/local/zig:/usr/local/zig/lib:/usr/local/zig/lib/include:$PATH"
 > ```
 ---
+- #### **`$PATH`**
 > ```bash
 > !# Final PATH in $HOME/.bashrc || $HOME/.zshrc
 > #PATHS (Only Required)
