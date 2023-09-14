@@ -13,6 +13,14 @@
 > cd "/tmp/vmware-tools-distrib" && sudo "./vmware-install.pl" --default
 > !# Restart the VM
 > ```
+- #### Fixing Weird VMware Issues
+> - Input Lag (KeyBoard Mouse)
+> > **Enable**: **Virtual IOMMU (IO memory management)**
+> > ![image](https://github.com/Azathothas/Arsenal/assets/58171889/6ab7cfd3-b7d2-4ee9-a5c5-703de19785da)
+> > 
+> > **Disable**: 3D Graphics
+> > 
+> > ![image](https://github.com/Azathothas/Arsenal/assets/58171889/12000c66-05ea-4ed9-8017-a8a420987f50)
 ---
 - #### Setup
 > - **Passwordless**
