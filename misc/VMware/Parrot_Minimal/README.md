@@ -158,7 +158,7 @@
 - #### Tmux
 > ```bash
 > !# Get the config
-> curl -qfsSL "https://raw.githubusercontent.com/Azathothas/BugGPT-Tools/main/free-tiers/VPS/.scripts/.tmux.conf" -o "$HOME/.tmux.conf"
+> curl -qfsSL "https://raw.githubusercontent.com/Azathothas/Arsenal/main/misc/VMware/Parrot_Minimal/.tmux.conf" -o "$HOME/.tmux.conf"
 > !# Install Plugins
 > if [ ! -d "$HOME/.tmux/plugins/tpm" ]; then
 >   mkdir -p "$HOME/.tmux"
