@@ -155,4 +155,20 @@
 >  #bg: Solid Color
 >  #Monospace Regular 12
 > ```
+- #### Tmux
+> ```bash
+> !# Get the config
+> curl -qfsSL "https://raw.githubusercontent.com/Azathothas/BugGPT-Tools/main/free-tiers/VPS/.scripts/.tmux.conf" -o "$HOME/.tmux.conf"
+> !# Install Plugins
+> if [ ! -d "$HOME/.tmux/plugins/tpm" ]; then
+>   mkdir -p "$HOME/.tmux"
+>   git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm >/dev/null 2>&1 
+> fi
+> !# Open a new tmux session
+> tmux
+> !# Source
+> tmux source-file "$HOME/.tmux.conf" >/dev/null 2>&1
+> !# Install plugins
+> Alt + G + (Shift) I 
+> ```
 ---
