@@ -13,7 +13,7 @@ RESET='\033[0m'
 NC='\033[0m'
 
 # InstallationLess
-# bash <(curl -qfsSL "https://raw.githubusercontent.com/Azathothas/Utils/main/Binaries/Tools/Arsenal/subxtract/subxtract.sh") 
+# bash <(curl -qfsSL "https://raw.githubusercontent.com/Azathothas/Arsenal/main/subxtract/subxtract.sh") 
 
 #Help / Usage
 if [[ "$*" == *"-h"* ]] || [[ "$*" == *"--help"* ]] || [[ "$*" == *"help"* ]] ; then
