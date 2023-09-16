@@ -46,6 +46,8 @@ if ! command -v fasttld >/dev/null 2>&1; then
    export fasttld_bin="$fasttld_bin"
    curl -qfsSL "https://raw.githubusercontent.com/Azathothas/Toolpacks/main/x86_64/fasttld" -o "$fasttld_bin"
    chmod +xwr "$fasttld_bin"
+else
+  export fasttld_bin="$(which fasttld)"
 fi
 
 # Initialize variables
