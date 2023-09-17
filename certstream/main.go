@@ -33,6 +33,10 @@ func main() {
 		case err := <-errStream:
 			// Uncomment, if std errors are to be printed as std out
 			// fmt.Fprintln(os.Stderr, "Stream error", err)
+			// For now, Suppress All Std Errors
+			func(err error) {
+				_ = err
+			}(err)
 		}
 	}
 }
