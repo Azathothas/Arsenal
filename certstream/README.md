@@ -19,7 +19,7 @@ go install -v "github.com/Azathothas/Arsenal/certstream@main"
   cd $(mktemp -d) && mkdir certstream && cd certstream
   curl -qfsSLJO "https://raw.githubusercontent.com/Azathothas/Arsenal/main/certstream/main.go"
   curl -qfsSLJO "https://raw.githubusercontent.com/Azathothas/Arsenal/main/certstream/go.mod"
-  go get github.com/Azathothas/certstream
+  go get github.com/Azathothas/Arsenal/certstream
   CGO_ENABLED=0 go build -v -ldflags="-s -w -extldflags '-static'" -o "./certstream"
   file "./certstream" ; ldd "./certstream" ; ls -lah "./certstream"
 ```
