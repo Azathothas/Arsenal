@@ -1,7 +1,9 @@
 #!/usr/bin/env bash
 
 !# Use:
-!# bash <(curl -qfsSL "")
+!# bash <(curl -qfsSL "https://raw.githubusercontent.com/Azathothas/Arsenal/main/misc/Github/Runners/Ubuntu/debloat.sh")
+
+#----------------------------------------------------------------------------#
 # If On Github Actions, remove bloat to get space (~ 30 GB)
 if [ "$USER" = "runner" ] || [ "$(whoami)" = "runner" ]; then
      #12.0 GB
@@ -21,3 +23,4 @@ if [ "$USER" = "runner" ] || [ "$(whoami)" = "runner" ]; then
      #500 MB
      sudo rm /usr/local/lib/heroku -rf 2>/dev/null
 fi
+#----------------------------------------------------------------------------#
