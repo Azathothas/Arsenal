@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
-!# Use:
-!# bash <(curl -qfsSL "https://raw.githubusercontent.com/Azathothas/Arsenal/main/misc/Github/Runners/Ubuntu/debloat.sh")
+# Use:
+# bash <(curl -qfsSL "https://raw.githubusercontent.com/Azathothas/Arsenal/main/misc/Github/Runners/Ubuntu/debloat.sh")
 
 #----------------------------------------------------------------------------#
 # If On Github Actions, remove bloat to get space (~ 30 GB)
