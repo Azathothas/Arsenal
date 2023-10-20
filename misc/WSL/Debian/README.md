@@ -15,11 +15,50 @@
  !# Fix Perms for ping
  sudo setcap cap_net_raw+ep "$(which ping)"
  ```
+> - **IP Forwarding**
+```bash
+ echo 'net.ipv4.ip_forward = 1' | sudo tee -a "/etc/sysctl.conf"
+ echo 'net.ipv6.conf.all.forwarding = 1' | sudo tee -a "/etc/sysctl.conf"
+ sudo sysctl -p "/etc/sysctl.conf"
+```
+> - **ufw Firewall**
+```bash
+!# Install ufw
+sudo apt-get -y install ufw
+
+!# Enable ufw
+sudo ufw enable && sudo ufw status
+
+!# Check Rules
+sudo ufw status numbered
+
+!# Add new rules
+# Example: Allow 7330/7331/7332 Ports
+sudo ufw allow 7330/tcp
+sudo ufw allow out 7330/tcp
+sudo ufw allow 7330/udp
+sudo ufw allow out 7330/udp
+sudo ufw allow 7331/tcp
+sudo ufw allow out 7331/tcp
+sudo ufw allow 7331/udp
+sudo ufw allow out 7331/udp
+sudo ufw allow 7332/tcp
+sudo ufw allow out 7332/tcp
+sudo ufw allow 7332/udp
+sudo ufw allow out 7332/udp
+!# Recheck
+sudo ufw reload
+sudo ufw status numbered
+```
 > - **Systemd**
  ```bash
  !# Enable SystemD : https://devblogs.microsoft.com/commandline/systemd-support-is-now-available-in-wsl/
  echo -e "[boot]\nsystemd=true" | sudo tee "/etc/wsl.conf"
  !# Reboot WSL (Run this from Windows Terminal)
+ wsl --shutdown
+ !# Install Core
+ sudo apt-get -y install systemd systemd-resolved
+ !# Reboot WSL Again (Run this from Windows Terminal)
  wsl --shutdown
  !# Re Login
  wsl -d debian
