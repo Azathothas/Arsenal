@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
 # Use:
-# bash <(curl -qfsSL "https://raw.githubusercontent.com/Azathothas/Arsenal/main/misc/Segfault/debloat.sh")
+# sudo bash <(curl -qfsSL "https://raw.githubusercontent.com/Azathothas/Arsenal/main/misc/Segfault/debloat.sh")
 
 #----------------------------------------------------------------------------#
 # Removes bloat to get space (~ 15-20 GB)
