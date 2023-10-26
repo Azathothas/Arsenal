@@ -9,7 +9,7 @@
 > 6. **Git Clone** your repo to the **`$env:WINDOWS_BACKUP = "$DRIVE:\PATH\TO\Windows\BACKUP\REPO"`** directory as you specified in your script, on your local pc.
 > 7. PowerShell, cd into your Windows Backup (git-cloned) dir and Run:
 ```powershell
-!# Make sure to include the do at beginning
+!# Make sure to include the dot `.` at beginning
 . ".\git_backup_windows.ps1"
 ```
 ---
