@@ -87,7 +87,7 @@ SAVEHIST=10000
 setopt appendhistory
 #Some Custom QOL Changes
 #Prompt
-eval "$(starship init zsh)"
+eval "$(starship init zsh)" 2>/dev/null
 # Set prompt
 #starship preset pure-preset -o ~/.config/starship.toml
 #starship preset nerd-font-symbols -o ~/.config/starship.toml
