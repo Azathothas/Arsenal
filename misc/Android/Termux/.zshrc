@@ -89,9 +89,9 @@ setopt appendhistory
 #Prompt
 eval "$(starship init zsh)" 2>/dev/null
 # Set prompt
-#starship preset pure-preset -o ~/.config/starship.toml
-#starship preset nerd-font-symbols -o ~/.config/starship.toml
-starship preset no-nerd-font -o "$HOME/.config/starship.toml"
+#starship preset pure-preset -o "$HOME/.config/starship.toml" 2>/dev/null
+#starship preset nerd-font-symbols -o "$HOME/.config/starship.toml" 2>/dev/null
+starship preset no-nerd-font -o "$HOME/.config/starship.toml" 2>/dev/null
 #clear
 source /data/data/com.termux/files/home/.config/broot/launcher/bash/br
 ###
