@@ -13,11 +13,14 @@ NC='\033[0m'
 #PATHS
 export PATH="/data/data/com.termux/files/usr/bin:$HOME/usr/bin:$HOME/.cargo/bin:$HOME/go:$HOME/go/bin:$HOME/.go:$HOME/.go/bin:$HOME/bin/:$PATH"
 #Env variables
+export ANDROID_ART_ROOT="/apex/com.android.art"
 export ANDROID_DATA="/data"
 export ANDROID_ROOT="/system"
 export EXTERNAL_STORAGE="/sdcard"
 export PREFIX="/data/data/com.termux/files"
 export TERM="xterm-256color"
+export TMP="/data/data/com.termux/files/usr/tmp"
+export TMPDIR="/data/data/com.termux/files/usr/tmp"
 current_dir="$(pwd)"
 #aliases
 alias bat='batcat'
