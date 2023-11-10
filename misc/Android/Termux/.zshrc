@@ -1,3 +1,6 @@
+#Set:
+#curl -qfSL "https://raw.githubusercontent.com/Azathothas/Arsenal/main/misc/Android/Termux/.zshrc" -o "$HOME/.zshrc"
+#source "$HOME/.zshrc"
 #A bit of Styling
 RED='\033[31m'
 GREEN='\033[32m'
@@ -26,17 +29,23 @@ current_dir="$(pwd)"
 alias bat='batcat'
 alias benchmarkQ='curl -qfsSL bench.sh | bash'
 alias benchmarkX='curl -qfsSL yabs.sh | bash -s -- -i'
+alias cls='clear'
+alias cpy='xclip -selection c'
 #alias df='duf'
 alias dir='dir --color=auto'
 #alias dig='dog $1 $2 $3 $4 A AAAA CNAME EUI48 EUI64 HINFO LOC NAPTR MX NS OPENPGPKEY PTR SSHFP TLSA SOA SRV TXT URI'
 alias dig-dns='udig -d $1 $2 $3 $4'
+alias dump-battery-stats='sudo dumpsys batterystats'
 alias enum_me='curl -qfsSL https://github.com/diego-treitos/linux-smart-enumeration/releases/latest/download/lse.sh | bash /dev/stdin $1 $2 $3 $4 $5'
 alias esort='for file in ./* ; do sort -u "$file" -o "$file"; done'
 alias egrep='egrep --color=auto'
 alias fdfind='fd'
 alias fgrep='fgrep --color=auto'
 alias grep='grep --color=auto'
+alias list-ports='sudo netstat -tulpn'
+alias list-procs='sudo ps aux'
 alias ls='ls -lh --color=auto'
+alias nano='nano -m'
 #alias ping='tcping -r 3 -4 $1 $2 $3 $4 2>/dev/null'
 alias scb='xclip -selection c'
 alias tree='br -sdp'
@@ -79,8 +88,20 @@ tere() {
     [ -n "$result" ] && cd -- "$result"
 }
 #zsh config
+#setopt autocd              # change directory just by typing its name
+#setopt correct            # auto correct mistakes
+setopt interactivecomments # allow comments in interactive mode
+#setopt magicequalsubst     # enable filename expansion for arguments of the form ‘anything=expression’
+setopt nonomatch           # hide error message if there is no match for the pattern
+setopt notify              # report the status of background jobs immediately
+#setopt numericglobsort     # sort filenames numerically when it makes sense
+#setopt promptsubst         # enable command substitution in prompt
+#hide EOL sign ('%')
+PROMPT_EOL_MARK=""
+#Plugins
 source "$HOME/.zsh/zsh-autosuggestions/zsh-autosuggestions.zsh"
-#source $HOME/.zsh/zsh-autocomplete/zsh-autocomplete.plugin.zsh
+#This sometimes wrecks havoc, can be disabled
+source "$HOME/.zsh/zsh-autocomplete/zsh-autocomplete.plugin.zsh"
 source "$HOME/.zsh/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh"
 # Select all suggestion instead of top on result only
 #zstyle ':autocomplete:tab:*' insert-unambiguous yes
