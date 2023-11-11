@@ -26,6 +26,8 @@ export TMP="/data/data/com.termux/files/usr/tmp"
 export TMPDIR="/data/data/com.termux/files/usr/tmp"
 current_dir="$(pwd)"
 #aliases
+alias adb-remote-start='sudo setprop service.adb.tcp.port 7777 ; sudo stop adbd ; sudo start adbd ; sudo netstat -tulpn | grep 7777 ; echo -e "\n[+] Started adbd\n"'
+alias adb-remote-stop='sudo setprop service.adb.tcp.port -1 ; sudo stop adbd ; sudo netstat -tulpn | grep 7777 ; echo -e "\n[+] Stopped adbd\n"'
 alias bat='batcat'
 alias benchmarkQ='curl -qfsSL bench.sh | bash'
 alias benchmarkX='curl -qfsSL yabs.sh | bash -s -- -i'
@@ -41,6 +43,7 @@ alias esort='for file in ./* ; do sort -u "$file" -o "$file"; done'
 alias egrep='egrep --color=auto'
 alias fdfind='fd'
 alias fgrep='fgrep --color=auto'
+alias get-sudo='curl -qfsSL "https://github.com/agnostic-apollo/sudo/releases/latest/download/sudo" -o "$PREFIX/usr/bin/sudo" && chmod +xwr "$PREFIX/usr/bin/sudo" ; sudo -h'
 alias grep='grep --color=auto'
 alias list-ports='sudo netstat -tulpn'
 alias list-procs='sudo ps aux'
