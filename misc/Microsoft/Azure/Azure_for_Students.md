@@ -18,6 +18,7 @@
 | [**`B2ats_v2`**](https://learn.microsoft.com/en-us/azure/virtual-machines/bsv2-series) | General purpose | 2 | 1 | 4 | 3750 | 0 | **`$8.98`** `~ 107$/Year` | Better & Performant than `B1s`. `Always Online` --> **`1 Year`** [`99$ ==> 11 Months` + `30 Days` (750 Hrs because marked as free services eligible)] |
 ---
 - #### Examples & Use Cases
+> - **Dev Setup**
 > - **Media Server**
 > - **VPN**
 ---
