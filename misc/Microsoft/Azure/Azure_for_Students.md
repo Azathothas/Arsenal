@@ -20,6 +20,11 @@
 ---
 - #### Examples & Use Cases
 > - **Dev Setup**
+> > - Note: Depending upon availability in the region, the vm type may not be available. Either request for quota, choose another region or wait for it to become available again.
+> > - Also, prices sometimes vary by upto 5$ depending on the region, for the same VM
+> ![image](https://github.com/Azathothas/Arsenal/assets/58171889/ddb0a1f0-1c95-42a2-bb56-29e618ffb49f)
+> ![image](https://github.com/Azathothas/Arsenal/assets/58171889/bf4b9c5c-5643-4ea9-b98b-56e19e0b5695)
+
 > - **Media Server**
 > - **VPN**
 ---
