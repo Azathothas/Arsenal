@@ -1,7 +1,8 @@
 
 ---
-- ### Info
-##### [B Series Machines](https://azure.microsoft.com/en-us/blog/introducing-b-series-our-new-burstable-vm-size/) operate on [cpu-credit-model](https://learn.microsoft.com/en-us/azure/virtual-machines/b-series-cpu-credit-model/b-series-cpu-credit-model) & are [burstable](https://learn.microsoft.com/en-us/azure/virtual-machines/disk-bursting). What this means is, they will auto scale down (save/accumulate credits) when resources aren't being used and then scale up (use saved credit) again when demanded. A **reboot** **will `reset` all credits**
+- #### Info
+[B Series Machines](https://azure.microsoft.com/en-us/blog/introducing-b-series-our-new-burstable-vm-size/) operate on [cpu-credit-model](https://learn.microsoft.com/en-us/azure/virtual-machines/b-series-cpu-credit-model/b-series-cpu-credit-model) & are [burstable](https://learn.microsoft.com/en-us/azure/virtual-machines/disk-bursting). What this means is, they will auto scale down (save/accumulate credits) when resources aren't being used and then scale up (use saved credit) again when demanded. A **reboot** **will `reset` all credits**.
+
 **More**:
 > - https://www.youtube.com/watch?v=M0Qn69xEBkk
 > - https://www.onenet.co.nz/our-resources/babbling-about-azure-b-series-burstable-vms/
