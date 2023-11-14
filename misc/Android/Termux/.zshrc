@@ -52,6 +52,7 @@ alias ls='ls -lh --color=auto'
 alias nano='nano -m'
 #alias ping='tcping -r 3 -4 $1 $2 $3 $4 2>/dev/null'
 alias scb='xclip -selection c'
+alias sshd-logs-termux='less +F "$PREFIX/var/log/sv/sshd/current"'
 alias tree='br -sdp'
 alias vdir='vdir --color=auto'
 #functions
