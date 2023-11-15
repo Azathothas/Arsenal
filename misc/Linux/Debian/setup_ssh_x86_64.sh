@@ -142,8 +142,14 @@ fi
 #----------------------------------------------------------------------------#
 #sshd
   install_sshd(){
+     #Remove old
+       sudo rm "$(which ssh)" 2>/dev/null ; sudo rm "$(which ssh)" 2>/dev/null
+       sudo rm "$(which sshd)" 2>/dev/null ; sudo rm "$(which sshd)" 2>/dev/null
+     #Install  
        sudo curl -qfsSL "https://raw.githubusercontent.com/Azathothas/Toolpacks/main/x86_64/sshd" -o "$BINARY_ROOT_DIR/sshd" || curl -qfsSL "https://raw.githubusercontent.com/Azathothas/Toolpacks/main/x86_64/sshd" -o "$BINARY_HOME_DIR/sshd"
        sudo chmod +xwr "$BINARY_ROOT_DIR/sshd" || chmod +xwr "$BINARY_HOME_DIR/sshd"
+     #Symlink
+       sudo ln -s "/usr/local/bin/ssh" "/usr/bin/ssh" 2>/dev/null ; sudo ln -s "/usr/local/bin/sshd" "/usr/bin/sshd" 2>/dev/null
   }
   export -f install_sshd
 if ! command -v sshd >/dev/null 2>&1; then
