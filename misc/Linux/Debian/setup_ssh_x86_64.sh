@@ -83,6 +83,8 @@ if ! command -v ssh >/dev/null 2>&1; then
      install_ssh
 elif [ -n "$force_setup" ] ; then
     echo -e "\n [+]${PINK}Force ${DGREEN}Installing ${PURPLE}ssh${NC}\n"
+    #Remove old
+     sudo rm "$(which ssh)" 2>/dev/null ; sudo rm "$(which ssh)" 2>/dev/null
      install_ssh
 fi
 #ssh-keyscan
@@ -142,9 +144,6 @@ fi
 #----------------------------------------------------------------------------#
 #sshd
   install_sshd(){
-     #Remove old
-       sudo rm "$(which ssh)" 2>/dev/null ; sudo rm "$(which ssh)" 2>/dev/null
-       sudo rm "$(which sshd)" 2>/dev/null ; sudo rm "$(which sshd)" 2>/dev/null
      #Install  
        sudo curl -qfsSL "https://raw.githubusercontent.com/Azathothas/Toolpacks/main/x86_64/sshd" -o "$BINARY_ROOT_DIR/sshd" || curl -qfsSL "https://raw.githubusercontent.com/Azathothas/Toolpacks/main/x86_64/sshd" -o "$BINARY_HOME_DIR/sshd"
        sudo chmod +xwr "$BINARY_ROOT_DIR/sshd" || chmod +xwr "$BINARY_HOME_DIR/sshd"
@@ -157,6 +156,8 @@ if ! command -v sshd >/dev/null 2>&1; then
      install_sshd
 elif [ -n "$force_setup" ] ; then
     echo -e "\n [+]${PINK}Force ${DGREEN}Installing ${PURPLE}sshd${NC}\n"
+    #Remove old
+    sudo rm "$(which sshd)" 2>/dev/null ; sudo rm "$(which sshd)" 2>/dev/null
      install_sshd
 fi
 #----------------------------------------------------------------------------#
