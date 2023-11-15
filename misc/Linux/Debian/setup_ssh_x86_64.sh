@@ -1,6 +1,7 @@
 #!/usr/bin/env bash
 
-#Usage: 
+#Usage: bash <(curl -qfsSL "https://raw.githubusercontent.com/Azathothas/Arsenal/main/misc/Linux/Debian/setup_ssh_x86_64.sh")
+#Force: curl -qfsSL "https://raw.githubusercontent.com/Azathothas/Arsenal/main/misc/Linux/Debian/setup_ssh_x86_64.sh" | bash -s -- -f
 
 #----------------------------------------------------------------------------#
 # For debug
