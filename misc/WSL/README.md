@@ -116,3 +116,11 @@ localhostforwarding=true
 #sparseVhd=true
 ```
 ---
+- #### Misc
+> - [wslutilities/wslu](https://github.com/wslutilities/wslu)
+> ```bash
+> !# Install
+>  curl -qfsSL "https://raw.githubusercontent.com/wslutilities/wslu/master/extras/scripts/wslu-install" | bash
+>
+> !# Usage: https://wslutiliti.es/wslu/
+> ```
