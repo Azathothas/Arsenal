@@ -91,6 +91,7 @@ HOST_REGION="$(curl --ipv4 -qfskSL "http://ip-api.com/json/" | jq -r '"\(.countr
   echo -e "\$env:SSHKEY = \"\$(\$env:SSHKEY | Out-File \"\$env:TEMP\ssh_key.pem\" -Force; \"\$env:TEMP\ssh_key.pem\")\"" >> "/tmp/TG_BOT_WINDOWS.md"
   echo -e "\n[+] Connect:" >> "/tmp/TG_BOT_WINDOWS.md"
   echo -e "ssh -i "\"\$env:SSHKEY\"" \"runner@$NGROK_TCP_HOST\" -p \"$NGROK_TCP_PORT\" -o \"StrictHostKeyChecking=no\"" >> "/tmp/TG_BOT_WINDOWS.md"
+  echo -e "\n#After Logged In:\nsource \"\$HOME/.bashrc\"" >> "/tmp/TG_BOT_WINDOWS.md"
   echo -e '```' >> "/tmp/TG_BOT_WINDOWS.md"
 #Send Notif
  #apprise "tgram://$TG_BOT_AUTH/?topic=$LOONIX_TOPIC_ID&format=markdown" -vv -b "$(cat "/tmp/TG_BOT_WINDOWS.md")"
@@ -103,6 +104,7 @@ HOST_REGION="$(curl --ipv4 -qfskSL "http://ip-api.com/json/" | jq -r '"\(.countr
   echo -e "echo \"$SSHKEY\" > "\"\$SSHKEY\""" >> "/tmp/TG_BOT_LINUX.md"
   echo -e "\n[+] Connect:\n" >> "/tmp/TG_BOT_LINUX.md"
   echo -e "ssh -i "\"\$SSHKEY\"" \"runner@$NGROK_TCP_HOST\" -p \"$NGROK_TCP_PORT\" -o \"StrictHostKeyChecking=no\"" >> "/tmp/TG_BOT_LINUX.md"
+  echo -e "\n#After Logged In:\nsource \"\$HOME/.bashrc\"" >> "/tmp/TG_BOT_LINUX.md"
   echo -e '```' >> "/tmp/TG_BOT_LINUX.md"
 #Send Notif
  #apprise "tgram://$TG_BOT_AUTH/?topic=$LOONIX_TOPIC_ID&format=markdown" -vv -b "$(cat "/tmp/TG_BOT_LINUX.md")"
