@@ -1,7 +1,11 @@
 #!/usr/bin/env bash
 
+#Run:
+# bash <(curl -qfsSL "https://raw.githubusercontent.com/Azathothas/Arsenal/main/misc/Github/Runners/Ubuntu/ngrok_tg_ssh.sh")
+
 #----------------------------------------------------------------------------#
 ## ENV:VARS
+##REQUIRED: NGROK_TOKEN && TG_BOT_AUTH
 #NGROK
 # 1 Tunnel per TOKEN
 # READ From SECRETS --> ${{ secrets.NGROK_TOKEN }}
