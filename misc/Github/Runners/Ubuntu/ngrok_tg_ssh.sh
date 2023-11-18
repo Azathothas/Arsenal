@@ -65,7 +65,7 @@ HOST_REGION="$(curl --ipv4 -qfskSL "http://ip-api.com/json/" | jq -r '"\(.countr
 #TG_BOT_BODY
  pip install apprise --upgrade > /dev/null 2>&1
  # Generate Host Details
-  echo -e "*Job* : 🖥️ Ephemeral GH Actions VM 🖥️ ➼ (Github)" > "/tmp/TG_BOT_0.md"
+  echo -e "*🎁 Treats 🎁* : 🖥️ Ephemeral GH Actions VM 🖥️ ➼ (Github)" > "/tmp/TG_BOT_0.md"
   echo -e "*Cluster* : BeeHive 🔆🐝" >> "/tmp/TG_BOT_0.md"
 #TIME
   END_TIME="$(( $(date +%s) + 5*3600 + 30*60 ))"
