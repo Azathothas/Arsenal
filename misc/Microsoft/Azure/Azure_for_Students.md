@@ -1,6 +1,8 @@
 WIP
 ---
 - #### Info
+> - https://azure.microsoft.com/en-us/free/students/ >> Start Free
+> 
 [B Series Machines](https://azure.microsoft.com/en-us/blog/introducing-b-series-our-new-burstable-vm-size/) operate on [cpu-credit-model](https://learn.microsoft.com/en-us/azure/virtual-machines/b-series-cpu-credit-model/b-series-cpu-credit-model) & are [burstable](https://learn.microsoft.com/en-us/azure/virtual-machines/disk-bursting). What this means is, they will auto scale down (save/accumulate credits) when resources aren't being used and then scale up (use saved credit) again when demanded. A **reboot** **will `reset` all credits**.
 
 **More**:
@@ -26,7 +28,154 @@ WIP
 > ![image](https://github.com/Azathothas/Arsenal/assets/58171889/bf4b9c5c-5643-4ea9-b98b-56e19e0b5695)
 
 > - **Media Server**
+>
+> --- 
 > - **VPN**
+> > 1. [Home](https://portal.azure.com/) >> **Create a Resource**
+> > ```bash
+> > !# Keep Everything as Default, only Change the following
+> > Vitual Machine Name: Name of your machine, this will be the hostname ($hostname)
+> > #Example: b1ls-debian-ebarrow-sweden-vpn # This is an example name, choose something shorter or easy to remember
+> > Region: Choose where the price is lowest, or where you want the IP Address to be.
+> > Availability Options: No Infrastructure Redundancy Required
+> > Security Type: Standard
+> > Image: Debian 12 "BookWorm" - x64 Gen2 #(Click `See All Images` >> Search: Debian >> Debian 12 Bookworm >> Debian 12 "BookWorm" - x64 Gen2
+> > VM Architecture: x64
+> > Size: Standard_B1ls - 1 vcpu 0.5 GiB Memory #Click `See all sizes` >> Search: b1ls >> Select B1ls 1vCPU 0.5 GiB Memory
+> >
+> > !# While you can choose ssh public keys, it will be a hassle if you have to login from diff machines
+> > # But Choosing Passwords will open you to password bruteforce attempts.
+> > # So either choose a high entropy passwordmanager-generated password, or use ssh public keys
+> > # You are responsible if you choose a weak password and get shelled
+> > Username: azureuser #This is what you will use to login, you may change this, but must remember
+> >
+> > Public Inbound Ports: Allow Selected Ports ( SSH 22 )
+> > # Note: You may choose to disable this, as you can always ssh using web azure portal anyway
+> > ```
+> > ---
+> > 2. **Next**: **`Disks`**
+> > ```bash
+> > Encryption at Host : No (Unticked) #May not even be enabled in the first place, just leave t be 
+> > OS Disk Size: Image Default
+> > OS Disk Type: Standard SSD (locally-redundant-storage)
+> > Delete with VM: (Ticked) ✓
+> > Key Management: Platform-managed Key
+> > Enable Ultra Disk Compatibility : Unticked
+> > ```
+> > ---
+> > 3. **`Review`** + **`Create`** >> **`Create`**
+> > > - Wait for a few minutes for deployment to succeed
+> > ---
+> > 4. [**All Resources**](https://portal.azure.com/#view/HubsExtension/BrowseAll/resourceType/microsoft.resources%2Fresources) >> Click **`$VM_NAME`** >> Copy **`Public_IP`** >> **`SSH`**
+> > ---
+> > 6. `Setup`
+> > ```bash
+> > #-------------------------------------------------------------------------------------------------#
+> > !# CoreUtils
+> > sudo apt-get update -y ; sudo apt-get dist-upgrade -y ; sudo apt-get upgrade -y
+> > !# May need to run this Twice
+> > sudo apt install autoconf automake autopoint binutils bison build-essential ca-certificates coreutils curl dos2unix git gcc htop flex file jq lsof moreutils tmux wget -y
+> > !# Networking
+> > sudo apt-get install dnsutils 'inetutils*' net-tools netcat-traditional -y
+> > sudo apt-get install 'iputils*' -y
+> > !# Fix Perms for ping
+> > sudo setcap cap_net_raw+ep "$(which ping)"
+> > 
+> > #-------------------------------------------------------------------------------------------------#
+> > ❯ !# Ip-Forwarding
+> > echo 'net.ipv4.ip_forward = 1' | sudo tee -a "/etc/sysctl.conf"
+> > echo 'net.ipv6.conf.all.forwarding = 1' | sudo tee -a "/etc/sysctl.conf"
+> > sudo sysctl -p "/etc/sysctl.conf"
+> > #-------------------------------------------------------------------------------------------------#
+> >
+> > #-------------------------------------------------------------------------------------------------#
+> > ❯ !# x11-Forwarding
+> > sudo apt-get update -y && sudo apt-get install xauth -y
+> > touch "$HOME/.Xauthority"
+> > !# Edit config
+> > sudo nano "/etc/ssh/sshd_config"
+> > `
+> > AllowAgentForwarding yes
+> > AllowTcpForwarding yes
+> > PrintMotd no
+> > PrintLastLog yes
+> > TCPKeepAlive yes
+> > X11Forwarding yes
+> > `
+> > !# Restart SSHD
+> > sudo systemctl status sshd
+> > sudo systemctl reload ssh.service ; sudo systemctl reload sshd.service
+> > sudo service sshd reload ; sudo service sshd restart
+> > sudo systemctl status sshd
+> >
+> > !# logout & log back in
+> > logout
+> > ```
+> > ---
+> > 7. `config`
+> > ```bash
+> > #-------------------------------------------------------------------------------------------------#
+> > ❯ !# Gost (Required) #For Tunnels & Proxies
+> > #Install
+> > sudo curl -qfsSL "https://raw.githubusercontent.com/Azathothas/Static-Binaries/main/gost/gost_amd_x86_64_Linux" -o "/usr/local/bin/gost" ; sudo chmod +xwr "/usr/local/bin/gost"
+> >
+> > #Start
+> > nohup sudo gost -L "http://:13000" -L "https://:13001" -L "http2://:13002" -L "kcp://:13003?tcp=true" -L "mtls://:13004" -L "mws://:13005" -L "mwss://:13006" -L "quic://:13007" -L "sni+tls://:13008" -L "socks5://:13009" -L "ss://gost:gost@:13010" -L "ss+kcp://gost:gost@:13011" -L "ss+tls://gost:gost@:13012" -L "ss2://gost:gost@:13013" >/dev/null 2>&1 &
+> >
+> > #Check
+> > sudo netstat -tulepn | grep -i "gost"
+> > 
+> > !#Connect Info:
+> > ::13000 --> HTTP_PROXY
+> > ::13001 --> HTTPS_PROXY
+> > ::13009 --> SOCKS5_PROXY
+> > 
+> > #TailScale
+> > TAILSCALE_IP="$(sudo tailscale ip -4)" ; export TAILSCALE_IP="$TAILSCALE_IP" && echo -e "\n[+] TailScale IP: $TAILSCALE_IP\n"
+> > # Or use Magic DNS
+> > --> "$TAILSCALE_IP:$GOST_PORT"
+> > --> "$TAILSCALE_DNS:$GOST_PORT"
+> > 
+> > Zerotier IP: https://my.zerotier.com/network/$NETWORK_ID
+> > ZEROTIER_IP="$(ip addr | grep -i 'zt' -A 10 | grep -i 'inet' | grep -iv 'inet6' | awk '{print $2}' | cut -f1 -d'/')" ; export ZEROTIER_IP="$ZEROTIER_IP"  && echo -e "\n[+] Zerotier IP: $ZEROTIER_IP\n"
+> > ## This doesn't work: https://github.com/zerotier/ZeroTierOne/issues/1116 , and instead prints local port 
+> > #ZEROTIER_IP="$(sudo zerotier-cli info -j | jq -r '.config.settings.listeningOn[]' | grep -iv ':\|100'| awk -F'/' '{print $1}' | sort -u)" ; export ZEROTIER_IP="$ZEROTIER_IP"  && echo -e "\n[+] Zerotier IP: $ZEROTIER_IP\n"
+> > --> "$ZEROTIER_IP:$GOST_PORT"
+> > #-------------------------------------------------------------------------------------------------#
+> > 
+> > #-------------------------------------------------------------------------------------------------#
+> > ❯ !# TailScale (Required) #For Remote Access + Management
+> > curl -qfsSL "https://tailscale.com/install.sh" | sudo bash -s -- -h
+> > # Login & Connect Device
+> > sudo tailscale login
+> >
+> > # Setup as exit node
+> > sudo tailscale up --ssh --advertise-exit-node --accept-dns="true" --accept-routes="false" --accept-risk="all" --shields-up="false" --reset
+> > # Go to https://login.tailscale.com/admin/machines >> $Machine_Name >> Edit Route Settings >> Use as Exit Node
+> > # Also Disable Key Expiry
+> > # Check Status
+> > sudo tailscale status --active --peers="false" ; sudo tailscale netcheck
+> > #-------------------------------------------------------------------------------------------------#
+> >
+> > #-------------------------------------------------------------------------------------------------#
+> > ❯ !# Twingate (Optional) #Fastest Speed
+> > curl -qfsSLO "https://binaries.twingate.com/connector/setup.sh" && sudo bash "./setup.sh"
+> >
+> > # Connect
+> > TWINGATE_ACCESS_TOKEN="$TOKEN" TWINGATE_REFRESH_TOKEN="$REFERESH_TOKEN" TWINGATE_NETWORK="$TWINGATE_USERNAME" TWINGATE_LABEL_HOSTNAME="$(hostname)" nohup "twingate-connector" > "/tmp/tg-logfile.log" 2>&1 &
+> > #-------------------------------------------------------------------------------------------------#
+> >
+> > #-------------------------------------------------------------------------------------------------#
+> > ❯ !# ZeroTier (Recommended) #Faster than TailScale
+> > export DEBIAN_FRONTEND="noninteractive"
+> > curl -qfsSL "https://install.zerotier.com" | sudo bash
+> >
+> > # Connect & Join
+> > sudo service zerotier-one status
+> > # If it says disabled etc: sudo service zerotier-one start
+> > # wait 2-3 mins
+> > sudo zerotier-cli join "$NETWORK_ADDRESS" -j | jq .
+> > ```
 ---
 - #### Refs & Informed Decision Making
 > - https://www.cloudelicious.net/azure-vms-and-their-temporary-storage/
