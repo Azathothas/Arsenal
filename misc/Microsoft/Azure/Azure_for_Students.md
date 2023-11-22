@@ -88,7 +88,21 @@ WIP
 > > echo 'net.ipv6.conf.all.forwarding = 1' | sudo tee -a "/etc/sysctl.conf"
 > > sudo sysctl -p "/etc/sysctl.conf"
 > > #-------------------------------------------------------------------------------------------------#
-> >
+> > 
+> > #-------------------------------------------------------------------------------------------------#
+> > ❯ !# Addons
+> > # eget : https://github.com/zyedidia/eget
+> > sudo curl -qfsSL "https://raw.githubusercontent.com/Azathothas/Toolpacks/main/x86_64/eget" -o "/usr/local/bin/eget" ; sudo chmod +xwr "/usr/local/bin/eget"
+> > # 7z : https://www.7-zip.org/
+> > sudo curl -qfsSL "https://raw.githubusercontent.com/Azathothas/Toolpacks/main/x86_64/7z" -o "/usr/local/bin/7z" ; sudo chmod +xwr "/usr/local/bin/7z" ; 7z -h
+> > # btop : https://github.com/aristocratos/btop
+> > sudo curl -qfsSL "https://raw.githubusercontent.com/Azathothas/Toolpacks/main/x86_64/btop" -o "/usr/local/bin/btop" ; sudo chmod +xwr "/usr/local/bin/btop" ; btop -h
+> > # croc : https://github.com/schollz/croc
+> > sudo curl -qfsSL "https://raw.githubusercontent.com/Azathothas/Toolpacks/main/x86_64/croc" -o "/usr/local/bin/croc" ; sudo chmod +xwr "/usr/local/bin/croc" ; croc -h
+> > # speedtest-go : https://github.com/showwin/speedtest-go
+> > sudo curl -qfsSL "https://raw.githubusercontent.com/Azathothas/Toolpacks/main/x86_64/speedtest-go" -o "/usr/local/bin/speedtest-go" ; sudo chmod +xwr "/usr/local/bin/speedtest-go" ; speedtest-go --help
+> > #-------------------------------------------------------------------------------------------------#
+> > 
 > > #-------------------------------------------------------------------------------------------------#
 > > ❯ !# x11-Forwarding
 > > sudo apt-get update -y && sudo apt-get install xauth -y
