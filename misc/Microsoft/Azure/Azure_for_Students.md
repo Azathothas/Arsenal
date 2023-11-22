@@ -149,13 +149,18 @@ WIP
 > > curl -qfsSL "https://tailscale.com/install.sh" | sudo bash -s -- -h
 > > # Login & Connect Device
 > > sudo tailscale login
-> >
-> > # Setup as exit node
-> > sudo tailscale up --ssh --advertise-exit-node --accept-dns="true" --accept-routes="false" --accept-risk="all" --shields-up="false" --reset
-> > # Go to https://login.tailscale.com/admin/machines >> $Machine_Name >> Edit Route Settings >> Use as Exit Node
-> > # Also Disable Key Expiry
 > > # Check Status
 > > sudo tailscale status --active --peers="false" ; sudo tailscale netcheck
+> > 
+> > !# Setup as exit node && advertise route
+> > #Find Subnet Range, Usually smth like 10.0.0.0/16
+> > SUBNET="$(ip a show dev eth0 | awk '/inet[^6]/ && !/127\.0\.0\.1/ {gsub(/\/[0-9]*/, "/16", $2); split($2, a, "."); a[4]=0; print a[1]"."a[2]"."a[3]"."a[4]"/16"}' | awk '/^10\./ || /^172\.(1[6-9]|2[0-9]|3[0-1])\./ || /^192\.168\./')" && echo "$SUBNET"
+> > 
+> > sudo tailscale up --ssh --advertise-routes="$SUBNET" --advertise-exit-node --accept-dns="true" --accept-routes="false" --accept-risk="all" --shields-up="false" --reset
+> > # Go to https://login.tailscale.com/admin/machines >> $Machine_Name >> Edit Route Settings >> Use as Exit Node
+> > # Also $Machine_Name >> Subnets >> Review >> Enable
+> > # Also Disable Key Expiry
+> > 
 > > #-------------------------------------------------------------------------------------------------#
 > >
 > > #-------------------------------------------------------------------------------------------------#
