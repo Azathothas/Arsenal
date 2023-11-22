@@ -50,7 +50,8 @@ WIP
 > > Username: azureuser #This is what you will use to login, you may change this, but must remember
 > >
 > > Public Inbound Ports: Allow Selected Ports ( SSH 22 )
-> > # Note: You may choose to disable this, as you can always ssh using web azure portal anyway
+> > # Note: You may choose to disable this, as you can always ssh using web azure portal/TailScale anyway 
+> > 
 > > ```
 > > ---
 > > 2. **Next**: **`Disks`**
