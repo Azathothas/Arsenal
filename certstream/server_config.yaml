@@ -1,0 +1,29 @@
+#Main WebServer
+webserver:
+  #Listen on all Interface
+  listen_addr: "0.0.0.0"
+  #Listen on port 8888
+  listen_port: 8888
+  #Constant stream of new certificates with all details available
+  #Clients will easily get overloaded
+  full_url: "/full-stream"
+  #Constant stream of new certificates with reduced details (no as_der and chain fields)
+  #The default: certstream-client -url "ws://localhost:8088" -domains-only -quiet -skip-heartbeats
+  lite_url: "/"
+  #Constant stream of domains found in new certificates
+  #certstream-client -url "ws://localhost:8888/domains-only" -quiet -skip-heartbeats #will require sed to parse
+  domains_only_url: "/domains-only"
+  #For websocket with tls (wss)
+  cert_path: ""
+  cert_key_path: ""
+
+#For Prometheus Metrics
+prometheus:
+  enabled: false
+  listen_addr: "0.0.0.0"
+  listen_port: 8889
+  metrics_url: "/metrics"
+  expose_system_metrics: false
+  real_ip: false
+  whitelist:
+    - "127.0.0.1/8"
