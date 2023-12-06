@@ -5,8 +5,7 @@ import (
 	"fmt"
 	"os"
 	"strings"
-
-	"github.com/CaliDog/certstream-go"
+	"github.com/Azathothas/Arsenal/certstream/library"
 )
 
 func main() {
