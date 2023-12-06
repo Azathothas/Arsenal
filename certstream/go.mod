@@ -1,4 +1,4 @@
-module github.com/Azathothas/Arsenal/certstream-library
+module github.com/Azathothas/Arsenal/certstream/certstream
 
 go 1.20
 
