@@ -1,6 +1,6 @@
 // https://github.com/CaliDog/certstream-go/issues/10
 // https://github.com/pathtofile/certstream-go/blob/master/certstream.go
-package certstream
+package certstream-library
 
 import (
 	"time"
