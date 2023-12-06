@@ -41,7 +41,11 @@ eget "https://raw.githubusercontent.com/Azathothas/Toolpacks/main/x86_64/certstr
 wget "https://raw.githubusercontent.com/Azathothas/Arsenal/main/certstream/server_config.yaml" -O "/tmp/server_config.yaml"
 
 !# Usage: https://github.com/d-Rickyy-b/certstream-server-go#connecting
+Default Addr ::8888
 certstream-server-go -config "/tmp/server_config.yaml"
+
+!# Client
+certstream -url "ws://localhost:8888" -domains-only -quiet
 ```
 ---
 ```bash
