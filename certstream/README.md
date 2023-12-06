@@ -15,11 +15,16 @@ go install -v "github.com/Azathothas/Arsenal/certstream@main"
 ```
 ---
 ```bash
-!# Build
+!# Build CLI
   cd $(mktemp -d) && mkdir certstream && cd certstream
   curl -qfsSLJO "https://raw.githubusercontent.com/Azathothas/Arsenal/main/certstream/main.go"
   curl -qfsSLJO "https://raw.githubusercontent.com/Azathothas/Arsenal/main/certstream/go.mod"
   go get github.com/Azathothas/Arsenal/certstream
   CGO_ENABLED=0 go build -v -ldflags="-s -w -extldflags '-static'" -o "./certstream"
   file "./certstream" ; ldd "./certstream" ; ls -lah "./certstream"
+
+!# Build Server
+  pushd "$(mktemp -d)" && git clone --filter "blob:none" "https://github.com/d-Rickyy-b/certstream-server-go" && cd "./certstream-server-go"
+  CGO_ENABLED=0 go build -v -ldflags="-s -w -extldflags '-static'" -o "./certstream-server-go" "./cmd/main.go"
+  mv "./certstream-server-go" "$HOME/bin/certstream-server-go" ; popd ; go clean -cache -fuzzcache -modcache -testcache
 ```
