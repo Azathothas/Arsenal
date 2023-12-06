@@ -8,10 +8,10 @@ webserver:
   #Clients will easily get overloaded
   full_url: "/full-stream"
   #Constant stream of new certificates with reduced details (no as_der and chain fields)
-  #The default: certstream-client -url "ws://localhost:8088" -domains-only -quiet -skip-heartbeats
+  #The default: certstream-client -url "ws://localhost:8088" -domains-only -quiet
   lite_url: "/"
   #Constant stream of domains found in new certificates
-  #certstream-client -url "ws://localhost:8888/domains-only" -quiet -skip-heartbeats #will require sed to parse
+  #certstream-client -url "ws://localhost:8888/domains-only" -quiet #will require sed to parse
   domains_only_url: "/domains-only"
   #For websocket with tls (wss)
   cert_path: ""
