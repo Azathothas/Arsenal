@@ -20,6 +20,7 @@ go install -v "github.com/Azathothas/Arsenal/certstream@main"
 certstream `{OPTS}`
   -url             --> Certstream Server WebSocket URL (ws:// | wss://)      # Use: -url "wss://certstream.calidog.io" if you don't have your own server
   -domains-only    --> Extract and Print only Domains from Certstream Output #Recommended if you don't want to overload the cli (Raw JSON is hugeeee)
+  -insecure        --> Allows Invalid/Insecure SSL Connections, for wss://
   -quiet           --> Suppress Standard Error Output (Useful for Automation)
   -skip-heartbeats --> Skip Sending Heartbeat (Ping) Messages to Certstream Server #Some servers will disconnect you if you don't ping
 
