@@ -19,6 +19,15 @@
 - [**InScope**<img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/go/go-original-wordmark.svg" width="30" height="30">](https://github.com/Azathothas/Arsenal/tree/main/inscope) **➼** **`Maintained`** `|` **`Updated`** fork of [tomnomnom/inscope](https://github.com/tomnomnom/hacks/tree/master/inscope) : Filter URLs and Domains against a set of regular expressions
 ---
 - [**Misc**<img src="https://user-images.githubusercontent.com/58171889/232438671-1310b71d-f23c-45bf-b741-c2edb8201b51.png" width="30" height="30">](https://github.com/Azathothas/BugGPT-Tools/tree/main/misc) **➼** Dumpyard for things!
+> - [**Android/Termux**](https://github.com/Azathothas/Arsenal/tree/main/misc/Android/Termux) : `Guide` `Scripts` & `Config` for [**Termux**](https://github.com/termux/termux-app)
+> - [**Github/Runners**](https://github.com/Azathothas/Arsenal/tree/main/misc/Github/Runners) : `Guide` `Scripts` & `Config` for [**Github Actions Runners**](https://github.com/actions/runner-images)
+> - [**Google/Colab**](https://github.com/Azathothas/Arsenal/tree/main/misc/Google/Colab) : `Guide` `Scripts` & `Config` for [**Colab**](https://colab.google/)
+> - [**Linux/Debian**](https://github.com/Azathothas/Arsenal/tree/main/misc/Linux/Debian) : `Guide` `Scripts` & `Config` for [**Debian**](https://www.debian.org/)
+> - [**Microsoft/Azure**](https://github.com/Azathothas/Arsenal/tree/main/misc/Microsoft/Azure) : `Guide` `Scripts` & `Config` for [**Azure**](https://azure.microsoft.com/en-us)
+> - [**Segfault**](https://github.com/Azathothas/Arsenal/tree/main/misc/Segfault) : `Guide` `Scripts` & `Config` for [**THC Segfault**](https://www.thc.org/segfault/)
+> - [**VMware**](https://github.com/Azathothas/Arsenal/tree/main/misc/VMware) : `Guide` `Scripts` & `Config` for [**VMware**](https://www.vmware.com/)
+> - [**WSL**](https://github.com/Azathothas/Arsenal/tree/main/misc/WSL) : `Guide` `Scripts` & `Config` for [**WSL**](https://learn.microsoft.com/en-us/windows/wsl/install)
+> - [Windows](https://github.com/Azathothas/Arsenal/tree/main/misc/Windows) : `Guide` `Scripts` & `Config` for [**Windows**](https://learn.microsoft.com/en-us/windows/)
 ---
 - [**resDNS**<img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/bash/bash-original.svg" width="30" height="30">](https://github.com/Azathothas/Arsenal/tree/main/resdns) **➼** Wrapper around [[dnsx](https://github.com/projectdiscovery/dnsx) + [puredns](https://github.com/d3mondev/puredns) + [shuffledns](https://github.com/projectdiscovery/shuffledns)] for Efficient DNS Resolution
 ---
