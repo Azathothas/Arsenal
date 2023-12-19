@@ -3,6 +3,9 @@
 # Use:
 # bash <(curl -qfsSL "https://raw.githubusercontent.com/Azathothas/Arsenal/main/misc/Github/Runners/Ubuntu/debloat.sh")
 
+#Ref: https://github.com/easimon/maximize-build-space
+# https://github.com/easimon/maximize-build-space/blob/master/action.yml
+
 #----------------------------------------------------------------------------#
 # If On Github Actions, remove bloat to get space (~ 30 GB)
 if [ "$USER" = "runner" ] || [ "$(whoami)" = "runner" ]; then
