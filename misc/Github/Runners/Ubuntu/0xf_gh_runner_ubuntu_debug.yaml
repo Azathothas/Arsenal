@@ -19,7 +19,7 @@ jobs:
     #Default Timeout= 6 Hr (360 Mins) : https://nesin.io/blog/github-action-timeout
     #Docs: https://docs.github.com/en/actions/learn-github-actions/usage-limits-billing-and-administration
     #It's best to cause this timeout from your own side (Low to No chance of GH Disabling your repo) rather than gh (High Chance of them disabling your repo)
-    timeout-minutes: 350 
+    timeout-minutes: 355 
     permissions:
       contents: write
       
@@ -162,8 +162,9 @@ jobs:
 
       - name: Install Meson & Ninja
         run: |
-          #Presets
+          # Presets
           set -x ; set +e
+          #--------------#
           #Install
           sudo rm "/usr/bin/meson" "/usr/bin/ninja" 2>/dev/null
           pip install meson ninja --upgrade
@@ -230,19 +231,22 @@ jobs:
      #REQUIRED for ncurses
       - name: Install Zig
         run: |
-         pushd "$(mktemp -d)" && curl -qfSLJO $(curl -qfsSL "https://ziglang.org/download/index.json" | jq -r '.master | ."x86_64-linux".tarball')
-         find . -type f -name '*.tar*' -exec tar -xvf {} \;
-         sudo mkdir -p "/usr/local/zig" && sudo mv "$(find . -maxdepth 1 -type d | grep -v '^.$')"/* "/usr/local/zig"
-         export PATH="/usr/local/zig:/usr/local/zig/lib:/usr/local/zig/lib/include:$PATH"
-         zig version ; popd
+          # Presets
+          set -x ; set +e
+          #--------------#        
+          pushd "$(mktemp -d)" && curl -qfSLJO $(curl -qfsSL "https://ziglang.org/download/index.json" | jq -r '.master | ."x86_64-linux".tarball')
+          find . -type f -name '*.tar*' -exec tar -xvf {} \;
+          sudo mkdir -p "/usr/local/zig" && sudo mv "$(find . -maxdepth 1 -type d | grep -v '^.$')"/* "/usr/local/zig"
+          export PATH="/usr/local/zig:/usr/local/zig/lib:/usr/local/zig/lib/include:$PATH"
+          zig version ; popd
         continue-on-error: true
         
      #ncurses
       - name: Build & Install ncurses (x86_64)
         run: |
-         #Download
+          # Presets
           set -x ; set +e
-         #-------------------------#
+          #--------------#
           #changelogs: https://invisible-island.net/ncurses/NEWS.html
           #Create tmp dir & get latest stable sources
           pushd "$(mktemp -d)" && wget --quiet "https://invisible-island.net/datafiles/release/ncurses.tar.gz"
@@ -273,6 +277,9 @@ jobs:
      #Exports all PATHs to ~/.bash_profile            
       - name: Export PATH
         run: |
+           # Presets
+           set -x ; set +e
+           #--------------#        
            # Source PATH
            # "$HOME/.bash_profile"
            echo '{ [ -d "$HOME/bin" ] || mkdir -p "$HOME/bin"; } && { [ -d "$HOME/.local/bin" ] || mkdir -p "$HOME/.local/bin"; } && export PATH=$(echo "$PATH:$HOME/bin:$HOME/.local/bin:/usr/local/zig:/usr/local/zig/lib:/usr/local/zig/lib/include" | awk '\''BEGIN{RS=":";ORS=":"}{gsub(/\n/,"");if(!a[$0]++)print}'\'' | sed '\''s/:*$//'\'')' | tee -a "$HOME/.bash_profile"
@@ -289,10 +296,19 @@ jobs:
      #Replace with any extra things you want to do             
       - name: Run Custom Cmd
         run: |
+           # Presets
+           set -x ; set +e
+           #--------------#        
            echo "Hellow"
         continue-on-error: true
 
      #This keeps GH Actions hypnotized until timeout                
       - name: Breakpoint || Sleep ∞
-        run: |        
-          while :; do sleep 1; done
+        run: |
+          # Presets
+          set -x ; set +e
+          #--------------#
+          #sleep infinity
+          #while :; do sleep 1; done
+          sleep 340m
+        continue-on-error: true          
