@@ -4,8 +4,8 @@
 #ROOT Required: NO
 
 #Install less: 
-# bash <(curl -qfsSL "")
-# curl -qfsSl "" | bash
+# bash <(curl -qfsSL "https://raw.githubusercontent.com/Azathothas/Arsenal/main/misc/Devscripts/install_portable_python_musl.sh")
+# curl -qfsSl "https://raw.githubusercontent.com/Azathothas/Arsenal/main/misc/Devscripts/install_portable_python_musl.sh" | bash
 
 
 #Prefer: x86_64-unknown-linux-musl-lto-full
