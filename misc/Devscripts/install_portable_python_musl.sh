@@ -21,11 +21,13 @@
  cd "$(mktemp -d)" && wget -q --show-progress "$(curl -qfsSL "https://api.github.com/repos/indygreg/python-build-standalone/releases" | jq -r '.[] | select(.assets[].name | contains("x86_64-unknown-linux-musl-lto-full.tar.zst")) | .assets[].browser_download_url' | grep -iv ".sha256$" | grep -i "x86_64-unknown-linux-musl-lto-full\.tar\.zst$" | sort -u | grep -i "$PYTHON_VERSION" | tail -n 1)" -O "./python.zst"
  CWD_PATH="$(realpath .)" && export CWD_PATH="$CWD_PATH"
   #Extract 
-  find . -type f -name '*.zst' -exec tar --zstd -xvf {} \; && find . -type f -name '*.zst' -exec rm -rf {} \;
+  find . -type f -name '*.zst' -exec tar --zstd -xvf {} 2>/dev/null \; && find . -type f -name '*.zst' -exec rm -rf {} \;
 #Fallback
   if [[ ! -e "$(find . -type f -name 'pip')" ]]; then
+     rm -rf "$CWD_PATH"
      #Download install-only tar
      cd "$(mktemp -d)" && wget -q --show-progress "$(curl -qfsSL "https://api.github.com/repos/indygreg/python-build-standalone/releases" | jq -r '.[] | select(.assets[].name | contains("x86_64-unknown-linux-musl-install_only.tar.gz")) | .assets[].browser_download_url' | grep -iv ".sha256$" | grep -i "x86_64-unknown-linux-musl-install_only\.tar\.gz$" | sort -u | grep -i "$PYTHON_VERSION" | tail -n 1)" -O "./python.tar.gz"
+     CWD_PATH="$(realpath .)" && export CWD_PATH="$CWD_PATH"
     #Extract
      find . -type f -name '*.tar.gz' -exec tar -xzvf {} \; && find . -type f -name '*.tar.gz' -exec rm -rf {} \;
   fi
