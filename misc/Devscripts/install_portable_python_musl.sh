@@ -1,12 +1,13 @@
 #!/usr/bin/env bash
 
+### Standalone (Portable) & Latest version of python : https://github.com/indygreg/python-build-standalone
+
 #Deps: awk + coreutils + curl + findutils + grep + jq + tar + wget + zstd  
 #ROOT Required: NO
 
 #Install less: 
 # bash <(curl -qfsSL "https://raw.githubusercontent.com/Azathothas/Arsenal/main/misc/Devscripts/install_portable_python_musl.sh")
 # curl -qfsSl "https://raw.githubusercontent.com/Azathothas/Arsenal/main/misc/Devscripts/install_portable_python_musl.sh" | bash
-
 
 #Prefer: x86_64-unknown-linux-musl-lto-full
 #Fallback: x86_64-unknown-linux-musl-install_only
@@ -34,8 +35,11 @@
 #Move & Add to path
  echo -e "\n[+] Copying Python to $HOME/.local"
  mkdir -p "$HOME/.local" && cd "$CWD_PATH" && cp -r "./." "$HOME/.local"
- PYTHON_PATH="$(find $HOME/.local -type f -name "pip3" | sed 's/\/[^/]*$//')"
- echo -e "\n[+] Add $PYTHON_PATH to \$PATH\n"
+ PYTHON_PATH="$(find $HOME/.local -type f -name "pip3" | sed 's/\/[^/]*$//')" && export PYTHON_PATH="$PYTHON_PATH"
+ PYTHON_ROOT="$(find "$HOME/.local" -type f -name "pip3" | sed 's|^\('"$HOME"'/\.local/[^/]*\)/.*|\1|')" && export PYTHON_ROOT="$PYTHON_ROOT"
+ echo -e "\n[+] Please Add $PYTHON_PATH to \$PATH"
+ echo -e "\n[+] Bin Directory --> $PYTHON_PATH"
+ echo -e "\n[+] Root Directory --> $PYTHON_ROOT\n"
 #Purge Artefacts
  rm -rf "$CWD_PATH"
 #Test
@@ -43,5 +47,8 @@
  PATH="$PYTHON_PATH:$PATH" pip3 --version
  echo -e "\n[+] RUNNING PATH=$PYTHON_PATH:$PATH python3 --version\n"
  PATH="$PYTHON_PATH:$PATH" python3 --version
+#Size 
+ echo -e "\n[+] Install Size: $(du -h $PYTHON_ROOT | tail -n 1)\n"
+#Return
 cd "$PWD_PATH" 
 #EOF
