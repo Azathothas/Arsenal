@@ -30,6 +30,7 @@
      find . -type f -name '*.tar.gz' -exec tar -xzvf {} \; && find . -type f -name '*.tar.gz' -exec rm -rf {} \;
   fi
 #Test
+  echo -e "\n[+] Testing Successful Extraction\n"
   find . -type f -name "pip" -exec {} --version \;
   find -L . -type f -name "python3" -exec {} --version \;
 #Move & Add to path
@@ -40,8 +41,6 @@
  echo -e "\n[+] Please Add $PYTHON_PATH to \$PATH"
  echo -e "\n[+] Bin Directory --> $PYTHON_PATH"
  echo -e "\n[+] Root Directory --> $PYTHON_ROOT\n"
-#Purge Artefacts
- rm -rf "$CWD_PATH"
 #Test
  echo -e "\n[+] RUNNING PATH=$PYTHON_PATH:$PATH pip3 --version\n"
  PATH="$PYTHON_PATH:$PATH" pip3 --version
@@ -49,6 +48,6 @@
  PATH="$PYTHON_PATH:$PATH" python3 --version
 #Size 
  echo -e "\n[+] Install Size: $(du -h $PYTHON_ROOT | tail -n 1)\n"
-#Return
-cd "$PWD_PATH" 
+#Purge Artefacts
+ rm -rf "$CWD_PATH" && cd "$PWD_PATH"
 #EOF
