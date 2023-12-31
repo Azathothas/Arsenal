@@ -20,7 +20,7 @@
  44K   │ │ ├── aki_subfinder_provider_config_yaml_checker.sh
  32K   │ │ └── apikeybeast.py
  12K   │ └── README.md
-224K   ├─┬ misc
+236K   ├─┬ misc
  64K   │ ├─┬ Github
  60K   │ │ └─┬ Runners
  32K   │ │   ├─┬ Ubuntu
@@ -57,6 +57,9 @@
 4.0K   │ │   └── change_hostname.sh
  12K   │ ├─┬ Segfault
 8.0K   │ │ └── debloat.sh
+ 12K   │ ├─┬ Devscripts
+4.0K   │ │ ├── install_zig.sh
+4.0K   │ │ └── install_portable_python_musl.sh
 8.0K   │ └─┬ Android
 4.0K   │   └── Termux
  28K   ├─┬ resdns
