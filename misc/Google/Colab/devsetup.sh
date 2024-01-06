@@ -25,7 +25,10 @@ else
 fi
 
 #Install/Update golang
-echo "yes" | bash <(curl -qfsSL "https://git.io/go-installer") 2>/dev/null
+pushd "$(mktemp -d)" && echo "yes" | bash <(curl -qfsSL "https://git.io/go-installer") 2>/dev/null ; popd
+
+#Install Rust
+curl -qfsSL "https://sh.rustup.rs" | bash -s -- -y
 
 #Setup openvscode-server (gitpod)
 # Source : https://github.com/gitpod-io/openvscode-server
