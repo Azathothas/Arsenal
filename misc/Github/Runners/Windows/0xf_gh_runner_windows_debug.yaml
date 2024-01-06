@@ -1,5 +1,5 @@
 name: 0xf ➼ Debug (gh-runner) Windows-Server-2022
-#Image : https://github.com/actions/runner-images/blob/main/images/win/Windows2022-Readme.md
+#Image : https://github.com/actions/runner-images/blob/main/images/windows/Windows2022-Readme.md
 on:
   workflow_dispatch:
 env:
@@ -71,23 +71,23 @@ jobs:
         run: |      
          # TailScale SSH is not supported on windows: https://github.com/tailscale/tailscale/issues/4697
          # Instead rely on a manual approach
-          #Add-WindowsCapability -Online -Name OpenSSH.Server*
-          #choco install openssh -y | Out-Null
+          Add-WindowsCapability -Online -Name OpenSSH.Server*
+          choco install openssh -y | Out-Null
          #Start Service
-          #. "C:\Program Files\OpenSSH-Win64\install-sshd.ps1"
-          #. "C:\Program Files\OpenSSH-Win64\ssh-keygen.exe" -A
-          #Start-Process -Wait -FilePath "C:\Program Files\OpenSSH-Win64\sshd.exe" -WindowStyle Hidden
-          #Start-Sleep 5
+          . "C:\Program Files\OpenSSH-Win64\install-sshd.ps1"
+          . "C:\Program Files\OpenSSH-Win64\ssh-keygen.exe" -A
+          Start-Process -Wait -FilePath "C:\Program Files\OpenSSH-Win64\sshd.exe" -WindowStyle Hidden
+          Start-Sleep 5
          #Fix Perms 
           #https://github.com/PowerShell/Win32-OpenSSH/wiki/OpenSSH-utility-scripts-to-fix-file-permissions
-          #. "C:\Program Files\OpenSSH-Win64\FixHostFilePermissions.ps1" -Confirm:$false | Out-Null
-          #. "C:\Program Files\OpenSSH-Win64\FixUserFilePermissions.ps1" -Confirm:$false | Out-Null
+          . "C:\Program Files\OpenSSH-Win64\FixHostFilePermissions.ps1" -Confirm:$false | Out-Null
+          . "C:\Program Files\OpenSSH-Win64\FixUserFilePermissions.ps1" -Confirm:$false | Out-Null
          #Add Public SSH Key
-          #New-Item -Path "$env:USERPROFILE\.ssh" -ItemType Directory -Force
+          New-Item -Path "$env:USERPROFILE\.ssh" -ItemType Directory -Force
           #Add-Content -Path "$env:USERPROFILE\.ssh\authorized_keys" -Value "$((Invoke-RestMethod -Uri "${{ env.SSH_PUBLIC_KEY_URL }}").Split("`n")[1])"
-          #(Invoke-RestMethod -Uri "${{ env.SSH_PUBLIC_KEY_URL }}").Split("`n") | ForEach-Object { if (-not [string]::IsNullOrWhiteSpace($_)) { Add-Content -Path "$env:USERPROFILE\.ssh\authorized_keys" -Value $_ } }
+          (Invoke-RestMethod -Uri "${{ env.SSH_PUBLIC_KEY_URL }}").Split("`n") | ForEach-Object { if (-not [string]::IsNullOrWhiteSpace($_)) { Add-Content -Path "$env:USERPROFILE\.ssh\authorized_keys" -Value $_ } }
          #Configure SSH Config
-          #$filePath = Join-Path $env:ProgramData "ssh\sshd_config"; if (-not (Test-Path $filePath)) { New-Item -Path (Split-Path $filePath) -Name "sshd_config" -ItemType File }; Add-Content -Path $filePath -Value "PasswordAuthentication yes`nAllowTcpForwarding yes`nPubkeyAuthentication yes"
+          $filePath = Join-Path $env:ProgramData "ssh\sshd_config"; if (-not (Test-Path $filePath)) { New-Item -Path (Split-Path $filePath) -Name "sshd_config" -ItemType File }; Add-Content -Path $filePath -Value "PasswordAuthentication yes`nAllowTcpForwarding yes`nPubkeyAuthentication yes"
          #Configure Firewall
           New-NetFirewallRule -Protocol TCP -LocalPort 22 -Direction Inbound -Action Allow -DisplayName "OpenSSH-Server-In-TCP"
           New-NetFirewallRule -Protocol TCP -LocalPort 22 -Direction Outbound -Action Allow -DisplayName "OpenSSH-Server-Out-TCP"
@@ -133,10 +133,10 @@ jobs:
       - name: SSH (Breakpoint) || Sleep ∞
         run: |        
           #Finally ReStart 
-          #Stop-Process -Name sshd -Force 2>$null
-          #Start-Process -Wait -FilePath "C:\Program Files\OpenSSH-Win64\sshd.exe" -WindowStyle Hidden ; Start-Sleep 5
+          Stop-Process -Name sshd -Force 2>$null -ErrorAction SilentlyContinue
+          Start-Process -Wait -FilePath "C:\Program Files\OpenSSH-Win64\sshd.exe" -WindowStyle Hidden ; Start-Sleep 5
           #Check 
-          #Get-Process -Name sshd   
+          Get-Process -Name sshd   
           #Sleep
           while ($true) {Start-Sleep -Seconds 1} 
         continue-on-error: true 

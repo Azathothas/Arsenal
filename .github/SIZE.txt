@@ -20,7 +20,7 @@
  44K   │ │ ├── aki_subfinder_provider_config_yaml_checker.sh
  32K   │ │ └── apikeybeast.py
  12K   │ └── README.md
-256K   ├─┬ misc
+260K   ├─┬ misc
  84K   │ ├─┬ Github
  80K   │ │ └─┬ Runners
  52K   │ │   ├─┬ Ubuntu
@@ -52,8 +52,9 @@
  20K   │ ├─┬ Linux
  16K   │ │ └─┬ Debian
  12K   │ │   └── setup_ssh_x86_64.sh
- 16K   │ ├─┬ Google
- 12K   │ │ └─┬ Colab
+ 20K   │ ├─┬ Google
+ 16K   │ │ └─┬ Colab
+4.0K   │ │   ├── devsetup.sh
 4.0K   │ │   ├── debloat.sh
 4.0K   │ │   └── change_hostname.sh
  12K   │ ├─┬ Segfault
