@@ -25,7 +25,7 @@ else
 fi
 
 #Install/Update golang
-pushd "$(mktemp -d)" && echo "yes" | bash <(curl -qfsSL "https://git.io/go-installer") 2>/dev/null ; popd
+pushd "$(mktemp -d)" > /dev/null 2>&1 ; echo "yes" | bash <(curl -qfsSL "https://git.io/go-installer") 2>/dev/null ; popd > /dev/null 2>&1
 
 #Install Rust
 curl -qfsSL "https://sh.rustup.rs" | bash -s -- -y
