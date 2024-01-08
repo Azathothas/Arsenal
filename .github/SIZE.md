@@ -21,7 +21,7 @@
  44K   │ │ ├── aki_subfinder_provider_config_yaml_checker.sh
  32K   │ │ └── apikeybeast.py
  12K   │ └── README.md
-260K   ├─┬ misc
+264K   ├─┬ misc
  84K   │ ├─┬ Github
  80K   │ │ └─┬ Runners
  52K   │ │   ├─┬ Ubuntu
@@ -37,10 +37,10 @@
  24K   │ │ └─┬ scripts
  16K   │ │   ├── git_backup_windows.ps1
 4.0K   │ │   └── README.md
- 24K   │ ├─┬ WSL
- 16K   │ │ ├─┬ Debian
-8.0K   │ │ │ ├── README.md
-4.0K   │ │ │ └── customize.sh
+ 28K   │ ├─┬ WSL
+ 20K   │ │ ├─┬ Debian
+8.0K   │ │ │ ├── customize.sh
+8.0K   │ │ │ └── README.md
 4.0K   │ │ └── README.md
  24K   │ ├─┬ VMware
  12K   │ │ ├─┬ Parrot_Minimal
