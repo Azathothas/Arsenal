@@ -1,5 +1,5 @@
 ```mathematica
- 2.4M └─┬ main
+2.4M └─┬ main
 932K   ├─┬ wordium
 904K   │ ├─┬ Deps
 440K   │ │ ├── g_api.txt
