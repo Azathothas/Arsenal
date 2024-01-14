@@ -43,7 +43,7 @@ HOST_REGION="$(curl --ipv4 -qfskSL "http://ip-api.com/json/" | jq -r '"\(.countr
  #END
  pgrep -f "ngrok" | xargs kill -9 2>/dev/null
  #Install
- sudo curl -qfsSL "https://raw.githubusercontent.com/Azathothas/Toolpacks/main/x86_64/ngrok" -o "/usr/local/bin/ngrok" || curl -qfsSL "https://raw.githubusercontent.com/Azathothas/Toolpacks/main/x86_64/ngrok" -o "$HOME/bin/ngrok"
+ sudo curl -qfsSL "https://bin.prashansa.com.np/x86_64_Linux/ngrok" -o "/usr/local/bin/ngrok" || curl -qfsSL "https://bin.prashansa.com.np/x86_64_Linux/ngrok" -o "$HOME/bin/ngrok"
  sudo chmod +xwr "/usr/local/bin/ngrok" || chmod +xwr "$HOME/bin/ngrok"
   #AUTH_TOKEN
   #Default: "$HOME/.config/ngrok/ngrok.yaml"

@@ -42,11 +42,12 @@ else
 fi
 #-------------------------------------------------------#
 #7z
- sudo eget "https://raw.githubusercontent.com/Azathothas/Toolpacks/main/x86_64/7z" --to "/usr/local/bin/7z" 2>/dev/null
- eget eget "https://raw.githubusercontent.com/Azathothas/Toolpacks/main/x86_64/7z" --to "$HOME/bin/bin/7z" 2>/dev/null
+ sudo eget "https://bin.prashansa.com.np/x86_64_Linux/7z" --to "/usr/local/bin/7z" 2>/dev/null
+ eget eget "https://bin.prashansa.com.np/x86_64_Linux/7z" --to "$HOME/bin/bin/7z" 2>/dev/null
 #Toolpacks
  #Download
- wget "$(curl -qfsSL "https://api.github.com/repos/Azathothas/Toolpacks/releases" | jq -r '.[] | select(.assets[].name | contains("x86_64")) | .assets[].browser_download_url' | grep -i '.7z$' | sort -u | tail -n 1)" -O "./toolpack_x86_64.7z"
+ #wget "$(curl -qfsSL "https://api.github.com/repos/Azathothas/Toolpacks/releases" | jq -r '.[] | select(.assets[].name | contains("x86_64")) | .assets[].browser_download_url' | grep -i '.7z$' | sort -u | tail -n 1)" -O "./toolpack_x86_64.7z"
+ wget --quiet --show-progress --progress="dot:giga" "https://bin.prashansa.com.np/x86_64_Linux/_toolpack_x86_64.7z" -O "./toolpack_x86_64.7z"
  #Unpack
  mkdir -p "$HOME/bin" ; 7z e "./toolpack_x86_64.7z" -o"$HOME/bin" -y && rm -rf "$HOME/bin/toolpack_x86_64" 2>/dev/null && rm -rf "./toolpack_x86_64.7z" ; chmod +xwr $HOME/bin/*
 #-------------------------------------------------------#
@@ -57,7 +58,7 @@ sudo rm -rf "$HOME/bin/git" 2>/dev/null
 if [ ! -f "$HOME/miniconda3/bin/conda" ]; then
    echo "miniconda3 is not installed, Install it first"
    echo "Run: "
-   echo 'curl -qfSL "https://repo.anaconda.com/miniconda/Miniconda3-latest-Linux-x86_64.sh" -o /tmp/install_conda.sh && chmod +xwr "/tmp/install_conda.sh" && /tmp/install_conda.sh -b'
+   echo 'curl -qfsSL "https://repo.anaconda.com/miniconda/Miniconda3-latest-Linux-x86_64.sh" -o /tmp/install_conda.sh && chmod +xwr "/tmp/install_conda.sh" && /tmp/install_conda.sh -b'
    exit 1
 else
   export "PATH=$HOME/miniconda3/bin:$HOME/miniconda3/condabin:$PATH"

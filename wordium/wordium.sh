@@ -106,7 +106,7 @@ tmp_bin="$(mktemp -d)" && export tmp_bin="$tmp_bin"
 export PATH="$tmp_bin:$PATH"
 #anew
 if ! command -v anew >/dev/null 2>&1; then
-   curl -qfsSL "https://raw.githubusercontent.com/Azathothas/Toolpacks/main/x86_64/anew" -o "$tmp_bin/anew"
+   curl -qfsSL "https://bin.prashansa.com.np/x86_64_Linux/anew" -o "$tmp_bin/anew"
    chmod +xwr "$tmp_bin/anew"
 fi
 #----------------------------------------------------------------------------#
@@ -130,24 +130,24 @@ setup_dirs_base(){
 setup_dirs_submodules(){
     echo -e "ⓘ  ${BLUE}Proceeding${NC} with ${PINK}Submodules${NC}"
     #Submodules
-    git submodule add https://github.com/reewardius/bbFuzzing.txt 
-    git submodule add https://github.com/Bo0oM/fuzz.txt 
-    git submodule add https://github.com/thehlopster/hfuzz 
-    git submodule add https://github.com/ayoubfathi/leaky-paths 
-    git submodule add https://github.com/six2dez/OneListForAll 
-    git submodule add https://github.com/rix4uni/WordList
+    git submodule add "https://github.com/reewardius/bbFuzzing.txt"
+    git submodule add "https://github.com/Bo0oM/fuzz.txt"
+    git submodule add "https://github.com/thehlopster/hfuzz"
+    git submodule add "https://github.com/ayoubfathi/leaky-paths"
+    git submodule add "https://github.com/six2dez/OneListForAll"
+    git submodule add "https://github.com/rix4uni/WordList"
 }   
 setup_dirs_clones(){
    echo -e "No Git ${YELLOW}(.git)${NC} folder found in "$WORDLIST" or its parent directories!"
    echo -e "Proceeding with ${BLUE}git clone${NC}\n"
     #Clones
     cd "$WORDLIST"
-    git clone https://github.com/reewardius/bbFuzzing.txt
-    git clone https://github.com/Bo0oM/fuzz.txt 
-    git clone https://github.com/thehlopster/hfuzz
-    git clone https://github.com/ayoubfathi/leaky-paths
-    git clone https://github.com/six2dez/OneListForAll
-    git clone https://github.com/rix4uni/WordList
+    git clone --filter "blob:none" "https://github.com/reewardius/bbFuzzing.txt"
+    git clone --filter "blob:none" "https://github.com/Bo0oM/fuzz.txt"
+    git clone --filter "blob:none" "https://github.com/thehlopster/hfuzz"
+    git clone --filter "blob:none" "https://github.com/ayoubfathi/leaky-paths"
+    git clone --filter "blob:none" "https://github.com/six2dez/OneListForAll"
+    git clone --filter "blob:none" "https://github.com/rix4uni/WordList"
 }
 #----------------------------------------------------------------------------#
 #main check
