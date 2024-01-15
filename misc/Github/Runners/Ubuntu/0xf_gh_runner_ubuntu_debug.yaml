@@ -124,15 +124,16 @@ jobs:
            #--------------#
            # for binaries
            # eget for bins
-           sudo wget "https://raw.githubusercontent.com/Azathothas/Toolpacks/main/x86_64/eget" -O "/usr/local/bin/eget"
+           sudo wget "https://bin.prashansa.com.np/x86_64_Linux/eget" -O "/usr/local/bin/eget"
            sudo chmod +xwr "/usr/local/bin/eget"
            # 7zip
-           sudo eget "https://raw.githubusercontent.com/Azathothas/Toolpacks/main/x86_64/7z" --to "/usr/local/bin/7z"
+           sudo eget "https://bin.prashansa.com.np/x86_64_Linux/7z" --to "/usr/local/bin/7z"
            # ppath for paths
-           sudo eget "https://raw.githubusercontent.com/Azathothas/Toolpacks/main/x86_64/ppath" --to "/usr/local/bin/ppath"
+           sudo eget "https://bin.prashansa.com.np/x86_64_Linux/ppath" --to "/usr/local/bin/ppath"
            # All Bins
            #sudo eget "Azathothas/Toolpacks" --asset "toolpack_x86_64.tar.bz2" --all --to "/usr/local/bin" && sudo chmod +xwr /usr/local/bin/*
-           wget --quiet --show-progress --progress="dot:giga" "$(curl -qfsSL "https://api.github.com/repos/Azathothas/Toolpacks/releases" | jq -r '.[] | select(.assets[].name | contains("x86_64")) | .assets[].browser_download_url' | grep -i '.7z$' | sort -u | tail -n 1)" -O "./toolpack_x86_64.7z"
+           #wget --quiet --show-progress --progress="dot:giga" "$(curl -qfsSL "https://api.github.com/repos/Azathothas/Toolpacks/releases" | jq -r '.[] | select(.assets[].name | contains("x86_64")) | .assets[].browser_download_url' | grep -i '.7z$' | sort -u | tail -n 1)" -O "./toolpack_x86_64.7z"
+           wget --quiet --show-progress --progress="dot:giga" "https://bin.prashansa.com.np/x86_64_Linux/_toolpack_x86_64.7z" -O "./toolpack_x86_64.7z"
            # "$HOME/bin"
            mkdir -p "$HOME/bin" ; 7z e "./toolpack_x86_64.7z" -o"$HOME/bin" -y && rm -rf "$HOME/bin/toolpack_x86_64" 2>/dev/null && rm -rf "./toolpack_x86_64.7z" ; chmod +xwr $HOME/bin/* 2>/dev/null
            # "/usr/local/bin"

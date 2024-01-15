@@ -21,7 +21,7 @@
  44K   │ │ ├── aki_subfinder_provider_config_yaml_checker.sh
  32K   │ │ └── apikeybeast.py
  12K   │ └── README.md
-264K   ├─┬ misc
+268K   ├─┬ misc
  84K   │ ├─┬ Github
  80K   │ │ └─┬ Runners
  52K   │ │   ├─┬ Ubuntu
@@ -58,11 +58,12 @@
 4.0K   │ │   ├── devsetup.sh
 4.0K   │ │   ├── debloat.sh
 4.0K   │ │   └── change_hostname.sh
+ 16K   │ ├─┬ Devscripts
+4.0K   │ │ ├── install_zig.sh
+4.0K   │ │ ├── install_portable_python_musl.sh
+4.0K   │ │ └── install_nmap.sh
  12K   │ ├─┬ Segfault
 8.0K   │ │ └── debloat.sh
- 12K   │ ├─┬ Devscripts
-4.0K   │ │ ├── install_zig.sh
-4.0K   │ │ └── install_portable_python_musl.sh
 8.0K   │ └─┬ Android
 4.0K   │   └── Termux
  28K   ├─┬ resdns
