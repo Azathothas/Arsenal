@@ -1,5 +1,22 @@
 - #### Forked: [003random/getJS](https://github.com/003random/getJS)
 ---
+- #### Usage
+```mathematica
+❯ getJS --help
+Usage of getJS:
+      --complete             Complete the url. e.g. append the domain to the path
+  -H, --header stringArray   Any HTTP headers(-H "Authorization:Bearer token")
+      --input string         Input file with urls
+      --insecure             Check the SSL security checks. Use when the certificate is expired or invalid
+      --method string        The request method. e.g. GET or POST (default "GET")
+      --nocolors             Enable or disable colors
+      --output string        Output file to save the results to
+      --resolve              Output only existing files
+      --timeout int          Max timeout for the requests (default 10)
+      --url string           The url to get the javascript sources from
+      --verbose              Display info of what is going on
+```
+---
 ```bash
 !# Install
 !# With root
