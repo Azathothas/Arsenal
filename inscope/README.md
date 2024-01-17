@@ -1,3 +1,16 @@
+- #### Usage
+```mathematica
+❯ inscope --help
+Filters in scope and out of scope urls from stdin.
+Requires you have .scope in CWD or Parent.
+To generate one: https://github.com/Azathothas/Utils/tree/main/Binaries/Tools/Arsenal/scopegen
+For a Bash Alternative: https://github.com/Azathothas/Utils/tree/main/Binaries/Tools/Arsenal/scopeview
+
+Options:
+  <no options>          look for .scope file and filter input (STDIN)
+  -v, --inverse         Prints out of scope items
+```
+---
 ```bash
 !# Install
 !# With root
