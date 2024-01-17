@@ -1,5 +1,18 @@
 - #### Forked: [tomnomnom/comb](https://github.com/tomnomnom/hacks/tree/master/comb)
 ---
+- #### Usage
+```mathematica
+❯ comb --help
+Combine the lines from two files in every combination
+
+Usage:
+  comb [OPTIONS] <prefixfile> <suffixfile>
+
+Options:
+  -f, --flip             Flip mode (order by suffix)
+  -s, --separator <str>  String to place between prefix and suffix
+```
+---
 ```bash
 !# Install
 !# With root
