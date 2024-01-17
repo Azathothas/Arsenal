@@ -23,8 +23,8 @@ func init() {
 		h := []string{
 			"Filters in scope and out of scope urls from stdin.",
 			"Requires you have .scope in CWD or Parent.",
-			"To generate one: https://github.com/Azathothas/Utils/tree/main/Binaries/Tools/Arsenal/scopegen",
-			"For a Bash Alternative: https://github.com/Azathothas/Utils/tree/main/Binaries/Tools/Arsenal/scopeview",
+			"To generate one: https://github.com/Azathothas/Arsenal/tree/main/scopegen",
+			"For a Bash Alternative: https://github.com/Azathothas/Arsenal/tree/main/scopeview",
 			"",
 			"Options:",
 			"  <no options>          look for .scope file and filter input (STDIN)",
