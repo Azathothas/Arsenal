@@ -1,5 +1,20 @@
 - #### Forked: [Sh1Yo/rate-limit-checker](https://github.com/Sh1Yo/rate-limit-checker)
 ---
+- #### Usage
+```mathematica
+❯ rate-limit-checker -h
+Usage of rate-limit-checker:
+  -X string
+        method (default "HEAD")
+  -a int
+        times (default 500)
+  -s    continue after the code changing
+  -t int
+        threads (default 10)
+  -u string
+        url
+```
+---
 ```bash
 !# Install
 !# With root
