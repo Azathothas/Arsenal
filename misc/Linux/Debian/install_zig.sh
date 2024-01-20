@@ -9,6 +9,7 @@
 #Bootstrap
 bash <(curl -qfsSL "https://raw.githubusercontent.com/Azathothas/Arsenal/main/misc/Linux/Debian/bootstrap.sh") 2>/dev/null
 #Clean env
+sudo rm "/usr/local/zig" -rf 2>/dev/null ; sudo rm "/usr/local/zig" -rf 2>/dev/null
 CWD_PATH="$(realpath .)" && export CWD_PATH="$CWD_PATH"
 #Get latest source
 pushd "$(mktemp -d)" > /dev/null 2>&1 && curl -qfSLJO $(curl -qfsSL "https://ziglang.org/download/index.json" | jq -r '.master | ."x86_64-linux".tarball')
