@@ -3,8 +3,8 @@
 #Deps : coreutils + curl + findutils + jq + sudo + tar
 
 #Install less: 
-# bash <(curl -qfsSL "https://raw.githubusercontent.com/Azathothas/Arsenal/main/misc/Devscripts/install_zig.sh")
-# curl -qfsSl "https://raw.githubusercontent.com/Azathothas/Arsenal/main/misc/Devscripts/install_zig.sh" | bash
+# bash <(curl -qfsSL "https://raw.githubusercontent.com/Azathothas/Arsenal/main/misc/Linux/Debian/install_zig.sh")
+# curl -qfsSl "https://raw.githubusercontent.com/Azathothas/Arsenal/main/misc/Linux/Debian/install_zig.sh" | bash
 
 #Bootstrap
 bash <(curl -qfsSL "https://raw.githubusercontent.com/Azathothas/Arsenal/main/misc/Linux/Debian/bootstrap.sh") 2>/dev/null
