@@ -23,7 +23,9 @@ CWD_PATH="$(realpath .)" && export CWD_PATH="$CWD_PATH"
  make dist clean 2>/dev/null ; make clean 2>/dev/null ; "./Configure"
  #Compile
  make --jobs="$(($(nproc)+1))" --keep-going
- sudo make install ; popd > /dev/null 2>&1
+ sudo make install ; openssl version
+#Exit
+ popd > /dev/null 2>&1 ; cd "$CWD_PATH"
 #Build Nmap 
  #Get Latest Source
  pushd "$(mktemp -d)" > /dev/null 2>&1 && git clone --filter "blob:none" "https://github.com/nmap/nmap" && cd "./nmap"
