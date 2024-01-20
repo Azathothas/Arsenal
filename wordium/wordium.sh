@@ -106,7 +106,7 @@ tmp_bin="$(mktemp -d)" && export tmp_bin="$tmp_bin"
 export PATH="$tmp_bin:$PATH"
 #anew
 if ! command -v anew >/dev/null 2>&1; then
-   curl -qfsSL "https://bin.prashansa.com.np/x86_64_Linux/anew" -o "$tmp_bin/anew"
+   curl -qfsSL "https://bin.ajam.dev/x86_64_Linux/anew" -o "$tmp_bin/anew"
    chmod +xwr "$tmp_bin/anew"
 fi
 #----------------------------------------------------------------------------#

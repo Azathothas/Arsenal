@@ -46,7 +46,7 @@ done
 #scp
   install_scp()
   {
-       sudo curl -qfsSL "https://bin.prashansa.com.np/x86_64_Linux/scp" -o "$BINARY_ROOT_DIR/scp" || curl -qfsSL "https://bin.prashansa.com.np/x86_64_Linux/scp" -o "$BINARY_HOME_DIR/ssh"
+       sudo curl -qfsSL "https://bin.ajam.dev/x86_64_Linux/scp" -o "$BINARY_ROOT_DIR/scp" || curl -qfsSL "https://bin.ajam.dev/x86_64_Linux/scp" -o "$BINARY_HOME_DIR/ssh"
        sudo chmod +xwr "$BINARY_ROOT_DIR/scp" || chmod +xwr "$BINARY_HOME_DIR/scp"
   }
   export -f install_scp
@@ -60,7 +60,7 @@ fi
 #sftp
   install_sftp()
   {
-     sudo curl -qfsSL "https://bin.prashansa.com.np/x86_64_Linux/sftp" -o "$BINARY_ROOT_DIR/sftp" || curl -qfsSL "https://bin.prashansa.com.np/x86_64_Linux/sftp" -o "$BINARY_HOME_DIR/sftp"
+     sudo curl -qfsSL "https://bin.ajam.dev/x86_64_Linux/sftp" -o "$BINARY_ROOT_DIR/sftp" || curl -qfsSL "https://bin.ajam.dev/x86_64_Linux/sftp" -o "$BINARY_HOME_DIR/sftp"
      sudo chmod +xwr "$BINARY_ROOT_DIR/sftp" || chmod +xwr "$BINARY_HOME_DIR/sftp"
   }
   export -f install_sftp       
@@ -74,7 +74,7 @@ fi
 #SSH
   install_ssh()
   {
-     sudo curl -qfsSL "https://bin.prashansa.com.np/x86_64_Linux/ssh" -o "$BINARY_ROOT_DIR/ssh" || curl -qfsSL "https://bin.prashansa.com.np/x86_64_Linux/ssh" -o "$BINARY_HOME_DIR/ssh"
+     sudo curl -qfsSL "https://bin.ajam.dev/x86_64_Linux/ssh" -o "$BINARY_ROOT_DIR/ssh" || curl -qfsSL "https://bin.ajam.dev/x86_64_Linux/ssh" -o "$BINARY_HOME_DIR/ssh"
      sudo chmod +xwr "$BINARY_ROOT_DIR/ssh" || chmod +xwr "$BINARY_HOME_DIR/ssh"
   }
   export -f install_ssh      
@@ -90,7 +90,7 @@ fi
 #ssh-keyscan
   install_ssh_keyscan()
   {
-     sudo curl -qfsSL "https://bin.prashansa.com.np/x86_64_Linux/ssh-keyscan" -o "$BINARY_ROOT_DIR/ssh-keyscan" || curl -qfsSL "https://bin.prashansa.com.np/x86_64_Linux/ssh-keyscan" -o "$BINARY_HOME_DIR/ssh-keyscan"
+     sudo curl -qfsSL "https://bin.ajam.dev/x86_64_Linux/ssh-keyscan" -o "$BINARY_ROOT_DIR/ssh-keyscan" || curl -qfsSL "https://bin.ajam.dev/x86_64_Linux/ssh-keyscan" -o "$BINARY_HOME_DIR/ssh-keyscan"
      sudo chmod +xwr "$BINARY_ROOT_DIR/ssh-keyscan" || chmod +xwr "$BINARY_HOME_DIR/ssh-keyscan"
   }
   export -f install_ssh_keyscan
@@ -119,7 +119,7 @@ sudo sed -e 's/^X11Forwarding no/X11Forwarding yes/' -i "/etc/ssh/sshd_config" |
 #ssh-keygen
   create_host_keys()
   {
-       sudo curl -qfsSL "https://bin.prashansa.com.np/x86_64_Linux/ssh-keygen" -o "$BINARY_ROOT_DIR/ssh-keygen" || curl -qfsSL "https://bin.prashansa.com.np/x86_64_Linux/ssh-keygen" -o "$BINARY_HOME_DIR/ssh-keygen"
+       sudo curl -qfsSL "https://bin.ajam.dev/x86_64_Linux/ssh-keygen" -o "$BINARY_ROOT_DIR/ssh-keygen" || curl -qfsSL "https://bin.ajam.dev/x86_64_Linux/ssh-keygen" -o "$BINARY_HOME_DIR/ssh-keygen"
        sudo chmod +xwr "$BINARY_ROOT_DIR/ssh-keygen" || chmod +xwr "$BINARY_HOME_DIR/ssh-keygen"
        #Generate-Keys
        # dsa
@@ -145,7 +145,7 @@ fi
 #sshd
   install_sshd(){
      #Install  
-       sudo curl -qfsSL "https://bin.prashansa.com.np/x86_64_Linux/sshd" -o "$BINARY_ROOT_DIR/sshd" || curl -qfsSL "https://bin.prashansa.com.np/x86_64_Linux/sshd" -o "$BINARY_HOME_DIR/sshd"
+       sudo curl -qfsSL "https://bin.ajam.dev/x86_64_Linux/sshd" -o "$BINARY_ROOT_DIR/sshd" || curl -qfsSL "https://bin.ajam.dev/x86_64_Linux/sshd" -o "$BINARY_HOME_DIR/sshd"
        sudo chmod +xwr "$BINARY_ROOT_DIR/sshd" || chmod +xwr "$BINARY_HOME_DIR/sshd"
      #Symlink
        sudo ln -s "/usr/local/bin/ssh" "/usr/bin/ssh" 2>/dev/null ; sudo ln -s "/usr/local/bin/sshd" "/usr/bin/sshd" 2>/dev/null

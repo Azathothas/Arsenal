@@ -76,13 +76,13 @@ fi
 #jq, for parsing json
 if ! command -v jq >/dev/null 2>&1; then
     echo -e "➼ ${PINK}jq${NC} is ${RED}not installed${NC}. ${GREEN}Installing...${NC}"
-    curl -qfsSL "https://bin.prashansa.com.np/x86_64_Linux/jq" -o "/tmp/aki/bin/jq"
+    curl -qfsSL "https://bin.ajam.dev/x86_64_Linux/jq" -o "/tmp/aki/bin/jq"
     chmod +xwr "/tmp/aki/bin/jq"
 fi
 #yq, for parsing yaml
 if ! command -v yq >/dev/null 2>&1; then
     echo -e "➼ ${PINK}yq${NC} is ${RED}not installed${NC}. ${GREEN}Installing...${NC}"
-    curl -qfsSL "https://bin.prashansa.com.np/x86_64_Linux/yq" -o "/tmp/aki/bin/yq"
+    curl -qfsSL "https://bin.ajam.dev/x86_64_Linux/yq" -o "/tmp/aki/bin/yq"
     chmod +xwr "/tmp/aki/bin/yq"
 fi
 #Quota (ApiKeyBeast)
