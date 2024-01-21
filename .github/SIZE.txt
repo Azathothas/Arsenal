@@ -1,4 +1,4 @@
-2.4M └─┬ main
+2.5M └─┬ main
 932K   ├─┬ wordium
 904K   │ ├─┬ Deps
 440K   │ │ ├── g_api.txt
@@ -20,18 +20,24 @@
  44K   │ │ ├── aki_subfinder_provider_config_yaml_checker.sh
  32K   │ │ └── apikeybeast.py
  12K   │ └── README.md
-268K   ├─┬ misc
- 84K   │ ├─┬ Github
- 80K   │ │ └─┬ Runners
- 52K   │ │   ├─┬ Ubuntu
- 20K   │ │   │ ├── 0xf_gh_runner_ubuntu_debug.yaml
+280K   ├─┬ misc
+ 80K   │ ├─┬ Github
+ 76K   │ │ └─┬ Runners
+ 48K   │ │   ├─┬ Ubuntu
  16K   │ │   │ ├── 0xf_gh_runner_ubuntu_ng_no_ts_debug.yaml
+ 16K   │ │   │ ├── 0xf_gh_runner_ubuntu_debug.yaml
 8.0K   │ │   │ ├── ngrok_tg_ssh.sh
 4.0K   │ │   │ └── debloat.sh
  16K   │ │   ├─┬ Windows
  12K   │ │   │ └── 0xf_gh_runner_windows_debug.yaml
 8.0K   │ │   └─┬ macOS
 4.0K   │ │     └── 0xf_gh_runner_macos_debug.yaml
+ 36K   │ ├─┬ Linux
+ 32K   │ │ └─┬ Debian
+ 12K   │ │   ├── setup_ssh_x86_64.sh
+8.0K   │ │   ├── install_ncurses_zig_x86_64.sh
+4.0K   │ │   ├── install_zig.sh
+4.0K   │ │   └── bootstrap.sh
  28K   │ ├─┬ Windows
  24K   │ │ └─┬ scripts
  16K   │ │   ├── git_backup_windows.ps1
@@ -49,9 +55,6 @@
  24K   │ ├─┬ Microsoft
  20K   │ │ └─┬ Azure
  16K   │ │   └── Azure_for_Students.md
- 20K   │ ├─┬ Linux
- 16K   │ │ └─┬ Debian
- 12K   │ │   └── setup_ssh_x86_64.sh
  20K   │ ├─┬ Google
  16K   │ │ └─┬ Colab
 4.0K   │ │   ├── devsetup.sh
