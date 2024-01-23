@@ -108,10 +108,10 @@ jobs:
           echo "NEPALI_TIME=$NEPALI_TIME" >> $GITHUB_ENV
         continue-on-error: true
 
-     - name: Git Pull
-       run: |
+      - name: Git Pull
+        run: |
           cd "$GITHUB_WORKSPACE/main" && git pull origin main
-       continue-on-error: true
+        continue-on-error: true
 
       - uses: stefanzweifel/git-auto-commit-action@v5
         with:
@@ -120,7 +120,7 @@ jobs:
           commit_user_email: AjamX101@gmail.com # defaults to "41898282+github-actions[bot]@users.noreply.github.com"
           commit_message: "✅ 🐧🧹 🖳🗑️"
           #push_options: '--force'
-       continue-on-error: true
+        continue-on-error: true
 #------------------------------------------------------------------------------------#
       - name: rClone Generate Metadata (bin.ajam.dev)
         run: |
