@@ -136,6 +136,7 @@ jobs:
           #Del Bloat
           rm -rf "$(pwd)/.git"
           #Upload to Pub
+          echo -e "[+] Syncing $GITHUB_REPOSITORY to pub.ajam.dev/repos/$GITHUB_REPOSITORY \n"
           rclone copy "." "r2:/pub/repos/$GITHUB_REPOSITORY/" --progress --check-first
         continue-on-error: true
 #EOF
