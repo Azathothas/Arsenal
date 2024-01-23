@@ -124,7 +124,7 @@ jobs:
           #push_options: '--force'
         continue-on-error: true
 #------------------------------------------------------------------------------------#
-      - name: rClone BackUp Repo ("https://pub.ajam.dev/repos/")
+      - name: rClone BackUp Repo ("https://pub.ajam.dev/repos/$GITHUB_REPOSITORY")
         run: |
           # Presets
           set -x ; set +e
@@ -133,6 +133,8 @@ jobs:
           echo "${{ secrets.RCLONE_CF_R2_PUB }}" > "$HOME/.rclone.conf"
           #chdir to Repo
           cd "$GITHUB_WORKSPACE/main"
+          #Git pull
+          git pull origin main -m "Merge & Sync" || git pull origin main --no-edit
           #Del Bloat
           rm -rf "$(pwd)/.git"
           #Upload to Pub
