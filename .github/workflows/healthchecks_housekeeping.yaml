@@ -134,7 +134,7 @@ jobs:
           #chdir to Repo
           cd "$GITHUB_WORKSPACE/main"
           #Git pull
-          git pull origin main -m "Merge & Sync" || git pull origin main --no-edit
+          git pull origin main --no-edit 2>/dev/null
           #Del Bloat
           rm -rf "$(pwd)/.git"
           #Upload to Pub
