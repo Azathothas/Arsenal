@@ -131,9 +131,11 @@ jobs:
           #--------------#
           #touch "$HOME/.rclone.conf"
           echo "${{ secrets.RCLONE_CF_R2_PUB }}" > "$HOME/.rclone.conf"
-          #Upload to Pub
+          #chdir to Repo
           cd "$GITHUB_WORKSPACE/main"
+          #Del Bloat
           rm -rf "$(pwd)/.git"
+          #Upload to Pub
           rclone copy "." "r2:/pub/repos/$GITHUB_REPOSITORY/" --progress --check-first
         continue-on-error: true
 #EOF
