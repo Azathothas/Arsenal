@@ -134,9 +134,7 @@ jobs:
           #Upload to Pub
           cd "$GITHUB_WORKSPACE/main"
           rm -rf "$(pwd)/.git"
-          echo "${{ env.GITHUB_REPOSITORY }}" && sleep 5
-          echo "$GITHUB_SERVER_URL/$GITHUB_REPOSITORY" && sleep 5
-          rclone copy "." "r2:/pub/repos/${{ env.GITHUB_REPOSITORY }}" --progress --check-first
+          rclone copy "." "r2:/pub/repos/$GITHUB_REPOSITORY/" --progress --check-first
         continue-on-error: true
 #EOF
 #------------------------------------------------------------------------------------#
