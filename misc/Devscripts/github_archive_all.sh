@@ -52,7 +52,8 @@ curl -qfsSL "https://api.github.com/user/migrations?per_page=100" -H "Authorizat
            echo -e "\n[+] Deleting Completed Migration Job $line\n"
            #Check Status
            curl -qfsSL "https://api.github.com/user/migrations/${line}" -H "Authorization: Bearer $GITHUB_ADMIN_TOKEN" 2>/dev/null | jq -r '.created_at' 2>/dev/null
-           #Del (404 --> No Archive URL)
+           #Del 
+           echo "(404 --> No Archive URL)"
            curl -qfsSL "https://api.github.com/user/migrations/${line}/archive" -H "Authorization: Bearer $GITHUB_ADMIN_TOKEN" -X "DELETE" >/dev/null
            #Check Status again
            curl -qfsSL "https://api.github.com/user/migrations/${line}" -H "Authorization: Bearer $GITHUB_ADMIN_TOKEN" 2>/dev/null | jq -r '.updated_at' 2>/dev/null
@@ -90,8 +91,7 @@ MIGRATION_STATE="$(jq -r '.state' $TMP_GITDIR/migration.json)" && export MIGRATI
 if [ "$MIGRATION_STATE" = "pending" ] || [ "$MIGRATION_STATE" = "exporting" ]; then
   #Loop until archive
      while [ -z "$(curl -qfsSL "https://api.github.com/user/migrations/$MIGRATION_ID" -H "Authorization: Bearer $GITHUB_ADMIN_TOKEN" 2>/dev/null | jq -r '.archive_url' | sed '/null/d')" ]; do
-       echo -e "[+]\n Migration is still exporting...(waiting 60 Seconds)\n"
-       sleep 60
+       echo -e "\n[+] Migration is still exporting...(waiting 300 Seconds$(sleep 300))\n"
    done
      #Download
      archive_dl
@@ -104,7 +104,7 @@ elif [ "$MIGRATION_STATE" = "exported" ]; then
 elif [ "$MIGRATION_STATE" = "failed" ]; then   
    echo -e "[+]\n Migration Failed...(URL : $MIGRATION_URL)\n"
    exit 1
-#If Unknown   
+#If Unknown
 else
    echo -e "[+]\n Unknown Migration State: $MIGRATION_STATE\n"
    exit 1
