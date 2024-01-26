@@ -80,7 +80,7 @@ archive_dl()
        #Metdata
        echo -e "\n" ; file "$TMP_GITDIR/Archive.tar.gz" ; echo -e "\n" ; du -sh "$TMP_GITDIR/Archive.tar.gz" ; echo -e "\n"
     #rClone Upload
-       rclone copyto "$TMP_GITDIR/Archive.tar.gz" "r2:/private/repos/Azathothas/" --progress --check-first 2>/dev/null
+       rclone copyto "$TMP_GITDIR/Archive.tar.gz" "r2:/private/repos/Azathothas/Archive.tar.gz" --progress --check-first 2>/dev/null
 }
 export -f archive_dl
 #Refresh Migration State
@@ -89,7 +89,7 @@ MIGRATION_STATE="$(jq -r '.state' $TMP_GITDIR/migration.json)" && export MIGRATI
 #Pending or Exporting
 if [ "$MIGRATION_STATE" = "pending" ] || [ "$MIGRATION_STATE" = "exporting" ]; then
   #Loop until archive
-   while [ -z "$(curl -qfsSL "https://api.github.com/user/migrations/$MIGRATION_ID" -H "Authorization: Bearer $GITHUB_ADMIN_TOKEN" 2>/dev/null | jq -r '.archive_url')" ]; do
+     while [ -z "$(curl -qfsSL "https://api.github.com/user/migrations/$MIGRATION_ID" -H "Authorization: Bearer $GITHUB_ADMIN_TOKEN" 2>/dev/null | jq -r '.archive_url' | sed '/null/d')" ]; do
        echo -e "[+]\n Migration is still exporting...(waiting 60 Seconds)\n"
        sleep 60
    done
