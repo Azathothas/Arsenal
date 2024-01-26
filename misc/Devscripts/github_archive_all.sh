@@ -65,7 +65,7 @@ curl -qfsSL "https://api.github.com/user/migrations?per_page=100" -H "Authorizat
 
 #----------------------------------------------------------------------------#
 ##Sleep
-echo -e "\n[+] Sleeping for 10 Mins $(sleep 600)\n"
+echo -e "\n[+] Sleeping for 10 Mins\n" && sleep 600
 ##Download func
 archive_dl()
 {
@@ -91,7 +91,7 @@ MIGRATION_STATE="$(jq -r '.state' $TMP_GITDIR/migration.json)" && export MIGRATI
 if [ "$MIGRATION_STATE" = "pending" ] || [ "$MIGRATION_STATE" = "exporting" ]; then
   #Loop until archive
      while [ -z "$(curl -qfsSL "https://api.github.com/user/migrations/$MIGRATION_ID" -H "Authorization: Bearer $GITHUB_ADMIN_TOKEN" 2>/dev/null | jq -r '.archive_url' | sed '/null/d')" ]; do
-       echo -e "\n[+] Migration is still exporting...(waiting 300 Seconds$(sleep 300))\n"
+       echo -e "\n[+] Migration is still exporting...(waiting 300 Seconds)\n" && sleep 300
    done
      #Download
      archive_dl
