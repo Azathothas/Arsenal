@@ -13,6 +13,7 @@ WIP
 > - https://www.reddit.com/r/AZURE/comments/8e9ug1/is_there_a_caveat_with_the_b_series_machines/
 > - https://www.reddit.com/r/AZURE/comments/11o1mug/why_is_my_b8ms_azure_vm_too_slow/
 ---
+- https://azureprice.net/ --> Updated Prices
 - #### Specs & Comparison
 | VM Size | Type | vCPUs | RAM (GiB) | [Data Disks](https://learn.microsoft.com/en-us/azure/virtual-machines/managed-disks-overview#data-disk) | [Max IOPS](https://blog.purestorage.com/purely-technical/an-analysis-of-io-size-modalities-on-pure-storage-flasharrays/) | [Temp Storage (GiB)](https://www.cloudelicious.net/azure-vms-and-their-temporary-storage/) | Cost/Month | Comments (Remarks)|
 |---------|------|-------|-----------|------------|----------|--------------------|------------|-------------------|
