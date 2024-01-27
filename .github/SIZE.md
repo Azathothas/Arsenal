@@ -21,7 +21,7 @@
  44K   │ │ ├── aki_subfinder_provider_config_yaml_checker.sh
  32K   │ │ └── apikeybeast.py
  12K   │ └── README.md
-280K   ├─┬ misc
+288K   ├─┬ misc
  80K   │ ├─┬ Github
  76K   │ │ └─┬ Runners
  48K   │ │   ├─┬ Ubuntu
@@ -56,15 +56,16 @@
  24K   │ ├─┬ Microsoft
  20K   │ │ └─┬ Azure
  16K   │ │   └── Azure_for_Students.md
+ 24K   │ ├─┬ Devscripts
+8.0K   │ │ ├── github_archive_all.sh
+4.0K   │ │ ├── install_zig.sh
+4.0K   │ │ ├── install_portable_python_musl.sh
+4.0K   │ │ └── install_nmap.sh
  20K   │ ├─┬ Google
  16K   │ │ └─┬ Colab
 4.0K   │ │   ├── devsetup.sh
 4.0K   │ │   ├── debloat.sh
 4.0K   │ │   └── change_hostname.sh
- 16K   │ ├─┬ Devscripts
-4.0K   │ │ ├── install_zig.sh
-4.0K   │ │ ├── install_portable_python_musl.sh
-4.0K   │ │ └── install_nmap.sh
  12K   │ ├─┬ Segfault
 8.0K   │ │ └── debloat.sh
 8.0K   │ └─┬ Android
