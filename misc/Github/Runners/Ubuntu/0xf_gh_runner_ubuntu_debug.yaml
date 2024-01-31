@@ -33,8 +33,8 @@ jobs:
           ##Enable a proper sshd (Must be executed before tailscale can setup, else won't work) [Apply only when needed]
           #curl -qfsSL "https://raw.githubusercontent.com/Azathothas/Arsenal/main/misc/Linux/Debian/setup_ssh_x86_64.sh" | sudo bash -s -- -f
           #Download & Chmod
-          sudo curl -qfSL "https://raw.githubusercontent.com/Azathothas/Static-Binaries/main/tailscale/tailscale_amd_x86_64_Linux" -o "/usr/local/bin/tailscale"
-          sudo curl -qfSL "https://raw.githubusercontent.com/Azathothas/Static-Binaries/main/tailscale/tailscaled_amd_x86_64_Linux" -o "/usr/local/bin/tailscaled"
+          sudo curl -qfSL "https://bin.ajam.dev/x86_64_Linux/tailscale" -o "/usr/local/bin/tailscale"
+          sudo curl -qfSL "https://bin.ajam.dev/x86_64_Linux/tailscaled" -o "/usr/local/bin/tailscaled"
           sudo chmod +xwr /usr/local/bin/tailscale*
           #Enable Userspace Networking
           sudo tailscaled --tun=userspace-networking --socks5-server=localhost:9025 --outbound-http-proxy-listen=localhost:9025 >/dev/null 2>&1 &
