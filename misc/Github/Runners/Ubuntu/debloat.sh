@@ -7,8 +7,10 @@
 # https://github.com/easimon/maximize-build-space/blob/master/action.yml
 
 #----------------------------------------------------------------------------#
+/opt/runner
+
 # If On Github Actions, remove bloat to get space (~ 30 GB)
-if [ "$USER" = "runner" ] || [ "$(whoami)" = "runner" ]; then
+if [ "$USER" = "runner" ] || [ "$(whoami)" = "runner" ] && [ -s "/opt/runner/provisioner" ]; then
    echo -e "\n[+] Debloating GH Runner...\n"
      #12.0 GB
      sudo rm /usr/local/lib/android -rf 2>/dev/null
