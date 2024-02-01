@@ -1,8 +1,8 @@
 #!/usr/bin/env bash
 
 #Install less: 
-# bash <(curl -qfsSL "https://raw.githubusercontent.com/Azathothas/Arsenal/main/misc/Linux/Debian/install_ncurses_zig_x86_64.sh")
-# curl -qfsSl "https://raw.githubusercontent.com/Azathothas/Arsenal/main/misc/Linux/Debian/install_ncurses_zig_x86_64.sh" | bash
+# bash <(curl -qfsSL "https://pub.ajam.dev/repos/Azathothas/Arsenal/misc/Linux/Debian/install_ncurses_zig_x86_64.sh")
+# curl -qfsSl "https://pub.ajam.dev/repos/Azathothas/Arsenal/misc/Linux/Debian/install_ncurses_zig_x86_64.sh" | bash
 
 #Sanity Checks
 if ! command -v apt > /dev/null 2>&1; then
@@ -35,7 +35,7 @@ CWD_PATH="$(realpath .)" && export CWD_PATH="$CWD_PATH"
 ##DEPS :: zig
 if ! command -v zig > /dev/null 2>&1; then
   #Install Zig
-     curl -qfsSL "https://raw.githubusercontent.com/Azathothas/Arsenal/main/misc/Devscripts/install_zig.sh" | sudo bash
+     curl -qfsSL "https://pub.ajam.dev/repos/Azathothas/Arsenal/misc/Devscripts/install_zig.sh" | sudo bash
   #Export Zig Path 
      export ZIG_PATH="/usr/local/zig:/usr/local/zig/lib:/usr/local/zig/lib/include:$PATH"
 else
