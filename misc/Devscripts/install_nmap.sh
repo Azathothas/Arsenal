@@ -8,8 +8,9 @@
 # bash <(curl -qfsSL "https://raw.githubusercontent.com/Azathothas/Arsenal/main/misc/Devscripts/install_nmap.sh")
 # curl -qfsSl "https://raw.githubusercontent.com/Azathothas/Arsenal/main/misc/Devscripts/install_nmap.sh" | bash
 
-#Clean env
-unset AR CC CXX HOST_CC HOST_CXX
+##Clean env
+#In case of zig polluted env 
+unset AR CC CXX DLLTOOL HOST_CC HOST_CXX OBJCOPY RANLIB
 sudo rm "$(which nmap)" 2>/dev/null ; sudo rm "$(which nmap)" 2>/dev/null
 CWD_PATH="$(realpath .)" && export CWD_PATH="$CWD_PATH"
 #Build Openssl
