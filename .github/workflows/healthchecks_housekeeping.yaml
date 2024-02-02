@@ -165,7 +165,7 @@ jobs:
            rm -rf "$(pwd)/.git" ; echo -e "\n[+] Syncing $GITHUB_REPOSITORY to https://pub.ajam.dev/repos/$GITHUB_REPOSITORY\n"
            rclone copy "." "r2:/pub/repos/$GITHUB_REPOSITORY/" --progress --check-first ; popd > /dev/null 2>&1
           ##xplshn/Handyscripts
-           pushd "$(mktemp -d)" > /dev/null 2>&1 && git clone --depth="1" --filter="blob:none" "https://github.com/xplshn/Handyscripts" && cd "./hysp-pkgs"
+           pushd "$(mktemp -d)" > /dev/null 2>&1 && git clone --depth="1" --filter="blob:none" "https://github.com/xplshn/Handyscripts" && cd "./Handyscripts"
            GITHUB_REPOSITORY="$(git config --get remote.origin.url | awk -F'/' '{print $(NF-1) "/" $NF}' | sed 's/\.git$//')" && export GITHUB_REPOSITORY="$GITHUB_REPOSITORY"
            rm -rf "$(pwd)/.git" ; echo -e "\n[+] Syncing $GITHUB_REPOSITORY to https://pub.ajam.dev/repos/$GITHUB_REPOSITORY\n"
            rclone copy "." "r2:/pub/repos/$GITHUB_REPOSITORY/" --progress --check-first ; popd > /dev/null 2>&1
