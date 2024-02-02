@@ -27,9 +27,19 @@ jobs:
 
       - name: Setup Env
         run: |
+          #presets
+          set -x ; set +e
+          #temp
+          SYSTMP="$(dirname $(mktemp -u))" && export SYSTMP="$SYSTMP"
+          echo "SYSTMP=$SYSTMP" >> "$GITHUB_ENV"
+          #-------------#
+          ##Misc
           sudo apt update -y
           sudo apt install dos2unix -y
           pip install ansi2txt --upgrade
+          ##Setup rClone
+          echo "${{ secrets.RCLONE_CF_R2_PUB }}" > "$HOME/.rclone.conf"
+        continue-on-error: true
 
       - name: Install Addons
         run: |
@@ -141,5 +151,19 @@ jobs:
           echo -e "[+] Syncing $GITHUB_REPOSITORY to pub.ajam.dev/repos/$GITHUB_REPOSITORY \n"
           rclone copy "." "r2:/pub/repos/$GITHUB_REPOSITORY/" --progress --check-first
         continue-on-error: true
-#EOF
+#------------------------------------------------------------------------------------#
+      - name: rClone BackUp Repo (Alts)
+        run: |
+          # Presets
+          set -x ; set +e
+          #--------------#
+          #touch "$HOME/.rclone.conf"
+          echo "${{ secrets.RCLONE_CF_R2_PUB }}" > "$HOME/.rclone.conf"
+          ##metis-os/hysp-pkgs
+           pushd "$(mktemp -d)" > /dev/null 2>&1 && git clone --depth="1" --filter="blob:none" "https://github.com/metis-os/hysp-pkgs" && cd "./hysp-pkgs"
+           export $GITHUB_REPOSITORY="$(git config --get remote.origin.url | awk -F'/' '{print $(NF-1) "/" $NF}' | sed 's/\.git$//')
+           rm -rf "$(pwd)/.git"
+           rclone copy "." "r2:/pub/repos/$GITHUB_REPOSITORY/" --progress --check-first ; popd > /dev/null 2>&1
+          ## 
+        continue-on-error: true
 #------------------------------------------------------------------------------------#
