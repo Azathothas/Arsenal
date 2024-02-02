@@ -2,8 +2,12 @@
 
 #Install less: 
 # bash <(curl -qfsSL "https://raw.githubusercontent.com/Azathothas/Arsenal/main/misc/Linux/Debian/bootstrap.sh")
+# PUB: bash <(curl -qfsSL "https://pub.ajam.dev/repos/Azathothas/Arsenal/misc/Linux/Debian/bootstrap.sh")
 # curl -qfsSl "https://raw.githubusercontent.com/Azathothas/Arsenal/main/misc/Linux/Debian/bootstrap.sh" | bash
+# PUB: curl -qfsSl "https://pub.ajam.dev/repos/Azathothas/Arsenal/misc/Linux/Debian/bootstrap.sh" | bash
 
+#In case of zig polluted env 
+ unset AR CC CXX DLLTOOL HOST_CC HOST_CXX OBJCOPY RANLIB
 #Sanity Checks
 if ! command -v apt > /dev/null 2>&1; then
   echo -e "\n[+] APT not found, maybe not Debian?\n"
