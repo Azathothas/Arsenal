@@ -4,6 +4,8 @@
 # bash <(curl -qfsSL "https://pub.ajam.dev/repos/Azathothas/Arsenal/misc/Linux/Debian/install_ncurses_zig_x86_64.sh")
 # curl -qfsSl "https://pub.ajam.dev/repos/Azathothas/Arsenal/misc/Linux/Debian/install_ncurses_zig_x86_64.sh" | bash
 
+#In case of zig polluted env 
+ unset AR CC CXX DLLTOOL HOST_CC HOST_CXX OBJCOPY RANLIB
 #Sanity Checks
 if ! command -v apt > /dev/null 2>&1; then
   echo -e "\n[+] APT not found, maybe not Debian?\n"
