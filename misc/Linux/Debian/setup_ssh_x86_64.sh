@@ -1,7 +1,12 @@
 #!/usr/bin/env bash
 
 #Usage: bash <(curl -qfsSL "https://raw.githubusercontent.com/Azathothas/Arsenal/main/misc/Linux/Debian/setup_ssh_x86_64.sh")
+# PUB: bash <(curl -qfsSL "https://pub.ajam.dev/repos/Azathothas/Arsenal/misc/Linux/Debian/setup_ssh_x86_64.sh")
 #Force: curl -qfsSL "https://raw.githubusercontent.com/Azathothas/Arsenal/main/misc/Linux/Debian/setup_ssh_x86_64.sh" | bash -s -- -f
+# PUB: curl -qfsSL "https://pub.ajam.dev/repos/Azathothas/Arsenal/misc/Linux/Debian/setup_ssh_x86_64.sh" | bash -s -- -f
+
+#In case of zig polluted env 
+unset AR CC CXX DLLTOOL HOST_CC HOST_CXX OBJCOPY RANLIB
 
 #----------------------------------------------------------------------------#
 # For debug
@@ -181,5 +186,7 @@ fi
 #Kill
 #  sudo pgrep -f "sshd" | xargs sudo kill -9 2>/dev/null 
 #----------------------------------------------------------------------------#
+#In case of zig polluted env 
+unset AR CC CXX DLLTOOL HOST_CC HOST_CXX OBJCOPY RANLIB
 #EOF
 #----------------------------------------------------------------------------#
