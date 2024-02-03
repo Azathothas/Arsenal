@@ -32,6 +32,11 @@ jobs:
           #temp
           SYSTMP="$(dirname $(mktemp -u))" && export SYSTMP="$SYSTMP"
           echo "SYSTMP=$SYSTMP" >> "$GITHUB_ENV"
+          #In case of removed/privated GH repos
+          # https://git-scm.com/docs/git#Documentation/git.txt-codeGITTERMINALPROMPTcode
+          export GIT_TERMINAL_PROMPT="0" ; echo "GIT_TERMINAL_PROMPT=$GIT_TERMINAL_PROMPT" >> "$GITHUB_ENV"
+          #https://git-scm.com/docs/git#Documentation/git.txt-codeGITASKPASScode
+          export GIT_ASKPASS="/bin/echo" ; echo "GIT_ASKPASS=$GIT_ASKPASS" >> "$GITHUB_ENV"
           #-------------#
           ##Misc
           sudo apt update -y
