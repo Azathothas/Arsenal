@@ -81,7 +81,7 @@ archive_dl()
        #Metdata
        echo -e "\n" ; file "$TMP_GITDIR/Archive.tar.gz" ; echo -e "\n" ; du -sh "$TMP_GITDIR/Archive.tar.gz" ; echo -e "\n"
     #rClone Upload
-       rclone copyto "$TMP_GITDIR/Archive.tar.gz" "r2:/private/repos/Azathothas/Archive.tar.gz" --progress --check-first 2>/dev/null
+       rclone copyto "$TMP_GITDIR/Archive.tar.gz" "r2:/private/repos/Azathothas/Archive.tar.gz" --copy-links --progress --buffer-size 100M --check-first --fast-list --checkers 2000 --transfers 1000 2>/dev/null
 }
 export -f archive_dl
 #Refresh Migration State
