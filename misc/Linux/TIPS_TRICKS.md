@@ -13,6 +13,11 @@
 ❯ 7z a -t7z -mx="9" -mmt="$(($(nproc)+1))" -bt "$DIR.7z" "$DIR" 2>/dev/null
 ```
 ---
+- #### **`CHDIR/CD`** to `$UNKNOWNDIR` within `$DIR`
+```bash 
+cd "$(find . -maxdepth 1 -type d -exec basename {} \; | grep -Ev '^\.$' | xargs -I {} realpath {})"
+```
+---
 - #### **Default** `$TMP | $TEMP | $TMPDIR` Prefix on any `*Nix` System
 ```bash
 !# mktemp -u --> do not create (dry runs) anything; merely prints a name
