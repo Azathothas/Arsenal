@@ -20,12 +20,12 @@ Usage of fget:
 ```bash
 !# Install
 !# With root
-sudo curl -qfsSL "https://raw.githubusercontent.com/Azathothas/Toolpacks/main/x86_64/fget" -o "/usr/local/bin/fget" && sudo chmod +xwr "/usr/local/bin/fget"
-sudo eget "https://raw.githubusercontent.com/Azathothas/Toolpacks/main/x86_64/fget" --to "/usr/local/bin/fget"
+sudo curl -qfsSL "https://bin.ajam.dev/x86_64_Linux/fget" -o "/usr/local/bin/fget" && sudo chmod +xwr "/usr/local/bin/fget"
+sudo eget "https://bin.ajam.dev/x86_64_Linux/fget" --to "/usr/local/bin/fget"
 
 !# Without ROOT
-curl -qfsSL "https://raw.githubusercontent.com/Azathothas/Toolpacks/main/x86_64/fget" -o "$HOME/bin/fget" && chmod +xwr "$HOME/bin/fget"
-eget "https://raw.githubusercontent.com/Azathothas/Toolpacks/main/x86_64/fget" --to "$HOME/bin/fget"
+curl -qfsSL "https://bin.ajam.dev/x86_64_Linux/fget" -o "$HOME/bin/fget" && chmod +xwr "$HOME/bin/fget"
+eget "https://bin.ajam.dev/x86_64_Linux/fget" --to "$HOME/bin/fget"
 
 !# Using go
 go install -v "github.com/Azathothas/Arsenal/fget@main"

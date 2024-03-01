@@ -16,12 +16,12 @@ Options:
 ```bash
 !# Install
 !# With root
-sudo curl -qfsSL "https://raw.githubusercontent.com/Azathothas/Toolpacks/main/x86_64/comb" -o "/usr/local/bin/comb" && sudo chmod +xwr "/usr/local/bin/comb"
-sudo eget "https://raw.githubusercontent.com/Azathothas/Toolpacks/main/x86_64/comb" --to "/usr/local/bin/comb"
+sudo curl -qfsSL "https://bin.ajam.dev/x86_64_Linux/comb" -o "/usr/local/bin/comb" && sudo chmod +xwr "/usr/local/bin/comb"
+sudo eget "https://bin.ajam.dev/x86_64_Linux/comb" --to "/usr/local/bin/comb"
 
 !# Without ROOT
-curl -qfsSL "https://raw.githubusercontent.com/Azathothas/Toolpacks/main/x86_64/comb" -o "$HOME/bin/comb" && chmod +xwr "$HOME/bin/comb"
-eget "https://raw.githubusercontent.com/Azathothas/Toolpacks/main/x86_64/comb" --to "$HOME/bin/comb"
+curl -qfsSL "https://bin.ajam.dev/x86_64_Linux/comb" -o "$HOME/bin/comb" && chmod +xwr "$HOME/bin/comb"
+eget "https://bin.ajam.dev/x86_64_Linux/comb" --to "$HOME/bin/comb"
 
 !# Using go
 go install -v "github.com/Azathothas/Arsenal/comb@main"

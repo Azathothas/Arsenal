@@ -18,12 +18,12 @@ Usage of rate-limit-checker:
 ```bash
 !# Install
 !# With root
-sudo curl -qfsSL "https://raw.githubusercontent.com/Azathothas/Toolpacks/main/x86_64/rate-limit-checker" -o "/usr/local/bin/rate-limit-checker" && sudo chmod +xwr "/usr/local/bin/rate-limit-checker"
-sudo eget "https://raw.githubusercontent.com/Azathothas/Toolpacks/main/x86_64/rate-limit-checker" --to "/usr/local/bin/rate-limit-checker"
+sudo curl -qfsSL "https://bin.ajam.dev/x86_64_Linux/rate-limit-checker" -o "/usr/local/bin/rate-limit-checker" && sudo chmod +xwr "/usr/local/bin/rate-limit-checker"
+sudo eget "https://bin.ajam.dev/x86_64_Linux/rate-limit-checker" --to "/usr/local/bin/rate-limit-checker"
 
 !# Without ROOT
-curl -qfsSL "https://raw.githubusercontent.com/Azathothas/Toolpacks/main/x86_64/rate-limit-checker" -o "$HOME/bin/rate-limit-checker" && chmod +xwr "$HOME/bin/rate-limit-checker"
-eget "https://raw.githubusercontent.com/Azathothas/Toolpacks/main/x86_64/rate-limit-checker" --to "$HOME/bin/rate-limit-checker"
+curl -qfsSL "https://bin.ajam.dev/x86_64_Linux/rate-limit-checker" -o "$HOME/bin/rate-limit-checker" && chmod +xwr "$HOME/bin/rate-limit-checker"
+eget "https://bin.ajam.dev/x86_64_Linux/rate-limit-checker" --to "$HOME/bin/rate-limit-checker"
 
 !# Using go
 go install -v "github.com/Azathothas/Arsenal/rate-limit-checker@main"

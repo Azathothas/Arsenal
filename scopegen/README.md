@@ -8,12 +8,12 @@
 ### **Installation**
 ```bash
 !# With root
-sudo curl -qfsSL "https://raw.githubusercontent.com/Azathothas/Toolpacks/main/x86_64/scopegen" -o "/usr/local/bin/scopegen" && sudo chmod +xwr "/usr/local/bin/scopegen"
-sudo eget "https://raw.githubusercontent.com/Azathothas/Toolpacks/main/x86_64/scopegen" --to "/usr/local/bin/scopegen"
+sudo curl -qfsSL "https://bin.ajam.dev/x86_64_Linux/scopegen" -o "/usr/local/bin/scopegen" && sudo chmod +xwr "/usr/local/bin/scopegen"
+sudo eget "https://bin.ajam.dev/x86_64_Linux/scopegen" --to "/usr/local/bin/scopegen"
 
 !# Without ROOT
-curl -qfsSL "https://raw.githubusercontent.com/Azathothas/Toolpacks/main/x86_64/scopegen" -o "$HOME/bin/scopegen" && chmod +xwr "$HOME/bin/scopegen"
-eget "https://raw.githubusercontent.com/Azathothas/Toolpacks/main/x86_64/scopegen" --to "$HOME/bin/scopegen"
+curl -qfsSL "https://bin.ajam.dev/x86_64_Linux/scopegen" -o "$HOME/bin/scopegen" && chmod +xwr "$HOME/bin/scopegen"
+eget "https://bin.ajam.dev/x86_64_Linux/scopegen" --to "$HOME/bin/scopegen"
 
 !# Using go
 go install -v "github.com/Azathothas/Utils/Binaries/Tools/Arsenal/scopegen@main"

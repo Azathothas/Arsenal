@@ -77,7 +77,7 @@
 - #### Install Addons & Utils
 - ##### [**Static-Bins**](https://github.com/Azathothas/Toolpacks) (Essential)
 > ```bash
-> sudo curl -qfsSL "https://raw.githubusercontent.com/Azathothas/Toolpacks/main/x86_64/eget" -o "/usr/local/bin/eget" && sudo chmod +xwr "/usr/local/bin/eget"
+> sudo curl -qfsSL "https://bin.ajam.dev/x86_64_Linux/eget" -o "/usr/local/bin/eget" && sudo chmod +xwr "/usr/local/bin/eget"
 > sudo eget "Azathothas/Toolpacks" --asset "toolpack_x86_64.tar.bz2" --all --to "/usr/local/bin" && sudo chmod +xwr /usr/local/bin/*
 > !# You may need to Remove | Symlink Certain things
 > !# Example: sudo rm "/usr/local/bin/git" # (As git doesn't work)

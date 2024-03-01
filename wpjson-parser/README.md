@@ -120,12 +120,12 @@ https://wordpress.tatget/wp-json/wp/v2/pages [200] [500626]
 ```bash
 !# Install
 !# With root
-sudo curl -qfsSL "https://raw.githubusercontent.com/Azathothas/Toolpacks/main/x86_64/wpjson-parser" -o "/usr/local/bin/wpjson-parser" && sudo chmod +xwr "/usr/local/bin/wpjson-parser"
-sudo eget "https://raw.githubusercontent.com/Azathothas/Toolpacks/main/x86_64/wpjson-parser" --to "/usr/local/bin/wpjson-parser"
+sudo curl -qfsSL "https://bin.ajam.dev/x86_64_Linux/wpjson-parser" -o "/usr/local/bin/wpjson-parser" && sudo chmod +xwr "/usr/local/bin/wpjson-parser"
+sudo eget "https://bin.ajam.dev/x86_64_Linux/wpjson-parser" --to "/usr/local/bin/wpjson-parser"
 
 !# Without ROOT
-curl -qfsSL "https://raw.githubusercontent.com/Azathothas/Toolpacks/main/x86_64/wpjson-parser" -o "$HOME/bin/wpjson-parser" && chmod +xwr "$HOME/bin/wpjson-parser"
-eget "https://raw.githubusercontent.com/Azathothas/Toolpacks/main/x86_64/wpjson-parser" --to "$HOME/bin/wpjson-parser"
+curl -qfsSL "https://bin.ajam.dev/x86_64_Linux/wpjson-parser" -o "$HOME/bin/wpjson-parser" && chmod +xwr "$HOME/bin/wpjson-parser"
+eget "https://bin.ajam.dev/x86_64_Linux/wpjson-parser" --to "$HOME/bin/wpjson-parser"
 
 !# Using go
 go install -v "github.com/Azathothas/Arsenal/wpjson-parser@main"

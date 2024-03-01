@@ -3,12 +3,12 @@
 ```bash
 !# Install CLI
 !# With root
-sudo curl -qfsSL "https://raw.githubusercontent.com/Azathothas/Toolpacks/main/x86_64/certstream" -o "/usr/local/bin/certstream" && sudo chmod +xwr "/usr/local/bin/certstream"
-sudo eget "https://raw.githubusercontent.com/Azathothas/Toolpacks/main/x86_64/certstream" --to "/usr/local/bin/certstream"
+sudo curl -qfsSL "https://bin.ajam.dev/x86_64_Linux/certstream" -o "/usr/local/bin/certstream" && sudo chmod +xwr "/usr/local/bin/certstream"
+sudo eget "https://bin.ajam.dev/x86_64_Linux/certstream" --to "/usr/local/bin/certstream"
 
 !# Without ROOT
-curl -qfsSL "https://raw.githubusercontent.com/Azathothas/Toolpacks/main/x86_64/certstream" -o "$HOME/bin/certstream" && chmod +xwr "$HOME/bin/certstream"
-eget "https://raw.githubusercontent.com/Azathothas/Toolpacks/main/x86_64/certstream" --to "$HOME/bin/certstream"
+curl -qfsSL "https://bin.ajam.dev/x86_64_Linux/certstream" -o "$HOME/bin/certstream" && chmod +xwr "$HOME/bin/certstream"
+eget "https://bin.ajam.dev/x86_64_Linux/certstream" --to "$HOME/bin/certstream"
 
 !# Using go
 go install -v "github.com/Azathothas/Arsenal/certstream@main"
@@ -31,12 +31,12 @@ certstream -url "wss://certstream.calidog.io" -domains-only -quiet
 ```bash
 !# Install Server
 !# With root
-sudo curl -qfsSL "https://raw.githubusercontent.com/Azathothas/Toolpacks/main/x86_64/certstream-server-go" -o "/usr/local/bin/certstream-server-go" && sudo chmod +xwr "/usr/local/bin/certstream-server-go"
-sudo eget "https://raw.githubusercontent.com/Azathothas/Toolpacks/main/x86_64/certstream-server-go" --to "/usr/local/bin/certstream-server-go"
+sudo curl -qfsSL "https://bin.ajam.dev/x86_64_Linux/certstream-server-go" -o "/usr/local/bin/certstream-server-go" && sudo chmod +xwr "/usr/local/bin/certstream-server-go"
+sudo eget "https://bin.ajam.dev/x86_64_Linux/certstream-server-go" --to "/usr/local/bin/certstream-server-go"
 
 !# Without ROOT
-curl -qfsSL "https://raw.githubusercontent.com/Azathothas/Toolpacks/main/x86_64/certstream-server-go" -o "$HOME/bin/certstream-server-go" && chmod +xwr "$HOME/bin/certstream-server-go"
-eget "https://raw.githubusercontent.com/Azathothas/Toolpacks/main/x86_64/certstream-server-go" --to "$HOME/bin/certstream-server-go"
+curl -qfsSL "https://bin.ajam.dev/x86_64_Linux/certstream-server-go" -o "$HOME/bin/certstream-server-go" && chmod +xwr "$HOME/bin/certstream-server-go"
+eget "https://bin.ajam.dev/x86_64_Linux/certstream-server-go" --to "$HOME/bin/certstream-server-go"
 
 !# Config:
 wget "https://raw.githubusercontent.com/Azathothas/Arsenal/main/certstream/server_config.yaml" -O "/tmp/server_config.yaml"

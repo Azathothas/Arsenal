@@ -20,12 +20,12 @@ Usage of getJS:
 ```bash
 !# Install
 !# With root
-sudo curl -qfsSL "https://raw.githubusercontent.com/Azathothas/Toolpacks/main/x86_64/getJS" -o "/usr/local/bin/getJS" && sudo chmod +xwr "/usr/local/bin/getJS"
-sudo eget "https://raw.githubusercontent.com/Azathothas/Toolpacks/main/x86_64/getJS" --to "/usr/local/bin/getJS"
+sudo curl -qfsSL "https://bin.ajam.dev/x86_64_Linux/getJS" -o "/usr/local/bin/getJS" && sudo chmod +xwr "/usr/local/bin/getJS"
+sudo eget "https://bin.ajam.dev/x86_64_Linux/getJS" --to "/usr/local/bin/getJS"
 
 !# Without ROOT
-curl -qfsSL "https://raw.githubusercontent.com/Azathothas/Toolpacks/main/x86_64/getJS" -o "$HOME/bin/getJS" && chmod +xwr "$HOME/bin/getJS"
-eget "https://raw.githubusercontent.com/Azathothas/Toolpacks/main/x86_64/getJS" --to "$HOME/bin/getJS"
+curl -qfsSL "https://bin.ajam.dev/x86_64_Linux/getJS" -o "$HOME/bin/getJS" && chmod +xwr "$HOME/bin/getJS"
+eget "https://bin.ajam.dev/x86_64_Linux/getJS" --to "$HOME/bin/getJS"
 
 !# Using go
 go install -v "github.com/Azathothas/Arsenal/getJS@main"
