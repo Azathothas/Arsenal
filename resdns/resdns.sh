@@ -157,8 +157,8 @@ tmp_bin="$(mktemp -d)" && export tmp_bin="$tmp_bin"
 export PATH="$tmp_bin:$PATH"
 #anew
 if ! command -v anew >/dev/null 2>&1; then
-   curl -qfsSL "https://bin.ajam.dev/x86_64_Linux/anew" -o "$tmp_bin/anew"
-   chmod +xwr "$tmp_bin/anew"
+   curl -qfsSL "https://bin.ajam.dev/x86_64_Linux/anew-rs" -o "$tmp_bin/anew-rs"
+   chmod +xwr "$tmp_bin/anew-rs"
 fi
 if ! command -v dos2unix >/dev/null 2>&1; then
    echo "dos2unix is not installed"
