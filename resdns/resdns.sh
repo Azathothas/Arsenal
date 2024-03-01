@@ -327,7 +327,7 @@ resolve_with_dnsx(){
         dnsx -disable-update-check -list "$domains_file" -resolver "$resolvers_ipv4" -rate-limit "$rate_limit" -wildcard-threshold "$wildcard_limit" -silent -output "$dnsx_tmp_out"
      fi   
       # Filter 
-     sort -u "$dnsx_tmp_out" | anew -q "$output_file"
+     sort -u "$dnsx_tmp_out" | anew-rs -q "$output_file"
      sort -u "$output_file" -o "$output_file"
      echo -e "\nTotal Resolved Domains : $(wc -l < $output_file)"     
 }
@@ -349,7 +349,7 @@ resolve_with_puredns(){
        puredns resolve "$domains_file" --resolvers "$resolvers_ipv4" --skip-sanitize --rate-limit "$rate_limit" --wildcard-tests "$wildcard_limit" --write "$puredns_tmp_out"
      fi  
    # Filter 
-     sort -u "$puredns_tmp_out" | anew -q "$output_file"
+     sort -u "$puredns_tmp_out" | anew-rs -q "$output_file"
      sort -u "$output_file" -o "$output_file"
      echo -e "\nTotal Resolved Domains : $(wc -l < $output_file)" 
 }
@@ -385,7 +385,7 @@ resolve_with_shuffledns(){
         fi
     done
    # Filter 
-     find "$tmp_shuff_dir" -type f -name '*.txt' -exec cat {} + | sort -u | anew -q "$output_file"
+     find "$tmp_shuff_dir" -type f -name '*.txt' -exec cat {} + | sort -u | anew-rs -q "$output_file"
      sort -u "$output_file" -o "$output_file"
      echo -e "\nTotal Resolved Domains : $(wc -l < $output_file)"    
 }

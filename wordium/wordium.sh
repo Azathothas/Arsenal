@@ -125,7 +125,7 @@ setup_dirs_base(){
     #Rood's base for lhf wordlists
     wordium_rood_lhf=$(mktemp)
     wget --quiet https://raw.githubusercontent.com/Azathothas/Arsenal/main/wordium/Deps/rood_lhf.txt -O $wordium_rood_lhf
-    cat "$wordium_rood_lhf" | anew -q "$WORDLIST/x_lhf_mini.txt"
+    cat "$wordium_rood_lhf" | anew-rs -q "$WORDLIST/x_lhf_mini.txt"
 }
 setup_dirs_submodules(){
     echo -e "ⓘ  ${BLUE}Proceeding${NC} with ${PINK}Submodules${NC}"
@@ -227,7 +227,7 @@ done
 ## Removes lines with digits, and removes slashes from beginning of each line 
 #sed '/[0-9]/d' file.txt | sed '/^[[:space:]]*$/d' | sed 's#^/##'
 #Init
-echo "test" | anew -q $WORDLIST/x_lhf_mini.txt
+echo "test" | anew-rs -q $WORDLIST/x_lhf_mini.txt
 lhf_mini_lines=$(wc -l < $WORDLIST/x_lhf_mini.txt)
 #----------------------------------------------------------------------------#
 ## --> Bo0oM/fuzz.txt
@@ -280,9 +280,9 @@ echo -e "➼ ${YELLOW}Generating ${BLUE}x_api.txt${NC} "
 tmp_wordium_api=$(mktemp)
 #Base
 wget --quiet "https://raw.githubusercontent.com/Azathothas/Arsenal/main/wordium/Deps/g_api.txt" -O $tmp_wordium_api
-cat $tmp_wordium_api | anew -q $WORDLIST/x_api_tiny.txt
+cat $tmp_wordium_api | anew-rs -q $WORDLIST/x_api_tiny.txt
 #Trim space, remove /
-cat $WORDLIST/x_massive.txt | sed '/^[[:space:]]*$/d' | sed 's#^/##' |  grep -Ei 'api|api2|api3|graph|json|rest|soap|swagger|v1|v2|v3|v4|xml|wadl|wsdl' | anew -q $tmp_wordium_api
+cat $WORDLIST/x_massive.txt | sed '/^[[:space:]]*$/d' | sed 's#^/##' |  grep -Ei 'api|api2|api3|graph|json|rest|soap|swagger|v1|v2|v3|v4|xml|wadl|wsdl' | anew-rs -q $tmp_wordium_api
 sort -u $tmp_wordium_api -o $tmp_wordium_api
 echo -e "➼ ${YELLOW}Newly added${NC}: ${GREEN}$(cat $tmp_wordium_api | anew $WORDLIST/x_api.txt | wc -l)${NC}\n"
 #----------------------------------------------------------------------------#
@@ -293,17 +293,17 @@ tmp_wordium_nokovo="$(mktemp)"
 tmp_wordium_trickest="$(mktemp)"
 #Base
 wget --quiet "https://raw.githubusercontent.com/Azathothas/Arsenal/main/wordium/Deps/dns_sub_permutate.txt" -O "$tmp_wordium_dns"
-cat "$tmp_wordium_dns" | anew -q "$WORDLIST/x_dns_tiny.txt"
+cat "$tmp_wordium_dns" | anew-rs -q "$WORDLIST/x_dns_tiny.txt"
 #n0kovo_subdomains tiny
 wget --quiet "https://raw.githubusercontent.com/n0kovo/n0kovo_subdomains/main/n0kovo_subdomains_small.txt" -O "$tmp_wordium_nokovo"
 #Separate by dots & dashes
-cat "$tmp_wordium_nokovo" | tr -s '\n' | sed -E 's/[[:alpha:]]*[[:digit:]][[:alpha:]]*//g; /^[[:space:]]*$/d' | sort -u | anew -q "$tmp_wordium_dns"
+cat "$tmp_wordium_nokovo" | tr -s '\n' | sed -E 's/[[:alpha:]]*[[:digit:]][[:alpha:]]*//g; /^[[:space:]]*$/d' | sort -u | anew-rs -q "$tmp_wordium_dns"
 #Trickest
 wget --quiet "https://raw.githubusercontent.com/trickest/wordlists/main/inventory/subdomains.txt" -O "$tmp_wordium_trickest"
 #Separate by dots & dashes
-cat "$tmp_wordium_trickest" | tr -s '\n' | sed -E 's/[[:alpha:]]*[[:digit:]][[:alpha:]]*//g; /^[[:space:]]*$/d' | sort -u | anew -q "$tmp_wordium_dns"
+cat "$tmp_wordium_trickest" | tr -s '\n' | sed -E 's/[[:alpha:]]*[[:digit:]][[:alpha:]]*//g; /^[[:space:]]*$/d' | sort -u | anew-rs -q "$tmp_wordium_dns"
 #Add from tiny
-cat "$WORDLIST/x_dns_tiny.txt" | anew -q "$tmp_wordium_dns"
+cat "$WORDLIST/x_dns_tiny.txt" | anew-rs -q "$tmp_wordium_dns"
 sort -u "$tmp_wordium_dns" -o "$tmp_wordium_dns"
 echo -e "➼ ${YELLOW}Newly added${NC}: ${GREEN}$(cat $tmp_wordium_dns | anew $WORDLIST/x_dns.txt | wc -l)${NC}\n"
 #----------------------------------------------------------------------------#
@@ -312,8 +312,8 @@ echo -e "➼ ${YELLOW}Generating ${BLUE}x_mini.txt${NC} "
 #Prefetch base for x_mini.txt
 tmp_wordium_mini=$(mktemp)
 wget --quiet "https://raw.githubusercontent.com/Azathothas/Arsenal/main/wordium/Deps/fuzz_mini.txt" -O $tmp_wordium_mini
-cat $WORDLIST/fuzz.txt/fuzz.txt $WORDLIST/leaky-paths/leaky-paths.txt | sed 's#^/##' | anew -q $tmp_wordium_mini
-grep -E '^\.' $WORDLIST/x_lhf_large.txt | anew -q $tmp_wordium_mini
+cat $WORDLIST/fuzz.txt/fuzz.txt $WORDLIST/leaky-paths/leaky-paths.txt | sed 's#^/##' | anew-rs -q $tmp_wordium_mini
+grep -E '^\.' $WORDLIST/x_lhf_large.txt | anew-rs -q $tmp_wordium_mini
 sort -u $tmp_wordium_mini -o $tmp_wordium_mini
 echo -e "➼ ${YELLOW}Newly added${NC}: ${GREEN}$(cat $tmp_wordium_mini | anew $WORDLIST/x_mini.txt | wc -l)${NC}\n"
 #----------------------------------------------------------------------------#
