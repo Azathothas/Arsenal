@@ -106,8 +106,8 @@ tmp_bin="$(mktemp -d)" && export tmp_bin="$tmp_bin"
 export PATH="$tmp_bin:$PATH"
 #anew
 if ! command -v anew >/dev/null 2>&1; then
-   curl -qfsSL "https://bin.ajam.dev/x86_64_Linux/anew" -o "$tmp_bin/anew"
-   chmod +xwr "$tmp_bin/anew"
+   curl -qfsSL "https://bin.ajam.dev/x86_64_Linux/anew-rs" -o "$tmp_bin/anew-rs"
+   chmod +xwr "$tmp_bin/anew-rs"
 fi
 #----------------------------------------------------------------------------#
 
@@ -233,44 +233,44 @@ lhf_mini_lines=$(wc -l < $WORDLIST/x_lhf_mini.txt)
 ## --> Bo0oM/fuzz.txt
 echo ""
 echo -e "➼ ${YELLOW}Fetching & Updating${NC} ${DGREEN}<-- ${BLUE}Bo0oM/fuzz.txt${NC}" 
-echo -e "➼ ${BLUE}x_lhf_mini.txt${NC}  : ${GREEN}$(grep -E '^\.' $WORDLIST/fuzz.txt/fuzz.txt | anew $WORDLIST/x_lhf_mini.txt | wc -l)${NC}" 
-echo -e "➼ ${BLUE}x_lhf_mid.txt${NC}  : ${GREEN}$(cat $WORDLIST/fuzz.txt/fuzz.txt | anew $WORDLIST/x_lhf_mid.txt | wc -l)${NC}\n" 
+echo -e "➼ ${BLUE}x_lhf_mini.txt${NC}  : ${GREEN}$(grep -E '^\.' $WORDLIST/fuzz.txt/fuzz.txt | anew-rs $WORDLIST/x_lhf_mini.txt | wc -l)${NC}" 
+echo -e "➼ ${BLUE}x_lhf_mid.txt${NC}  : ${GREEN}$(cat $WORDLIST/fuzz.txt/fuzz.txt | anew-rs $WORDLIST/x_lhf_mid.txt | wc -l)${NC}\n" 
 #----------------------------------------------------------------------------#
 ## --> reewardius/bbFuzzing.txt
 echo -e "➼ ${YELLOW}Fetching & Updating${NC} ${DGREEN}<-- ${BLUE}reewardius/bbFuzzing.txt${NC}"
-echo -e "➼ ${BLUE}x_lhf_mini.txt${NC}  : ${GREEN}$(grep -E '^\.' $WORDLIST/bbFuzzing.txt/bbFuzzing.txt | anew $WORDLIST/x_lhf_mini.txt | wc -l)${NC}" 
-echo -e "➼ ${BLUE}x_lhf_mid.txt ${NC}  : ${GREEN}$(cat $WORDLIST/bbFuzzing.txt/bbFuzzing.txt | grep -Ei 'api|build|conf|dev|env|git|graph|helm|json|kube|k8|sql|swagger|xml|yaml|yml|wadl|wsdl' | anew $WORDLIST/x_lhf_mid.txt | wc -l)${NC}" 
-echo -e "➼ ${BLUE}x_lhf_large.txt${NC}  : ${GREEN}$(cat $WORDLIST/bbFuzzing.txt/bbFuzzing.txt | anew $WORDLIST/x_lhf_large.txt | wc -l)${NC}\n" 
+echo -e "➼ ${BLUE}x_lhf_mini.txt${NC}  : ${GREEN}$(grep -E '^\.' $WORDLIST/bbFuzzing.txt/bbFuzzing.txt | anew-rs $WORDLIST/x_lhf_mini.txt | wc -l)${NC}" 
+echo -e "➼ ${BLUE}x_lhf_mid.txt ${NC}  : ${GREEN}$(cat $WORDLIST/bbFuzzing.txt/bbFuzzing.txt | grep -Ei 'api|build|conf|dev|env|git|graph|helm|json|kube|k8|sql|swagger|xml|yaml|yml|wadl|wsdl' | anew-rs $WORDLIST/x_lhf_mid.txt | wc -l)${NC}" 
+echo -e "➼ ${BLUE}x_lhf_large.txt${NC}  : ${GREEN}$(cat $WORDLIST/bbFuzzing.txt/bbFuzzing.txt | anew-rs $WORDLIST/x_lhf_large.txt | wc -l)${NC}\n" 
 #----------------------------------------------------------------------------#
 ## --> thehlopster/hfuzz
 echo -e "➼ ${YELLOW}Fetching & Updating${NC} ${DGREEN}<-- ${BLUE}thehlopster/hfuzz${NC}" 
-echo -e "➼ ${BLUE}x_lhf_mini.txt${NC}  : ${GREEN}$(grep -E '^\.' $WORDLIST/hfuzz/hfuzz.txt | anew $WORDLIST/x_lhf_mini.txt | wc -l)${NC}" 
-echo -e "➼ ${BLUE}x-lhf-large.txt${NC}  : ${GREEN}$(sed '/[0-9]/d' $WORDLIST/hfuzz/hfuzz.txt | sed '/^[[:space:]]*$/d' | sed 's#^/##' |  grep -Ei 'api|build|conf|dev|env|git|graph|helm|json|kube|k8|sql|swagger|xml|yaml|yml|wadl|wsdl' | anew $WORDLIST/x_lhf_large.txt | wc -l)${NC}\n" 
+echo -e "➼ ${BLUE}x_lhf_mini.txt${NC}  : ${GREEN}$(grep -E '^\.' $WORDLIST/hfuzz/hfuzz.txt | anew-rs $WORDLIST/x_lhf_mini.txt | wc -l)${NC}" 
+echo -e "➼ ${BLUE}x-lhf-large.txt${NC}  : ${GREEN}$(sed '/[0-9]/d' $WORDLIST/hfuzz/hfuzz.txt | sed '/^[[:space:]]*$/d' | sed 's#^/##' |  grep -Ei 'api|build|conf|dev|env|git|graph|helm|json|kube|k8|sql|swagger|xml|yaml|yml|wadl|wsdl' | anew-rs $WORDLIST/x_lhf_large.txt | wc -l)${NC}\n" 
 #----------------------------------------------------------------------------#
 ## --> ayoubfathi/leaky-paths
 echo -e "➼ ${YELLOW}Fetching & Updating${NC} ${DGREEN}<-- ${BLUE}ayoubfathi/leaky-paths${NC}" 
-echo -e "➼ ${BLUE}x_lhf_mini.txt${NC}  : ${GREEN}$(sed '/[0-9]/d' $WORDLIST/leaky-paths/leaky-paths.txt | sed '/^[[:space:]]*$/d' | anew $WORDLIST/x_lhf_mini.txt | wc -l)${NC}\n" 
+echo -e "➼ ${BLUE}x_lhf_mini.txt${NC}  : ${GREEN}$(sed '/[0-9]/d' $WORDLIST/leaky-paths/leaky-paths.txt | sed '/^[[:space:]]*$/d' | anew-rs $WORDLIST/x_lhf_mini.txt | wc -l)${NC}\n" 
 #----------------------------------------------------------------------------#
 ## --> Six2dez/OneListForAll
 echo -e "➼ ${YELLOW}Fetching & Updating${NC} ${DGREEN}<-- ${BLUE}Six2dez/OneListForAll${NC}" 
-echo -e "➼ ${BLUE}x_lhf_mini.txt${NC}  : ${GREEN}$(grep -E '^\.' $WORDLIST/OneListForAll/onelistforallmicro.txt | anew $WORDLIST/x_lhf_mini.txt | wc -l)${NC}" 
-echo -e "➼ ${BLUE}x_lhf_large.txt${NC}  : ${GREEN}$(cat $WORDLIST/OneListForAll/onelistforallshort.txt | grep -Ei 'api|build|conf|dev|env|git|graph|helm|json|kube|k8|sql|swagger|xml|yaml|yml|wadl|wsdl' | anew $WORDLIST/x_lhf_large.txt | wc -l)${NC}" 
-echo -e "➼ ${BLUE}x_massive.txt${NC}  : ${GREEN}$(cat $WORDLIST/OneListForAll/onelistforallshort.txt | anew $WORDLIST/x_massive.txt | wc -l)${NC}\n" 
+echo -e "➼ ${BLUE}x_lhf_mini.txt${NC}  : ${GREEN}$(grep -E '^\.' $WORDLIST/OneListForAll/onelistforallmicro.txt | anew-rs $WORDLIST/x_lhf_mini.txt | wc -l)${NC}" 
+echo -e "➼ ${BLUE}x_lhf_large.txt${NC}  : ${GREEN}$(cat $WORDLIST/OneListForAll/onelistforallshort.txt | grep -Ei 'api|build|conf|dev|env|git|graph|helm|json|kube|k8|sql|swagger|xml|yaml|yml|wadl|wsdl' | anew-rs $WORDLIST/x_lhf_large.txt | wc -l)${NC}" 
+echo -e "➼ ${BLUE}x_massive.txt${NC}  : ${GREEN}$(cat $WORDLIST/OneListForAll/onelistforallshort.txt | anew-rs $WORDLIST/x_massive.txt | wc -l)${NC}\n" 
 #----------------------------------------------------------------------------#
 ## --> rix4uni/WordList
 echo -e "➼ ${YELLOW}Fetching & Updating${NC} ${DGREEN}<-- ${BLUE}rix4uni/WordList${NC}" 
-echo -e "➼ ${BLUE}x_lhf_mini.txt${NC}  : ${GREEN}$(grep -E '^\.' $WORDLIST/WordList/onelistforall.txt | anew $WORDLIST/x_lhf_mini.txt | wc -l) , $(grep -E '^\.' $WORDLIST/WordList/onelistforshort.txt | anew $WORDLIST/x_lhf_mini.txt | wc -l)${NC}" 
-echo -e "➼ ${BLUE}x_lhf_mid.txt${NC}  : ${GREEN}$(cat $WORDLIST/WordList/admin-panel-paths.txt | anew $WORDLIST/x_lhf_mid.txt | wc -l)${NC}" 
-echo -e "➼ ${BLUE}x_lhf_large.txt${NC}  : ${GREEN}$(cat $WORDLIST/WordList/onelistforshort.txt | sed 's#^/##' | anew $WORDLIST/x_lhf_large.txt | wc -l)${NC}" 
-echo -e "➼ ${BLUE}x_massive.txt${NC}  : ${GREEN}$(sed '/[0-9]/d' $WORDLIST/WordList/onelistforall.txt | sed '/^[[:space:]]*$/d' | sed 's#^/##' |  grep -Ei 'api|build|conf|dev|env|git|graph|helm|json|kube|k8|sql|swagger|xml|yaml|yml|wadl|wsdl' | anew $WORDLIST/x_massive.txt | wc -l)${NC}\n" 
+echo -e "➼ ${BLUE}x_lhf_mini.txt${NC}  : ${GREEN}$(grep -E '^\.' $WORDLIST/WordList/onelistforall.txt | anew-rs $WORDLIST/x_lhf_mini.txt | wc -l) , $(grep -E '^\.' $WORDLIST/WordList/onelistforshort.txt | anew-rs $WORDLIST/x_lhf_mini.txt | wc -l)${NC}" 
+echo -e "➼ ${BLUE}x_lhf_mid.txt${NC}  : ${GREEN}$(cat $WORDLIST/WordList/admin-panel-paths.txt | anew-rs $WORDLIST/x_lhf_mid.txt | wc -l)${NC}" 
+echo -e "➼ ${BLUE}x_lhf_large.txt${NC}  : ${GREEN}$(cat $WORDLIST/WordList/onelistforshort.txt | sed 's#^/##' | anew-rs $WORDLIST/x_lhf_large.txt | wc -l)${NC}" 
+echo -e "➼ ${BLUE}x_massive.txt${NC}  : ${GREEN}$(sed '/[0-9]/d' $WORDLIST/WordList/onelistforall.txt | sed '/^[[:space:]]*$/d' | sed 's#^/##' |  grep -Ei 'api|build|conf|dev|env|git|graph|helm|json|kube|k8|sql|swagger|xml|yaml|yml|wadl|wsdl' | anew-rs $WORDLIST/x_massive.txt | wc -l)${NC}\n" 
 #----------------------------------------------------------------------------#
 #Anew & CleanUP
 echo -e "➼ ${YELLOW}New Additions${NC} "
 x_lhf_mini_lines=$(wc -l < "$WORDLIST/x_lhf_mini.txt")
 echo -e "➼ ${BLUE}x_lhf_mini.txt${NC}  : ${GREEN}$(( $x_lhf_mini_lines - $lhf_mini_lines ))${NC}" 
-echo -e "➼ ${BLUE}x_lhf_mid.txt${NC}   : ${GREEN}$(cat $WORDLIST/x_lhf_mini.txt | anew $WORDLIST/x_lhf_mid.txt | wc -l)${NC}" 
-echo -e "➼ ${BLUE}x_lhf_large.txt${NC} : ${GREEN}$(cat $WORDLIST/x_lhf_mid.txt | anew $WORDLIST/x_lhf_large.txt | wc -l)${NC}" 
-echo -e "➼ ${BLUE}x_massive.txt${NC}   : ${GREEN}$(cat $WORDLIST/x_lhf_large.txt | anew $WORDLIST/x_massive.txt | wc -l)${NC}\n" 
+echo -e "➼ ${BLUE}x_lhf_mid.txt${NC}   : ${GREEN}$(cat $WORDLIST/x_lhf_mini.txt | anew-rs $WORDLIST/x_lhf_mid.txt | wc -l)${NC}" 
+echo -e "➼ ${BLUE}x_lhf_large.txt${NC} : ${GREEN}$(cat $WORDLIST/x_lhf_mid.txt | anew-rs $WORDLIST/x_lhf_large.txt | wc -l)${NC}" 
+echo -e "➼ ${BLUE}x_massive.txt${NC}   : ${GREEN}$(cat $WORDLIST/x_lhf_large.txt | anew-rs $WORDLIST/x_massive.txt | wc -l)${NC}\n" 
 #Sort -u -o everything 
 find $WORDLIST -maxdepth 1 -type f -name "*.txt" -not -name ".*" -exec sort -u {} -o {} \;  
 #----------------------------------------------------------------------------#
@@ -284,7 +284,7 @@ cat $tmp_wordium_api | anew-rs -q $WORDLIST/x_api_tiny.txt
 #Trim space, remove /
 cat $WORDLIST/x_massive.txt | sed '/^[[:space:]]*$/d' | sed 's#^/##' |  grep -Ei 'api|api2|api3|graph|json|rest|soap|swagger|v1|v2|v3|v4|xml|wadl|wsdl' | anew-rs -q $tmp_wordium_api
 sort -u $tmp_wordium_api -o $tmp_wordium_api
-echo -e "➼ ${YELLOW}Newly added${NC}: ${GREEN}$(cat $tmp_wordium_api | anew $WORDLIST/x_api.txt | wc -l)${NC}\n"
+echo -e "➼ ${YELLOW}Newly added${NC}: ${GREEN}$(cat $tmp_wordium_api | anew-rs $WORDLIST/x_api.txt | wc -l)${NC}\n"
 #----------------------------------------------------------------------------#
 #x_dns.txt
 echo -e "➼ ${YELLOW}Generating ${BLUE}x_dns.txt${NC} " 
@@ -305,7 +305,7 @@ cat "$tmp_wordium_trickest" | tr -s '\n' | sed -E 's/[[:alpha:]]*[[:digit:]][[:a
 #Add from tiny
 cat "$WORDLIST/x_dns_tiny.txt" | anew-rs -q "$tmp_wordium_dns"
 sort -u "$tmp_wordium_dns" -o "$tmp_wordium_dns"
-echo -e "➼ ${YELLOW}Newly added${NC}: ${GREEN}$(cat $tmp_wordium_dns | anew $WORDLIST/x_dns.txt | wc -l)${NC}\n"
+echo -e "➼ ${YELLOW}Newly added${NC}: ${GREEN}$(cat $tmp_wordium_dns | anew-rs $WORDLIST/x_dns.txt | wc -l)${NC}\n"
 #----------------------------------------------------------------------------#
 #x_mini.txt
 echo -e "➼ ${YELLOW}Generating ${BLUE}x_mini.txt${NC} " 
@@ -315,7 +315,7 @@ wget --quiet "https://raw.githubusercontent.com/Azathothas/Arsenal/main/wordium/
 cat $WORDLIST/fuzz.txt/fuzz.txt $WORDLIST/leaky-paths/leaky-paths.txt | sed 's#^/##' | anew-rs -q $tmp_wordium_mini
 grep -E '^\.' $WORDLIST/x_lhf_large.txt | anew-rs -q $tmp_wordium_mini
 sort -u $tmp_wordium_mini -o $tmp_wordium_mini
-echo -e "➼ ${YELLOW}Newly added${NC}: ${GREEN}$(cat $tmp_wordium_mini | anew $WORDLIST/x_mini.txt | wc -l)${NC}\n"
+echo -e "➼ ${YELLOW}Newly added${NC}: ${GREEN}$(cat $tmp_wordium_mini | anew-rs $WORDLIST/x_mini.txt | wc -l)${NC}\n"
 #----------------------------------------------------------------------------#
 #WordCount After each run:
 echo -e "➼${YELLOW}Updated Wordlists${NC}:" 
