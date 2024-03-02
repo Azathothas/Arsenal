@@ -1,5 +1,9 @@
 #!/usr/bin/env bash
 
+# bash <(curl -qfsSL "https://raw.githubusercontent.com/Azathothas/Arsenal/main/misc/Linux/Debian/install_bb_tools_x86_64.sh")
+# bash <(curl -qfsSL "https://pub.ajam.dev/repos/Azathothas/Arsenal/misc/Linux/Debian/install_bb_tools_x86_64.sh")
+
+#-------------------------------------------------------------------------------#
 #7z  : https://www.7-zip.org/
  sudo curl -qfsSL "https://bin.ajam.dev/x86_64_Linux/7z" -o "$INSTALL_DIR/7z" && sudo chmod +xwr "$INSTALL_DIR/7z"
  sudo curl -qfsSL "https://bin.ajam.dev/x86_64_Linux/7z" -o "/usr/bin/7z" && sudo chmod +xwr "/usr/bin/7z"
@@ -135,11 +139,12 @@
 #validtoml
  sudo curl -qfsSL "https://bin.ajam.dev/x86_64_Linux/validtoml" -o "$INSTALL_DIR/validtoml" && sudo chmod +xwr "$INSTALL_DIR/validtoml"
 #Web-Cache-Vulnerability-Scanner : https://github.com/Hackmanit/Web-Cache-Vulnerability-Scanner
- sudo curl -qfsSL "https://bin.ajam.dev/x86_64_Linux/web-cache-vulnerability-scanner" -o "$INSTALL_DIR/Web-Cache-Vulnerability-Scanner"
+ sudo curl -qfsSL "https://bin.ajam.dev/x86_64_Linux/web-cache-vulnerability-scanner" -o "$INSTALL_DIR/Web-Cache-Vulnerability-Scanner" && sudo chmod +xwr "$INSTALL_DIR/Web-Cache-Vulnerability-Scanner"
 #yataf
  sudo curl -qfsSL "https://bin.ajam.dev/x86_64_Linux/yataf" -o "$INSTALL_DIR/yataf" && sudo chmod +xwr "$INSTALL_DIR/yataf"
 #Yq
  sudo curl -qfsSL "https://bin.ajam.dev/x86_64_Linux/yq" -o "$INSTALL_DIR/yq" && sudo chmod +xwr "$INSTALL_DIR/yq"
 #Yj
  sudo curl -qfsSL "https://bin.ajam.dev/x86_64_Linux/yj" -o "$INSTALL_DIR/yj" && sudo chmod +xwr "$INSTALL_DIR/yj"
+#-------------------------------------------------------------------------------# 
 ###END### 
