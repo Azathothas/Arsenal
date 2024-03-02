@@ -12,15 +12,7 @@
 744K   │ └─┬ nmap
 732K   │   ├── Services.md
 8.0K   │   └── README.md
-312K   ├─┬ aki
-296K   │ ├─┬ scripts
- 76K   │ │ ├── aki_amass_datasources_yaml_checker.sh
- 72K   │ │ ├── aki_oneforall_api_py_checker.sh
- 68K   │ │ ├── aki_bbot_secrets_yml_checker.sh
- 44K   │ │ ├── aki_subfinder_provider_config_yaml_checker.sh
- 32K   │ │ └── apikeybeast.py
- 12K   │ └── README.md
-308K   ├─┬ misc
+312K   ├─┬ misc
  80K   │ ├─┬ Github
  76K   │ │ └─┬ Runners
  48K   │ │   ├─┬ Ubuntu
@@ -32,12 +24,13 @@
  12K   │ │   │ └── 0xf_gh_runner_windows_debug.yaml
 8.0K   │ │   └─┬ macOS
 4.0K   │ │     └── 0xf_gh_runner_macos_debug.yaml
- 56K   │ ├─┬ Linux
- 48K   │ │ ├─┬ Debian
+ 60K   │ ├─┬ Linux
+ 52K   │ │ ├─┬ Debian
  16K   │ │ │ ├── install_bb_tools_x86_64.sh
  12K   │ │ │ ├── setup_ssh_x86_64.sh
 8.0K   │ │ │ ├── install_ncurses_zig_x86_64.sh
 4.0K   │ │ │ ├── install_zig.sh
+4.0K   │ │ │ ├── install_node_x86_64.sh
 4.0K   │ │ │ └── bootstrap.sh
 4.0K   │ │ └── TIPS_TRICKS.md
  28K   │ ├─┬ Windows
@@ -71,6 +64,14 @@
 8.0K   │ │ └── debloat.sh
 8.0K   │ └─┬ Android
 4.0K   │   └── Termux
+312K   ├─┬ aki
+296K   │ ├─┬ scripts
+ 76K   │ │ ├── aki_amass_datasources_yaml_checker.sh
+ 72K   │ │ ├── aki_oneforall_api_py_checker.sh
+ 68K   │ │ ├── aki_bbot_secrets_yml_checker.sh
+ 44K   │ │ ├── aki_subfinder_provider_config_yaml_checker.sh
+ 32K   │ │ └── apikeybeast.py
+ 12K   │ └── README.md
  28K   ├─┬ resdns
  20K   │ ├── resdns.sh
 4.0K   │ └── README.md
