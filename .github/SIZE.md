@@ -21,7 +21,7 @@
  44K   │ │ ├── aki_subfinder_provider_config_yaml_checker.sh
  32K   │ │ └── apikeybeast.py
  12K   │ └── README.md
-292K   ├─┬ misc
+308K   ├─┬ misc
  80K   │ ├─┬ Github
  76K   │ │ └─┬ Runners
  48K   │ │   ├─┬ Ubuntu
@@ -33,8 +33,9 @@
  12K   │ │   │ └── 0xf_gh_runner_windows_debug.yaml
 8.0K   │ │   └─┬ macOS
 4.0K   │ │     └── 0xf_gh_runner_macos_debug.yaml
- 40K   │ ├─┬ Linux
- 32K   │ │ ├─┬ Debian
+ 56K   │ ├─┬ Linux
+ 48K   │ │ ├─┬ Debian
+ 16K   │ │ │ ├── install_bb_tools_x86_64.sh
  12K   │ │ │ ├── setup_ssh_x86_64.sh
 8.0K   │ │ │ ├── install_ncurses_zig_x86_64.sh
 4.0K   │ │ │ ├── install_zig.sh
