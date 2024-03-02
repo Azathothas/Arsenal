@@ -4,7 +4,7 @@
 # bash <(curl -qfsSL "https://pub.ajam.dev/repos/Azathothas/Arsenal/misc/Linux/Debian/install_bb_tools_x86_64.sh")
 
 #-------------------------------------------------------------------------------#
-set -x ; set +e
+set +e ; set -x
 #7z  : https://www.7-zip.org/
  sudo curl -qfsSL "https://bin.ajam.dev/x86_64_Linux/7z" -o "$INSTALL_DIR/7z" && sudo chmod +xwr "$INSTALL_DIR/7z"
  sudo curl -qfsSL "https://bin.ajam.dev/x86_64_Linux/7z" -o "/usr/bin/7z" && sudo chmod +xwr "/usr/bin/7z"
@@ -23,6 +23,8 @@ set -x ; set +e
  sudo curl -qfsSL "https://bin.ajam.dev/x86_64_Linux/b3sum" -o "/usr/bin/b3sum" && sudo chmod +xwr "/usr/bin/b3sum"
 #brutespray: https://github.com/x90skysn3k/brutespray
  sudo curl -qfsSL "https://bin.ajam.dev/x86_64_Linux/brutespray" -o "$INSTALL_DIR/brutespray" && sudo chmod +xwr "$INSTALL_DIR/brutespray"
+#btop: https://github.com/aristocratos/btop
+ sudo curl -qfsSL "https://bin.ajam.dev/x86_64_Linux/btop" -o "$INSTALL_DIR/brutespray" && sudo chmod +xwr "$INSTALL_DIR/btop" 
 #cdncheck
  sudo curl -qfsSL "https://bin.ajam.dev/x86_64_Linux/cdncheck" -o "$INSTALL_DIR/cdncheck" && sudo chmod +xwr "$INSTALL_DIR/cdncheck"
 #crlfuzz : https://github.com/dwisiswant0/crlfuzz
@@ -71,8 +73,8 @@ set -x ; set +e
  sudo curl -qfsSL "https://bin.ajam.dev/x86_64_Linux/github-subdomains" -o "$INSTALL_DIR/github-subdomains" && sudo chmod +xwr "$INSTALL_DIR/github-subdomains"
 #gotator : https://github.com/Josue87/gotator
  sudo curl -qfsSL "https://bin.ajam.dev/x86_64_Linux/gotator" -o "$INSTALL_DIR/gotator" && sudo chmod +xwr "$INSTALL_DIR/gotator"
-#gowtiness
- sudo curl -qfsSL "https://bin.ajam.dev/x86_64_Linux/gowtiness" -o "$INSTALL_DIR/gowtiness" && sudo chmod +xwr "$INSTALL_DIR/gowtiness"
+#gowitness
+ sudo curl -qfsSL "https://bin.ajam.dev/x86_64_Linux/gowitness" -o "$INSTALL_DIR/gowitness" && sudo chmod +xwr "$INSTALL_DIR/gowitness"
 #Gxss : https://github.com/KathanP19/Gxss
  sudo curl -qfsSL "https://bin.ajam.dev/x86_64_Linux/gxss" -o "$INSTALL_DIR/Gxss" && sudo chmod +xwr "$INSTALL_DIR/Gxss"
 #hakip2host : https://github.com/hakluke/hakip2host
@@ -99,8 +101,6 @@ set -x ; set +e
  sudo curl -qfsSL "https://bin.ajam.dev/x86_64_Linux/notify" -o "$INSTALL_DIR/notify" && sudo chmod +xwr "$INSTALL_DIR/notify"
 #nuclei : https://github.com/projectdiscovery/nuclei
  sudo curl -qfsSL "https://bin.ajam.dev/x86_64_Linux/nuclei" -o "$INSTALL_DIR/nuclei" && sudo chmod +xwr "$INSTALL_DIR/nuclei"
-#ppmap : https://github.com/kleiton0x00/ppmap
- sudo curl -qfsSL "https://bin.ajam.dev/x86_64_Linux/ppmap" -o "$INSTALL_DIR/ppmap" && sudo chmod +xwr "$INSTALL_DIR/ppmap"
 #puredns : https://github.com/d3mondev/puredns
  sudo curl -qfsSL "https://bin.ajam.dev/x86_64_Linux/puredns" -o "$INSTALL_DIR/puredns" && sudo chmod +xwr "$INSTALL_DIR/puredns"
 #qsreplace : https://github.com/tomnomnom/qsreplace
@@ -149,4 +149,4 @@ set -x ; set +e
  sudo curl -qfsSL "https://bin.ajam.dev/x86_64_Linux/yj" -o "$INSTALL_DIR/yj" && sudo chmod +xwr "$INSTALL_DIR/yj"
 #-------------------------------------------------------------------------------#
 set +x
-###END### 
+###END###
