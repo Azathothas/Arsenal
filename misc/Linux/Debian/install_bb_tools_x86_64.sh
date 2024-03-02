@@ -4,6 +4,7 @@
 # bash <(curl -qfsSL "https://pub.ajam.dev/repos/Azathothas/Arsenal/misc/Linux/Debian/install_bb_tools_x86_64.sh")
 
 #-------------------------------------------------------------------------------#
+set -x ; set +e
 #7z  : https://www.7-zip.org/
  sudo curl -qfsSL "https://bin.ajam.dev/x86_64_Linux/7z" -o "$INSTALL_DIR/7z" && sudo chmod +xwr "$INSTALL_DIR/7z"
  sudo curl -qfsSL "https://bin.ajam.dev/x86_64_Linux/7z" -o "/usr/bin/7z" && sudo chmod +xwr "/usr/bin/7z"
@@ -146,5 +147,6 @@
  sudo curl -qfsSL "https://bin.ajam.dev/x86_64_Linux/yq" -o "$INSTALL_DIR/yq" && sudo chmod +xwr "$INSTALL_DIR/yq"
 #Yj
  sudo curl -qfsSL "https://bin.ajam.dev/x86_64_Linux/yj" -o "$INSTALL_DIR/yj" && sudo chmod +xwr "$INSTALL_DIR/yj"
-#-------------------------------------------------------------------------------# 
+#-------------------------------------------------------------------------------#
+set +x
 ###END### 
