@@ -24,11 +24,13 @@ set +e ; set -x
 #brutespray: https://github.com/x90skysn3k/brutespray
  sudo curl -qfsSL "https://bin.ajam.dev/x86_64_Linux/brutespray" -o "$INSTALL_DIR/brutespray" && sudo chmod +xwr "$INSTALL_DIR/brutespray"
 #btop: https://github.com/aristocratos/btop
- sudo curl -qfsSL "https://bin.ajam.dev/x86_64_Linux/btop" -o "$INSTALL_DIR/brutespray" && sudo chmod +xwr "$INSTALL_DIR/btop" 
+ sudo curl -qfsSL "https://bin.ajam.dev/x86_64_Linux/btop" -o "$INSTALL_DIR/btop" && sudo chmod +xwr "$INSTALL_DIR/btop" 
 #cdncheck
  sudo curl -qfsSL "https://bin.ajam.dev/x86_64_Linux/cdncheck" -o "$INSTALL_DIR/cdncheck" && sudo chmod +xwr "$INSTALL_DIR/cdncheck"
 #crlfuzz : https://github.com/dwisiswant0/crlfuzz
  sudo curl -qfsSL "https://bin.ajam.dev/x86_64_Linux/crlfuzz" -o "$INSTALL_DIR/crlfuzz" && sudo chmod +xwr "$INSTALL_DIR/crlfuzz"
+#croc : https://github.com/schollz/croc
+ sudo curl -qfsSL "https://bin.ajam.dev/x86_64_Linux/croc" -o "$INSTALL_DIR/croc" && sudo chmod +xwr "$INSTALL_DIR/croc" 
 #crt : https://github.com/cemulus/crt
  sudo curl -qfsSL "https://bin.ajam.dev/x86_64_Linux/crt" -o "$INSTALL_DIR/crt" && sudo chmod +xwr "$INSTALL_DIR/crt"
 #dalfox : https://github.com/hahwul/dalfox
