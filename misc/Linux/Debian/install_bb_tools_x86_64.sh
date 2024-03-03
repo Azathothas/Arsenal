@@ -5,6 +5,7 @@
 
 #-------------------------------------------------------------------------------#
 set +e ; set -x
+export INSTALL_DIR="/usr/local/bin"
 #7z  : https://www.7-zip.org/
  sudo curl -qfsSL "https://bin.ajam.dev/x86_64_Linux/7z" -o "$INSTALL_DIR/7z" && sudo chmod +xwr "$INSTALL_DIR/7z"
  sudo curl -qfsSL "https://bin.ajam.dev/x86_64_Linux/7z" -o "/usr/bin/7z" && sudo chmod +xwr "/usr/bin/7z"
@@ -48,7 +49,7 @@ set +e ; set -x
 #dsieve : https://github.com/trickest/dsieve
  sudo curl -qfsSL "https://bin.ajam.dev/x86_64_Linux/dsieve" -o "$INSTALL_DIR/dsieve" && sudo chmod +xwr "$INSTALL_DIR/dsieve"
 #dust
- sudo curl -qfsSL "https://bin.ajam.dev/aarch64_arm64_Linux/dust" -o "/usr/local/bin/dust" && sudo chmod +xwr "/usr/local/bin/dust" 
+ sudo curl -qfsSL "https://bin.ajam.dev/aarch64_arm64_Linux/dust" -o "/usr/local/bin/dust" && sudo chmod +xwr "/usr/local/bin/dust"
 #dontgo403 : https://github.com/devploit/dontgo403
  sudo curl -qfsSL "https://bin.ajam.dev/x86_64_Linux/dontgo403" -o "$INSTALL_DIR/dontgo403" && sudo chmod +xwr "$INSTALL_DIR/dontgo403"
 #dust
