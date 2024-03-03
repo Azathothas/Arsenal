@@ -5,8 +5,8 @@
 
 ##Google Chrome
 echo -e "\n[+] Installing Google Chrome\n"
-pushd "$(mktemp -d)" > /dev/null 2>&1 && curl -qfsSL "https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb" -o "/tmp/chrome.deb"
-sudo apt install "/tmp/chrome.deb" -y
+pushd "$(mktemp -d)" > /dev/null 2>&1 && curl -qfsSL "https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb" -o "./chrome.deb"
+sudo apt install "./chrome.deb" -y
 echo -e "\n[+] Updating Browser Components\n"
 sudo apt update -y && sudo apt upgrade -y ; popd > /dev/null 2>&1 ; google-chrome --version
 ##Chromium : https://github.com/phd/chromium-repo | https://freeshell.de/phd/chromium/
