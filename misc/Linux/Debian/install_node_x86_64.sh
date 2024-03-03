@@ -5,6 +5,7 @@
 
 #--------------#
 #Get Latest Tar
+echo -e "\n[+] Installing NodeJS\n"
 pushd "$(mktemp -d)" > /dev/null 2>&1
 curl -qfsSLJO "https://nodejs.org/dist/latest/$(curl -qfsSL "https://nodejs.org/dist/latest/" | grep -o 'href="[^"]*"' | sed 's/href="//' | grep 'linux-x64.tar.xz' | sed 's/"$//' | sort | tail -n 1)"
 find . -type f -name '*.xz' -exec tar -xf {} \; && find . -type f -name '*.xz' -exec rm {} -rf \; && cd "$(ls -d */)"
@@ -20,10 +21,13 @@ sudo rsync --archive --checksum --human-readable --progress --quiet "./share/" "
 #Check
 node --version && npm --version ; popd > /dev/null 2>&1
 ##bun : https://bun.sh/docs/installation#installing
+echo -e "\n[+] Installing Bun\n"
 npm install bun --global ; bun --version
 ##pnpm : https://pnpm.io/installation#using-npm
+echo -e "\n[+] Installing pnpm\n"
 npm install pnpm --global ; pnpm --version
 # Requires no node: npm install "@pnpm/exe" --global ; pnpm --version
 ##Yarn : https://classic.yarnpkg.com/lang/en/docs/install
+echo -e "\n[+] Installing yarn\n"
 npm install yarn --global ; yarn --version
 ##END
