@@ -156,7 +156,7 @@ done
 tmp_bin="$(mktemp -d)" && export tmp_bin="$tmp_bin"
 export PATH="$tmp_bin:$PATH"
 #anew
-if ! command -v anew >/dev/null 2>&1; then
+if ! command -v anew-rs >/dev/null 2>&1; then
    curl -qfsSL "https://bin.ajam.dev/x86_64_Linux/anew-rs" -o "$tmp_bin/anew-rs"
    chmod +xwr "$tmp_bin/anew-rs"
 fi
@@ -176,7 +176,7 @@ if ! command -v massdns >/dev/null 2>&1; then
    chmod +xwr "$tmp_bin/massdns"
 else
    #Just in case, sometool do not accept non-standard path
-   cp $(which massdns) "$tmp_bin/massdns" ; chmod +xwr "$tmp_bin/massdns" 
+   cp "$(which massdns)" "$tmp_bin/massdns" ; chmod +xwr "$tmp_bin/massdns" 
 fi
 #puredns
 if ! command -v puredns >/dev/null 2>&1; then
