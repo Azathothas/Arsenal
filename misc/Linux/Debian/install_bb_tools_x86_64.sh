@@ -10,7 +10,7 @@ export INSTALL_DIR="/usr/local/bin"
  sudo curl -qfsSL "https://bin.ajam.dev/x86_64_Linux/7z" -o "$INSTALL_DIR/7z" && sudo chmod +xwr "$INSTALL_DIR/7z"
  sudo curl -qfsSL "https://bin.ajam.dev/x86_64_Linux/7z" -o "/usr/bin/7z" && sudo chmod +xwr "/usr/bin/7z"
 #action-lint
- sudo curl -qfsSL "https://bin.ajam.dev/aarch64_arm64_Linux/actionlint" -o "/usr/local/bin/actionlint" && sudo chmod +xwr "/usr/local/bin/actionlint" 
+ sudo curl -qfsSL "https://bin.ajam.dev/x86_64_Linux/actionlint" -o "/usr/local/bin/actionlint" && sudo chmod +xwr "/usr/local/bin/actionlint" 
 #amass : https://github.com/owasp-amass/amass
  sudo curl -qfsSL "https://bin.ajam.dev/x86_64_Linux/amass" -o "$INSTALL_DIR/amass" && sudo chmod +xwr "$INSTALL_DIR/amass"
 #analyticsrelationships : https://github.com/Josue87/analyticsrelationships
@@ -37,7 +37,7 @@ export INSTALL_DIR="/usr/local/bin"
 #crt : https://github.com/cemulus/crt
  sudo curl -qfsSL "https://bin.ajam.dev/x86_64_Linux/crt" -o "$INSTALL_DIR/crt" && sudo chmod +xwr "$INSTALL_DIR/crt"
 #csvtk
- sudo curl -qfsSL "https://bin.ajam.dev/aarch64_arm64_Linux/csvtk" -o "/usr/local/bin/csvtk" && sudo chmod +xwr "/usr/local/bin/csvtk" 
+ sudo curl -qfsSL "https://bin.ajam.dev/x86_64_Linux/csvtk" -o "/usr/local/bin/csvtk" && sudo chmod +xwr "/usr/local/bin/csvtk" 
 #dalfox : https://github.com/hahwul/dalfox
  sudo curl -qfsSL "https://bin.ajam.dev/x86_64_Linux/dalfox" -o "$INSTALL_DIR/dalfox" && sudo chmod +xwr "$INSTALL_DIR/dalfox"
 #delta
@@ -49,7 +49,7 @@ export INSTALL_DIR="/usr/local/bin"
 #dsieve : https://github.com/trickest/dsieve
  sudo curl -qfsSL "https://bin.ajam.dev/x86_64_Linux/dsieve" -o "$INSTALL_DIR/dsieve" && sudo chmod +xwr "$INSTALL_DIR/dsieve"
 #dust
- sudo curl -qfsSL "https://bin.ajam.dev/aarch64_arm64_Linux/dust" -o "/usr/local/bin/dust" && sudo chmod +xwr "/usr/local/bin/dust"
+ sudo curl -qfsSL "https://bin.ajam.dev/x86_64_Linux/dust" -o "/usr/local/bin/dust" && sudo chmod +xwr "/usr/local/bin/dust"
 #dontgo403 : https://github.com/devploit/dontgo403
  sudo curl -qfsSL "https://bin.ajam.dev/x86_64_Linux/dontgo403" -o "$INSTALL_DIR/dontgo403" && sudo chmod +xwr "$INSTALL_DIR/dontgo403"
 #dust
@@ -103,7 +103,7 @@ export INSTALL_DIR="/usr/local/bin"
 #mapcidr : https://github.com/projectdiscovery/mapcidr
  sudo curl -qfsSL "https://bin.ajam.dev/x86_64_Linux/mapcidr" -o "$INSTALL_DIR/mapcidr" && sudo chmod +xwr "$INSTALL_DIR/mapcidr"
 #micro
- sudo curl -qfsSL "https://bin.ajam.dev/aarch64_arm64_Linux/micro" -o "/usr/local/bin/micro" && sudo chmod +xwr "/usr/local/bin/micro" 
+ sudo curl -qfsSL "https://bin.ajam.dev/x86_64_Linux/micro" -o "/usr/local/bin/micro" && sudo chmod +xwr "/usr/local/bin/micro"
 #mksub
  sudo curl -qfsSL "https://bin.ajam.dev/x86_64_Linux/mksub" -o "$INSTALL_DIR/mksub" && sudo chmod +xwr "$INSTALL_DIR/mksub"
 #nmapurls : https://github.com/sdcampbell/nmapurls
