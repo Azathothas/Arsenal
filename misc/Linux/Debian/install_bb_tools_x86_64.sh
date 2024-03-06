@@ -92,6 +92,8 @@ export INSTALL_DIR="/usr/local/bin"
  sudo curl -qfsSL "https://bin.ajam.dev/x86_64_Linux/hakrawler" -o "$INSTALL_DIR/hakrawler" && sudo chmod +xwr "$INSTALL_DIR/hakrawler"
 #httpx : https://github.com/projectdiscovery/httpx
  sudo curl -qfsSL "https://bin.ajam.dev/x86_64_Linux/httpx" -o "$INSTALL_DIR/httpx" && sudo chmod +xwr "$INSTALL_DIR/httpx"
+ sudo curl -qfsSL "https://bin.ajam.dev/x86_64_Linux/httpx" -o "/usr/bin/httpx" && sudo chmod +xwr "/usr/bin/httpx"
+ sudo curl -qfsSL "https://bin.ajam.dev/x86_64_Linux/httpx" -o "$HOME/.local/bin/httpx" 2>/dev/null && sudo chmod +xwr "$HOME/.local/bin/httpx" 2>/dev/null
 #inscope : https://github.com/tomnomnom/hacks/inscope
  sudo curl -qfsSL "https://bin.ajam.dev/x86_64_Linux/inscope" -o "$INSTALL_DIR/inscope" && sudo chmod +xwr "$INSTALL_DIR/inscope"
 #interactsh-client : https://github.com/projectdiscovery/interactsh
