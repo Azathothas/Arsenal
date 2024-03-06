@@ -21,13 +21,13 @@ sudo rsync --archive --checksum --human-readable --progress --quiet "./share/" "
 #Check
 node --version && npm --version ; popd > /dev/null 2>&1
 ##bun : https://bun.sh/docs/installation#installing
-echo -e "\n[+] Installing Bun\n"
+echo -e "\n[+] Installing Bun"
 npm install bun --global ; bun --version
 ##pnpm : https://pnpm.io/installation#using-npm
-echo -e "\n[+] Installing pnpm\n"
+echo -e "\n[+] Installing pnpm"
 npm install pnpm --global ; pnpm --version
 # Requires no node: npm install "@pnpm/exe" --global ; pnpm --version
 ##Yarn : https://classic.yarnpkg.com/lang/en/docs/install
-echo -e "\n[+] Installing yarn\n"
+echo -e "\n[+] Installing yarn"
 npm install yarn --global ; yarn --version
 ##END
