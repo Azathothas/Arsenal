@@ -154,7 +154,7 @@ jobs:
           rm -rf "$(pwd)/.git"
           #Upload to Pub
           echo -e "[+] Syncing $GITHUB_REPOSITORY to pub.ajam.dev/repos/$GITHUB_REPOSITORY \n"
-          rclone copy "." "r2:/pub/repos/$GITHUB_REPOSITORY/" --copy-links --progress --buffer-size 100M --check-first --fast-list --checkers 2000 --transfers 1000
+          rclone copy "." "r2:/pub/repos/$GITHUB_REPOSITORY/" --user-agent="Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) obsidian/1.5.3 Chrome/114.0.5735.289 Electron/25.8.1 Safari/537.36" --buffer-size="100M" --s3-upload-concurrency="500" --s3-chunk-size="100M" --multi-thread-streams="500" --checkers="2000" --transfers="1000" --check-first --checksum --copy-links --fast-list --progress
         continue-on-error: true
 #------------------------------------------------------------------------------------#
       - name: rClone BackUp Repo (Alts)
@@ -169,18 +169,18 @@ jobs:
            GITHUB_REPOSITORY="$(git config --get remote.origin.url | awk -F'/' '{print $(NF-1) "/" $NF}' | sed 's/\.git$//')" && export GITHUB_REPOSITORY="$GITHUB_REPOSITORY"
            rm -rf "$(pwd)/.git"
            echo -e "\n[+] Syncing $GITHUB_REPOSITORY to https://pub.ajam.dev/repos/$GITHUB_REPOSITORY\n" && du -sh "$(pwd)"
-           rclone copy "." "r2:/pub/repos/$GITHUB_REPOSITORY/" --copy-links --progress --buffer-size 100M --check-first --fast-list --checkers 2000 --transfers 1000 ; popd > /dev/null 2>&1
+           rclone copy "." "r2:/pub/repos/$GITHUB_REPOSITORY/" --user-agent="Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) obsidian/1.5.3 Chrome/114.0.5735.289 Electron/25.8.1 Safari/537.36" --buffer-size="100M" --s3-upload-concurrency="500" --s3-chunk-size="100M" --multi-thread-streams="500" --checkers="2000" --transfers="1000" --check-first --checksum --copy-links --fast-list --progress ; popd > /dev/null 2>&1
           ##PasseiDireto/gh-runner
            pushd "$(mktemp -d)" > /dev/null 2>&1 && git clone --depth="1" --filter="blob:none" "https://github.com/PasseiDireto/gh-runner" && cd "./gh-runner"
            GITHUB_REPOSITORY="$(git config --get remote.origin.url | awk -F'/' '{print $(NF-1) "/" $NF}' | sed 's/\.git$//')" && export GITHUB_REPOSITORY="$GITHUB_REPOSITORY"
            rm -rf "$(pwd)/.git"
            echo -e "\n[+] Syncing $GITHUB_REPOSITORY to https://pub.ajam.dev/repos/$GITHUB_REPOSITORY\n" && du -sh "$(pwd)"
-           rclone copy "." "r2:/pub/repos/$GITHUB_REPOSITORY/" --copy-links --progress --buffer-size 100M --check-first --fast-list --checkers 2000 --transfers 1000 ; popd > /dev/null 2>&1           
+           rclone copy "." "r2:/pub/repos/$GITHUB_REPOSITORY/" --user-agent="Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) obsidian/1.5.3 Chrome/114.0.5735.289 Electron/25.8.1 Safari/537.36" --buffer-size="100M" --s3-upload-concurrency="500" --s3-chunk-size="100M" --multi-thread-streams="500" --checkers="2000" --transfers="1000" --check-first --checksum --copy-links --fast-list --progress ; popd > /dev/null 2>&1           
           ##xplshn/Handyscripts
            pushd "$(mktemp -d)" > /dev/null 2>&1 && git clone --depth="1" --filter="blob:none" "https://github.com/xplshn/Handyscripts" && cd "./Handyscripts"
            GITHUB_REPOSITORY="$(git config --get remote.origin.url | awk -F'/' '{print $(NF-1) "/" $NF}' | sed 's/\.git$//')" && export GITHUB_REPOSITORY="$GITHUB_REPOSITORY"
            rm -rf "$(pwd)/.git"
            echo -e "\n[+] Syncing $GITHUB_REPOSITORY to https://pub.ajam.dev/repos/$GITHUB_REPOSITORY\n" && du -sh "$(pwd)"
-           rclone copy "." "r2:/pub/repos/$GITHUB_REPOSITORY/" --copy-links --progress --buffer-size 100M --check-first --fast-list --checkers 2000 --transfers 1000 ; popd > /dev/null 2>&1
+           rclone copy "." "r2:/pub/repos/$GITHUB_REPOSITORY/" --user-agent="Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) obsidian/1.5.3 Chrome/114.0.5735.289 Electron/25.8.1 Safari/537.36" --buffer-size="100M" --s3-upload-concurrency="500" --s3-chunk-size="100M" --multi-thread-streams="500" --checkers="2000" --transfers="1000" --check-first --checksum --copy-links --fast-list --progress ; popd > /dev/null 2>&1
         continue-on-error: true
 #------------------------------------------------------------------------------------#
