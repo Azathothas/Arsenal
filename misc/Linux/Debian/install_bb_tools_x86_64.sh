@@ -48,8 +48,12 @@ export INSTALL_DIR="/usr/local/bin"
  sudo curl -qfsSL "https://bin.ajam.dev/x86_64_Linux/dnsx" -o "$INSTALL_DIR/dnsx" && sudo chmod +xwr "$INSTALL_DIR/dnsx" 
 #dsieve : https://github.com/trickest/dsieve
  sudo curl -qfsSL "https://bin.ajam.dev/x86_64_Linux/dsieve" -o "$INSTALL_DIR/dsieve" && sudo chmod +xwr "$INSTALL_DIR/dsieve"
+#duf
+ sudo curl -qfsSL "https://bin.ajam.dev/x86_64_Linux/duf" -o "/usr/local/bin/duf" && sudo chmod +xwr "/usr/local/bin/duf" 
 #dust
  sudo curl -qfsSL "https://bin.ajam.dev/x86_64_Linux/dust" -o "/usr/local/bin/dust" && sudo chmod +xwr "/usr/local/bin/dust"
+#dysk
+ sudo curl -qfsSL "https://bin.ajam.dev/x86_64_Linux/dysk" -o "/usr/local/bin/dysk" && sudo chmod +xwr "/usr/local/bin/dysk" 
 #dontgo403 : https://github.com/devploit/dontgo403
  sudo curl -qfsSL "https://bin.ajam.dev/x86_64_Linux/dontgo403" -o "$INSTALL_DIR/dontgo403" && sudo chmod +xwr "$INSTALL_DIR/dontgo403"
 #dust
