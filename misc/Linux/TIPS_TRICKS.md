@@ -8,6 +8,7 @@
 !# -t7z  --> compress to 7z format
 !# -mmt  --> maximum no of threads
 !# -mx   --> compress in ultra mode (-mx=9)
+!# -bsp1 --> shows progress
 !# -bt   --> shows execution time statistics
 
 ❯ 7z a -t7z -mx="9" -mmt="$(($(nproc)+1))" -bt "$DIR.7z" "$DIR" 2>/dev/null
