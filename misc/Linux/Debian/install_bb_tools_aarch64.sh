@@ -45,15 +45,17 @@ export INSTALL_DIR="/usr/local/bin"
 #dnstake : https://github.com/pwnesia/dnstake
  sudo curl -qfsSL "https://bin.ajam.dev/aarch64_arm64_Linux/dnstake" -o "$INSTALL_DIR/dnstake" && sudo chmod +xwr "$INSTALL_DIR/dnstake"
 #dnsx : https://github.com/projectdiscovery/dnsx
- sudo curl -qfsSL "https://bin.ajam.dev/aarch64_arm64_Linux/dnsx" -o "$INSTALL_DIR/dnsx" && sudo chmod +xwr "$INSTALL_DIR/dnsx" 
+ sudo curl -qfsSL "https://bin.ajam.dev/aarch64_arm64_Linux/dnsx" -o "$INSTALL_DIR/dnsx" && sudo chmod +xwr "$INSTALL_DIR/dnsx"
+#dontgo403 : https://github.com/devploit/dontgo403
+ sudo curl -qfsSL "https://bin.ajam.dev/aarch64_arm64_Linux/dontgo403" -o "$INSTALL_DIR/dontgo403" && sudo chmod +xwr "$INSTALL_DIR/dontgo403" 
 #dsieve : https://github.com/trickest/dsieve
  sudo curl -qfsSL "https://bin.ajam.dev/aarch64_arm64_Linux/dsieve" -o "$INSTALL_DIR/dsieve" && sudo chmod +xwr "$INSTALL_DIR/dsieve"
+#duf
+ sudo curl -qfsSL "https://bin.ajam.dev/aarch64_arm64_Linux/duf" -o "/usr/local/bin/duf" && sudo chmod +xwr "/usr/local/bin/duf"
 #dust
  sudo curl -qfsSL "https://bin.ajam.dev/aarch64_arm64_Linux/dust" -o "/usr/local/bin/dust" && sudo chmod +xwr "/usr/local/bin/dust"
-#dontgo403 : https://github.com/devploit/dontgo403
- sudo curl -qfsSL "https://bin.ajam.dev/aarch64_arm64_Linux/dontgo403" -o "$INSTALL_DIR/dontgo403" && sudo chmod +xwr "$INSTALL_DIR/dontgo403"
-#dust
- sudo curl -qfsSL "https://bin.ajam.dev/aarch64_arm64_Linux/dust" -o "$INSTALL_DIR/dust" && sudo chmod +xwr "$INSTALL_DIR/dust"
+#dysk
+ sudo curl -qfsSL "https://bin.ajam.dev/aarch64_arm64_Linux/dysk" -o "/usr/local/bin/dysk" && sudo chmod +xwr "/usr/local/bin/dysk"
 #eget
  sudo curl -qfsSL "https://bin.ajam.dev/aarch64_arm64_Linux/eget" -o "$INSTALL_DIR/eget" && sudo chmod +xwr "$INSTALL_DIR/eget"
 #enumerepo : https://github.com/trickest/enumerepo
