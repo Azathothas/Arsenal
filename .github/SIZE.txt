@@ -12,7 +12,7 @@
 744K   │ └─┬ nmap
 732K   │   ├── Services.md
 8.0K   │   └── README.md
-340K   ├─┬ misc
+344K   ├─┬ misc
  88K   │ ├─┬ Linux
  80K   │ │ ├─┬ Debian
  16K   │ │ │ ├── install_bb_tools_x86_64.sh
@@ -37,10 +37,11 @@
  12K   │ │   │ └── 0xf_gh_runner_windows_debug.yaml
 8.0K   │ │   └─┬ macOS
 4.0K   │ │     └── 0xf_gh_runner_macos_debug.yaml
- 28K   │ ├─┬ Windows
- 24K   │ │ └─┬ scripts
- 16K   │ │   ├── git_backup_windows.ps1
-4.0K   │ │   └── README.md
+ 32K   │ ├─┬ Windows
+ 24K   │ │ ├─┬ scripts
+ 16K   │ │ │ ├── git_backup_windows.ps1
+4.0K   │ │ │ └── README.md
+4.0K   │ │ └── TIPS_TRICKS.md
  28K   │ ├─┬ WSL
  20K   │ │ ├─┬ Debian
 8.0K   │ │ │ ├── customize.sh
