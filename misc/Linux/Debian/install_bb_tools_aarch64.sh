@@ -152,6 +152,8 @@ export INSTALL_DIR="/usr/local/bin"
  sudo curl -qfsSL "https://bin.ajam.dev/aarch64_arm64_Linux/tok" -o "$INSTALL_DIR/tok" && sudo chmod +xwr "$INSTALL_DIR/tok" &
 #trufflehog : https://github.com/trufflesecurity/trufflehog
  sudo curl -qfsSL "https://bin.ajam.dev/aarch64_arm64_Linux/trufflehog" -o "$INSTALL_DIR/trufflehog" && sudo chmod +xwr "$INSTALL_DIR/trufflehog" &
+#trurl : https://github.com/curl/trurl
+ sudo curl -qfsSL "https://bin.ajam.dev/aarch64_arm64_Linux/trurl" -o "$INSTALL_DIR/trurl" && sudo chmod +xwr "$INSTALL_DIR/trurl" & 
 #unfurl : https://github.com/tomnomnom/unfurl 
  sudo curl -qfsSL "https://bin.ajam.dev/aarch64_arm64_Linux/unfurl" -o "$INSTALL_DIR/unfurl" && sudo chmod +xwr "$INSTALL_DIR/unfurl" &
 #validtoml
