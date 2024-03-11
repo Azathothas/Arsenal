@@ -62,6 +62,8 @@ export INSTALL_DIR="/usr/local/bin"
  sudo curl -qfsSL "https://bin.ajam.dev/x86_64_Linux/eget" -o "$INSTALL_DIR/eget" && sudo chmod +xwr "$INSTALL_DIR/eget" &
 #enumerepo : https://github.com/trickest/enumerepo
  sudo curl -qfsSL "https://bin.ajam.dev/x86_64_Linux/enumerepo" -o "$INSTALL_DIR/enumerepo" && sudo chmod +xwr "$INSTALL_DIR/enumerepo" &
+#epoch : https://github.com/sj14/epoch
+ sudo curl -qfsSL "https://bin.ajam.dev/x86_64_Linux/epoch" -o "$INSTALL_DIR/epoch" && sudo chmod +xwr "$INSTALL_DIR/epoch" &
 #ffuf : https://github.com/ffuf/ffuf
  sudo curl -qfsSL "https://bin.ajam.dev/x86_64_Linux/ffuf" -o "$INSTALL_DIR/ffuf" && sudo chmod +xwr "$INSTALL_DIR/ffuf" &
 #fget
