@@ -142,6 +142,8 @@ export INSTALL_DIR="/usr/local/bin"
  sudo curl -qfsSL "https://bin.ajam.dev/x86_64_Linux/smap" -o "$INSTALL_DIR/smap" && sudo chmod +xwr "$INSTALL_DIR/smap" &
 #sns : https://github.com/sw33tLie/sns
  sudo curl -qfsSL "https://bin.ajam.dev/x86_64_Linux/sns" -o "$INSTALL_DIR/sns" && sudo chmod +xwr "$INSTALL_DIR/sns" &
+#sttr: https://github.com/abhimanyu003/sttr
+ sudo curl -qfsSL "https://bin.ajam.dev/x86_64_Linux/sttr" -o "$INSTALL_DIR/sttr" && sudo chmod +xwr "$INSTALL_DIR/sttr" &
 #subfinder : https://github.com/projectdiscovery/subfinder
  sudo curl -qfsSL "https://bin.ajam.dev/x86_64_Linux/subfinder" -o "$INSTALL_DIR/subfinder" && sudo chmod +xwr "$INSTALL_DIR/subfinder" &
 #subjs : https://github.com/lc/subjs
