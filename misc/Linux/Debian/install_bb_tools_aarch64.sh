@@ -118,6 +118,8 @@ export INSTALL_DIR="/usr/local/bin"
  sudo curl -qfsSL "https://bin.ajam.dev/aarch64_arm64_Linux/notify" -o "$INSTALL_DIR/notify" && sudo chmod +xwr "$INSTALL_DIR/notify" &
 #nuclei : https://github.com/projectdiscovery/nuclei
  sudo curl -qfsSL "https://bin.ajam.dev/aarch64_arm64_Linux/nuclei" -o "$INSTALL_DIR/nuclei" && sudo chmod +xwr "$INSTALL_DIR/nuclei" &
+#pencode : https://github.com/ffuf/pencode
+ sudo curl -qfsSL "https://bin.ajam.dev/aarch64_arm64_Linux/pencode" -o "$INSTALL_DIR/pencode" && sudo chmod +xwr "$INSTALL_DIR/pencode" &  
 #puredns : https://github.com/d3mondev/puredns
  sudo curl -qfsSL "https://bin.ajam.dev/aarch64_arm64_Linux/puredns" -o "$INSTALL_DIR/puredns" && sudo chmod +xwr "$INSTALL_DIR/puredns" &
 #qsreplace : https://github.com/tomnomnom/qsreplace
