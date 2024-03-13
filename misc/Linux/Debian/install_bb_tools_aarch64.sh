@@ -30,6 +30,8 @@ export INSTALL_DIR="/usr/local/bin"
  sudo curl -qfsSL "https://bin.ajam.dev/aarch64_arm64_Linux/btop" -o "$INSTALL_DIR/btop" && sudo chmod +xwr "$INSTALL_DIR/btop" &
 #cdncheck
  sudo curl -qfsSL "https://bin.ajam.dev/aarch64_arm64_Linux/cdncheck" -o "$INSTALL_DIR/cdncheck" && sudo chmod +xwr "$INSTALL_DIR/cdncheck" &
+#cent
+ sudo curl -qfsSL "https://bin.ajam.dev/aarch64_arm64_Linux/cent" -o "$INSTALL_DIR/cent" && sudo chmod +xwr "$INSTALL_DIR/cent" &  
 #crlfuzz : https://github.com/dwisiswant0/crlfuzz
  sudo curl -qfsSL "https://bin.ajam.dev/aarch64_arm64_Linux/crlfuzz" -o "$INSTALL_DIR/crlfuzz" && sudo chmod +xwr "$INSTALL_DIR/crlfuzz" &
 #croc : https://github.com/schollz/croc
