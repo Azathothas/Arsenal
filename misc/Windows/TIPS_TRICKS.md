@@ -12,3 +12,24 @@
 
 #Just replace with `n{GB|TB|PB}` etc
 ````
+---
+- #### **`PASSWDGEN`** with Highest Entropy & Randomness
+```powershell
+# < "/dev/urandom" --> stores rand data as a file
+# 33..126 --> ASCII range 33 to 126 (inclusive)
+# { $_ -ne 96 -and $_ -ne 92 } --> excluding the characters \ and `
+# { [char]$_ } --> convert ASCII back to printable chars
+# Get-Random -Count $N --> prints the first N char, change this to change the password length
+
+!# Test Strength here: https://www.uic.edu/apps/strong-password/
+
+❯  -join ((33..126 | Where-Object { $_ -ne 96 -and $_ -ne 92 }) | ForEach-Object { [char]$_ } | Get-Random -Count $N)
+#Example to generate a 42 length password
+❯ -join ((33..126 | Where-Object { $_ -ne 96 -and $_ -ne 92 }) | ForEach-Object { [char]$_ } | Get-Random -Count 42)
+
+!# Using moac :: https://github.com/Seirdy/moac
+#x64 Windows : https://bin.ajam.dev/x64_Windows/moac-pwgen
+#Generate with a min/max length of 42
+❯ moac-pwgen -q -l 42 -L 42 && echo
+```
+---
