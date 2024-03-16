@@ -13,7 +13,7 @@
 744K   │ └─┬ nmap
 732K   │   ├── Services.md
 8.0K   │   └── README.md
-348K   ├─┬ misc
+352K   ├─┬ misc
  88K   │ ├─┬ Linux
  80K   │ │ ├─┬ Debian
  16K   │ │ │ ├── install_bb_tools_x86_64.sh
@@ -43,11 +43,11 @@
  16K   │ │ │ ├── git_backup_windows.ps1
 4.0K   │ │ │ └── README.md
 4.0K   │ │ └── TIPS_TRICKS.md
- 28K   │ ├─┬ WSL
+ 32K   │ ├─┬ WSL
  20K   │ │ ├─┬ Debian
 8.0K   │ │ │ ├── customize.sh
 8.0K   │ │ │ └── README.md
-4.0K   │ │ └── README.md
+8.0K   │ │ └── README.md
  24K   │ ├─┬ VMware
  12K   │ │ ├─┬ Parrot_Minimal
 8.0K   │ │ │ └── README.md
