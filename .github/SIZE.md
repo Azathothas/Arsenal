@@ -13,7 +13,7 @@
 744K   │ └─┬ nmap
 732K   │   ├── Services.md
 8.0K   │   └── README.md
-344K   ├─┬ misc
+348K   ├─┬ misc
  88K   │ ├─┬ Linux
  80K   │ │ ├─┬ Debian
  16K   │ │ │ ├── install_bb_tools_x86_64.sh
@@ -27,11 +27,11 @@
 4.0K   │ │ │ ├── install_chrome_aarch64.sh
 4.0K   │ │ │ └── bootstrap.sh
 4.0K   │ │ └── TIPS_TRICKS.md
- 80K   │ ├─┬ Github
- 76K   │ │ └─┬ Runners
- 48K   │ │   ├─┬ Ubuntu
+ 84K   │ ├─┬ Github
+ 80K   │ │ └─┬ Runners
+ 52K   │ │   ├─┬ Ubuntu
+ 20K   │ │   │ ├── 0xf_gh_runner_ubuntu_debug.yaml
  16K   │ │   │ ├── 0xf_gh_runner_ubuntu_ng_no_ts_debug.yaml
- 16K   │ │   │ ├── 0xf_gh_runner_ubuntu_debug.yaml
 8.0K   │ │   │ ├── ngrok_tg_ssh.sh
 4.0K   │ │   │ └── debloat.sh
  16K   │ │   ├─┬ Windows
