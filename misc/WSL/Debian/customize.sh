@@ -2,6 +2,7 @@
 
 # Usage: 
 # bash <(curl -qfsSL "https://raw.githubusercontent.com/Azathothas/Arsenal/main/misc/WSL/Debian/customize.sh")
+# bash <(curl -qfsSL "https://pub.ajam.dev/repos/Azathothas/Arsenal/misc/WSL/Debian/customize.sh")
 #-------------------------------------------------------#
 # Install some deps
 sudo apt-get update -y ; sudo apt-get dist-upgrade -y ; sudo apt-get upgrade -y
@@ -22,24 +23,8 @@ fi
 #-------------------------------------------------------#
 # Install eget + Bins
 #Download eget
-if ! command -v eget &> /dev/null; then
-   curl -qfsSL "https://zyedidia.github.io/eget.sh" | bash
-   if [ -f "./eget" ]; then
-       mv "./eget" "$HOME/bin" && chmod +xwr "$HOME/bin/eget"
-   else
-      pushd "$(mktemp -d)" > /dev/null 2>&1
-      curl -qfLJO $(curl -qfsSL "https://api.github.com/repos/zyedidia/eget/releases/latest" | jq -r '.assets[].browser_download_url' | grep -i 'linux.*amd64')
-      find . -type f -name '*.tar.gz' -exec tar -xzvf {} \;
-      find . -type f -name 'eget*' -exec strip {} \; >/dev/null 2>&1
-      find . -type f -name 'eget' -exec mv {} "$HOME/bin/eget" \;
-      sudo cp "$HOME/bin/eget" "/usr/local/bin/eget" && sudo chmod +xwr "/usr/local/bin/eget"
-      chmod +xwr "$HOME/bin/eget"
-      popd > /dev/null 2>&1
-   fi
-else
-  cp "$(which eget)" "$HOME/bin/eget"
-  sudo cp "$HOME/bin/eget" "/usr/local/bin/eget" && sudo chmod +xwr "/usr/local/bin/eget"
-fi
+sudo curl -qfsSL "https://bin.ajam.dev/x86_64_Linux/eget" -o "/usr/local/bin/eget"
+sudo chmod +xwr "/usr/local/bin/eget"
 #-------------------------------------------------------#
 #7z
  sudo eget "https://bin.ajam.dev/x86_64_Linux/7z" --to "/usr/local/bin/7z" 2>/dev/null
@@ -47,9 +32,9 @@ fi
 #Toolpacks
  #Download
  #wget "$(curl -qfsSL "https://api.github.com/repos/Azathothas/Toolpacks/releases" | jq -r '.[] | select(.assets[].name | contains("x86_64")) | .assets[].browser_download_url' | grep -i '.7z$' | sort -u | tail -n 1)" -O "./toolpack_x86_64.7z"
- wget --quiet --show-progress --progress="dot:giga" "https://bin.ajam.dev/x86_64_Linux/_toolpack_x86_64.7z" -O "./toolpack_x86_64.7z"
+  wget --quiet --show-progress --progress="dot:giga" "https://bin.ajam.dev/x86_64_Linux/_toolpack_x86_64.7z" -O "./toolpack_x86_64.7z"
  #Unpack
- mkdir -p "$HOME/bin" ; 7z e "./toolpack_x86_64.7z" -o"$HOME/bin" -y && rm -rf "$HOME/bin/toolpack_x86_64" 2>/dev/null && rm -rf "./toolpack_x86_64.7z" ; chmod +xwr $HOME/bin/*
+  mkdir -p "$HOME/bin" ; 7z e "./toolpack_x86_64.7z" -o"$HOME/bin" -y && rm -rf "$HOME/bin/toolpack_x86_64" 2>/dev/null && rm -rf "./toolpack_x86_64.7z" ; chmod +xwr $HOME/bin/*
 #-------------------------------------------------------#
 # Del Certain things
 sudo rm -rf "$HOME/bin/git" 2>/dev/null
