@@ -59,11 +59,11 @@ sudo apt install tmux zsh -y
 # Fetch Config files
 mkdir -p "$HOME/.config" 
 # $HOME/.tmux.conf
-curl -qfsSL "https://raw.githubusercontent.com/Azathothas/Arsenal/main/misc/WSL/Debian/.tmux.conf" -o "$HOME/.tmux.conf"
+curl -qfsSL "https://pub.ajam.dev/repos/Azathothas/Arsenal/misc/WSL/Debian/.tmux.conf" -o "$HOME/.tmux.conf"
 tmux source-file "$HOME/.tmux.conf" >/dev/null 2>&1
 # $HOME/.zshrc
 touch "$HOME/.zsh_history" ; sudo touch "/root/.zsh_history" 
-curl -qfsSL "https://raw.githubusercontent.com/Azathothas/Arsenal/main/misc/WSL/Debian/.zshrc" -o "$HOME/.zshrc"
+curl -qfsSL "https://pub.ajam.dev/repos/Azathothas/Arsenal/misc/WSL/Debian/.zshrc" -o "$HOME/.zshrc"
 dos2unix --quiet "$HOME/.zshrc" >/dev/null 2>&1
 #echo 'ZSH_DISABLE_COMPFIX="true"' | sudo tee "/root/.zshrc"
 #cat "$HOME/.zshrc" | sed "s|\$HOME|$HOME|g" | sudo tee -a "/root/.zshrc"
@@ -71,16 +71,16 @@ dos2unix --quiet "$HOME/.zshrc" >/dev/null 2>&1
 # Install tpm plugins
 if [ ! -d "$HOME/.tmux/plugins/tpm" ]; then
    mkdir -p "$HOME/.tmux"
-   "/usr/bin/git" clone "https://github.com/tmux-plugins/tpm" "$HOME/.tmux/plugins/tpm" >/dev/null 2>&1
+   "/usr/bin/git" clone --filter="blob:none" --quiet "https://github.com/tmux-plugins/tpm" "$HOME/.tmux/plugins/tpm" >/dev/null 2>&1
 fi
 # Install zsh plugins
 mkdir -p "$HOME/.zsh" && pushd "$HOME/.zsh" > /dev/null 2>&1
-"/usr/bin/git" clone "https://github.com/zsh-users/zsh-syntax-highlighting.git" >/dev/null 2>&1
-"/usr/bin/git" clone "https://github.com/zsh-users/zsh-autosuggestions.git" >/dev/null 2>&1
-"/usr/bin/git" clone "https://github.com/marlonrichert/zsh-autocomplete.git" >/dev/null 2>&1
+"/usr/bin/git" clone --filter="blob:none" --quiet "https://github.com/zsh-users/zsh-syntax-highlighting.git" >/dev/null 2>&1
+"/usr/bin/git" clone --filter="blob:none" --quiet "https://github.com/zsh-users/zsh-autosuggestions.git" >/dev/null 2>&1
+"/usr/bin/git" clone --filter="blob:none" --quiet "https://github.com/marlonrichert/zsh-autocomplete.git" >/dev/null 2>&1
 popd > /dev/null 2>&1
 # Add zshrc to be loaded from .profile
-echo '[ -f $HOME/bin/zsh ] && exec $HOME/bin/zsh -l' | tee -a "$HOME/.profile"
+#echo '[ -f $HOME/bin/zsh ] && exec $HOME/bin/zsh -l' | tee -a "$HOME/.profile"
 # change shell
 chsh -s "$(which zsh)"
 #sudo chsh -s $(which zsh)
