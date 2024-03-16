@@ -1,0 +1,22 @@
+## "$HOME/.config/starship.toml"
+#Increase timeout for cmd
+command_timeout = 1000
+#Battery : https://starship.rs/config/#battery
+[battery]
+disabled = true
+#Dirs: https://starship.rs/config/#directory
+[directory]
+truncation_length = 0
+#LocalIP : https://starship.rs/config/#local-ip
+[localip]
+#ssh_only = true
+disabled = false
+#OS : https://starship.rs/config/#os
+[os]
+disabled = false
+#Package (shows pkg versions) : https://starship.rs/config/#package-version
+[package]
+disabled = true
+#SHELL : https://starship.rs/config/#shell
+[shell]
+disabled = true
