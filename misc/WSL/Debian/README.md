@@ -54,6 +54,7 @@ sudo ufw status numbered
  ```bash
  !# Enable SystemD : https://devblogs.microsoft.com/commandline/systemd-support-is-now-available-in-wsl/
  echo -e "[boot]\nsystemd=true" | sudo tee "/etc/wsl.conf"
+ sudo dos2unix "/etc/wsl.conf"
  !# Reboot WSL (Run this from Windows Terminal)
  wsl --shutdown
  !# Install Core
