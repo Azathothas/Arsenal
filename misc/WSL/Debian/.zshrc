@@ -12,15 +12,12 @@ RESET='\033[0m'
 NC='\033[0m'
 
 #PATHS (Only Required)
-export "PATH=$HOME/bin:$HOME/miniconda3/bin:$HOME/miniconda3/condabin:$PATH"
+export GOROOT="$HOME/.go"
+export GOPATH="$HOME/go"
+export PATH="$HOME/bin:$HOME/.cargo/bin:$HOME/.cargo/env:$GOROOT/bin:$GOPATH/bin:$HOME/miniconda3/bin:$HOME/miniconda3/condabin:/usr/local/zig:/usr/local/zig/lib:/usr/local/zig/lib/include:$PATH"
 
 #Env variables
-export GITHUB_USER="Azathothas" #Github Username, this is CaseSensitive
-export Tools="$HOME/Tools" # Not backed up
-export tools="$HOME/Tools"
-export TOOLS="$HOME/Tools"
-export WORDLIST="$HOME/.wordlists" # Also not backed up
-current_dir=$(pwd)
+current_dir="$(pwd)"
 #Fix Clipboard
 export "DISPLAY=:0.0"
 
