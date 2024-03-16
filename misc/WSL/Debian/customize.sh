@@ -56,10 +56,14 @@ fi
 sudo apt install tmux zsh -y
 # Install Starship
 "$HOME/miniconda3/bin/conda" install -c conda-forge starship --all -y
-# Fetch Config files
+##Fetch Config files
 mkdir -p "$HOME/.config" 
-# $HOME/.tmux.conf
+#StarShip: "$HOME/.config/starship.toml"
+curl -qfsSL "https://pub.ajam.dev/repos/Azathothas/Arsenal/misc/WSL/Debian/starship.toml" -o "$HOME/.config/starship.toml"
+dos2unix --quiet "$HOME/.config/starship.toml" >/dev/null 2>&1
+#TMUX: "$HOME/.tmux.conf"
 curl -qfsSL "https://pub.ajam.dev/repos/Azathothas/Arsenal/misc/WSL/Debian/.tmux.conf" -o "$HOME/.tmux.conf"
+dos2unix --quiet "$HOME/.tmux.conf" >/dev/null 2>&1
 tmux source-file "$HOME/.tmux.conf" >/dev/null 2>&1
 # $HOME/.zshrc
 touch "$HOME/.zsh_history" ; sudo touch "/root/.zsh_history" 
