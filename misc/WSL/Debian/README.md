@@ -63,7 +63,8 @@ sudo ufw status numbered
  !# Re Login
  wsl -d debian
  !# Check Status
- sudo systemctl status time-sync.target
+ systemctl list-unit-files --type=service
+ sudo systemctl status "time-sync.target"
  ```
 ---
 - #### Install Addons & Utils
