@@ -102,6 +102,34 @@ jobs:
            pip install archey4 2>/dev/null
         continue-on-error: true
 
+      - name: Setup Python & DVC
+        run: |
+          # Presets
+          set -x ; set +e
+          #--------------#
+          sudo apt-get install python3 -y
+          #Test
+          python --version 2>/dev/null ; python3 --version 2>/dev/null
+          #Install pip:
+          #python3 -m ensurepip --upgrade ; pip3 --version
+          #curl -qfsSL "https://bootstrap.pypa.io/get-pip.py" -o "$SYSTMP/get-pip.py" && python3 "$SYSTMP/get-pip.py"
+          sudo apt-get install libxslt-dev lm-sensors pciutils procps python3-distro python-dev-is-python3 python3-lxml python3-netifaces python3-pip python3-venv sysfsutils virt-what -y
+          pip install --break-system-packages --upgrade pip || pip install --upgrade pip
+          #Misc
+          pip install ansi2txt --break-system-packages --force-reinstall --upgrade
+          #pipx
+          pip install pipx --upgrade 2>/dev/null
+          pip install pipx --upgrade --break-system-packages 2>/dev/null
+          # DVC
+          pip install "git+https://github.com/iterative/dvc#egg=dvc[all]" --break-system-packages --force-reinstall --upgrade
+          # For TG BOT Notifs
+          pip install apprise --upgrade 2>/dev/null
+          pip install apprise --upgrade --break-system-packages 2>/dev/null
+          # For neofetch
+          pip install archey4 --upgrade 2>/dev/null
+          pip install archey4 --upgrade --break-system-packages 2>/dev/null
+        continue-on-error: true
+        
     ##Needed until gh runners updates go version: https://github.com/actions/runner-images/blob/main/images/linux/Ubuntu2204-Readme.md
     ## It helps to be on bleeding edge anyway
       - name: Install/Update golang
