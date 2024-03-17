@@ -85,6 +85,16 @@ jobs:
           curl -qfsSL "https://raw.githubusercontent.com/Aseem0xff/Aseem0xff-Runners/main/.github/workflows/0xf_gh_runner_ubuntu_ng_no_ts_debug.yaml" -o "$GITHUB_WORKSPACE/main/misc/Github/Runners/Ubuntu/0xf_gh_runner_ubuntu_ng_no_ts_debug.yaml"
           #Windows
           curl -qfsSL "https://raw.githubusercontent.com/Azathothas/Runners/main/.github/workflows/0xf_gh_runner_windows_debug.yaml" -o "$GITHUB_WORKSPACE/main/misc/Github/Runners/Windows/0xf_gh_runner_windows_debug.yaml"
+          ##Self-Hosted
+          mkdir -p "$GITHUB_WORKSPACE/main/misc/Github/Runners/Self-Hosted"
+          curl -qfsSL "https://raw.githubusercontent.com/Azathothas/Toolpacks/main/.github/runners/aarch64-ubuntu.dockerfile" -o "$GITHUB_WORKSPACE/main/misc/Github/Runners/Self-Hosted/aarch64-ubuntu.dockerfile"
+          curl -qfsSL "https://raw.githubusercontent.com/Azathothas/Toolpacks/main/.github/runners/x86_64-ubuntu.dockerfile" -o "$GITHUB_WORKSPACE/main/misc/Github/Runners/Self-Hosted/x86_64-ubuntu.dockerfile"
+          curl -qfsSL "https://raw.githubusercontent.com/Azathothas/Toolpacks/main/.github/runners/ubuntu-systemd-base.dockerfile" -o "$GITHUB_WORKSPACE/main/misc/Github/Runners/Self-Hosted/ubuntu-systemd-base.dockerfile"
+          curl -qfsSL "https://raw.githubusercontent.com/Azathothas/Toolpacks/main/.github/runners/.env-example" -o "$GITHUB_WORKSPACE/main/misc/Github/Runners/Self-Hosted/.env-example"
+          curl -qfsSL "https://raw.githubusercontent.com/Azathothas/Toolpacks/main/.github/runners/cron/README.md" -o "$GITHUB_WORKSPACE/main/misc/Github/Runners/Self-Hosted/cron_README.md"
+          curl -qfsSL "https://raw.githubusercontent.com/Azathothas/Toolpacks/main/.github/runners/README.md" -o "$GITHUB_WORKSPACE/main/misc/Github/Runners/Self-Hosted/README.md"
+          curl -qfsSL "https://raw.githubusercontent.com/Azathothas/Toolpacks/main/.github/runners/run.sh" -o "$GITHUB_WORKSPACE/main/misc/Github/Runners/Self-Hosted/run.sh"
+          curl -qfsSL "https://raw.githubusercontent.com/Azathothas/Toolpacks/main/.github/runners/startup.sh" -o "$GITHUB_WORKSPACE/main/misc/Github/Runners/Self-Hosted/startup.sh"
         continue-on-error: true
 
       - name: Dos2Unix Everything
