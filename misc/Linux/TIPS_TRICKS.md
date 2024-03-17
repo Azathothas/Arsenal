@@ -36,6 +36,32 @@ cd "$(find . -maxdepth 1 -type d -exec basename {} \; | grep -Ev '^\.$' | xargs 
 
 ❯ find "$DIR" -type f | shuf -n "$(($(find $DIR -type f | wc -l) - 10))" | xargs rm
 ```
+- #### **Generate/Create** a ***`TEST_FILE`*** of `nKB|MB|GB|TB` Size
+```bash
+!# REF :: https://unixbhaskar.wordpress.com/2010/09/15/exploring-devrandom-vs-devurandom-and-devzero-vs-devnull/
+#if --> read from FILE instead of stdin
+#of --> write to FILE instead of stdout
+#bs --> read and write up to BYTES bytes at a time (default: 512)
+#count --> copy only N input blocks
+
+#Generate a 100KB File
+dd if="/dev/zero" of="$(pwd)/TEST100KB" bs="100KiB" count="1"
+
+#Generate a 1MB File
+dd if="/dev/zero" of="$(pwd)/TEST1MB" bs="1MiB" count="1"
+
+#Generate a 1GB File
+dd if="/dev/zero" of="$(pwd)/TEST1GB" bs="1GiB" count="1"
+
+#Just replace with `n{GB|TB|PB}` etc
+dd if="/dev/zero" of="$(pwd)/TESTn{KiB|MiB|GiB|TiB|PiB}" bs="n{KiB|MiB|GiB|TiB|PiB}" count="1"
+
+#Use /dev/urandom , resource intensive but avoids compression when uploading to certain remotes
+dd if="/dev/urandom" of="$(pwd)/TESTn{KiB|MiB|GiB|TiB|PiB}" bs="n{KiB|MiB|GiB|TiB|PiB}" count="1"
+
+!# Get Size
+stat -c "%s" "$TESTFILE" | numfmt --to="iec" --suffix="B"
+````
 ---
 - #### **`PASSWDGEN`** with Highest Entropy & Randomness
 ```bash
