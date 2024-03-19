@@ -61,6 +61,7 @@ mkdir -p "$HOME/.config"
 #StarShip: "$HOME/.config/starship.toml"
 curl -qfsSL "https://pub.ajam.dev/repos/Azathothas/Arsenal/misc/WSL/Debian/starship.toml" -o "$HOME/.config/starship.toml"
 dos2unix --quiet "$HOME/.config/starship.toml" >/dev/null 2>&1
+cp "$HOME/.config/starship.toml" "$HOME/.config/starship_conf.toml"
 #TMUX: "$HOME/.tmux.conf"
 curl -qfsSL "https://pub.ajam.dev/repos/Azathothas/Arsenal/misc/WSL/Debian/.tmux.conf" -o "$HOME/.tmux.conf"
 dos2unix --quiet "$HOME/.tmux.conf" >/dev/null 2>&1
