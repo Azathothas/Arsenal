@@ -98,6 +98,7 @@ setopt appendhistory
 #Some Custom QOL Changes
 #Prompt
 eval "$(starship init zsh)"
+cp "$HOME/.config/starship.toml" "$HOME/.config/starship_conf.toml"
 # Set prompt
 #starship preset pure-preset -o ~/.config/starship.toml
 #starship preset nerd-font-symbols -o ~/.config/starship.toml
