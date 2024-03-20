@@ -222,7 +222,10 @@ jobs:
           #From api
           curl -qfsSL "https://api.mullvad.net/app/v1/relays" | jq . > "./relays_api.json"
           rclone copyto "./relays_api.json" "r2:/pub/utils/mullvad/relays_api.json" --user-agent="Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) obsidian/1.5.3 Chrome/114.0.5735.289 Electron/25.8.1 Safari/537.36" --buffer-size="100M" --s3-upload-concurrency="500" --s3-chunk-size="100M" --multi-thread-streams="500" --checkers="2000" --transfers="1000" --check-first --checksum --copy-links --fast-list --progress
+          #Proxies : https://mullvad.net/en/help/socks5-proxy (https://github.com/maximko/mullvad-socks-lis)
+          curl -qfsSL "https://raw.githubusercontent.com/maximko/mullvad-socks-list/list/mullvad-socks-list.txt" -o "./proxies.txt"
+          rclone copyto "./proxies.txt" "r2:/pub/utils/mullvad/proxies.txt" --user-agent="Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) obsidian/1.5.3 Chrome/114.0.5735.289 Electron/25.8.1 Safari/537.36" --buffer-size="100M" --s3-upload-concurrency="500" --s3-chunk-size="100M" --multi-thread-streams="500" --checkers="2000" --transfers="1000" --check-first --checksum --copy-links --fast-list --progress
           popd "$(mktemp -d)" > /dev/null 2>&1
           #--------------#
-        continue-on-error: true          
+        continue-on-error: true
 #------------------------------------------------------------------------------------#
