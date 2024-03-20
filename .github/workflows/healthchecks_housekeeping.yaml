@@ -214,7 +214,9 @@ jobs:
           #Install
           sudo dpkg -i "./mullvad.deb"
           #Generate relays file
-          mullvad relay update && mullvad relay list > "./relays_cli.txt"
+          mullvad relay update && sleep 10
+          mullvad relay list > "./relays_cli.txt"
+          rclone copyto "./relays_cli.txt" "r2:/pub/utils/mullvad/relays_cli.txt" --user-agent="Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) obsidian/1.5.3 Chrome/114.0.5735.289 Electron/25.8.1 Safari/537.36" --buffer-size="100M" --s3-upload-concurrency="500" --s3-chunk-size="100M" --multi-thread-streams="500" --checkers="2000" --transfers="1000" --check-first --checksum --copy-links --fast-list --progress
           cat "/opt/Mullvad VPN/resources/relays.json" | jq . > "./relays_cli.json"
           rclone copyto "./relays_cli.json" "r2:/pub/utils/mullvad/relays_cli.json" --user-agent="Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) obsidian/1.5.3 Chrome/114.0.5735.289 Electron/25.8.1 Safari/537.36" --buffer-size="100M" --s3-upload-concurrency="500" --s3-chunk-size="100M" --multi-thread-streams="500" --checkers="2000" --transfers="1000" --check-first --checksum --copy-links --fast-list --progress
           #From api
@@ -222,4 +224,5 @@ jobs:
           rclone copyto "./relays_api.json" "r2:/pub/utils/mullvad/relays_api.json" --user-agent="Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) obsidian/1.5.3 Chrome/114.0.5735.289 Electron/25.8.1 Safari/537.36" --buffer-size="100M" --s3-upload-concurrency="500" --s3-chunk-size="100M" --multi-thread-streams="500" --checkers="2000" --transfers="1000" --check-first --checksum --copy-links --fast-list --progress
           popd "$(mktemp -d)" > /dev/null 2>&1
           #--------------#
+        continue-on-error: true          
 #------------------------------------------------------------------------------------#
