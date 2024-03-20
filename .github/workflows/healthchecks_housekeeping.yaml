@@ -8,7 +8,7 @@ on:
   #  - cron: "45 02 * * *"  # 02:45 AM UTC --> 08:30 AM Morning NPT
     - cron: "*/30 * * * *"  # Every 30 Mins
 env:
-  USER_AGENT: "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:109.0) Gecko/20100101 Firefox/115.0"
+  USER_AGENT: "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) obsidian/1.5.3 Chrome/114.0.5735.289 Electron/25.8.1 Safari/537.36"
   RCLONE_CF_R2_PUB: "${{ secrets.RCLONE_CF_R2_PUB }}"
 #------------------------------------------------------------------------------------#
 jobs:
@@ -28,7 +28,7 @@ jobs:
       - name: Setup Env
         run: |
           #presets
-          set -x ; set +e
+          set +x ; set +e
           #temp
           SYSTMP="$(dirname $(mktemp -u))" && export SYSTMP="$SYSTMP"
           echo "SYSTMP=$SYSTMP" >> "$GITHUB_ENV"
@@ -166,7 +166,7 @@ jobs:
           rm -rf "$(pwd)/.git"
           #Upload to Pub
           echo -e "[+] Syncing $GITHUB_REPOSITORY to pub.ajam.dev/repos/$GITHUB_REPOSITORY \n"
-          rclone sync "." "r2:/pub/repos/$GITHUB_REPOSITORY/" --user-agent="Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) obsidian/1.5.3 Chrome/114.0.5735.289 Electron/25.8.1 Safari/537.36" --buffer-size="100M" --s3-upload-concurrency="500" --s3-chunk-size="100M" --multi-thread-streams="500" --checkers="2000" --transfers="1000" --check-first --checksum --copy-links --fast-list --progress
+          rclone sync "." "r2:/pub/repos/$GITHUB_REPOSITORY/" --user-agent="$USER_AGENT" --buffer-size="100M" --s3-upload-concurrency="500" --s3-chunk-size="100M" --multi-thread-streams="500" --checkers="2000" --transfers="1000" --check-first --checksum --copy-links --fast-list --progress
         continue-on-error: true
 #------------------------------------------------------------------------------------#
       - name: rClone BackUp Repo (Alts)
@@ -181,19 +181,19 @@ jobs:
            GITHUB_REPOSITORY="$(git config --get remote.origin.url | awk -F'/' '{print $(NF-1) "/" $NF}' | sed 's/\.git$//')" && export GITHUB_REPOSITORY="$GITHUB_REPOSITORY"
            rm -rf "$(pwd)/.git"
            echo -e "\n[+] Syncing $GITHUB_REPOSITORY to https://pub.ajam.dev/repos/$GITHUB_REPOSITORY\n" && du -sh "$(pwd)"
-           rclone sync "." "r2:/pub/repos/$GITHUB_REPOSITORY/" --user-agent="Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) obsidian/1.5.3 Chrome/114.0.5735.289 Electron/25.8.1 Safari/537.36" --buffer-size="100M" --s3-upload-concurrency="500" --s3-chunk-size="100M" --multi-thread-streams="500" --checkers="2000" --transfers="1000" --check-first --checksum --copy-links --fast-list --progress ; popd > /dev/null 2>&1
+           rclone sync "." "r2:/pub/repos/$GITHUB_REPOSITORY/" --user-agent="$USER_AGENT" --buffer-size="100M" --s3-upload-concurrency="500" --s3-chunk-size="100M" --multi-thread-streams="500" --checkers="2000" --transfers="1000" --check-first --checksum --copy-links --fast-list --progress ; popd > /dev/null 2>&1
           ##PasseiDireto/gh-runner
            pushd "$(mktemp -d)" > /dev/null 2>&1 && git clone --depth="1" --filter="blob:none" "https://github.com/PasseiDireto/gh-runner" && cd "./gh-runner"
            GITHUB_REPOSITORY="$(git config --get remote.origin.url | awk -F'/' '{print $(NF-1) "/" $NF}' | sed 's/\.git$//')" && export GITHUB_REPOSITORY="$GITHUB_REPOSITORY"
            rm -rf "$(pwd)/.git"
            echo -e "\n[+] Syncing $GITHUB_REPOSITORY to https://pub.ajam.dev/repos/$GITHUB_REPOSITORY\n" && du -sh "$(pwd)"
-           rclone sync "." "r2:/pub/repos/$GITHUB_REPOSITORY/" --user-agent="Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) obsidian/1.5.3 Chrome/114.0.5735.289 Electron/25.8.1 Safari/537.36" --buffer-size="100M" --s3-upload-concurrency="500" --s3-chunk-size="100M" --multi-thread-streams="500" --checkers="2000" --transfers="1000" --check-first --checksum --copy-links --fast-list --progress ; popd > /dev/null 2>&1           
+           rclone sync "." "r2:/pub/repos/$GITHUB_REPOSITORY/" --user-agent="$USER_AGENT" --buffer-size="100M" --s3-upload-concurrency="500" --s3-chunk-size="100M" --multi-thread-streams="500" --checkers="2000" --transfers="1000" --check-first --checksum --copy-links --fast-list --progress ; popd > /dev/null 2>&1           
           ##xplshn/Handyscripts
            pushd "$(mktemp -d)" > /dev/null 2>&1 && git clone --depth="1" --filter="blob:none" "https://github.com/xplshn/Handyscripts" && cd "./Handyscripts"
            GITHUB_REPOSITORY="$(git config --get remote.origin.url | awk -F'/' '{print $(NF-1) "/" $NF}' | sed 's/\.git$//')" && export GITHUB_REPOSITORY="$GITHUB_REPOSITORY"
            rm -rf "$(pwd)/.git"
            echo -e "\n[+] Syncing $GITHUB_REPOSITORY to https://pub.ajam.dev/repos/$GITHUB_REPOSITORY\n" && du -sh "$(pwd)"
-           rclone sync "." "r2:/pub/repos/$GITHUB_REPOSITORY/" --user-agent="Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) obsidian/1.5.3 Chrome/114.0.5735.289 Electron/25.8.1 Safari/537.36" --buffer-size="100M" --s3-upload-concurrency="500" --s3-chunk-size="100M" --multi-thread-streams="500" --checkers="2000" --transfers="1000" --check-first --checksum --copy-links --fast-list --progress ; popd > /dev/null 2>&1
+           rclone sync "." "r2:/pub/repos/$GITHUB_REPOSITORY/" --user-agent="$USER_AGENT" --buffer-size="100M" --s3-upload-concurrency="500" --s3-chunk-size="100M" --multi-thread-streams="500" --checkers="2000" --transfers="1000" --check-first --checksum --copy-links --fast-list --progress ; popd > /dev/null 2>&1
         continue-on-error: true
 #------------------------------------------------------------------------------------#
       - name: rClone Generate Dynamic (https://pub.ajam.dev/utils/)
@@ -205,26 +205,26 @@ jobs:
           #arm64 deb
           pushd "$(mktemp -d)" > /dev/null 2>&1
           wget --quiet --show-progress "$(curl -qfsSL "https://api.github.com/repos/mullvad/mullvadvpn-app/releases" | jq -r '.[] | select(.prerelease == true) | .assets[] | select(.name | test("arm64.deb")) | .browser_download_url' | grep -iv '\.asc$' | head -n 1)" -O "./mullvad.deb"
-          rclone copyto "./mullvad.deb" "r2:/pub/utils/mullvad/mullvad_linux_arm64.deb" --user-agent="Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) obsidian/1.5.3 Chrome/114.0.5735.289 Electron/25.8.1 Safari/537.36" --buffer-size="100M" --s3-upload-concurrency="500" --s3-chunk-size="100M" --multi-thread-streams="500" --checkers="2000" --transfers="1000" --check-first --checksum --copy-links --fast-list --progress
+          rclone copyto "./mullvad.deb" "r2:/pub/utils/mullvad/mullvad_linux_arm64.deb" --user-agent="$USER_AGENT" --buffer-size="100M" --s3-upload-concurrency="500" --s3-chunk-size="100M" --multi-thread-streams="500" --checkers="2000" --transfers="1000" --check-first --checksum --copy-links --fast-list --progress
           popd "$(mktemp -d)" > /dev/null 2>&1
           #x86_64 deb
           pushd "$(mktemp -d)" > /dev/null 2>&1
           wget --quiet --show-progress "$(curl -qfsSL "https://api.github.com/repos/mullvad/mullvadvpn-app/releases" | jq -r '.[] | select(.prerelease == true) | .assets[] | select(.name | test("amd64.deb")) | .browser_download_url' | grep -iv '\.asc$' | head -n 1)" -O "./mullvad.deb"
-          rclone copyto "./mullvad.deb" "r2:/pub/utils/mullvad/mullvad_linux_x86_64.deb" --user-agent="Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) obsidian/1.5.3 Chrome/114.0.5735.289 Electron/25.8.1 Safari/537.36" --buffer-size="100M" --s3-upload-concurrency="500" --s3-chunk-size="100M" --multi-thread-streams="500" --checkers="2000" --transfers="1000" --check-first --checksum --copy-links --fast-list --progress
+          rclone copyto "./mullvad.deb" "r2:/pub/utils/mullvad/mullvad_linux_x86_64.deb" --user-agent="$USER_AGENT" --buffer-size="100M" --s3-upload-concurrency="500" --s3-chunk-size="100M" --multi-thread-streams="500" --checkers="2000" --transfers="1000" --check-first --checksum --copy-links --fast-list --progress
           #Install
           sudo dpkg -i "./mullvad.deb"
           #Generate relays file
           mullvad relay update && sleep 10
           mullvad relay list > "./relays_cli.txt"
-          rclone copyto "./relays_cli.txt" "r2:/pub/utils/mullvad/relays_cli.txt" --user-agent="Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) obsidian/1.5.3 Chrome/114.0.5735.289 Electron/25.8.1 Safari/537.36" --buffer-size="100M" --s3-upload-concurrency="500" --s3-chunk-size="100M" --multi-thread-streams="500" --checkers="2000" --transfers="1000" --check-first --checksum --copy-links --fast-list --progress
+          rclone copyto "./relays_cli.txt" "r2:/pub/utils/mullvad/relays_cli.txt" --user-agent="$USER_AGENT" --buffer-size="100M" --s3-upload-concurrency="500" --s3-chunk-size="100M" --multi-thread-streams="500" --checkers="2000" --transfers="1000" --check-first --checksum --copy-links --fast-list --progress
           cat "/opt/Mullvad VPN/resources/relays.json" | jq . > "./relays_cli.json"
-          rclone copyto "./relays_cli.json" "r2:/pub/utils/mullvad/relays_cli.json" --user-agent="Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) obsidian/1.5.3 Chrome/114.0.5735.289 Electron/25.8.1 Safari/537.36" --buffer-size="100M" --s3-upload-concurrency="500" --s3-chunk-size="100M" --multi-thread-streams="500" --checkers="2000" --transfers="1000" --check-first --checksum --copy-links --fast-list --progress
+          rclone copyto "./relays_cli.json" "r2:/pub/utils/mullvad/relays_cli.json" --user-agent="$USER_AGENT" --buffer-size="100M" --s3-upload-concurrency="500" --s3-chunk-size="100M" --multi-thread-streams="500" --checkers="2000" --transfers="1000" --check-first --checksum --copy-links --fast-list --progress
           #From api
           curl -qfsSL "https://api.mullvad.net/app/v1/relays" | jq . > "./relays_api.json"
-          rclone copyto "./relays_api.json" "r2:/pub/utils/mullvad/relays_api.json" --user-agent="Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) obsidian/1.5.3 Chrome/114.0.5735.289 Electron/25.8.1 Safari/537.36" --buffer-size="100M" --s3-upload-concurrency="500" --s3-chunk-size="100M" --multi-thread-streams="500" --checkers="2000" --transfers="1000" --check-first --checksum --copy-links --fast-list --progress
+          rclone copyto "./relays_api.json" "r2:/pub/utils/mullvad/relays_api.json" --user-agent="$USER_AGENT" --buffer-size="100M" --s3-upload-concurrency="500" --s3-chunk-size="100M" --multi-thread-streams="500" --checkers="2000" --transfers="1000" --check-first --checksum --copy-links --fast-list --progress
           #Proxies : https://mullvad.net/en/help/socks5-proxy (https://github.com/maximko/mullvad-socks-lis)
           curl -qfsSL "https://raw.githubusercontent.com/maximko/mullvad-socks-list/list/mullvad-socks-list.txt" -o "./proxies.txt"
-          rclone copyto "./proxies.txt" "r2:/pub/utils/mullvad/proxies.txt" --user-agent="Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) obsidian/1.5.3 Chrome/114.0.5735.289 Electron/25.8.1 Safari/537.36" --buffer-size="100M" --s3-upload-concurrency="500" --s3-chunk-size="100M" --multi-thread-streams="500" --checkers="2000" --transfers="1000" --check-first --checksum --copy-links --fast-list --progress
+          rclone copyto "./proxies.txt" "r2:/pub/utils/mullvad/proxies.txt" --user-agent="$USER_AGENT" --buffer-size="100M" --s3-upload-concurrency="500" --s3-chunk-size="100M" --multi-thread-streams="500" --checkers="2000" --transfers="1000" --check-first --checksum --copy-links --fast-list --progress
           popd "$(mktemp -d)" > /dev/null 2>&1
           #--------------#
         continue-on-error: true
