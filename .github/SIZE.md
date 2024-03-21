@@ -13,7 +13,7 @@
 744K   │ └─┬ nmap
 732K   │   ├── Services.md
 8.0K   │   └── README.md
-404K   ├─┬ misc
+412K   ├─┬ misc
 132K   │ ├─┬ Github
 128K   │ │ └─┬ Runners
  56K   │ │   ├─┬ Ubuntu
@@ -78,6 +78,8 @@
 4.0K   │ │   └── change_hostname.sh
  12K   │ ├─┬ Segfault
 8.0K   │ │ └── debloat.sh
+8.0K   │ ├─┬ uBlock
+4.0K   │ │ └── redirects_disable.txt
 8.0K   │ └─┬ Android
 4.0K   │   └── Termux
 312K   ├─┬ aki
