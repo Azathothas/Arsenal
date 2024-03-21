@@ -63,7 +63,7 @@ jobs:
           #bash <(curl -qfsSL "https://raw.githubusercontent.com/Azathothas/Arsenal/main/misc/Github/Runners/Ubuntu/debloat.sh")
           #Manually
           #12.0 GB
-          sudo rm /usr/local/lib/android -rf 2>/dev/null
+          #sudo rm /usr/local/lib/android -rf 2>/dev/null
           #8.2 GB
           sudo rm /opt/hostedtoolcache/CodeQL -rf 2>/dev/null
           #5.0 GB
