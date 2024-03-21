@@ -11,4 +11,4 @@
 !!WARNING: Sometimes, this will leak internal domains/ips in HTML/JS Files. Search: ` http-equiv="refresh" ` 
 !*##^meta[http-equiv="refresh"]
 !!Redirects Requests --> Empty Responses [https://github.com/gorhill/uBlock/wiki/Static-filter-syntax#empty]
-!*$redirect=empty                    
+!*$redirect=empty
