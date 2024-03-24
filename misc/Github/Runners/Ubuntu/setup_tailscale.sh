@@ -19,8 +19,8 @@ else
   TS_NAME="$(echo "$(echo $GITHUB_REPOSITORY | sed 's/\//-/g')-$RUNNER_OS-$RUNNER_ARCH-$(echo $GITHUB_WORKFLOW | sed 's/[^a-zA-Z0-9]/-/g')" | tr '[:upper:]' '[:lower:]' | sed 's/-\+/-/g' | tr -d '[:space:]')" && export TS_NAME="$TS_NAME"
 fi
 #TS Key
-if [ -z "$TS_KEY" ] || [ -z "${TS_KEY+x}" ]; then
-  echo -e "\n[-] Tailscale Key (TS_KEY) isn't Exported\n"
+if [ -z "$TSKEY" ] || [ -z "${TSKEY+x}" ]; then
+  echo -e "\n[-] Tailscale Key (TSKEY) isn't Exported\n"
  exit 1
 fi
 
@@ -37,7 +37,7 @@ sudo curl -qfsSL "https://bin.ajam.dev/$(uname -m)/tty2web" -o "/usr/local/bin/t
 
 ##Connect
 nohup sudo tailscaled --tun="userspace-networking" --socks5-server="localhost:9025" --outbound-http-proxy-listen="localhost:9025" --no-logs-no-support >/dev/null 2>&1 &
-sudo tailscale up --authkey="$TS_KEY" --ssh --hostname="$TS_NAME" --accept-dns="true" --accept-risk="all" --accept-routes="false" --shields-up="false" --advertise-exit-node --reset
+sudo tailscale up --authkey="$TSKEY" --ssh --hostname="$TS_NAME" --accept-dns="true" --accept-risk="all" --accept-routes="false" --shields-up="false" --advertise-exit-node --reset
 TS_IP="$(sudo tailscale ip -4 2>/dev/null | tr -d '\n' | tr -d '[:space:]')" && export TS_IP="$TS_IP"
 TS_DNS="$(sudo tailscale status --json | jq -r '.Self.DNSName' | sed 's/\.$//' | tr -d '\n' | tr -d '[:space:]')" && export TS_DNS="$TS_DNS"
 
