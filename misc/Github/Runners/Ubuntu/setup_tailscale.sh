@@ -16,7 +16,7 @@ if [ -z "$GITHUB_REPOSITORY" ] || [ -z "$RUNNER_OS" ] || [ -z "$RUNNER_ARCH" ] |
   echo -e "\n[-] GitHub Workflow ENV VARS aren't present! (Maybe not GH Actions ?)"
  exit 1
 else
-  TS_NAME="$(echo "$(echo $GITHUB_REPOSITORY | sed 's/\//-/g')-$RUNNER_OS-$RUNNER_ARCH-$(echo $GITHUB_WORKFLOW | sed 's/[^a-zA-Z0-9]/-/g')" | tr '[:upper:]' '[:lower:]' | sed 's/-\+/-/g' | sed 's/^-//;s/-$//' | tr -d '[:space:]')" && export TS_NAME="$TS_NAME"
+  TS_NAME="$(echo "$(echo $GITHUB_REPOSITORY | sed 's/\//-/g')-$RUNNER_OS-$RUNNER_ARCH-$(echo $GITHUB_WORKFLOW | sed 's/[^a-zA-Z0-9]/-/g' | sed 's/_/-/g')" | tr '[:upper:]' '[:lower:]' | sed 's/_/-/g' | sed 's/-\+/-/g' | sed 's/^-//;s/-$//' | tr -d '[:space:]')" && export TS_NAME="$TS_NAME"
 fi
 #TS Key
 if [ -z "$TSKEY" ] || [ -z "${TSKEY+x}" ]; then
