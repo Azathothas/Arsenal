@@ -278,3 +278,108 @@ pkg install x11-repo ; pkg update -y && pkg upgrade -y && pkg autoclean -y
 - #### Additional Packages & Tools
 > - https://github.com/Azathothas/Termux-Packages
 > - https://bin.ajam.dev/arm64_v8a_Android/
+---
+- #### [PROOT](https://github.com/proot-me/proot)
+> ```bash
+> ❯ !# Install
+> pkg update -y && pkg upgrade -y && pkg autoclean -y 
+> pkg install proot proot-distro -y
+> 
+> ❯ !# Basics
+> !# List all available distros
+> proot-distro list
+> !# Install a distro
+> proot-distro install "$DISTRO_ALIAS_NAME"
+> !# Login & TTY into a distro
+> proot-distro login "$DISTRO_ALIAS_NAME"
+> 
+> ❯ !# Ops
+> !# Backup a Distro
+> proot-distro backup "$DISTRO_ALIAS_NAME"
+> !# Factory Reset a Distro
+> proot-distro reset "$DISTRO_ALIAS_NAME"
+> !# Delete a Distro
+> proot-distro remove "$DISTRO_ALIAS_NAME"
+> !# Restore from Backup
+> proot-distro restore "$DISTRO_ALIAS_NAME"
+> ```
+> > ---
+> > - Alpine
+> >
+> > ![Untitled](https://github.com/Azathothas/Arsenal/assets/58171889/bd735ae9-cb47-42d6-9e89-4eb391d74e13)
+> >
+> > ```bash
+> > !# Install base, to try smth complicated: https://github.com/Yonle/alpine-proot
+> > # --override-alias --> give a new name after install
+> > pkg update -y && pkg upgrade -y && pkg autoclean -y 
+> > pkg install proot proot-distro -y
+> > proot-distro install "alpine" --override-alias "alpine-xootd"
+> > 
+> > !# Login
+> > # Usage: proot-distro login [OPTIONS] [DISTRO ALIAS] [-- [COMMAND]]
+> > # --user [user]     --> Login as specified user instead of 'root'.
+> > # --fix-low-ports   --> Modify bindings to protected ports to use a higher port number.
+> > # --isolated        --> Run isolated environment without access to host file system. (Not Recommended)
+> > # --termux-home     --> Mount Termux home directory to /root. Takes priority over '--isolated' option.
+> > # --shared-tmp      --> Mount Termux temp directory to /tmp. Takes priority over '--isolated' option.
+> > # --no-kill-on-exit --> Wait until all running processes will finish before exiting. This will cause proot to freeze if you are running daemons.
+> > proot-distro login --fix-low-ports "alpine-xootd"
+> > 
+> > !# CoreUtils
+> > # $HOME --> /root
+> > # Binaries --> /bin
+> > apk update ; apk add binutils build-base coreutils gcc git linux-headers mlocate moreutils musl musl-utils patchelf pkgconfig python3-dev py3-pip pipx tar tzdata ufw util-linux 
+> > apk add bind-tools lm-sensors pciutils procps py3-distro py3-netifaces sysfsutils virt-what
+> > 
+> > !#fetch
+> > pipx install archey4 ; pipx ensurepath ; clear
+> > archey 2>/dev/null
+> > 
+> > !# DateTime
+> > ln -sf "/usr/share/zoneinfo/Asia/Kathmandu" "/etc/localtime"
+> > echo "Asia/Kathmandu" > "/etc/timezone"
+> > #check
+> > date
+> > ```
+> > ---
+> > - Debian
+> > 
+> > ![Untitled](https://github.com/Azathothas/Arsenal/assets/58171889/e40ec227-1590-45c7-8f4c-01d9015ec4b2)
+> >
+> > ```bash
+> > !# Install base
+> > # --override-alias --> give a new name after install
+> > pkg update -y && pkg upgrade -y && pkg autoclean -y 
+> > pkg install proot proot-distro -y
+> > proot-distro install "debian" --override-alias "debian-xootd"
+> > 
+> > !# Login
+> > # Usage: proot-distro login [OPTIONS] [DISTRO ALIAS] [-- [COMMAND]]
+> > # --user [user]     --> Login as specified user instead of 'root'.
+> > # --fix-low-ports   --> Modify bindings to protected ports to use a higher port number.
+> > # --isolated        --> Run isolated environment without access to host file system. (Not Recommended)
+> > # --termux-home     --> Mount Termux home directory to /root. Takes priority over '--isolated' option.
+> > # --shared-tmp      --> Mount Termux temp directory to /tmp. Takes priority over '--isolated' option.
+> > # --no-kill-on-exit --> Wait until all running processes will finish before exiting. This will cause proot to freeze if you are running daemons.
+> > proot-distro login --fix-low-ports "debian-xootd"
+> > 
+> > !# CoreUtils
+> > # $HOME --> /root
+> > # Binaries --> /bin
+> > apt-get update -y ; apt-get dist-upgrade -y ; apt-get upgrade -y
+> > !# May need to run this Twice
+> > apt install autoconf automake autopoint binutils bison build-essential ca-certificates coreutils curl dos2unix git gcc htop flex file jq moreutils wget -y
+> > !# Networking
+> > apt-get install dnsutils 'inetutils*' net-tools netcat-traditional -y
+> > apt-get install 'iputils*' -y
+> > !# Sensors
+> > apt install lm-sensors pciutils procps python3-distro python3-netifaces sysfsutils virt-what -y
+> > !# Fix Perms for ping
+> > setcap cap_net_raw+ep "$(which ping)"
+> > 
+> > !#fetch
+> > apt install cpufetch neofetch -y
+> > pip install pipx --upgrade
+> > pipx install archey4 ; pipx ensurepath ; clear
+> > archey 2>/dev/null ; echo ; neofetch
+> > ```
