@@ -12,7 +12,7 @@
 744K   │ └─┬ nmap
 732K   │   ├── Services.md
 8.0K   │   └── README.md
-428K   ├─┬ misc
+436K   ├─┬ misc
 136K   │ ├─┬ Github
 132K   │ │ └─┬ Runners
  60K   │ │   ├─┬ Ubuntu
@@ -58,6 +58,9 @@
  16K   │ │ │ ├── git_backup_windows.ps1
 4.0K   │ │ │ └── README.md
 4.0K   │ │ └── TIPS_TRICKS.md
+ 28K   │ ├─┬ Android
+ 24K   │ │ └─┬ Termux
+ 20K   │ │   └── README.md
  24K   │ ├─┬ VMware
  12K   │ │ ├─┬ Parrot_Minimal
 8.0K   │ │ │ └── README.md
@@ -76,9 +79,6 @@
 4.0K   │ │   ├── devsetup.sh
 4.0K   │ │   ├── debloat.sh
 4.0K   │ │   └── change_hostname.sh
- 20K   │ ├─┬ Android
- 16K   │ │ └─┬ Termux
- 12K   │ │   └── README.md
  12K   │ ├─┬ Segfault
 8.0K   │ │ └── debloat.sh
 8.0K   │ └─┬ uBlock
