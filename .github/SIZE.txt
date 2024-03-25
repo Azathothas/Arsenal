@@ -12,7 +12,7 @@
 744K   │ └─┬ nmap
 732K   │   ├── Services.md
 8.0K   │   └── README.md
-416K   ├─┬ misc
+428K   ├─┬ misc
 136K   │ ├─┬ Github
 132K   │ │ └─┬ Runners
  60K   │ │   ├─┬ Ubuntu
@@ -76,12 +76,13 @@
 4.0K   │ │   ├── devsetup.sh
 4.0K   │ │   ├── debloat.sh
 4.0K   │ │   └── change_hostname.sh
+ 20K   │ ├─┬ Android
+ 16K   │ │ └─┬ Termux
+ 12K   │ │   └── README.md
  12K   │ ├─┬ Segfault
 8.0K   │ │ └── debloat.sh
-8.0K   │ ├─┬ uBlock
-4.0K   │ │ └── redirects_disable.txt
-8.0K   │ └─┬ Android
-4.0K   │   └── Termux
+8.0K   │ └─┬ uBlock
+4.0K   │   └── redirects_disable.txt
 312K   ├─┬ aki
 296K   │ ├─┬ scripts
  76K   │ │ ├── aki_amass_datasources_yaml_checker.sh
