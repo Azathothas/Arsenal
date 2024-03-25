@@ -106,6 +106,14 @@ sudo ufw status numbered
   export PATH=$HOME/.go/bin:$PATH
   export PATH=$HOME/go/bin:$PATH
  ```
+- ##### Install [**Nix**](https://github.com/DeterminateSystems/nix-installer) (Optional)
+```bash
+!# Install
+"/nix/nix-installer" uninstall --no-confirm 2>/dev/null
+curl -qfsSL "https://install.determinate.systems/nix" | bash -s -- install linux --no-confirm
+
+!# Close/Reopen Sessionn (Terminal)
+```
 - ##### Install [**Rust**](https://www.rust-lang.org/tools/install) (Optional)
  ```bash
  !# Install
