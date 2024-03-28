@@ -99,6 +99,10 @@
  12K   │ ├── README.md
 4.0K   │ ├── main.go
 4.0K   │ └── go.mod
+ 24K   ├─┬ subxtract
+8.0K   │ ├── subxtract.go
+8.0K   │ ├── README.md
+4.0K   │ └── subxtract.sh
  20K   ├─┬ inscope
 8.0K   │ ├── main.go
 4.0K   │ ├── go.mod
@@ -119,9 +123,6 @@
 4.0K   │ ├── main.go
 4.0K   │ ├── go.mod
 4.0K   │ └── README.md
- 16K   ├─┬ subxtract
-8.0K   │ ├── README.md
-4.0K   │ └── subxtract.sh
  16K   ├─┬ scopegen
 4.0K   │ ├── scopegen.go
 4.0K   │ ├── go.mod
@@ -130,10 +131,6 @@
 4.0K   │ ├── main.go
 4.0K   │ ├── go.mod
 4.0K   │ └── README.md
- 16K   ├─┬ fasttld
-4.0K   │ ├── root.go
-4.0K   │ ├── main.go
-4.0K   │ └── extract.go
  16K   ├─┬ comb
 4.0K   │ ├── main.go
 4.0K   │ ├── go.mod
