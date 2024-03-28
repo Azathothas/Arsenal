@@ -21,37 +21,35 @@
 ### **Installation**:
  - **Bash**: 
 ```bash
+!# Install
 !# With root
-sudo curl -qfsSL "https://raw.githubusercontent.com/Azathothas/Arsenal/main/subxtract/subxtract.sh" -o "/usr/local/bin/subxtract" && sudo chmod +xwr "/usr/local/bin/subxtract"
-sudo eget "https://raw.githubusercontent.com/Azathothas/Arsenal/main/subxtract/subxtract.sh" --to "/usr/local/bin/subxtract"
-!# With no root
-curl -qfsSL "https://raw.githubusercontent.com/Azathothas/Arsenal/main/subxtract/subxtract.sh" -o "$HOME/bin/subxtract" && chmod +xwr "$HOME/bin/subxtract"
-eget "https://raw.githubusercontent.com/Azathothas/Arsenal/main/subxtract/subxtract.sh" --to "$HOME/bin/subxtract"
-!# With no Installaton
-bash <(curl -qfsSL "https://raw.githubusercontent.com/Azathothas/Arsenal/main/subxtract/subxtract.sh") {OPTIONS_HERE}
+sudo curl -qfsSL "https://bin.ajam.dev/$(uname -m)/subxtract" -o "/usr/local/bin/subxtract" && sudo chmod +xwr "/usr/local/bin/subxtract"
+sudo eget "https://bin.ajam.dev/$(uname -m)/subxtract" --to "/usr/local/bin/subxtract"
+
+!# Without ROOT
+curl -qfsSL "https://bin.ajam.dev/$(uname -m)/subxtract" -o "$HOME/bin/subxtract" && chmod +xwr "$HOME/bin/subxtract"
+eget "https://bin.ajam.dev/$(uname -m)/subxtract" --to "$HOME/bin/subxtract"
+
+!# Using go
+go install -v "github.com/Azathothas/Arsenal/subxtract@main"
 ```
 ---
 ### Usage:
 `subxtract --help`
 ```bash
-
-                 _,--=--._
-               ,'    _    `.
-              -    _(_)_o   -
-         ____'    /_  _/]    `____
-  -=====::(+):::::::::::::::::(+)::=====-
-           (+).""""""""""""",(+)
-               . subXtract ,
-                 `  -=-  '
-
-➼ Usage: subxtract -i </path/to/domain/urls.txt> 
-InstallLess: bash <(curl -qfsSL "https://raw.githubusercontent.com/Azathothas/Arsenal/main/subxtract/subxtract.sh") {OPTIONS_HERE}
-       
-Extended Help:
--i,  --input     Specify input file containing domains or urls (Required)
-                 else stdin: cat domains.txt | subxtract
-
--s,  --subs      Extract Subdomains only (default: false)
+➼ Usage: subxtract -f </path/to/domain/urls.txt> <opts>
+        : subxtract "https://a.b.c.example.com.np" <opts>
+STDIN   : cat </path/to/domain/urls.txt> | subxtract <opts>
+          echo "https://a.b.c.example.com.np" | subxtract <opts>
+Flags:
+  -d, --domains             Print the root domain and suffix combined
+  -f, --file string         Input file containing URLs|Domains (one per line)
+  -h, --help                help for subxtract
+  -i, --ignore-subdomains   Ignore (Exclude) subdomains
+  -j, --json                Output in JSON Format (Everything)
+  -p, --private-suffix      Include Private Suffix (Example: blogspot.com)
+  -r, --roots               Print only the root domain (without suffix)
+  -t, --to-punycode         Convert Internationalized Domain Names (IDN) to Punycode (ASCII Characters)
 ```
 
 ---
@@ -75,16 +73,10 @@ xyz.abc.example.net
 ---
 - To Extract **`Root Domain Names`** ( **NO `.tld`**)
 ```bash
-subxtract -i domains.txt
+subxtract -f domains.txt -r | awk '!seen[$0]++'
 !# Or Via STDIN
-cat domains.txt | subxtract
+cat domains.txt | subxtract -r | awk '!seen[$0]++'
 ```
->```bash
-> !# InstallationLess
-> bash <(curl -qfsSL "https://raw.githubusercontent.com/Azathothas/Arsenal/main/subxtract/subxtract.sh") -i domains.txt
-> !# Or via Stdin
-> cat domains.txt | bash <(curl -qfsSL "https://raw.githubusercontent.com/Azathothas/Arsenal/main/subxtract/subxtract.sh")
-> ```
 - #### Output
 ```bash
 example
@@ -94,23 +86,17 @@ banana
 ---
 - Similarly, To Extract **`Root Domain Names`** **`+`** **`Top Level Domains (TLDs)`**
 ```bash
-subxtract -i domains.txt -s
+subxtract -f domains.txt -d | awk '!seen[$0]++'
 !# Or Via STDIN
-cat domains.txt | subxtract -s 
+cat domains.txt | subxtract -d | awk '!seen[$0]++'
 ```
->```bash
-> !# InstallationLess
-> bash <(curl -qfsSL "https://raw.githubusercontent.com/Azathothas/Arsenal/main/subxtract/subxtract.sh") -i domains.txt -s
-> !# Or via Stdin
-> cat domains.txt | bash <(curl -qfsSL "https://raw.githubusercontent.com/Azathothas/Arsenal/main/subxtract/subxtract.sh") -s
-> ```
 - #### Output
 ```bash
 example.com
-example.net
 apple.com
 banana.com
-example.com.np
+example.net
 example.org
+example.com.np
 ```
 ---
