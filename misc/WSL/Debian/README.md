@@ -54,6 +54,7 @@ sudo ufw status numbered
  ```bash
  !# Enable SystemD : https://devblogs.microsoft.com/commandline/systemd-support-is-now-available-in-wsl/
  echo -e "[boot]\nsystemd=true" | sudo tee "/etc/wsl.conf"
+ sudo dos2unix "/etc/wsl.conf"
  !# Reboot WSL (Run this from Windows Terminal)
  wsl --shutdown
  !# Install Core
@@ -63,7 +64,8 @@ sudo ufw status numbered
  !# Re Login
  wsl -d debian
  !# Check Status
- sudo systemctl status time-sync.target
+ systemctl list-unit-files --type=service
+ sudo systemctl status "time-sync.target"
  ```
 ---
 - #### Install Addons & Utils
@@ -104,6 +106,14 @@ sudo ufw status numbered
   export PATH=$HOME/.go/bin:$PATH
   export PATH=$HOME/go/bin:$PATH
  ```
+- ##### Install [**Nix**](https://github.com/DeterminateSystems/nix-installer) (Optional)
+```bash
+!# Install
+"/nix/nix-installer" uninstall --no-confirm 2>/dev/null
+curl -qfsSL "https://install.determinate.systems/nix" | bash -s -- install linux --no-confirm
+
+!# Close/Reopen Sessionn (Terminal)
+```
 - ##### Install [**Rust**](https://www.rust-lang.org/tools/install) (Optional)
  ```bash
  !# Install

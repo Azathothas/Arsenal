@@ -1,3 +1,10 @@
+- #### **Install**
+```bash
+!# ALWAYS INSTALL from Store
+https://aka.ms/wslstorepage
+!# ALWAYS INSTALL Distros from Store if wants SystemD
+# Or use the cli, or Import from: https://github.com/Azathothas/Distropacks/releases/latest
+```
 - #### **Basics**
 ```bash
 ❯ !# Check Status

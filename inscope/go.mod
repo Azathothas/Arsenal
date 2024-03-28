@@ -1,3 +1,3 @@
 module github.com/Azathothas/Arsenal/inscope
 
-go 1.20
+go 1.22

@@ -63,7 +63,7 @@ jobs:
           #bash <(curl -qfsSL "https://raw.githubusercontent.com/Azathothas/Arsenal/main/misc/Github/Runners/Ubuntu/debloat.sh")
           #Manually
           #12.0 GB
-          sudo rm /usr/local/lib/android -rf 2>/dev/null
+          #sudo rm /usr/local/lib/android -rf 2>/dev/null
           #8.2 GB
           sudo rm /opt/hostedtoolcache/CodeQL -rf 2>/dev/null
           #5.0 GB
@@ -102,6 +102,34 @@ jobs:
            pip install archey4 2>/dev/null
         continue-on-error: true
 
+      - name: Setup Python & DVC
+        run: |
+          # Presets
+          set -x ; set +e
+          #--------------#
+          sudo apt-get install python3 -y
+          #Test
+          python --version 2>/dev/null ; python3 --version 2>/dev/null
+          #Install pip:
+          #python3 -m ensurepip --upgrade ; pip3 --version
+          #curl -qfsSL "https://bootstrap.pypa.io/get-pip.py" -o "$SYSTMP/get-pip.py" && python3 "$SYSTMP/get-pip.py"
+          sudo apt-get install libxslt-dev lm-sensors pciutils procps python3-distro python-dev-is-python3 python3-lxml python3-netifaces python3-pip python3-venv sysfsutils virt-what -y
+          pip install --break-system-packages --upgrade pip || pip install --upgrade pip
+          #Misc
+          pip install ansi2txt --break-system-packages --force-reinstall --upgrade
+          #pipx
+          pip install pipx --upgrade 2>/dev/null
+          pip install pipx --upgrade --break-system-packages 2>/dev/null
+          # DVC
+          pip install "git+https://github.com/iterative/dvc#egg=dvc[all]" --break-system-packages --force-reinstall --upgrade
+          # For TG BOT Notifs
+          pip install apprise --upgrade 2>/dev/null
+          pip install apprise --upgrade --break-system-packages 2>/dev/null
+          # For neofetch
+          pip install archey4 --upgrade 2>/dev/null
+          pip install archey4 --upgrade --break-system-packages 2>/dev/null
+        continue-on-error: true
+        
     ##Needed until gh runners updates go version: https://github.com/actions/runner-images/blob/main/images/linux/Ubuntu2204-Readme.md
     ## It helps to be on bleeding edge anyway
       - name: Install/Update golang
@@ -175,7 +203,34 @@ jobs:
           nohup "$HOME/openvscode-server/bin/openvscode-server" --host "0.0.0.0" --port "8080" --telemetry-level off --accept-server-license-terms --without-connection-token >/dev/null 2>&1 &
         continue-on-error: true
         
-     #Comment, if you do not want a build/compile ready environment for rust      
+     #Comment, if you do not want a build/compile ready environment for rust
+     
+      - name: Install Nix (With Experimental Features)
+        run: |
+           # Presets
+           set -x ; set +e
+           #--------------#
+           ##Official Installers break
+           #curl -qfsSL "https://nixos.org/nix/install" | bash -s -- --no-daemon
+           #source "$HOME/.bash_profile" ; source "$HOME/.nix-profile/etc/profile.d/nix.sh" ; . "$HOME/.nix-profile/etc/profile.d/nix.sh"
+           ##https://github.com/DeterminateSystems/nix-installer
+           "/nix/nix-installer" uninstall --no-confirm 2>/dev/null
+           curl -qfsSL "https://install.determinate.systems/nix" | bash -s -- install linux --init none --no-confirm
+           #Source
+           source "/nix/var/nix/profiles/default/etc/profile.d/nix-daemon.sh"
+           #Fix perms: could not set permissions on '/nix/var/nix/profiles/per-user' to 755: Operation not permitted
+           #sudo chown --recursive "$USER" "/nix"
+           sudo chown --recursive "runner" "/nix"
+           echo "root    ALL=(ALL:ALL) ALL" | sudo tee -a "/etc/sudoers"
+           #Test
+           if ! command -v nix &> /dev/null; then
+              echo -e "\n[-] nix NOT Found\n"
+              export CONTINUE="NO" && exit 1
+           else
+              nix --version && nix-channel --list && nix-channel --update
+           fi
+        continue-on-error: true
+        
       - name: Install Rust ToolChains
         run: |
            # Presets

@@ -1,12 +1,15 @@
 #!/usr/bin/env bash
 
-#Deps
+##Deps [!!IMPORTANT!!]
+# These pkgs must be installed, for debain, copy paste:
 # sudo apt-get install automake b3sum build-essential ca-certificates ccache lzip jq make musl musl-dev musl-tools p7zip-full wget -y
-# sudo apt-get install -y --no-install-recommends autoconf automake autopoint binutils bison build-essential byacc ca-certificates clang flex file jq patch patchelf pkg-config
+# sudo apt-get install -y --no-install-recommends autoconf automake autopoint binutils bison build-essential byacc ca-certificates clang flex file jq patch patchelf pkg-config zlib1g-dev
 
 #Install less: 
 # bash <(curl -qfsSL "https://raw.githubusercontent.com/Azathothas/Arsenal/main/misc/Devscripts/install_nmap.sh")
+# bash <(curl -qfsSL "https://pub.ajam.dev/repos/Azathothas/Arsenal/misc/Devscripts/install_nmap.sh")
 # curl -qfsSl "https://raw.githubusercontent.com/Azathothas/Arsenal/main/misc/Devscripts/install_nmap.sh" | bash
+# curl -qfsSL "https://pub.ajam.dev/repos/Azathothas/Arsenal/misc/Devscripts/install_nmap.sh" | bash
 
 ##Clean env
 #In case of zig polluted env 
@@ -15,7 +18,7 @@ sudo rm "$(which nmap)" 2>/dev/null ; sudo rm "$(which nmap)" 2>/dev/null
 CWD_PATH="$(realpath .)" && export CWD_PATH="$CWD_PATH"
 #Build Openssl
  #Get Latest Source
- pushd "$(mktemp -d)" > /dev/null 2>&1 && git clone --filter "blob:none" "https://github.com/openssl/openssl" && cd "./openssl"
+ pushd "$(mktemp -d)" > /dev/null 2>&1 && git clone --filter "blob:none" --quiet "https://github.com/openssl/openssl" && cd "./openssl"
  #Get Version
  OPENSSL_VERSION="$(git tag --sort=-creatordate | head -n 1)" && export OPENSSL_VERSION="$OPENSSL_VERSION" ; echo -e "\n[+] Version = $OPENSSL_VERSION\n"
  #Checkout
@@ -29,7 +32,7 @@ CWD_PATH="$(realpath .)" && export CWD_PATH="$CWD_PATH"
  popd > /dev/null 2>&1 ; cd "$CWD_PATH"
 #Build Nmap 
  #Get Latest Source
- pushd "$(mktemp -d)" > /dev/null 2>&1 && git clone --filter "blob:none" "https://github.com/nmap/nmap" && cd "./nmap"
+ pushd "$(mktemp -d)" > /dev/null 2>&1 && git clone --filter "blob:none" --quiet "https://github.com/nmap/nmap" && cd "./nmap"
  #Get Version
  NMAP_VERSION="$(git tag --sort=-creatordate | head -n 1)" && export NMAP_VERSION="$NMAP_VERSION" ; echo -e "\n[+] Version = $NMAP_VERSION\n"
  #checkout to latest version
@@ -47,4 +50,6 @@ CWD_PATH="$(realpath .)" && export CWD_PATH="$CWD_PATH"
  nmap --version
 #Exit
  popd > /dev/null 2>&1 ; cd "$CWD_PATH"
+ find "/tmp" -type d -name "*nmap*" 2>/dev/null -exec rm -rf {} \; >/dev/null 2>&1
+ find "/tmp" -type d -name "*openssl*" 2>/dev/null -exec rm -rf {} \; >/dev/null 2>&1
 #EOF

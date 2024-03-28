@@ -1,0 +1,63 @@
+#Example: https://learn.microsoft.com/en-us/windows/wsl/wsl-config#example-wslconfig-file
+# Def location: "$env:USERPROFILE\.wslconfig" [$env:USERPROFILE --> C:\Users\$USERNAME]
+# Settings apply across all Distros running on WSL 2
+# Must run : wsl --shutdown (after saving)
+[wsl2]
+
+#---------------------------------------------------------------#
+##Performance & System
+#Specify a custom Linux kernel to use with your installed distros. The default kernel used can be found at https://github.com/microsoft/WSL2-Linux-Kernel
+#kernel=C:\\temp\\myCustomKernel
+#Sets additional kernel parameters, in this case enabling older Linux base images such as Centos 6
+#kernelCommandLine = vsyscall=emulate
+#Limits VM memory to use no more than 4 GB, this can be set as whole numbers using GB or MB
+#memory=4GB 
+#Sets the VM to use two virtual processors
+#processors=2
+#Sets amount of swap storage space to 8GB, default is 25% of available RAM
+#swap=8GB
+#Sets swapfile path location, default is %USERPROFILE%\AppData\Local\Temp\swap.vhdx
+#swapfile=C:\\temp\\wsl-swap.vhdx
+#Disable page reporting so WSL retains all allocated memory claimed from Windows and releases none back when free
+#pageReporting=false
+#Disables nested virtualization
+#nestedVirtualization=false
+#Turns on output console showing contents of dmesg when opening a WSL 2 distro for debugging
+#debugConsole=true
+#Milliseconds that a VM is idle, before it is shut down. [Default: 60000 (1 Minute)]
+vmIdleTimeout=6000000
+#---------------------------------------------------------------#
+
+#---------------------------------------------------------------#
+##Networking
+#Enforces WSL to use Windows’ HTTP proxy information [Default: false]
+autoProxy=true
+#Answer DNS requests from within WSL, instead of requesting them over a networking packet [Default: false]
+dnsTunneling=true
+#Use Firewall rules from (Windows Firewall | Hyper-V) to filter WSL network traffic. [Default: true]
+firewall=true
+#Sets mode to mirrored (breaks localhostforwarding=true) and enables IPv6 (ping -6 google.com) [Default: NAT]
+#Currently networkingMode=mirrored enabling this breaks nmap
+#More Issues: https://github.com/microsoft/WSL/issues/10494
+# https://gist.github.com/shigenobuokamoto/b565d468541fc8be7d7d76a0434496a0
+#networkingMode=mirrored
+networkingMode=NAT
+#Turn off default connection to bind WSL 2 localhost to Windows localhost (Won't work if networkingMode=mirrored) [Default: true]
+#This is Required for OpenVPN
+localhostforwarding=true
+#---------------------------------------------------------------#
+
+
+#---------------------------------------------------------------#
+## Experimental features : https://learn.microsoft.com/en-us/windows/wsl/wsl-config#experimental-settings
+[experimental]
+#Allows Windows to extract the question from the DNS request and attempt to resolve it, ignoring the unknown records. (dnsTunneling=true)
+bestEffortDnsParsing=true
+#Allow the [Container-->Host || Host-->Container] Connections, by an IP address that's assigned to the Host. (networkingMode=mirrored)
+hostAddressLoopback=true
+#Specifies which ports Linux applications can bind to, even if that port is used in Windows (networkingMode=mirrored)
+ignoredPorts=7777,7331
+#Bypass Windows DNS Cache (dnsTunneling=true)
+useWindowsDnsCache=false
+#sparseVhd=true
+#---------------------------------------------------------------#

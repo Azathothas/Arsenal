@@ -1,0 +1,14 @@
+[uBlock Origin]
+!!---REDIRECTS---!!
+!!Makes it easy to read (HTML/JS) Files by preventing redirects (to Login/SSO Page)
+!!Simply uncomment (Remove `!` to enable these rules
+!!Use the logger to see exactly what's happening                    
+!!Removes Response Headers [https://github.com/gorhill/uBlock/wiki/Static-filter-syntax#response-header-filtering]
+!In most (99%) Cases, this is what you will need. However won't work if redirects are based on HTML/JS instead of Server Headers (` location: 301/302/anything `)
+*##^responseheader(location)
+!*##^responseheader(refresh)
+!!Removes things like ` <meta http-equiv="refresh" content="0 ` from Response Body (HTML/JS)
+!!WARNING: Sometimes, this will leak internal domains/ips in HTML/JS Files. Search: ` http-equiv="refresh" ` 
+!*##^meta[http-equiv="refresh"]
+!!Redirects Requests --> Empty Responses [https://github.com/gorhill/uBlock/wiki/Static-filter-syntax#empty]
+!*$redirect=empty

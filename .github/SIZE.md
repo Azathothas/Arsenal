@@ -1,5 +1,5 @@
 ```mathematica
-2.5M └─┬ main
+2.6M └─┬ main
 932K   ├─┬ wordium
 904K   │ ├─┬ Deps
 440K   │ │ ├── g_api.txt
@@ -13,7 +13,28 @@
 744K   │ └─┬ nmap
 732K   │   ├── Services.md
 8.0K   │   └── README.md
-340K   ├─┬ misc
+436K   ├─┬ misc
+136K   │ ├─┬ Github
+132K   │ │ └─┬ Runners
+ 60K   │ │   ├─┬ Ubuntu
+ 20K   │ │   │ ├── 0xf_gh_runner_ubuntu_debug.yaml
+ 16K   │ │   │ ├── 0xf_gh_runner_ubuntu_ng_no_ts_debug.yaml
+8.0K   │ │   │ ├── ngrok_tg_ssh.sh
+4.0K   │ │   │ ├── setup_tailscale.sh
+4.0K   │ │   │ ├── ipv6_warp.sh
+4.0K   │ │   │ └── debloat.sh
+ 44K   │ │   ├─┬ Self-Hosted
+8.0K   │ │   │ ├── x86_64-ubuntu.dockerfile
+8.0K   │ │   │ ├── run.sh
+8.0K   │ │   │ ├── aarch64-ubuntu.dockerfile
+4.0K   │ │   │ ├── ubuntu-systemd-base.dockerfile
+4.0K   │ │   │ ├── startup.sh
+4.0K   │ │   │ ├── cron_README.md
+4.0K   │ │   │ └── README.md
+ 16K   │ │   ├─┬ Windows
+ 12K   │ │   │ └── 0xf_gh_runner_windows_debug.yaml
+8.0K   │ │   └─┬ macOS
+4.0K   │ │     └── 0xf_gh_runner_macos_debug.yaml
  88K   │ ├─┬ Linux
  80K   │ │ ├─┬ Debian
  16K   │ │ │ ├── install_bb_tools_x86_64.sh
@@ -27,26 +48,20 @@
 4.0K   │ │ │ ├── install_chrome_aarch64.sh
 4.0K   │ │ │ └── bootstrap.sh
 4.0K   │ │ └── TIPS_TRICKS.md
- 80K   │ ├─┬ Github
- 76K   │ │ └─┬ Runners
- 48K   │ │   ├─┬ Ubuntu
- 16K   │ │   │ ├── 0xf_gh_runner_ubuntu_ng_no_ts_debug.yaml
- 16K   │ │   │ ├── 0xf_gh_runner_ubuntu_debug.yaml
-8.0K   │ │   │ ├── ngrok_tg_ssh.sh
-4.0K   │ │   │ └── debloat.sh
- 16K   │ │   ├─┬ Windows
- 12K   │ │   │ └── 0xf_gh_runner_windows_debug.yaml
-8.0K   │ │   └─┬ macOS
-4.0K   │ │     └── 0xf_gh_runner_macos_debug.yaml
- 28K   │ ├─┬ Windows
- 24K   │ │ └─┬ scripts
- 16K   │ │   ├── git_backup_windows.ps1
-4.0K   │ │   └── README.md
- 28K   │ ├─┬ WSL
- 20K   │ │ ├─┬ Debian
+ 36K   │ ├─┬ WSL
+ 24K   │ │ ├─┬ Debian
 8.0K   │ │ │ ├── customize.sh
-8.0K   │ │ │ └── README.md
-4.0K   │ │ └── README.md
+8.0K   │ │ │ ├── README.md
+4.0K   │ │ │ └── starship.toml
+8.0K   │ │ └── README.md
+ 32K   │ ├─┬ Windows
+ 24K   │ │ ├─┬ scripts
+ 16K   │ │ │ ├── git_backup_windows.ps1
+4.0K   │ │ │ └── README.md
+4.0K   │ │ └── TIPS_TRICKS.md
+ 28K   │ ├─┬ Android
+ 24K   │ │ └─┬ Termux
+ 20K   │ │   └── README.md
  24K   │ ├─┬ VMware
  12K   │ │ ├─┬ Parrot_Minimal
 8.0K   │ │ │ └── README.md
@@ -67,8 +82,8 @@
 4.0K   │ │   └── change_hostname.sh
  12K   │ ├─┬ Segfault
 8.0K   │ │ └── debloat.sh
-8.0K   │ └─┬ Android
-4.0K   │   └── Termux
+8.0K   │ └─┬ uBlock
+4.0K   │   └── redirects_disable.txt
 312K   ├─┬ aki
 296K   │ ├─┬ scripts
  76K   │ │ ├── aki_amass_datasources_yaml_checker.sh
@@ -84,6 +99,10 @@
  12K   │ ├── README.md
 4.0K   │ ├── main.go
 4.0K   │ └── go.mod
+ 20K   ├─┬ inscope
+8.0K   │ ├── main.go
+4.0K   │ ├── go.mod
+4.0K   │ └── README.md
  20K   ├─┬ getJS
 8.0K   │ ├── main.go
 4.0K   │ ├── go.mod
@@ -108,10 +127,6 @@
 4.0K   │ ├── go.mod
 4.0K   │ └── README.md
  16K   ├─┬ rate-limit-checker
-4.0K   │ ├── main.go
-4.0K   │ ├── go.mod
-4.0K   │ └── README.md
- 16K   ├─┬ inscope
 4.0K   │ ├── main.go
 4.0K   │ ├── go.mod
 4.0K   │ └── README.md
