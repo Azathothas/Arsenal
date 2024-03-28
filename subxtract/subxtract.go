@@ -131,7 +131,7 @@ var rootCmd = &cobra.Command{
 func init() {
     rootCmd.Flags().BoolVarP(&includePrivateSuffix, "private-suffix", "p", false, "Include Private Suffix")
     rootCmd.Flags().BoolVarP(&ignoreSubDomains, "ignore-subdomains", "i", false, "Ignore (Exclude) subdomains")
-    rootCmd.Flags().BoolVarP(&toPunyCode, "to-punycode", "t", false, "Convert to Punycode (ASCII Characters)")
+    rootCmd.Flags().BoolVarP(&toPunyCode, "to-punycode", "t", false, "Convert Internationalized Domain Names (IDN) to Punycode (ASCII Characters)")
     rootCmd.Flags().BoolVarP(&outputJSON, "json", "j", false, "Output in JSON Format (Everything)")
     rootCmd.Flags().BoolVarP(&printRootsOnly, "roots", "r", false, "Print only the root domain (without suffix)")
     rootCmd.Flags().BoolVarP(&printDomains, "domains", "d", false, "Print the root domain and suffix combined")
