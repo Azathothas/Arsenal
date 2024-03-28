@@ -10,7 +10,7 @@ export INSTALL_DIR="/usr/local/bin"
  sudo curl -qfsSL "https://bin.ajam.dev/x86_64_Linux/7z" -o "$INSTALL_DIR/7z" && sudo chmod +xwr "$INSTALL_DIR/7z" &
  sudo curl -qfsSL "https://bin.ajam.dev/x86_64_Linux/7z" -o "/usr/bin/7z" && sudo chmod +xwr "/usr/bin/7z" &
 #action-lint
- sudo curl -qfsSL "https://bin.ajam.dev/x86_64_Linux/actionlint" -o "/usr/local/bin/actionlint" && sudo chmod +xwr "/usr/local/bin/actionlint" &
+ sudo curl -qfsSL "https://bin.ajam.dev/x86_64_Linux/actionlint" -o "$INSTALL_DIR/actionlint" && sudo chmod +xwr "$INSTALL_DIR/actionlint" &
 #amass : https://github.com/owasp-amass/amass
  sudo curl -qfsSL "https://bin.ajam.dev/x86_64_Linux/amass" -o "$INSTALL_DIR/amass" && sudo chmod +xwr "$INSTALL_DIR/amass" &
 #analyticsrelationships : https://github.com/Josue87/analyticsrelationships
@@ -19,8 +19,10 @@ export INSTALL_DIR="/usr/local/bin"
  sudo curl -qfsSL "https://bin.ajam.dev/x86_64_Linux/anew" -o "$INSTALL_DIR/anew" && sudo chmod +xwr "$INSTALL_DIR/anew" &
 #anew-rs : https://github.com/zer0yu/anew
  sudo curl -qfsSL "https://bin.ajam.dev/x86_64_Linux/anew-rs" -o "$INSTALL_DIR/anew-rs" && sudo chmod +xwr "$INSTALL_DIR/anew-rs" &
-#action-lint
- sudo curl -qfsSL "https://bin.ajam.dev/x86_64_Linux/actionlint" -o "$INSTALL_DIR/actionlint" && sudo chmod +xwr "$INSTALL_DIR/actionlint" &
+#asn
+ sudo curl -qfsSL "https://bin.ajam.dev/x86_64_Linux/asn" -o "$INSTALL_DIR/asn" && sudo chmod +xwr "$INSTALL_DIR/asn" &
+#asnmap
+ sudo curl -qfsSL "https://bin.ajam.dev/x86_64_Linux/asnmap" -o "$INSTALL_DIR/asnmap" && sudo chmod +xwr "$INSTALL_DIR/asnmap" &
 #b3sum : https://github.com/BLAKE3-team/BLAKE3
  sudo curl -qfsSL "https://bin.ajam.dev/x86_64_Linux/b3sum" -o "$INSTALL_DIR/b3sum" && sudo chmod +xwr "$INSTALL_DIR/b3sum" &
  sudo curl -qfsSL "https://bin.ajam.dev/x86_64_Linux/b3sum" -o "/usr/bin/b3sum" && sudo chmod +xwr "/usr/bin/b3sum" &
@@ -39,11 +41,15 @@ export INSTALL_DIR="/usr/local/bin"
 #crt : https://github.com/cemulus/crt
  sudo curl -qfsSL "https://bin.ajam.dev/x86_64_Linux/crt" -o "$INSTALL_DIR/crt" && sudo chmod +xwr "$INSTALL_DIR/crt" &
 #csvtk
- sudo curl -qfsSL "https://bin.ajam.dev/x86_64_Linux/csvtk" -o "/usr/local/bin/csvtk" && sudo chmod +xwr "/usr/local/bin/csvtk" &
+ sudo curl -qfsSL "https://bin.ajam.dev/x86_64_Linux/csvtk" -o "$INSTALL_DIR/csvtk" && sudo chmod +xwr "$INSTALL_DIR/csvtk" &
+#cut-cdn
+ sudo curl -qfsSL "https://bin.ajam.dev/x86_64_Linux/cut-cdn" -o "$INSTALL_DIR/cut-cdn" && sudo chmod +xwr "$INSTALL_DIR/cut-cdn" & 
 #dalfox : https://github.com/hahwul/dalfox
  sudo curl -qfsSL "https://bin.ajam.dev/x86_64_Linux/dalfox" -o "$INSTALL_DIR/dalfox" && sudo chmod +xwr "$INSTALL_DIR/dalfox" &
 #delta
  sudo curl -qfsSL "https://bin.ajam.dev/x86_64_Linux/delta" -o "$INSTALL_DIR/delta" && sudo chmod +xwr "$INSTALL_DIR/delta" &
+#dirstat-rs
+ sudo curl -qfsSL "https://bin.ajam.dev/x86_64_Linux/ds" -o "$INSTALL_DIR/ds" && sudo chmod +xwr "$INSTALL_DIR/ds" &
 #dnstake : https://github.com/pwnesia/dnstake
  sudo curl -qfsSL "https://bin.ajam.dev/x86_64_Linux/dnstake" -o "$INSTALL_DIR/dnstake" && sudo chmod +xwr "$INSTALL_DIR/dnstake" &
 #dnsx : https://github.com/projectdiscovery/dnsx
@@ -51,13 +57,11 @@ export INSTALL_DIR="/usr/local/bin"
 #dsieve : https://github.com/trickest/dsieve
  sudo curl -qfsSL "https://bin.ajam.dev/x86_64_Linux/dsieve" -o "$INSTALL_DIR/dsieve" && sudo chmod +xwr "$INSTALL_DIR/dsieve" &
 #duf
- sudo curl -qfsSL "https://bin.ajam.dev/x86_64_Linux/duf" -o "/usr/local/bin/duf" && sudo chmod +xwr "/usr/local/bin/duf" &
+ sudo curl -qfsSL "https://bin.ajam.dev/x86_64_Linux/duf" -o "$INSTALL_DIR/duf" && sudo chmod +xwr "$INSTALL_DIR/duf" &
 #dust
- sudo curl -qfsSL "https://bin.ajam.dev/x86_64_Linux/dust" -o "/usr/local/bin/dust" && sudo chmod +xwr "/usr/local/bin/dust" &
+ sudo curl -qfsSL "https://bin.ajam.dev/x86_64_Linux/dust" -o "$INSTALL_DIR/dust" && sudo chmod +xwr "$INSTALL_DIR/dust" &
 #dysk
- sudo curl -qfsSL "https://bin.ajam.dev/x86_64_Linux/dysk" -o "/usr/local/bin/dysk" && sudo chmod +xwr "/usr/local/bin/dysk" &
-#dontgo403 : https://github.com/devploit/dontgo403
- sudo curl -qfsSL "https://bin.ajam.dev/x86_64_Linux/dontgo403" -o "$INSTALL_DIR/dontgo403" && sudo chmod +xwr "$INSTALL_DIR/dontgo403" &
+ sudo curl -qfsSL "https://bin.ajam.dev/x86_64_Linux/dysk" -o "$INSTALL_DIR/dysk" && sudo chmod +xwr "$INSTALL_DIR/dysk" &
 #dust
  sudo curl -qfsSL "https://bin.ajam.dev/x86_64_Linux/dust" -o "$INSTALL_DIR/dust" && sudo chmod +xwr "$INSTALL_DIR/dust" &
 #eget
@@ -113,17 +117,21 @@ export INSTALL_DIR="/usr/local/bin"
 #mapcidr : https://github.com/projectdiscovery/mapcidr
  sudo curl -qfsSL "https://bin.ajam.dev/x86_64_Linux/mapcidr" -o "$INSTALL_DIR/mapcidr" && sudo chmod +xwr "$INSTALL_DIR/mapcidr" &
 #micro
- sudo curl -qfsSL "https://bin.ajam.dev/x86_64_Linux/micro" -o "/usr/local/bin/micro" && sudo chmod +xwr "/usr/local/bin/micro" &
+ sudo curl -qfsSL "https://bin.ajam.dev/x86_64_Linux/micro" -o "$INSTALL_DIR/micro" && sudo chmod +xwr "$INSTALL_DIR/micro" &
 #mksub
  sudo curl -qfsSL "https://bin.ajam.dev/x86_64_Linux/mksub" -o "$INSTALL_DIR/mksub" && sudo chmod +xwr "$INSTALL_DIR/mksub" &
 #nmapurls : https://github.com/sdcampbell/nmapurls
  sudo curl -qfsSL "https://bin.ajam.dev/x86_64_Linux/nmapurls" -o "$INSTALL_DIR/nmapurls" && sudo chmod +xwr "$INSTALL_DIR/nmapurls" &
+#nomore403 : https://github.com/devploit/nomore403
+ sudo curl -qfsSL "https://bin.ajam.dev/x86_64_Linux/nomore403" -o "$INSTALL_DIR/nomore403" && sudo chmod +xwr "$INSTALL_DIR/nomore403" & 
 #notify : https://github.com/projectdiscovery/notify
  sudo curl -qfsSL "https://bin.ajam.dev/x86_64_Linux/notify" -o "$INSTALL_DIR/notify" && sudo chmod +xwr "$INSTALL_DIR/notify" &
 #nuclei : https://github.com/projectdiscovery/nuclei
  sudo curl -qfsSL "https://bin.ajam.dev/x86_64_Linux/nuclei" -o "$INSTALL_DIR/nuclei" && sudo chmod +xwr "$INSTALL_DIR/nuclei" &
 #pencode : https://github.com/ffuf/pencode
- sudo curl -qfsSL "https://bin.ajam.dev/x86_64_Linux/pencode" -o "$INSTALL_DIR/pencode" && sudo chmod +xwr "$INSTALL_DIR/pencode" & 
+ sudo curl -qfsSL "https://bin.ajam.dev/x86_64_Linux/pencode" -o "$INSTALL_DIR/pencode" && sudo chmod +xwr "$INSTALL_DIR/pencode" &
+#ppmap : https://github.com/kleiton0x00/ppmap
+ sudo curl -qfsSL "https://bin.ajam.dev/x86_64_Linux/ppmap" -o "$INSTALL_DIR/ppmap" && sudo chmod +xwr "$INSTALL_DIR/ppmap" &
 #puredns : https://github.com/d3mondev/puredns
  sudo curl -qfsSL "https://bin.ajam.dev/x86_64_Linux/puredns" -o "$INSTALL_DIR/puredns" && sudo chmod +xwr "$INSTALL_DIR/puredns" &
 #qsreplace : https://github.com/tomnomnom/qsreplace
@@ -138,6 +146,8 @@ export INSTALL_DIR="/usr/local/bin"
  sudo curl -qfsSL "https://bin.ajam.dev/x86_64_Linux/roboxtractor" -o "$INSTALL_DIR/roboxtractor" && sudo chmod +xwr "$INSTALL_DIR/roboxtractor" &
 #s3scanner : https://github.com/sa7mon/s3scanner
  sudo curl -qfsSL "https://bin.ajam.dev/x86_64_Linux/s3scanner" -o "$INSTALL_DIR/s3scanner" && sudo chmod +xwr "$INSTALL_DIR/s3scanner" &
+#scopegen
+ sudo curl -qfsSL "https://bin.ajam.dev/x86_64_Linux/scopegen" -o "$INSTALL_DIR/scopegen" && sudo chmod +xwr "$INSTALL_DIR/scopegen" &
 #scopeview
  sudo curl -qfsSL "https://bin.ajam.dev/x86_64_Linux/scopeview" -o "$INSTALL_DIR/scopeview" && sudo chmod +xwr "$INSTALL_DIR/scopeview" &
 #shortscan : https://github.com/bitquark/shortscan
@@ -148,12 +158,16 @@ export INSTALL_DIR="/usr/local/bin"
  sudo curl -qfsSL "https://bin.ajam.dev/x86_64_Linux/smap" -o "$INSTALL_DIR/smap" && sudo chmod +xwr "$INSTALL_DIR/smap" &
 #sns : https://github.com/sw33tLie/sns
  sudo curl -qfsSL "https://bin.ajam.dev/x86_64_Linux/sns" -o "$INSTALL_DIR/sns" && sudo chmod +xwr "$INSTALL_DIR/sns" &
+#spk
+ sudo curl -qfsSL "https://bin.ajam.dev/x86_64_Linux/spk" -o "$INSTALL_DIR/spk" && sudo chmod +xwr "$INSTALL_DIR/spk" &
 #sttr: https://github.com/abhimanyu003/sttr
  sudo curl -qfsSL "https://bin.ajam.dev/x86_64_Linux/sttr" -o "$INSTALL_DIR/sttr" && sudo chmod +xwr "$INSTALL_DIR/sttr" &
 #subfinder : https://github.com/projectdiscovery/subfinder
  sudo curl -qfsSL "https://bin.ajam.dev/x86_64_Linux/subfinder" -o "$INSTALL_DIR/subfinder" && sudo chmod +xwr "$INSTALL_DIR/subfinder" &
 #subjs : https://github.com/lc/subjs
  sudo curl -qfsSL "https://bin.ajam.dev/x86_64_Linux/subjs" -o "$INSTALL_DIR/subjs" && sudo chmod +xwr "$INSTALL_DIR/subjs" &
+#subxtract
+ sudo curl -qfsSL "https://bin.ajam.dev/x86_64_Linux/subxtract" -o "$INSTALL_DIR/subxtract" && sudo chmod +xwr "$INSTALL_DIR/subxtract" &
 #tlsx : https://github.com/projectdiscovery/tlsx
  sudo curl -qfsSL "https://bin.ajam.dev/x86_64_Linux/tlsx" -o "$INSTALL_DIR/tlsx" && sudo chmod +xwr "$INSTALL_DIR/tlsx" &
 #tok
