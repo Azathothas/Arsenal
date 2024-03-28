@@ -129,13 +129,13 @@ var rootCmd = &cobra.Command{
 }
 
 func init() {
-    rootCmd.Flags().BoolVarP(&includePrivateSuffix, "private-suffix", "p", false, "Include Private Suffix")
+    rootCmd.Flags().BoolVarP(&includePrivateSuffix, "private-suffix", "p", false, "Include Private Suffix (Example: blogspot.com)")
     rootCmd.Flags().BoolVarP(&ignoreSubDomains, "ignore-subdomains", "i", false, "Ignore (Exclude) subdomains")
     rootCmd.Flags().BoolVarP(&toPunyCode, "to-punycode", "t", false, "Convert Internationalized Domain Names (IDN) to Punycode (ASCII Characters)")
     rootCmd.Flags().BoolVarP(&outputJSON, "json", "j", false, "Output in JSON Format (Everything)")
     rootCmd.Flags().BoolVarP(&printRootsOnly, "roots", "r", false, "Print only the root domain (without suffix)")
     rootCmd.Flags().BoolVarP(&printDomains, "domains", "d", false, "Print the root domain and suffix combined")
-    rootCmd.Flags().StringVarP(&inputFile, "file", "f", "", "Input file containing URLs (one per line)")
+    rootCmd.Flags().StringVarP(&inputFile, "file", "f", "", "Input file containing URLs|Domains (one per line)")
 }
 
 func main() {
