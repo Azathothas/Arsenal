@@ -1,6 +1,6 @@
 package main
 
-import "github.com/elliotwutingfeng/go-fasttld/cmd/fasttld"
+import "github.com/Azathothas/Arsenal/fasttld"
 
 // main executes the fasttld CLI
 func main() {
