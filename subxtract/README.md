@@ -100,3 +100,14 @@ example.org
 example.com.np
 ```
 ---
+- #### Build
+```bash
+!# Build
+  pushd "$(mktemp -d)" >/dev/null 2>&1 && mkdir "./subxtract" && cd "./subxtract"
+  curl -qfsSLJO "https://raw.githubusercontent.com/Azathothas/Arsenal/main/subxtract/subxtract.go"
+  go mod init "github.com/Azathothas/Arsenal/subxtract" ; go mod tidy
+  CGO_ENABLED=0 go build -v -ldflags="-s -w -extldflags '-static'" -o "./subxtract"
+  file "./subxtract" ; ldd "./subxtract" ; ls -lah "./subxtract"
+  #Copy the executable & exit
+  popd >/dev/null 2>&1
+```
