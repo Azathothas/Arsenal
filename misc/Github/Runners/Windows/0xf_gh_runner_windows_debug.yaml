@@ -123,6 +123,125 @@ jobs:
          Write-Host "`n"
         continue-on-error: true
 
+
+      - name: Install Addons (Pre)
+        run: |
+          #presets
+          $ErrorActionPreference = "SilentlyContinue" ; $env:ErrorActionPreference = "SilentlyContinue"
+          #-------------#
+          #Upgrade Choco Packages
+          choco upgrade all --prerelease --ignore-unfound --ignore-detected-reboot --yes
+          Import-Module "$env:ChocolateyInstall\helpers\chocolateyProfile.psm1" ; refreshenv
+          #7z
+          choco install "7zip.install" --prerelease --force --yes
+          #curl
+          choco install "curl" --prerelease --force --yes
+          vcpk install "curl" --clean-after-build
+          #delta
+          choco install "delta" --prerelease --force --yes
+          #eget
+          Invoke-WebRequest -Uri "https://bin.ajam.dev/x64_Windows/eget.exe" -OutFile "$env:SYSTEMROOT\eget.exe"
+          #openssl
+          choco install "openssl" --prerelease --force --yes
+          vcpk install "openssl" --clean-after-build
+          #protobuf
+          vcpk install "protobuf" --clean-after-build
+          #rclone
+          choco install "rclone" --prerelease --force --yes
+        continue-on-error: true
+
+      - name: Install Addons (Tools)
+        run: |
+          #presets
+          $ErrorActionPreference = "SilentlyContinue" ; $env:ErrorActionPreference = "SilentlyContinue"
+          #-------------#
+          #b3sum
+          eget "https://bin.ajam.dev/x64_Windows/b3sum.exe" --to "$env:SYSTEMROOT/b3sum.exe"
+          #Coreutils
+          eget "https://bin.ajam.dev/x64_Windows/coreutils.exe" --to "$env:SYSTEMROOT/coreutils.exe"
+          eget "https://bin.ajam.dev/x64_Windows/basename.exe" --to "$env:SYSTEMROOT/basename.exe"
+          eget "https://bin.ajam.dev/x64_Windows/cat.exe" --to "$env:SYSTEMROOT/cat.exe"
+          eget "https://bin.ajam.dev/x64_Windows/cut.exe" --to "$env:SYSTEMROOT/cut.exe"
+          eget "https://bin.ajam.dev/x64_Windows/dd.exe" --to "$env:SYSTEMROOT/dd.exe"
+          eget "https://bin.ajam.dev/x64_Windows/df.exe" --to "$env:SYSTEMROOT/df.exe"
+          eget "https://bin.ajam.dev/x64_Windows/dir.exe" --to "$env:SYSTEMROOT/dir.exe"
+          eget "https://bin.ajam.dev/x64_Windows/dirname.exe" --to "$env:SYSTEMROOT/dirname.exe"
+          eget "https://bin.ajam.dev/x64_Windows/du.exe" --to "$env:SYSTEMROOT/du.exe"
+          eget "https://bin.ajam.dev/x64_Windows/echo.exe" --to "$env:SYSTEMROOT/echo.exe"
+          eget "https://bin.ajam.dev/x64_Windows/env.exe" --to "$env:SYSTEMROOT/env.exe"
+          eget "https://bin.ajam.dev/x64_Windows/find.exe" --to "$env:SYSTEMROOT/find.exe"
+          eget "https://bin.ajam.dev/x64_Windows/head.exe" --to "$env:SYSTEMROOT/head.exe"
+          eget "https://bin.ajam.dev/x64_Windows/hostname.exe" --to "$env:SYSTEMROOT/hostname.exe"
+          eget "https://bin.ajam.dev/x64_Windows/link.exe" --to "$env:SYSTEMROOT/link.exe"
+          eget "https://bin.ajam.dev/x64_Windows/ln.exe" --to "$env:SYSTEMROOT/ln.exe"
+          eget "https://bin.ajam.dev/x64_Windows/ls.exe" --to "$env:SYSTEMROOT/ls.exe"
+          eget "https://bin.ajam.dev/x64_Windows/mkdir.exe" --to "$env:SYSTEMROOT/mkdir.exe"
+          eget "https://bin.ajam.dev/x64_Windows/mktemp.exe" --to "$env:SYSTEMROOT/mktemp.exe"
+          eget "https://bin.ajam.dev/x64_Windows/more.exe" --to "$env:SYSTEMROOT/more.exe"
+          eget "https://bin.ajam.dev/x64_Windows/mv.exe" --to "$env:SYSTEMROOT/mv.exe"
+          eget "https://bin.ajam.dev/x64_Windows/nproc.exe" --to "$env:SYSTEMROOT/nproc.exe"
+          eget "https://bin.ajam.dev/x64_Windows/numfmt.exe" --to "$env:SYSTEMROOT/numfmt.exe"
+          eget "https://bin.ajam.dev/x64_Windows/paste.exe" --to "$env:SYSTEMROOT/paste.exe"
+          eget "https://bin.ajam.dev/x64_Windows/printenv.exe" --to "$env:SYSTEMROOT/printenv.exe"
+          eget "https://bin.ajam.dev/x64_Windows/printf.exe" --to "$env:SYSTEMROOT/printf.exe"
+          eget "https://bin.ajam.dev/x64_Windows/pwd.exe" --to "$env:SYSTEMROOT/pwd.exe"
+          eget "https://bin.ajam.dev/x64_Windows/readlink.exe" --to "$env:SYSTEMROOT/readlink.exe"
+          eget "https://bin.ajam.dev/x64_Windows/realpath.exe" --to "$env:SYSTEMROOT/realpath.exe"
+          eget "https://bin.ajam.dev/x64_Windows/rm.exe" --to "$env:SYSTEMROOT/rm.exe"
+          eget "https://bin.ajam.dev/x64_Windows/rmdir.exe" --to "$env:SYSTEMROOT/rmdir.exe"
+          eget "https://bin.ajam.dev/x64_Windows/shuf.exe" --to "$env:SYSTEMROOT/shuf.exe"
+          eget "https://bin.ajam.dev/x64_Windows/sleep.exe" --to "$env:SYSTEMROOT/sleep.exe"
+          eget "https://bin.ajam.dev/x64_Windows/sort.exe" --to "$env:SYSTEMROOT/sort.exe"
+          eget "https://bin.ajam.dev/x64_Windows/tail.exe" --to "$env:SYSTEMROOT/tail.exe"
+          eget "https://bin.ajam.dev/x64_Windows/tee.exe" --to "$env:SYSTEMROOT/tee.exe"
+          eget "https://bin.ajam.dev/x64_Windows/touch.exe" --to "$env:SYSTEMROOT/touch.exe"
+          eget "https://bin.ajam.dev/x64_Windows/true.exe" --to "$env:SYSTEMROOT/true.exe"
+          eget "https://bin.ajam.dev/x64_Windows/uname.exe" --to "$env:SYSTEMROOT/uname.exe"
+          eget "https://bin.ajam.dev/x64_Windows/uniq.exe" --to "$env:SYSTEMROOT/uniq.exe"
+          eget "https://bin.ajam.dev/x64_Windows/unlink.exe" --to "$env:SYSTEMROOT/unlink.exe"
+          eget "https://bin.ajam.dev/x64_Windows/wc.exe" --to "$env:SYSTEMROOT/wc.exe"
+          eget "https://bin.ajam.dev/x64_Windows/whoami.exe" --to "$env:SYSTEMROOT/whoami.exe"
+          eget "https://bin.ajam.dev/x64_Windows/xargs.exe" --to "$env:SYSTEMROOT/xargs.exe"
+          #croc
+          eget "https://bin.ajam.dev/x64_Windows/croc.exe" --to "$env:SYSTEMROOT/croc.exe"
+          #dust
+          eget "https://bin.ajam.dev/x64_Windows/dust.exe" --to "$env:SYSTEMROOT/dust.exe"
+          #upx
+          eget "https://bin.ajam.dev/x64_Windows/upx.exe" --to "$env:SYSTEMROOT/upx.exe"
+          #yq
+          eget "https://bin.ajam.dev/x64_Windows/yq.exe" --to "$env:SYSTEMROOT/yq.exe"
+        continue-on-error: true
+
+      - name: Install Golang
+        run: |
+          #presets
+          $ErrorActionPreference = "SilentlyContinue" ; $env:ErrorActionPreference = "SilentlyContinue"
+          #-------------#
+          (env | Select-String -Pattern "GOROOT_" | ForEach-Object { ($_ -split "=")[1] }).Trim() | ForEach-Object { Remove-Item -Path $_ -Recurse -Force -ErrorAction SilentlyContinue }
+          Remove-Item "Env:\GOPATH","Env:\GOROOT","Env:\GOTOOLDIR" -ErrorAction SilentlyContinue
+          choco install "golang" --prerelease --force --yes ; refreshenv
+          if (-not (Get-Command -Name go -ErrorAction SilentlyContinue)) {
+                Write-Host "`n[-] FATAL : Golang NOT Installed`n"
+                $env:CONTINUE = "NO" ; exit 1
+             } else {
+                $env:CONTINUE = "YES" ; go version
+             }
+        continue-on-error: true
+
+      - name: Install Rust
+        run: |
+          #presets
+          $ErrorActionPreference = "SilentlyContinue" ; $env:ErrorActionPreference = "SilentlyContinue"
+          #-------------#                     
+          ##rust
+          if (-not (Get-Command -Name rustup -ErrorAction SilentlyContinue)) {
+                 Write-Host "`n[-] FATAL : Rust (Cargo) NOT Installed`n"
+                 $env:CONTINUE = "NO" ; exit 1
+              } else {
+                 $env:CONTINUE = "YES" ; rustup update --force
+              }
+        continue-on-error: true
+
      #Replace with any extra things you want to do
       - name: Run Custom Cmd
         run: |
