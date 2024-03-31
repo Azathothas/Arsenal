@@ -15,6 +15,10 @@ func customUsage() {
     fmt.Fprintf(os.Stderr, "  -s | --single\tEscape single quotes\n")
     fmt.Fprintf(os.Stderr, "  -d | --double\tEscape double quotes\n")
     fmt.Fprintf(os.Stderr, "  -f | --file\tFile path to read input from\n")
+    fmt.Fprintf(os.Stderr, "\nExamples: \n")	
+    fmt.Fprintf(os.Stderr, " Input: quotes-escaper {OPTS} {INPUT} [Example: quotes-escaper -d 'Double \" Quote']\n")
+    fmt.Fprintf(os.Stderr, " STDIN: {Cat somefile OR echo someinput} | quotes-escaper {OPTS}\n")
+    fmt.Fprintf(os.Stderr, "  FILE: quotes-escaper -f \"/path/to/somefile\" {OPTS}\n\n")
 }
 
 //Sanity Checks
