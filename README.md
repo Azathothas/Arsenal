@@ -29,6 +29,8 @@
 > - [**WSL**](https://github.com/Azathothas/Arsenal/tree/main/misc/WSL) : `Guide` `Scripts` & `Config` for [**WSL**](https://learn.microsoft.com/en-us/windows/wsl/install)
 > - [Windows](https://github.com/Azathothas/Arsenal/tree/main/misc/Windows) : `Guide` `Scripts` & `Config` for [**Windows**](https://learn.microsoft.com/en-us/windows/)
 ---
+- [**quotes-escaper**<img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/go/go-original-wordmark.svg" width="30" height="30">](https://github.com/Azathothas/Arsenal/tree/main/quotes-escaper) **➼** **`CLI`** Version of [Knowledgewalls's Quote Escaper](https://tools.knowledgewalls.com/online-escape-single-or-double-quotes-from-string) : Escape Quotes (`Single ' | Double "`)
+---
 - [**resDNS**<img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/bash/bash-original.svg" width="30" height="30">](https://github.com/Azathothas/Arsenal/tree/main/resdns) **➼** Wrapper around [[dnsx](https://github.com/projectdiscovery/dnsx) + [puredns](https://github.com/d3mondev/puredns) + [shuffledns](https://github.com/projectdiscovery/shuffledns)] for Efficient DNS Resolution
 ---
 - [**rate-limit-checker**<img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/go/go-original-wordmark.svg" width="30" height="30">](https://github.com/Azathothas/Arsenal/tree/main/rate-limit-checker) **➼** **`Maintained`** `|` **`Updated`** fork of [Sh1Yo/rate-limit-checker](https://github.com/Sh1Yo/rate-limit-checker) : Check whether the domain has a rate limit enabled
@@ -37,7 +39,7 @@
 ---
 - [**Scopeview**<img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/bash/bash-original.svg" width="30" height="30">](https://github.com/Azathothas/Arsenal/tree/main/scopeview) **➼** Slightly revamped vesion of TomNomNom's [**Inscope**](https://github.com/tomnomnom/hacks/tree/master/inscope) that allows custom **`.scope`** to be defined.
 ---
-- [**SubXtract**<img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/bash/bash-original.svg" width="30" height="30">](https://github.com/Azathothas/Arsenal/tree/main/subxtract) **➼** Wrapper around [go-fasttld](https://github.com/elliotwutingfeng/go-fasttld) for extracting **`TLD`** (Top-Level-Domains) & **`Subdomains`** using ***accurate*** and ***always-uptodate*** `public-suffix` list from **domains**, **urls**, **ipv4**, **ipv6**, etc.
+- [**SubXtract**<img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/go/go-original-wordmark.svg" width="30" height="30">](https://github.com/Azathothas/Arsenal/tree/main/subxtract) **➼** Wrapper around [go-fasttld](https://github.com/elliotwutingfeng/go-fasttld) for extracting **`TLD`** (Top-Level-Domains) & **`Subdomains`** using ***accurate*** and ***always-uptodate*** `public-suffix` list from **domains**, **urls**, **ipv4**, **ipv6**, etc.
 ---
 - [**Tok**<img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/go/go-original-wordmark.svg" width="30" height="30">](https://github.com/Azathothas/Arsenal/tree/main/tok) **➼** **`Maintained`** `|` **`Updated`** fork of [tomnomnom/tok](https://github.com/tomnomnom/hacks/tree/master/tok) : Split Domains into Words
 ---
