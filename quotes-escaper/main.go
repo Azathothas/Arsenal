@@ -61,7 +61,7 @@ func main() {
 	}
 
 	output := escapeQuotes(input, *singleQuote, *doubleQuote)
-	fmt.Print(output)
+	fmt.Println(output)
 }
 
 //Escapers
