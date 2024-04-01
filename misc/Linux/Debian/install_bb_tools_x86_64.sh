@@ -142,6 +142,10 @@ export INSTALL_DIR="/usr/local/bin"
  sudo curl -qfsSL "https://raw.githubusercontent.com/Azathothas/Arsenal/main/resdns/resdns.sh" -o "$INSTALL_DIR/resdns" && sudo chmod +xwr "$INSTALL_DIR/resdns" &
 #ripgen : https://github.com/resyncgg/ripgen
  sudo curl -qfsSL "https://bin.ajam.dev/x86_64_Linux/ripgen" -o "$INSTALL_DIR/ripgen" && sudo chmod +xwr "$INSTALL_DIR/ripgen" &
+#ripgrep : 
+ sudo curl -qfsSL "https://bin.ajam.dev/x86_64_Linux/ripgrep" -o "$INSTALL_DIR/ripgrep" && sudo chmod +xwr "$INSTALL_DIR/ripgrep" &
+ sudo curl -qfsSL "https://bin.ajam.dev/x86_64_Linux/ripgrep" -o "$INSTALL_DIR/rg" && sudo chmod +xwr "$INSTALL_DIR/rg" &
+ sudo curl -qfsSL "https://bin.ajam.dev/x86_64_Linux/rga" -o "$INSTALL_DIR/rg" && sudo chmod +xwr "$INSTALL_DIR/rga" &
 #roboxtractor : https://github.com/Josue87/roboxtractor
  sudo curl -qfsSL "https://bin.ajam.dev/x86_64_Linux/roboxtractor" -o "$INSTALL_DIR/roboxtractor" && sudo chmod +xwr "$INSTALL_DIR/roboxtractor" &
 #s3scanner : https://github.com/sa7mon/s3scanner
