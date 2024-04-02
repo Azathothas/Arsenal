@@ -74,6 +74,8 @@ export INSTALL_DIR="/usr/local/bin"
  sudo curl -qfsSL "https://bin.ajam.dev/aarch64_arm64_Linux/ffuf" -o "$INSTALL_DIR/ffuf" && sudo chmod +xwr "$INSTALL_DIR/ffuf" &
 #fget
  sudo curl -qfsSL "https://bin.ajam.dev/aarch64_arm64_Linux/fget" -o "$INSTALL_DIR/fget" && sudo chmod +xwr "$INSTALL_DIR/fget" &
+#findomain
+ sudo curl -qfsSL "https://bin.ajam.dev/aarch64_arm64_Linux/findomain" -o "$INSTALL_DIR/findomain" && sudo chmod +xwr "$INSTALL_DIR/findomain" & 
 #gau : https://github.com/lc/gau
  sudo curl -qfsSL "https://bin.ajam.dev/aarch64_arm64_Linux/gau" -o "$INSTALL_DIR/gau" && sudo chmod +xwr "$INSTALL_DIR/gau" &
 #getJS
