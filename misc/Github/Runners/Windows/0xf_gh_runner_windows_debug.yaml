@@ -367,7 +367,7 @@ jobs:
           Stop-Process -Name sshd -Force 2>$null -ErrorAction SilentlyContinue
           Restart-Service -Name sshd -Force
           Restart-Service -Name ssh-agent -Force
-          #Start-Process -Wait -FilePath "C:\Program Files\OpenSSH-Win64\sshd.exe" -WindowStyle Hidden ; Start-Sleep 5
+          Start-Process -Wait -FilePath "C:\Program Files\OpenSSH-Win64\sshd.exe" -WindowStyle Hidden ; Start-Sleep 5
           #Check 
           Get-Process -Name sshd   
           #Sleep
