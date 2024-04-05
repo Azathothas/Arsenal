@@ -24,7 +24,7 @@ jobs:
     #Default Timeout= 6 Hr (360 Mins) : https://nesin.io/blog/github-action-timeout
     #Docs: https://docs.github.com/en/actions/learn-github-actions/usage-limits-billing-and-administration
     #It's best to cause this timeout from your own side (Low to No chance of GH Disabling your repo) rather than gh (High Chance of them disabling your repo)
-    timeout-minutes: 350
+    timeout-minutes: 390
     
     steps:
      #Sys Info, primarily for debug
@@ -61,41 +61,6 @@ jobs:
           #Start-Process -NoNewWindow -FilePath "C:\Program Files\Tailscale\tailscale-ipn.exe"
           Start-Sleep -Seconds 2
           Start-Process -NoNewWindow -FilePath "C:\Program Files\Tailscale\tailscale.exe" -ArgumentList "up", "--unattended", --hostname="${{ env.THOST }}", --authkey="${{ secrets.TSKEY }}"
-        continue-on-error: true
-        
-    #https://learn.microsoft.com/en-us/windows-server/administration/openssh/openssh_install_firstuse?tabs=powershell
-    #You must have provided a direct URL containing your SSH Public keys, else this won't work
-    # Smth to try: https://github.com/euske/pyrexecd
-    #            : https://github.com/ferama/rospo
-      - name: Configure SSH 
-        run: |      
-         # TailScale SSH is not supported on windows: https://github.com/tailscale/tailscale/issues/4697
-         # Instead rely on a manual approach
-          Add-WindowsCapability -Online -Name OpenSSH.Server*
-          choco install openssh -y | Out-Null
-         #Start Service
-          . "C:\Program Files\OpenSSH-Win64\install-sshd.ps1"
-          . "C:\Program Files\OpenSSH-Win64\ssh-keygen.exe" -A
-          Start-Process -Wait -FilePath "C:\Program Files\OpenSSH-Win64\sshd.exe" -WindowStyle Hidden
-          Start-Sleep 5
-         #Fix Perms 
-          #https://github.com/PowerShell/Win32-OpenSSH/wiki/OpenSSH-utility-scripts-to-fix-file-permissions
-          . "C:\Program Files\OpenSSH-Win64\FixHostFilePermissions.ps1" -Confirm:$false | Out-Null
-          . "C:\Program Files\OpenSSH-Win64\FixUserFilePermissions.ps1" -Confirm:$false | Out-Null
-         #Add Public SSH Key
-          New-Item -Path "$env:USERPROFILE\.ssh" -ItemType Directory -Force
-          #Add-Content -Path "$env:USERPROFILE\.ssh\authorized_keys" -Value "$((Invoke-RestMethod -Uri "${{ env.SSH_PUBLIC_KEY_URL }}").Split("`n")[1])"
-          (Invoke-RestMethod -Uri "${{ env.SSH_PUBLIC_KEY_URL }}").Split("`n") | ForEach-Object { if (-not [string]::IsNullOrWhiteSpace($_)) { Add-Content -Path "$env:USERPROFILE\.ssh\authorized_keys" -Value $_ } }
-         #Configure SSH Config
-          $filePath = Join-Path $env:ProgramData "ssh\sshd_config"; if (-not (Test-Path $filePath)) { New-Item -Path (Split-Path $filePath) -Name "sshd_config" -ItemType File }; Add-Content -Path $filePath -Value "PasswordAuthentication yes`nAllowTcpForwarding yes`nPubkeyAuthentication yes"
-         #Configure Firewall
-          New-NetFirewallRule -Protocol TCP -LocalPort 22 -Direction Inbound -Action Allow -DisplayName "OpenSSH-Server-In-TCP"
-          New-NetFirewallRule -Protocol TCP -LocalPort 22 -Direction Outbound -Action Allow -DisplayName "OpenSSH-Server-Out-TCP"
-          New-NetFirewallRule -Protocol TCP -LocalPort 22 -Direction Inbound -Action Allow -DisplayName "OpenSSH-Server-In-TCP-EdgeTraversal" -EdgeTraversalPolicy Allow
-          if (!(Get-NetFirewallRule -Name "OpenSSH-Server-In-TCP" -ErrorAction SilentlyContinue | Select-Object Name, Enabled)) {Write-Output "Firewall Rule 'OpenSSH-Server-In-TCP' does not exist, creating it..." New-NetFirewallRule -Name 'OpenSSH-Server-In-TCP' -DisplayName 'OpenSSH Server (sshd)' -Enabled True -Direction Inbound -Protocol TCP -Action Allow -LocalPort 22} else {Write-Output "Firewall rule 'OpenSSH-Server-In-TCP' has been created and exists."} 
-          netsh firewall show state
-          ipconfig
-          arp -A
         continue-on-error: true
 
      #Connects TailScale and prints details (Okay to expose Publicly)   
@@ -285,7 +250,8 @@ jobs:
           eget "https://www.nasm.us/pub/nasm/snapshots/latest/win64/$env:EGET_LINK" --file "nasm.exe" --to "$env:SYSTEMROOT/nasm.exe"
           eget "https://www.nasm.us/pub/nasm/snapshots/latest/win64/$env:EGET_LINK" --file "ndisasm.exe" --to "$env:SYSTEMROOT/ndisasm.exe"
           #Openssl [Not compatible with: boringssl |libressl]
-          choco install "openssl" --prerelease --force --yes
+          #choco install "openssl" --prerelease --force --yes
+          scoop install "main/openssl" --global --no-cache ; refreshenv ; openssl version
           #vcpkg install "openssl" --clean-after-build
           vcpkg install "openssl:x64-windows-static" --clean-after-build
           #vcpkg integrate install
@@ -345,17 +311,66 @@ jobs:
      #Replace with any extra things you want to do
       - name: Run Custom Cmd
         run: |
-           Write-Host "Hellow"
+          #presets
+          $ErrorActionPreference = "SilentlyContinue" ; $env:ErrorActionPreference = "SilentlyContinue"
+          Import-Module "$env:ChocolateyInstall\helpers\chocolateyProfile.psm1" ; refreshenv
+          #-------------#          
+          Write-Host "Hellow"
+        continue-on-error: true
+
+    #https://learn.microsoft.com/en-us/windows-server/administration/openssh/openssh_install_firstuse?tabs=powershell
+    #You must have provided a direct URL containing your SSH Public keys, else this won't work
+    # Smth to try: https://github.com/euske/pyrexecd
+    #            : https://github.com/ferama/rospo
+      - name: Configure SSH 
+        run: |
+          #presets
+          $ErrorActionPreference = "SilentlyContinue" ; $env:ErrorActionPreference = "SilentlyContinue"
+          Import-Module "$env:ChocolateyInstall\helpers\chocolateyProfile.psm1" ; refreshenv
+          #-------------#          
+          # TailScale SSH is not supported on windows: https://github.com/tailscale/tailscale/issues/4697
+          # Instead rely on a manual approach
+           Add-WindowsCapability -Online -Name OpenSSH.Server*
+           scoop install "main/openssh" --global --no-cache ; refreshenv
+          #Start Service
+           . "C:\Program Files\OpenSSH-Win64\install-sshd.ps1"
+           . "C:\Program Files\OpenSSH-Win64\ssh-keygen.exe" -A
+           Start-Process -Wait -FilePath "C:\Program Files\OpenSSH-Win64\sshd.exe" -WindowStyle Hidden
+           Start-Sleep 5
+          #Fix Perms 
+           #https://github.com/PowerShell/Win32-OpenSSH/wiki/OpenSSH-utility-scripts-to-fix-file-permissions
+           . "C:\Program Files\OpenSSH-Win64\FixHostFilePermissions.ps1" -Confirm:$false | Out-Null
+           . "C:\Program Files\OpenSSH-Win64\FixUserFilePermissions.ps1" -Confirm:$false | Out-Null
+          #Add Public SSH Key
+           New-Item -Path "$env:USERPROFILE\.ssh" -ItemType Directory -Force
+           #Add-Content -Path "$env:USERPROFILE\.ssh\authorized_keys" -Value "$((Invoke-RestMethod -Uri "${{ env.SSH_PUBLIC_KEY_URL }}").Split("`n")[1])"
+           (Invoke-RestMethod -Uri "${{ env.SSH_PUBLIC_KEY_URL }}").Split("`n") | ForEach-Object { if (-not [string]::IsNullOrWhiteSpace($_)) { Add-Content -Path "$env:USERPROFILE\.ssh\authorized_keys" -Value $_ } }
+          #Configure SSH Config
+           $filePath = Join-Path $env:ProgramData "ssh\sshd_config"; if (-not (Test-Path $filePath)) { New-Item -Path (Split-Path $filePath) -Name "sshd_config" -ItemType File }; Add-Content -Path $filePath -Value "PasswordAuthentication yes`nAllowTcpForwarding yes`nPubkeyAuthentication yes"
+          #Configure Firewall
+           New-NetFirewallRule -Protocol TCP -LocalPort 22 -Direction Inbound -Action Allow -DisplayName "OpenSSH-Server-In-TCP"
+           New-NetFirewallRule -Protocol TCP -LocalPort 22 -Direction Outbound -Action Allow -DisplayName "OpenSSH-Server-Out-TCP"
+           New-NetFirewallRule -Protocol TCP -LocalPort 22 -Direction Inbound -Action Allow -DisplayName "OpenSSH-Server-In-TCP-EdgeTraversal" -EdgeTraversalPolicy Allow
+           if (!(Get-NetFirewallRule -Name "OpenSSH-Server-In-TCP" -ErrorAction SilentlyContinue | Select-Object Name, Enabled)) {Write-Output "Firewall Rule 'OpenSSH-Server-In-TCP' does not exist, creating it..." New-NetFirewallRule -Name 'OpenSSH-Server-In-TCP' -DisplayName 'OpenSSH Server (sshd)' -Enabled True -Direction Inbound -Protocol TCP -Action Allow -LocalPort 22} else {Write-Output "Firewall rule 'OpenSSH-Server-In-TCP' has been created and exists."} 
+           netsh firewall show state
+           ipconfig
+           arp -A
         continue-on-error: true
 
      #This keeps GH Actions hypnotized until timeout      
       - name: SSH (Breakpoint) || Sleep ∞
-        run: |        
+        run: | 
+          #presets
+          $ErrorActionPreference = "SilentlyContinue" ; $env:ErrorActionPreference = "SilentlyContinue"
+          Import-Module "$env:ChocolateyInstall\helpers\chocolateyProfile.psm1" ; refreshenv               
           #Finally ReStart 
           Stop-Process -Name sshd -Force 2>$null -ErrorAction SilentlyContinue
-          Start-Process -Wait -FilePath "C:\Program Files\OpenSSH-Win64\sshd.exe" -WindowStyle Hidden ; Start-Sleep 5
+          Restart-Service -Name sshd -Force
+          Restart-Service -Name ssh-agent -Force
+          #Start-Process -Wait -FilePath "C:\Program Files\OpenSSH-Win64\sshd.exe" -WindowStyle Hidden ; Start-Sleep 5
           #Check 
           Get-Process -Name sshd   
           #Sleep
-          while ($true) {Start-Sleep -Seconds 1} 
-        continue-on-error: true 
+          while ($true) {Start-Sleep -Seconds 1}
+          Start-Sleep -Seconds 22200
+        continue-on-error: true
