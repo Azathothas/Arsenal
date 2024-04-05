@@ -123,29 +123,68 @@ jobs:
          Write-Host "`n"
         continue-on-error: true
 
+      - name: Setup Build Env
+        run: |
+          #presets
+          $ErrorActionPreference = "SilentlyContinue" ; $env:ErrorActionPreference = "SilentlyContinue"
+          #-------------#
+          ##Choco
+          #Upgrade Choco Packages
+          #choco upgrade all --prerelease --ignore-unfound --ignore-detected-reboot --yes
+          Import-Module "$env:ChocolateyInstall\helpers\chocolateyProfile.psm1" ; refreshenv
+          choco feature enable -n="allowGlobalConfirmation"
+          #-------------#
+          #Scoop
+          iex "& {$(irm get.scoop.sh)} -RunAsAdmin" ; refreshenv ; scoop --version
+          scoop bucket add extras "https://github.com/ScoopInstaller/Extras.git"
+          scoop bucket add java "https://github.com/ScoopInstaller/Java.git"
+          scoop bucket add php "https://github.com/ScoopInstaller/PHP.git"
+          scoop bucket add versions "https://github.com/ScoopInstaller/Versions.git"
+          scoop bucket known
+          #Winget (Via Scoop)
+          scoop install "main/winget" --global --no-cache ; refreshenv ; winget --version
+          #vcpkg
+          vcpkg integrate install ; refreshenv
+        continue-on-error: true
 
       - name: Install Addons (Pre)
         run: |
           #presets
           $ErrorActionPreference = "SilentlyContinue" ; $env:ErrorActionPreference = "SilentlyContinue"
-          #-------------#
-          #Upgrade Choco Packages
-          choco upgrade all --prerelease --ignore-unfound --ignore-detected-reboot --yes
           Import-Module "$env:ChocolateyInstall\helpers\chocolateyProfile.psm1" ; refreshenv
           #7z
-          choco install "7zip.install" --prerelease --force --yes
+          choco install "7zip.install" --prerelease --force --yes          
+          #alsa 
+          vcpkg install "alsa:x64-windows-static" --clean-after-build
+          #bzip2 
+          vcpkg install "bzip2:x64-windows-static" --clean-after-build
+          #cmake
+          #choco install "cmake" --prerelease --force --yes
+          choco uninstall "cmake" --force --yes 2>$null
+          choco uninstall "cmake.install" --force --yes 2>$null
+          choco install "cmake.install" --prerelease --force --yes --installargs '"ADD_CMAKE_TO_PATH=System"'          
           #curl
           choco install "curl" --prerelease --force --yes
-          vcpk install "curl" --clean-after-build
+          vcpk install "curl:x64-windows-static" --clean-after-build
           #delta
           choco install "delta" --prerelease --force --yes
           #eget
           Invoke-WebRequest -Uri "https://bin.ajam.dev/x64_Windows/eget.exe" -OutFile "$env:SYSTEMROOT\eget.exe"
-          #openssl
-          choco install "openssl" --prerelease --force --yes
-          vcpk install "openssl" --clean-after-build
+          #libcap
+          vcpkg install "libcap:x64-windows-static" --clean-after-build
+          #libpcap 
+          vcpkg install "libpcap:x64-windows-static" --clean-after-build
+          #libsmb 
+          vcpkg install "libsmb2:x64-windows-static" --clean-after-build
+          #ncurses 
+          vcpkg install "ncurses:x64-windows-static" --clean-after-build
+          #ocilib
+          vcpkg install "ocilib:x64-windows-static" --clean-after-build
+          $env:OCI_DIR = "$env:VCPKG_INSTALLATION_ROOT\installed\x64-windows-static" ; echo "OCI_DIR=$env:OCI_DIR" >> "$GITHUB_ENV"
+          $env:OCI_LIB_DIR = "$env:VCPKG_INSTALLATION_ROOT\installed\x64-windows-static\lib" ; echo "OCI_LIB_DIR=$env:OCI_LIB_DIR" >> "$GITHUB_ENV"
+          $env:OCI_INCLUDE_DIR = "$env:VCPKG_INSTALLATION_ROOT\installed\x64-windows-static\include" ; echo "OCI_INCLUDE_DIR=$env:OCI_INCLUDE_DIR" >> "$GITHUB_ENV"
           #protobuf
-          vcpk install "protobuf" --clean-after-build
+          vcpk install "protobuf:x64-windows-static" --clean-after-build
           #rclone
           choco install "rclone" --prerelease --force --yes
         continue-on-error: true
@@ -154,6 +193,7 @@ jobs:
         run: |
           #presets
           $ErrorActionPreference = "SilentlyContinue" ; $env:ErrorActionPreference = "SilentlyContinue"
+          Import-Module "$env:ChocolateyInstall\helpers\chocolateyProfile.psm1" ; refreshenv
           #-------------#
           #b3sum
           eget "https://bin.ajam.dev/x64_Windows/b3sum.exe" --to "$env:SYSTEMROOT/b3sum.exe"
@@ -206,8 +246,12 @@ jobs:
           eget "https://bin.ajam.dev/x64_Windows/croc.exe" --to "$env:SYSTEMROOT/croc.exe"
           #dust
           eget "https://bin.ajam.dev/x64_Windows/dust.exe" --to "$env:SYSTEMROOT/dust.exe"
+          #gdu
+          eget "https://bin.ajam.dev/x64_Windows/gdu.exe" --to "$env:SYSTEMROOT/gdu.exe"
           #upx
           eget "https://bin.ajam.dev/x64_Windows/upx.exe" --to "$env:SYSTEMROOT/upx.exe"
+          #wldd
+          eget "https://bin.ajam.dev/x64_Windows/wldd.exe" --to "$env:SYSTEMROOT/wldd.exe"
           #yq
           eget "https://bin.ajam.dev/x64_Windows/yq.exe" --to "$env:SYSTEMROOT/yq.exe"
         continue-on-error: true
@@ -216,6 +260,7 @@ jobs:
         run: |
           #presets
           $ErrorActionPreference = "SilentlyContinue" ; $env:ErrorActionPreference = "SilentlyContinue"
+          Import-Module "$env:ChocolateyInstall\helpers\chocolateyProfile.psm1" ; refreshenv
           #-------------#
           (env | Select-String -Pattern "GOROOT_" | ForEach-Object { ($_ -split "=")[1] }).Trim() | ForEach-Object { Remove-Item -Path $_ -Recurse -Force -ErrorAction SilentlyContinue }
           Remove-Item "Env:\GOPATH","Env:\GOROOT","Env:\GOTOOLDIR" -ErrorAction SilentlyContinue
@@ -228,10 +273,42 @@ jobs:
              }
         continue-on-error: true
 
+      - name: Install OpenSSL
+        run: |
+          #presets
+          $ErrorActionPreference = "SilentlyContinue" ; $env:ErrorActionPreference = "SilentlyContinue"
+          Import-Module "$env:ChocolateyInstall\helpers\chocolateyProfile.psm1" ; refreshenv
+          #-------------#   
+          #nasm
+          choco install "nasm" --prerelease --force --yes
+          $EGET_LINK = (Invoke-WebRequest -Uri "https://www.nasm.us/pub/nasm/snapshots/latest/win64/" -UserAgent ((Invoke-WebRequest -Uri "https://pub.ajam.dev/repos/Azathothas/Wordlists/Misc/User-Agents/ua_chrome_macos_latest.txt").Content.Trim())).Content -split "`r`n" | Select-String -Pattern '(?<=<a href=")(.*?win64.zip)' -AllMatches | ForEach-Object { $_.Matches } | ForEach-Object { $_.Value } | Sort-Object {$_ -as [version]} | Select-Object -First 1 ; $env:EGET_LINK = "$EGET_LINK"
+          eget "https://www.nasm.us/pub/nasm/snapshots/latest/win64/$env:EGET_LINK" --file "nasm.exe" --to "$env:SYSTEMROOT/nasm.exe"
+          eget "https://www.nasm.us/pub/nasm/snapshots/latest/win64/$env:EGET_LINK" --file "ndisasm.exe" --to "$env:SYSTEMROOT/ndisasm.exe"
+          #Openssl [Not compatible with: boringssl |libressl]
+          choco install "openssl" --prerelease --force --yes
+          #vcpkg install "openssl" --clean-after-build
+          vcpkg install "openssl:x64-windows-static" --clean-after-build
+          #vcpkg integrate install
+          #https://docs.rs/vcpkg/latest/vcpkg/#environment-variables
+          Remove-Item "Env:\VCPKGRS_DYNAMIC" -ErrorAction SilentlyContinue
+          ##Build :: https://wiki.openssl.org/index.php/Binaries
+           #eget https://download.firedaemon.com/FireDaemon-OpenSSL/FireDaemon-OpenSSL-x64-3.2.1.exe --download-only --to ".\openssl_firedaemon_installer.exe"
+           #& ".\openssl_firedaemon_installer.exe" /exenoui /qn /norestart REBOOT="ReallySuppress" APPDIR="C:\Program Files\OpenSSL" ADJUSTSYSTEMPATHENV="yes"
+          ##ENV
+           $env:OPENSSL_STATIC = "Yes" ; echo "OPENSSL_STATIC=$env:OPENSSL_STATIC" >> "$GITHUB_ENV"
+           #$env:OPENSSL_DIR = "$env:USERPROFILE\vcpkg\installed\x64-windows-static"
+           $env:OPENSSL_DIR = "$env:VCPKG_INSTALLATION_ROOT\installed\x64-windows-static" ; echo "OPENSSL_DIR=$env:OPENSSL_DIR" >> "$GITHUB_ENV"
+           #$env:OPENSSL_LIB_DIR = "$env:USERPROFILE\vcpkg\installed\x64-windows-static\lib"
+           $env:OPENSSL_LIB_DIR = "$env:VCPKG_INSTALLATION_ROOT\installed\x64-windows-static\lib" ; echo "OPENSSL_LIB_DIR=$env:OPENSSL_LIB_DIR" >> "$GITHUB_ENV"
+           #$env:OPENSSL_INCLUDE_DIR = "$env:USERPROFILE\vcpkg\installed\x64-windows-static\include"
+           $env:OPENSSL_INCLUDE_DIR = "$env:VCPKG_INSTALLATION_ROOT\installed\x64-windows-static\include" ; echo "OPENSSL_INCLUDE_DIR=$env:OPENSSL_INCLUDE_DIR" >> "$GITHUB_ENV"
+        continue-on-error: true
+
       - name: Install Rust
         run: |
           #presets
           $ErrorActionPreference = "SilentlyContinue" ; $env:ErrorActionPreference = "SilentlyContinue"
+          Import-Module "$env:ChocolateyInstall\helpers\chocolateyProfile.psm1" ; refreshenv
           #-------------#                     
           ##rust
           if (-not (Get-Command -Name rustup -ErrorAction SilentlyContinue)) {
@@ -240,6 +317,29 @@ jobs:
               } else {
                  $env:CONTINUE = "YES" ; rustup update --force
               }
+        continue-on-error: true
+
+      - name: Install Zig
+        run: |
+          #presets
+          $ErrorActionPreference = "SilentlyContinue" ; $env:ErrorActionPreference = "SilentlyContinue"
+          Import-Module "$env:ChocolateyInstall\helpers\chocolateyProfile.psm1" ; refreshenv
+          #-------------#   
+          scoop install "versions/zig-dev" --global --no-cache ; refreshenv ; zig version
+        continue-on-error: true
+
+      - name: Configure (pkg-config)
+        run: |
+          #presets
+          $ErrorActionPreference = "SilentlyContinue" ; $env:ErrorActionPreference = "SilentlyContinue"
+          Import-Module "$env:ChocolateyInstall\helpers\chocolateyProfile.psm1" ; refreshenv
+          #-------------#  
+          scoop install "main/pkg-config" --global --no-cache ; refreshenv
+          $env:PKG_CONFIG_ALLOW_SYSTEM_LIBS = "1" ; echo "PKG_CONFIG_ALLOW_SYSTEM_LIBS=$env:PKG_CONFIG_ALLOW_SYSTEM_LIBS" >> "$GITHUB_ENV"
+          $env:PKG_CONFIG_ALLOW_SYSTEM_CFLAGS = "1" ; echo "PKG_CONFIG_ALLOW_SYSTEM_CFLAGS=$env:PKG_CONFIG_ALLOW_SYSTEM_CFLAGS" >> "$GITHUB_ENV"
+          $env:PKG_CONFIG_PATH = "C:\vcpkg\installed\x64-windows-static\lib\pkgconfig;C:\vcpkg\installed\x64-windows\lib\pkgconfig;C:\Strawberry\c\lib\pkgconfig"
+          echo "PKG_CONFIG_PATH=$env:PKG_CONFIG_PATH" >> "$GITHUB_ENV"
+          pkg-config --list-all ; perl "C:\Strawberry\perl\bin\pkg-config" --list-all
         continue-on-error: true
 
      #Replace with any extra things you want to do
