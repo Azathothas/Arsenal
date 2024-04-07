@@ -333,14 +333,15 @@ jobs:
            Add-WindowsCapability -Online -Name OpenSSH.Server*
            scoop install "main/openssh" --global --no-cache ; refreshenv
           #Start Service
-           . "C:\Program Files\OpenSSH-Win64\install-sshd.ps1"
-           . "C:\Program Files\OpenSSH-Win64\ssh-keygen.exe" -A
-           Start-Process -Wait -FilePath "C:\Program Files\OpenSSH-Win64\sshd.exe" -WindowStyle Hidden
-           Start-Sleep 5
+           . "$env:ProgramData\scoop\apps\openssh\current\install-sshd.ps1" ; refreshenv
+           #. "C:\Program Files\OpenSSH-Win64\install-sshd.ps1"
+           #. "C:\Program Files\OpenSSH-Win64\ssh-keygen.exe" -A
+           #Start-Process -Wait -FilePath "C:\Program Files\OpenSSH-Win64\sshd.exe" -WindowStyle Hidden
+           #Start-Sleep 5
           #Fix Perms 
            #https://github.com/PowerShell/Win32-OpenSSH/wiki/OpenSSH-utility-scripts-to-fix-file-permissions
-           . "C:\Program Files\OpenSSH-Win64\FixHostFilePermissions.ps1" -Confirm:$false | Out-Null
-           . "C:\Program Files\OpenSSH-Win64\FixUserFilePermissions.ps1" -Confirm:$false | Out-Null
+           #. "C:\Program Files\OpenSSH-Win64\FixHostFilePermissions.ps1" -Confirm:$false | Out-Null
+           #. "C:\Program Files\OpenSSH-Win64\FixUserFilePermissions.ps1" -Confirm:$false | Out-Null
           #Add Public SSH Key
            New-Item -Path "$env:USERPROFILE\.ssh" -ItemType Directory -Force
            #Add-Content -Path "$env:USERPROFILE\.ssh\authorized_keys" -Value "$((Invoke-RestMethod -Uri "${{ env.SSH_PUBLIC_KEY_URL }}").Split("`n")[1])"
@@ -367,7 +368,7 @@ jobs:
           Stop-Process -Name sshd -Force 2>$null -ErrorAction SilentlyContinue
           Restart-Service -Name sshd -Force
           Restart-Service -Name ssh-agent -Force
-          Start-Process -Wait -FilePath "C:\Program Files\OpenSSH-Win64\sshd.exe" -WindowStyle Hidden ; Start-Sleep 5
+          #Start-Process -Wait -FilePath "C:\Program Files\OpenSSH-Win64\sshd.exe" -WindowStyle Hidden ; Start-Sleep 5
           #Check 
           Get-Process -Name sshd   
           #Sleep
