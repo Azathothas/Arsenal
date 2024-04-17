@@ -196,5 +196,5 @@ export INSTALL_DIR="/usr/local/bin"
  sudo curl -qfsSL "https://bin.ajam.dev/aarch64_arm64_Linux/yj" -o "$INSTALL_DIR/yj" && sudo chmod +xwr "$INSTALL_DIR/yj" &
 #-------------------------------------------------------------------------------#
 set +x ; echo
-wait ; echo
+wait ; reset ; echo
 ###END###
