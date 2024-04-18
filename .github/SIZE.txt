@@ -12,7 +12,7 @@
 744K   │ └─┬ nmap
 732K   │   ├── Services.md
 8.0K   │   └── README.md
-456K   ├─┬ misc
+460K   ├─┬ misc
 152K   │ ├─┬ Github
 148K   │ │ └─┬ Runners
  60K   │ │   ├─┬ Ubuntu
@@ -34,10 +34,10 @@
  28K   │ │   │ └── 0xf_gh_runner_windows_debug.yaml
 8.0K   │ │   └─┬ macOS
 4.0K   │ │     └── 0xf_gh_runner_macos_debug.yaml
- 92K   │ ├─┬ Linux
- 84K   │ │ ├─┬ Debian
+ 96K   │ ├─┬ Linux
+ 88K   │ │ ├─┬ Debian
+ 20K   │ │ │ ├── install_bb_tools_x86_64.sh
  20K   │ │ │ ├── install_bb_tools_aarch64.sh
- 16K   │ │ │ ├── install_bb_tools_x86_64.sh
  12K   │ │ │ ├── setup_ssh_x86_64.sh
 8.0K   │ │ │ ├── install_ncurses_zig_x86_64.sh
 4.0K   │ │ │ ├── install_zig.sh
