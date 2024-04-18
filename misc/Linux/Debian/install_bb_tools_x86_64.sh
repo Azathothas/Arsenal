@@ -75,7 +75,9 @@ export INSTALL_DIR="/usr/local/bin"
 #fget
  sudo curl -qfsSL "https://bin.ajam.dev/x86_64_Linux/fget" -o "$INSTALL_DIR/fget" && sudo chmod +xwr "$INSTALL_DIR/fget" &
 #findomain
- sudo curl -qfsSL "https://bin.ajam.dev/x86_64_Linux/findomain" -o "$INSTALL_DIR/findomain" && sudo chmod +xwr "$INSTALL_DIR/findomain" & 
+ sudo curl -qfsSL "https://bin.ajam.dev/x86_64_Linux/findomain" -o "$INSTALL_DIR/findomain" && sudo chmod +xwr "$INSTALL_DIR/findomain" &
+#freeze
+ sudo curl -qfsSL "https://bin.ajam.dev/x86_64_Linux/freeze" -o "$INSTALL_DIR/freeze" && sudo chmod +xwr "$INSTALL_DIR/freeze" &  
 #gau : https://github.com/lc/gau
  sudo curl -qfsSL "https://bin.ajam.dev/x86_64_Linux/gau" -o "$INSTALL_DIR/gau" && sudo chmod +xwr "$INSTALL_DIR/gau" &
 #getJS
@@ -94,6 +96,8 @@ export INSTALL_DIR="/usr/local/bin"
  sudo curl -qfsSL "https://bin.ajam.dev/x86_64_Linux/gitleaks" -o "$INSTALL_DIR/gitleaks" && sudo chmod +xwr "$INSTALL_DIR/gitleaks" &
 #github-subdomains : https://github.com/gwen001/github-subdomains
  sudo curl -qfsSL "https://bin.ajam.dev/x86_64_Linux/github-subdomains" -o "$INSTALL_DIR/github-subdomains" && sudo chmod +xwr "$INSTALL_DIR/github-subdomains" &
+#glow
+ sudo curl -qfsSL "https://bin.ajam.dev/x86_64_Linux/glow" -o "$INSTALL_DIR/glow" && sudo chmod +xwr "$INSTALL_DIR/glow" & 
 #gotator : https://github.com/Josue87/gotator
  sudo curl -qfsSL "https://bin.ajam.dev/x86_64_Linux/gotator" -o "$INSTALL_DIR/gotator" && sudo chmod +xwr "$INSTALL_DIR/gotator" &
 #gowitness
@@ -147,7 +151,7 @@ export INSTALL_DIR="/usr/local/bin"
 #ripgrep : 
  sudo curl -qfsSL "https://bin.ajam.dev/x86_64_Linux/ripgrep" -o "$INSTALL_DIR/ripgrep" && sudo chmod +xwr "$INSTALL_DIR/ripgrep" &
  sudo curl -qfsSL "https://bin.ajam.dev/x86_64_Linux/ripgrep" -o "$INSTALL_DIR/rg" && sudo chmod +xwr "$INSTALL_DIR/rg" &
- sudo curl -qfsSL "https://bin.ajam.dev/x86_64_Linux/rga" -o "$INSTALL_DIR/rg" && sudo chmod +xwr "$INSTALL_DIR/rga" &
+ sudo curl -qfsSL "https://bin.ajam.dev/x86_64_Linux/rga" -o "$INSTALL_DIR/rga" && sudo chmod +xwr "$INSTALL_DIR/rga" &
 #roboxtractor : https://github.com/Josue87/roboxtractor
  sudo curl -qfsSL "https://bin.ajam.dev/x86_64_Linux/roboxtractor" -o "$INSTALL_DIR/roboxtractor" && sudo chmod +xwr "$INSTALL_DIR/roboxtractor" &
 #s3scanner : https://github.com/sa7mon/s3scanner
