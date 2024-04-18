@@ -17,6 +17,7 @@
 - #### **`CHDIR/CD`** to `$UNKNOWNDIR` within `$DIR`
 ```bash 
 cd "$(find . -maxdepth 1 -type d -exec basename {} \; | grep -Ev '^\.$' | xargs -I {} realpath {})"
+# cd "$(ls -d */)" --> Highly unrelaible
 ```
 ---
 - #### **Default** `$TMP | $TEMP | $TMPDIR` Prefix on any `*Nix` System
