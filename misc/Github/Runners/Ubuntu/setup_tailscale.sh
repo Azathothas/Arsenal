@@ -42,7 +42,7 @@ TS_IP="$(sudo tailscale ip -4 2>/dev/null | tr -d '\n' | tr -d '[:space:]')" && 
 TS_DNS="$(sudo tailscale status --json | jq -r '.Self.DNSName' | sed 's/\.$//' | tr -d '\n' | tr -d '[:space:]')" && export TS_DNS="$TS_DNS"
 
 ##Print Details
-echo -e "\n\n[+] TailScale Host : $TS_NAME"
+echo -e "\n\n[+] TailScale Host : $(sudo tailscale status --self=true --peers=false --json | jq -r '.Self.HostName')"
 echo -e "[+] TailScale IP : $TS_IP"
-echo -e "[+] TailScale DNS : $TS_DNS"
+echo -e "[+] TailScale DNS : $TS_DNS\n\n"
 #EOF
