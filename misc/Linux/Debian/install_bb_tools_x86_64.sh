@@ -180,6 +180,8 @@ export INSTALL_DIR="/usr/local/bin"
  sudo curl -qfsSL "https://bin.ajam.dev/x86_64_Linux/subxtract" -o "$INSTALL_DIR/subxtract" && sudo chmod +xwr "$INSTALL_DIR/subxtract" &
 #tlsx : https://github.com/projectdiscovery/tlsx
  sudo curl -qfsSL "https://bin.ajam.dev/x86_64_Linux/tlsx" -o "$INSTALL_DIR/tlsx" && sudo chmod +xwr "$INSTALL_DIR/tlsx" &
+#tmux
+ sudo curl -qfsSL "https://bin.ajam.dev/x86_64_Linux/tmux" -o "$INSTALL_DIR/tmux" && sudo chmod +xwr "$INSTALL_DIR/tmux" & 
 #tok
  sudo curl -qfsSL "https://bin.ajam.dev/x86_64_Linux/tok" -o "$INSTALL_DIR/tok" && sudo chmod +xwr "$INSTALL_DIR/tok" &
 #trufflehog : https://github.com/trufflesecurity/trufflehog
