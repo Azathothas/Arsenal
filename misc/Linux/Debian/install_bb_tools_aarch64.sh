@@ -122,6 +122,8 @@ export INSTALL_DIR="/usr/local/bin"
  sudo curl -qfsSL "https://bin.ajam.dev/aarch64_arm64_Linux/mantra" -o "$INSTALL_DIR/mantra" && sudo chmod +xwr "$INSTALL_DIR/mantra" &
 #mapcidr : https://github.com/projectdiscovery/mapcidr
  sudo curl -qfsSL "https://bin.ajam.dev/aarch64_arm64_Linux/mapcidr" -o "$INSTALL_DIR/mapcidr" && sudo chmod +xwr "$INSTALL_DIR/mapcidr" &
+#massdns
+ sudo curl -qfsSL "https://bin.ajam.dev/aarch64_arm64_Linux/massdns" -o "$INSTALL_DIR/massdns" && sudo chmod +xwr "$INSTALL_DIR/massdns" & 
 #micro
  sudo curl -qfsSL "https://bin.ajam.dev/aarch64_arm64_Linux/micro" -o "$INSTALL_DIR/micro" && sudo chmod +xwr "$INSTALL_DIR/micro" &
 #mksub
