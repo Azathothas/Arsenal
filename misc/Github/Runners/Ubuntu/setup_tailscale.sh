@@ -5,7 +5,12 @@
 # bash <(curl -qfsSL "https://raw.githubusercontent.com/Azathothas/Arsenal/main/misc/Github/Runners/Ubuntu/setup_tailscale.sh")
 # bash <(curl -qfsSL "https://pub.ajam.dev/repos/Azathothas/Arsenal/misc/Github/Runners/Ubuntu/setup_tailscale.sh")
 
-
+##Sanity Checks
+ #TS Key
+   if [ -z "$TSKEY" ] || [ -z "${TSKEY+x}" ]; then
+     echo -e "\n[-] Tailscale Key (TSKEY) isn't Exported\n"
+    exit 1
+   fi
 ##Aux Funcs
  ##Addons
    install_addons()
@@ -30,7 +35,6 @@
      echo -e "[+] TailScale DNS : $TS_DNS\n\n"
    }
  export -f ts_status
-
 ##Main
 if command -v tailscale &>/dev/null && command -v tailscaled &>/dev/null && pgrep -x tailscaled >/dev/null; then
    echo -e "\n[+] Existing TailScale Process Found..\n$(ps aux | grep -i 'tailscale')\n"
@@ -47,14 +51,10 @@ else
      #Actions
        if [ -z "$GITHUB_REPOSITORY" ] || [ -z "$RUNNER_OS" ] || [ -z "$RUNNER_ARCH" ] || [ -z "$GITHUB_WORKFLOW" ]; then
          echo -e "\n[-] GitHub Workflow ENV VARS aren't present! (Maybe not GH Actions ?)"
-        exit 1
+        #Rely on local env
+         TS_NAME="$(echo "$(whoami | sed 's/\//-/g')-$(uname --nodename)-$(uname --machine --kernel-name | sed 's/[^a-zA-Z0-9]/-/g' | sed 's/_/-/g')" | tr '[:upper:]' '[:lower:]' | sed 's/_/-/g' | sed 's/-\+/-/g' | sed 's/^-//;s/-$//' | tr -d '[:space:]' | cut -c 1-60)" && export TS_NAME="$TS_NAME"
        else
          TS_NAME="$(echo "$(echo $GITHUB_REPOSITORY | sed 's/\//-/g')-$RUNNER_OS-$RUNNER_ARCH-$(echo $GITHUB_WORKFLOW | sed 's/[^a-zA-Z0-9]/-/g' | sed 's/_/-/g')" | tr '[:upper:]' '[:lower:]' | sed 's/_/-/g' | sed 's/-\+/-/g' | sed 's/^-//;s/-$//' | tr -d '[:space:]' | cut -c 1-60)" && export TS_NAME="$TS_NAME"
-       fi
-     #TS Key
-       if [ -z "$TSKEY" ] || [ -z "${TSKEY+x}" ]; then
-         echo -e "\n[-] Tailscale Key (TSKEY) isn't Exported\n"
-        exit 1
        fi
      ##Install Tailscale
        sudo curl -qfsSL "https://bin.ajam.dev/$(uname -m)/tailscale" -o "/usr/local/bin/tailscale" && sudo chmod +x "/usr/local/bin/tailscale"
