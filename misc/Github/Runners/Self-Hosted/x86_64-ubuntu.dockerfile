@@ -15,6 +15,8 @@ ENV DEBIAN_FRONTEND="noninteractive"
 RUN <<EOS
   apt-get update -y
   apt-get install -y apt-transport-https apt-utils bash ca-certificates coreutils curl git gnupg2 jq locales moreutils nano software-properties-common sudo tmux unzip util-linux xz-utils wget zip
+  apt-get install -y locales
+  locale-gen "en_US.UTF-8"
   rm -rf /var/lib/apt/list/* 2>/dev/null
 EOS
 ##Switch to bash
