@@ -16,6 +16,7 @@ import (
 	"strings"
 	"syscall"
 	"time"
+
 	"github.com/gorilla/websocket"
 	"github.com/jmoiron/jsonq"
 	"github.com/pkg/errors"
@@ -31,6 +32,9 @@ var quiet bool
 
 // Define -insecure globally
 var insecure bool
+
+// Define -output globally
+var outputFile string
 
 // Establish a connection to WebSocket Server
 func CertStreamEventStream(skipHeartbeats bool, url string) (chan jsonq.JsonQuery, chan error) {
@@ -73,7 +77,7 @@ func CertStreamEventStream(skipHeartbeats bool, url string) (chan jsonq.JsonQuer
 				}
 			}()
 
-			// Loop for reading Certstream events and sending them to the outputStream channel
+			// Loop for reading Certstream events and  sending them to the outputStream channel
 			for {
 				var v interface{}
 				c.SetReadDeadline(time.Now().Add(15 * time.Second))
@@ -127,18 +131,15 @@ func main() {
 	//vars for flags
 	var url string
 	var extractDomains bool
-        //// Defined globally
-        // var insecure bool
-        //// Defined globally
-        // var quiet bool
 	var skipHeartbeats bool
-        
+
 	//flags for the cli
 	flag.StringVar(&url, "url", "", "Certstream Server WebSocket URL (ws:// | wss://)")
 	flag.BoolVar(&extractDomains, "domains-only", false, "Extract and Print only Domains from Certstream Output")
 	flag.BoolVar(&quiet, "quiet", false, "Suppress Standard Error Output (Useful for Automation)")
 	flag.BoolVar(&skipHeartbeats, "skip-heartbeats", false, "Skip Sending Heartbeat (Ping) Messages to Certstream Server")
 	flag.BoolVar(&insecure, "insecure", false, "Allow Invalid/Insecure SSL Connections")
+	flag.StringVar(&outputFile, "output", "", "Output file path to write the output (default: stdout)")
 	flag.Parse()
 
 	//sanity check for -url
@@ -147,6 +148,21 @@ func main() {
 		fmt.Println("Example: -url wss://certstream.calidog.io")
 		os.Exit(1)
 	}
+
+	// Open the output file if specified, otherwise use stdout
+	var outFile *os.File
+	if outputFile != "" {
+		var err error
+		outFile, err = os.Create(outputFile)
+		if err != nil {
+			fmt.Printf("Error creating output file %s: %v\n", outputFile, err)
+			os.Exit(1)
+		}
+		defer outFile.Close()
+	} else {
+		outFile = os.Stdout
+	}
+
 	//output
 	outputStream, errStream := CertStreamEventStream(skipHeartbeats, url)
 
@@ -165,14 +181,14 @@ func main() {
 		select {
 		case jq, ok := <-outputStream:
 			if !ok {
-				fmt.Println("Output stream closed. Exiting...")
+				fmt.Fprintln(outFile, "Output stream closed. Exiting...")
 				os.Exit(0)
 			}
 			if extractDomains {
-				printDomains(jq)
+				printDomains(jq, outFile)
 			} else {
 				// Handle Certstream events as needed
-				fmt.Println("Received Certstream event:", jq)
+				fmt.Fprintln(outFile, "Received Certstream event:", jq)
 			}
 		case err := <-errStream:
 			if !quiet {
@@ -183,7 +199,7 @@ func main() {
 }
 
 // func for -domains
-func printDomains(jq jsonq.JsonQuery) {
+func printDomains(jq jsonq.JsonQuery, outFile *os.File) {
 	domains, err := jq.ArrayOfStrings("data", "leaf_cert", "all_domains")
 	if err != nil {
 		if !quiet {
@@ -192,8 +208,7 @@ func printDomains(jq jsonq.JsonQuery) {
 	} else {
 		for _, domain := range domains {
 			// Removes Wildcards(.*) with empties (""), but only for the first occurrence in a line (1)
-			fmt.Println(strings.Replace(domain, "*.", "", 1))
+			fmt.Fprintln(outFile, strings.Replace(domain, "*.", "", 1))
 		}
 	}
 }
-//EOF
