@@ -36,9 +36,6 @@ sudo eget "https://bin.ajam.dev/$(uname -m)/cutlines" --to "/usr/local/bin/cutli
 !# Without ROOT
 curl -qfsSL "https://bin.ajam.dev/$(uname -m)/cutlines" -o "$HOME/bin/cutlines" && chmod +xwr "$HOME/bin/cutlines"
 eget "https://bin.ajam.dev/$(uname -m)/cutlines" --to "$HOME/bin/cutlines"
-
-!# Using go
-go install -v "github.com/Azathothas/Arsenal/cutlines@main"
 ```
 ---
 ```bash
@@ -46,8 +43,8 @@ go install -v "github.com/Azathothas/Arsenal/cutlines@main"
   pushd "$(mktemp -d)" >/dev/null 2>&1 && mkdir "./cutlines" && cd "./cutlines"
   curl -qfsSLJO "https://raw.githubusercontent.com/Azathothas/Arsenal/main/cutlines/main.go"
   go mod init "github.com/Azathothas/Arsenal/cutlines" ; go mod tidy
-  CGO_ENABLED=0 go build -v -ldflags="-s -w -extldflags '-static'" -o "./cutlines"
-  file "./cutlines" ; ldd "./cutlines" ; ls -lah "./cutlines"
+  GOOS="linux" GOARCH="amd64" CGO_ENABLED="0" go build -v -ldflags="-buildid= -s -w -extldflags '-static'" -o "./cutlines"
+  file "./cutlines" ; ldd "./cutlines" ; du -sh "./cutlines"
   #Copy the executable & exit
   popd >/dev/null 2>&1
 ```
