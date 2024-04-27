@@ -12,6 +12,8 @@
 --- 
 - [**Comb**<img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/go/go-original-wordmark.svg" width="30" height="30">](https://github.com/Azathothas/Arsenal/tree/main/comb) **➼** **`Maintained`** `|` **`Updated`** fork of [tomnomnom/comb](https://github.com/tomnomnom/hacks/tree/master/comb) : Combine the lines from two files in every combination
 ---
+- [**cutlines**<img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/go/go-original-wordmark.svg" width="30" height="30">](https://github.com/Azathothas/Arsenal/tree/main/cutlines) **➼** Cut & Paste Lines (from|to) file without `$TEMPFILE` even if another process is writing to it, gracefully.
+---
 - [**fget**<img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/go/go-original-wordmark.svg" width="30" height="30">](https://github.com/Azathothas/Arsenal/tree/main/fget) **➼** **`Maintained`** `|` **`Updated`** fork of [bp0lr/fget](https://github.com/bp0lr/fget) : Multithread download for a list of files
 ---
 - [**getJS**<img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/go/go-original-wordmark.svg" width="30" height="30">](https://github.com/Azathothas/Arsenal/tree/main/getJS) **➼** **`Maintained`** `|` **`Updated`** fork of [003random/getJS](https://github.com/003random/getJS) : Extract all the Javascript files from a set of given urls
