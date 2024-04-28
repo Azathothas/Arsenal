@@ -25,6 +25,7 @@ Options:
   ❯ cutlines --lines 100000 --file input.txt --output /dev/null --print --quiet
 
  ~> !! #By specifying a value for --lines larger than total lines of --file input.txt, you will completetly cut all lines from input.txt
+ ~> !! #Use tee | >> instead of -o | --output flags, as files WILL GET CORRUPTED if they are being written using os file locks.
 ```
 ---
 ```bash
