@@ -42,14 +42,16 @@ go install -v "github.com/Azathothas/Arsenal/subxtract@main"
 STDIN   : cat </path/to/domain/urls.txt> | subxtract <opts>
           echo "https://a.b.c.example.com.np" | subxtract <opts>
 Flags:
+  -c, --concurrency int     Limit the number of concurrent goroutines (default 50)
   -d, --domains             Print the root domain and suffix combined
   -f, --file string         Input file containing URLs|Domains (one per line)
   -h, --help                help for subxtract
   -i, --ignore-subdomains   Ignore (Exclude) subdomains
   -j, --json                Output in JSON Format (Everything)
-  -p, --private-suffix      Include Private Suffix (Example: blogspot.com)
+  -s, --private-suffix      Include Private Suffix (Example: blogspot.com)
+  -p, --punycode            Convert Internationalized Domain Names (IDN) to Punycode (ASCII Characters)
   -r, --roots               Print only the root domain (without suffix)
-  -t, --to-punycode         Convert Internationalized Domain Names (IDN) to Punycode (ASCII Characters)
+  -t, --tlds                Print only the Top Level Domain (TLD)
 ```
 
 ---
