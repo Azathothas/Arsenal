@@ -9,7 +9,7 @@
 #The Build Image & Docs: https://github.com/actions/runner-images/blob/main/images/ubuntu/Ubuntu2204-Readme.md
 
 #----------------------------------------------------------------------------#
-# If On Github Actions, remove bloat to get space (~ 30 GB)
+# If On Github Actions, remove bloat to get space (~ 40 GB)
 if [ "$USER" = "runner" ] || [ "$(whoami)" = "runner" ] && [ -s "/opt/runner/provisioner" ]; then
    echo -e "\n[+] Debloating GH Runner...\n"
    ROOT_DISK="$(df -h / | awk 'NR==2 {print $1}')" && export ROOT_DISK="${ROOT_DISK}"
