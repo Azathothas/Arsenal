@@ -12,6 +12,7 @@
 # If On Github Actions, remove bloat to get space (~ 40 GB)
 if [ "$USER" = "runner" ] || [ "$(whoami)" = "runner" ] && [ -s "/opt/runner/provisioner" ]; then
    echo -e "\n[+] Debloating GH Runner...\n"
+   sudo apt-get update -y -qq 2>/dev/null
    ROOT_DISK="$(df -h / | awk 'NR==2 {print $1}')" && export ROOT_DISK="${ROOT_DISK}"
    TOTAL_DSIZE="$(df -h ${ROOT_DISK} | awk 'NR==2 {print $2}')" && export TOTAL_DSIZE="${TOTAL_DSIZE}"
    INITIAL_DSIZE="$(df -h ${ROOT_DISK} | awk 'NR==2 {print $3}')" && export INITIAL_DSIZE="${INITIAL_DSIZE}"
@@ -68,8 +69,24 @@ if [ "$USER" = "runner" ] || [ "$(whoami)" = "runner" ] && [ -s "/opt/runner/pro
      sudo rm "/usr/local/share/powershell" -rf 2>/dev/null &
     #----------------------------------------------------------------------------#
     ## Snap       :: ~ 5 GB
-     sudo rm "/snap" -rf 2>/dev/null &
+     #https://github.com/grobo021/snap-nuke/blob/main/snap-nuke.sh
+     #https://github.com/polkaulfield/ubuntu-debullshit/blob/main/ubuntu-debullshit.sh
+     while [ "$(snap list 2>/dev/null | wc -l)" -gt 0 ]; do for snap in $(snap list 2>/dev/null | tail -n +2 | cut -d ' ' -f 1); do snap remove --purge "$snap" 2>/dev/null ; done ; done
+     sudo systemctl disable --now snapd 2>/dev/null &
+     wait ; sudo systemctl disable snapd 2>/dev/null &
+     wait ; sudo systemctl mask snapd 2>/dev/null &
+     wait ; sudo apt purge snapd -y -qq 2>/dev/null &
+     wait ; sudo rm "/snap" -rf 2>/dev/null &
+     sudo rm "$HOME/snap" -rf 2>/dev/null &
+     sudo rm "/root/snap" -rf 2>/dev/null &
+     sudo rm "/var/snap" -rf 2>/dev/null &
+     sudo rm "/var/cache/snapd" -rf 2>/dev/null &
      sudo rm "/var/lib/snapd" -rf 2>/dev/null &
+     echo 'Package: snapd' | sudo tee -a "/etc/apt/preferences.d/no-snap.pref" &
+     wait ; echo 'Pin: release a=*' | sudo tee -a "/etc/apt/preferences.d/no-snap.pref" &
+     wait ; echo 'Pin-Priority: -10' | sudo tee -a "/etc/apt/preferences.d/no-snap.pref" &
+     wait ; sudo chown "root:root" "/etc/apt/preferences.d/no-snap.pref" &
+     wait ; sudo apt-get update -qq -y 2>/dev/null &
     #----------------------------------------------------------------------------#
     ## Swift           :: ~ 1.7 GB
      sudo rm "/usr/share/swift" -rf 2>/dev/null &
