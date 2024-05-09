@@ -73,10 +73,10 @@ if [ "$USER" = "runner" ] || [ "$(whoami)" = "runner" ] && [ -s "/opt/runner/pro
      #https://github.com/grobo021/snap-nuke/blob/main/snap-nuke.sh
      #https://github.com/polkaulfield/ubuntu-debullshit/blob/main/ubuntu-debullshit.sh
      #while [ "$(snap list 2>/dev/null | wc -l)" -gt 0 ]; do for snap in $(snap list 2>/dev/null | tail -n +2 | cut -d ' ' -f 1); do snap remove --purge "$snap" 2>/dev/null ; done ; done
-     sudo snap remove "$(snap list | awk '!/^Name|^core|^bare|^snapd/ {print $1}')" 2>/dev/null &
-     wait ; sudo snap remove "$(snap list | awk '/^bare/ {print $1}')" 2>/dev/null &
-     wait ; sudo snap remove "$(snap list | awk '/^core/ {print $1}')" 2>/dev/null &
-     wait ; sudo snap remove "$(snap list | awk '/^snapd/ {print $1}')" 2>/dev/null &
+     sudo snap remove "$(snap list 2>/dev/null | awk '!/^Name|^core|^bare|^snapd/ {print $1}')" 2>/dev/null &
+     wait ; sudo snap remove "$(snap list 2>/dev/null | awk '/^bare/ {print $1}')" 2>/dev/null &
+     wait ; sudo snap remove "$(snap list 2>/dev/null | awk '/^core/ {print $1}')" 2>/dev/null &
+     wait ; sudo snap remove "$(snap list 2>/dev/null | awk '/^snapd/ {print $1}')" 2>/dev/null &
      wait ; sudo systemctl disable --now snapd 2>/dev/null &
      wait ; sudo systemctl disable snapd 2>/dev/null &
      wait ; sudo systemctl mask snapd 2>/dev/null &
