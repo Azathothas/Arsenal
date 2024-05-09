@@ -12,6 +12,7 @@
 # If On Github Actions, remove bloat to get space (~ 40 GB)
 if [ "$USER" = "runner" ] || [ "$(whoami)" = "runner" ] && [ -s "/opt/runner/provisioner" ]; then
    echo -e "\n[+] Debloating GH Runner...\n"
+   export DEBIAN_FRONTEND="noninteractive"
    sudo apt-get update -y -qq 2>/dev/null
    ROOT_DISK="$(df -h / | awk 'NR==2 {print $1}')" && export ROOT_DISK="${ROOT_DISK}"
    TOTAL_DSIZE="$(df -h ${ROOT_DISK} | awk 'NR==2 {print $2}')" && export TOTAL_DSIZE="${TOTAL_DSIZE}"
@@ -71,8 +72,12 @@ if [ "$USER" = "runner" ] || [ "$(whoami)" = "runner" ] && [ -s "/opt/runner/pro
     ## Snap       :: ~ 5 GB
      #https://github.com/grobo021/snap-nuke/blob/main/snap-nuke.sh
      #https://github.com/polkaulfield/ubuntu-debullshit/blob/main/ubuntu-debullshit.sh
-     while [ "$(snap list 2>/dev/null | wc -l)" -gt 0 ]; do for snap in $(snap list 2>/dev/null | tail -n +2 | cut -d ' ' -f 1); do snap remove --purge "$snap" 2>/dev/null ; done ; done
-     sudo systemctl disable --now snapd 2>/dev/null &
+     #while [ "$(snap list 2>/dev/null | wc -l)" -gt 0 ]; do for snap in $(snap list 2>/dev/null | tail -n +2 | cut -d ' ' -f 1); do snap remove --purge "$snap" 2>/dev/null ; done ; done
+     sudo snap remove "$(snap list | awk '!/^Name|^core|^bare|^snapd/ {print $1}')" 2>/dev/null &
+     wait ; sudo snap remove "$(snap list | awk '/^bare/ {print $1}')" 2>/dev/null &
+     wait ; sudo snap remove "$(snap list | awk '/^core/ {print $1}')" 2>/dev/null &
+     wait ; sudo snap remove "$(snap list | awk '/^snapd/ {print $1}')" 2>/dev/null &
+     wait ; sudo systemctl disable --now snapd 2>/dev/null &
      wait ; sudo systemctl disable snapd 2>/dev/null &
      wait ; sudo systemctl mask snapd 2>/dev/null &
      wait ; sudo apt purge snapd -y -qq 2>/dev/null &
@@ -87,6 +92,7 @@ if [ "$USER" = "runner" ] || [ "$(whoami)" = "runner" ] && [ -s "/opt/runner/pro
      wait ; echo 'Pin-Priority: -10' | sudo tee -a "/etc/apt/preferences.d/no-snap.pref" &
      wait ; sudo chown "root:root" "/etc/apt/preferences.d/no-snap.pref" &
      wait ; sudo apt-get update -qq -y 2>/dev/null &
+     for S in "$(df -h | awk '/snap/ {print $6}')"; do sudo umount "$S" 2>/dev/null; done
     #----------------------------------------------------------------------------#
     ## Swift           :: ~ 1.7 GB
      sudo rm "/usr/share/swift" -rf 2>/dev/null &
@@ -96,5 +102,6 @@ if [ "$USER" = "runner" ] || [ "$(whoami)" = "runner" ] && [ -s "/opt/runner/pro
    FINAL_DSIZE="$(df -h ${ROOT_DISK} | awk 'NR==2 {print $3}')" && export FINAL_DSIZE="${FINAL_DSIZE}"
    FINAL_FREEP="$(df -h ${ROOT_DISK} | awk 'NR==2 {print $5}')" && export FINAL_FREEP="${FINAL_FREEP}"
    echo -e "\n[+] Reduced Disk (Total: ${TOTAL_DSIZE}) :: (Used: ${INITIAL_DSIZE}) (Free: ${INITIAL_FREEP}) --> (Used: ${FINAL_DSIZE}) (Free: ${FINAL_FREEP})\n"
+   unset DEBIAN_FRONTEND ROOT_DISK TOTAL_DSIZE INITIAL_DSIZE INITIAL_FREEP FINAL_DSIZE FINAL_FREEP
 fi
 #----------------------------------------------------------------------------#
