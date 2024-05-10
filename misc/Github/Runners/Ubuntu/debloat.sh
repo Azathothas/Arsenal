@@ -87,6 +87,7 @@ if [ "$USER" = "runner" ] || [ "$(whoami)" = "runner" ] && [ -s "/opt/runner/pro
      sudo rm "/var/snap" -rf 2>/dev/null &
      sudo rm "/var/cache/snapd" -rf 2>/dev/null &
      sudo rm "/var/lib/snapd" -rf 2>/dev/null &
+     echo "" | sudo tee "/etc/apt/preferences.d/no-snap.pref"
      echo 'Package: snapd' | sudo tee -a "/etc/apt/preferences.d/no-snap.pref" &
      wait ; echo 'Pin: release a=*' | sudo tee -a "/etc/apt/preferences.d/no-snap.pref" &
      wait ; echo 'Pin-Priority: -10' | sudo tee -a "/etc/apt/preferences.d/no-snap.pref" &
