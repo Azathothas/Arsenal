@@ -99,7 +99,7 @@ if [ "$USER" = "runner" ] || [ "$(whoami)" = "runner" ] && [ -s "/opt/runner/pro
      sudo rm "/usr/share/swift" -rf >/dev/null 2>&1 &
     #----------------------------------------------------------------------------#
    #wait
-   wait ; reset ; echo
+   wait ; reset >/dev/null 2>&1 ; echo
    FINAL_DSIZE="$(df -h ${ROOT_DISK} | awk 'NR==2 {print $3}')" && export FINAL_DSIZE="${FINAL_DSIZE}"
    FINAL_FREEP="$(df -h ${ROOT_DISK} | awk 'NR==2 {print $5}')" && export FINAL_FREEP="${FINAL_FREEP}"
    echo -e "\n[+] Reduced Disk (Total: ${TOTAL_DSIZE}) :: (Used: ${INITIAL_DSIZE}) (Free: ${INITIAL_FREEP}) --> (Used: ${FINAL_DSIZE}) (Free: ${FINAL_FREEP})\n"
