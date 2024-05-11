@@ -272,6 +272,10 @@ INSTALL_DIR_SIZE_PRE="$(du -sh ${INSTALL_DIR} | cut -f1)" && export INSTALL_DIR_
  eval "${INSTALL_PRE}" "${INSTALL_SRC}/validtoml" -o "${INSTALL_DIR}/validtoml" && eval "${INSTALL_POST}" "${INSTALL_DIR}/validtoml" &
 #Web-Cache-Vulnerability-Scanner : https://github.com/Hackmanit/Web-Cache-Vulnerability-Scanner
  eval "${INSTALL_PRE}" "${INSTALL_SRC}/web-cache-vulnerability-scanner" -o "${INSTALL_DIR}/Web-Cache-Vulnerability-Scanner" && eval "${INSTALL_POST}" "${INSTALL_DIR}/Web-Cache-Vulnerability-Scanner" &
+#wget
+ eval "${INSTALL_PRE}" "${INSTALL_SRC}/wget" -o "${INSTALL_DIR}/wget" && eval "${INSTALL_POST}" "${INSTALL_DIR}/wget" &
+#wget2
+ eval "${INSTALL_PRE}" "${INSTALL_SRC}/wget2" -o "${INSTALL_DIR}/wget2" && eval "${INSTALL_POST}" "${INSTALL_DIR}/wget2" & 
 #yataf
  eval "${INSTALL_PRE}" "${INSTALL_SRC}/yataf" -o "${INSTALL_DIR}/yataf" && eval "${INSTALL_POST}" "${INSTALL_DIR}/yataf" &
 #Yq
