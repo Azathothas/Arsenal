@@ -140,6 +140,8 @@ INSTALL_DIR_SIZE_PRE="$(du -sh ${INSTALL_DIR} | cut -f1)" && export INSTALL_DIR_
  eval "${INSTALL_PRE}" "${INSTALL_SRC}/enumerepo" -o "${INSTALL_DIR}/enumerepo" && eval "${INSTALL_POST}" "${INSTALL_DIR}/enumerepo" &
 #epoch : https://github.com/sj14/epoch
  eval "${INSTALL_PRE}" "${INSTALL_SRC}/epoch" -o "${INSTALL_DIR}/epoch" && eval "${INSTALL_POST}" "${INSTALL_DIR}/epoch" &
+#fastfetch : https://github.com/fastfetch-cli/fastfetch
+ eval "${INSTALL_PRE}" "${INSTALL_SRC}/fastfetch" -o "${INSTALL_DIR}/fastfetch" && eval "${INSTALL_POST}" "${INSTALL_DIR}/fastfetch" & 
 #ffuf : https://github.com/ffuf/ffuf
  eval "${INSTALL_PRE}" "${INSTALL_SRC}/ffuf" -o "${INSTALL_DIR}/ffuf" && eval "${INSTALL_POST}" "${INSTALL_DIR}/ffuf" &
 #fget
