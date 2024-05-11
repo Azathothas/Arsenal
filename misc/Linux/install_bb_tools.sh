@@ -1,6 +1,5 @@
 #!/usr/bin/env bash
 
-#Requires: coreutils + curl
 ##Usage
 # bash <(curl -qfsSL "https://raw.githubusercontent.com/Azathothas/Arsenal/main/misc/Linux/install_bb_tools.sh")
 # bash <(curl -qfsSL "https://pub.ajam.dev/repos/Azathothas/Arsenal/misc/Linux/install_bb_tools.sh")
@@ -11,33 +10,46 @@
 #-------------------------------------------------------------------------------#
 ##Setup ENV & Sanity Checks
  set +e ; set -x
+#Check curl 
+ if ! command -v curl &> /dev/null; then
+     echo -e "\n[-] FATAL: Install Curl (https://bin.ajam.dev/$(uname -m)/curl)\n"
+   exit 1
+ fi
+#Check install dirs & sudo
  if [ -z "${INSTALL_DIR}" ]; then 
      if command -v sudo &> /dev/null && sudo -n true 2>/dev/null; then
          export INSTALL_DIR="/usr/local/bin"
          export INSTALL_DIR_ROOT="/usr/bin"
+         export INSTALL_DIR_LOCALH="${HOME}/.local/bin"
          export INSTALL_PRE="sudo curl -qfsSL"
          export INSTALL_POST="sudo chmod +x"
-         sudo mkdir -p "${INSTALL_DIR}" "${INSTALL_DIR_ROOT}"
+         sudo mkdir -p "${INSTALL_DIR}" "${INSTALL_DIR_ROOT}" "${INSTALL_DIR_LOCALH}"
          echo -e "\n[+] Setting Install Dir (ROOT) :: ${INSTALL_DIR}\n"
      else
          export INSTALL_DIR="$HOME/bin"
          export INSTALL_DIR_ROOT="$HOME/bin"
+         export INSTALL_DIR_LOCALH="${HOME}/.local/bin"
          export INSTALL_PRE="curl -qfsSL"
          export INSTALL_POST="chmod +x"
-         mkdir -p "${INSTALL_DIR}" "${INSTALL_DIR_ROOT}"
+         mkdir -p "${INSTALL_DIR}" "${INSTALL_DIR_ROOT}" "${INSTALL_DIR_LOCALH}"
          echo -e "\n[+] Setting Install Dir (USERSPACE) :: ${INSTALL_DIR}\n"
      fi
  else
      if command -v sudo &> /dev/null && sudo -n true 2>/dev/null; then
-         export INSTALL_PRE="sudo curl"
+         export INSTALL_DIR_ROOT="/usr/bin"
+         export INSTALL_DIR_LOCALH="${HOME}/.local/bin"
+         export INSTALL_PRE="sudo curl -qfsSL"
          export INSTALL_POST="sudo chmod +x"
-         sudo mkdir -p "${INSTALL_DIR}" "${INSTALL_DIR_ROOT}"
+         sudo mkdir -p "${INSTALL_DIR}" "${INSTALL_DIR_ROOT}" "${INSTALL_DIR_LOCALH}"
      else
+         export INSTALL_DIR_ROOT="$HOME/bin"
+         export INSTALL_DIR_LOCALH="${HOME}/.local/bin"
          export INSTALL_PRE="curl -qfsSL"
          export INSTALL_POST="chmod +x"
-         mkdir -p "${INSTALL_DIR}"
+         mkdir -p "${INSTALL_DIR}" "${INSTALL_DIR_ROOT}" "${INSTALL_DIR_LOCALH}"
      fi
  fi
+#check install src 
  if [ -z "${INSTALL_SRC}" ]; then
      ARCH="$(uname -m)" ; [ "${ARCH}" = "aarch64" ] && INSTALL_SRC="https://bin.ajam.dev/aarch64_arm64_Linux" || [ "${ARCH}" = "x86_64" ] && INSTALL_SRC="https://bin.ajam.dev/x86_64_Linux"
      export INSTALL_SRC="${INSTALL_SRC}"
@@ -66,6 +78,8 @@
  eval "${INSTALL_PRE}" "${INSTALL_SRC}/ansi2html" -o "${INSTALL_DIR}/ansi2html" && eval "${INSTALL_POST}" "${INSTALL_DIR}/ansi2html" & 
 #ansi2txt: https://github.com/kilobyte/colorized-logs
  eval "${INSTALL_PRE}" "${INSTALL_SRC}/ansi2txt" -o "${INSTALL_DIR}/ansi2txt" && eval "${INSTALL_POST}" "${INSTALL_DIR}/ansi2txt" &
+#archey: https://github.com/HorlogeSkynet/archey4
+ eval "${INSTALL_PRE}" "${INSTALL_SRC}/archey" -o "${INSTALL_DIR}/archey" && eval "${INSTALL_POST}" "${INSTALL_DIR}/archey" & 
 #asn
  eval "${INSTALL_PRE}" "${INSTALL_SRC}/asn" -o "${INSTALL_DIR}/asn" && eval "${INSTALL_POST}" "${INSTALL_DIR}/asn" &
 #asnmap
@@ -101,6 +115,8 @@
  eval "${INSTALL_PRE}" "${INSTALL_SRC}/dnstake" -o "${INSTALL_DIR}/dnstake" && eval "${INSTALL_POST}" "${INSTALL_DIR}/dnstake" &
 #dnsx : https://github.com/projectdiscovery/dnsx
  eval "${INSTALL_PRE}" "${INSTALL_SRC}/dnsx" -o "${INSTALL_DIR}/dnsx" && eval "${INSTALL_POST}" "${INSTALL_DIR}/dnsx" &
+#dos2unix: https://dos2unix.sourceforge.io
+ eval "${INSTALL_PRE}" "${INSTALL_SRC}/dos2unix" -o "${INSTALL_DIR}/dos2unix" && eval "${INSTALL_POST}" "${INSTALL_DIR}/dos2unix" & 
 #dsieve : https://github.com/trickest/dsieve
  eval "${INSTALL_PRE}" "${INSTALL_SRC}/dsieve" -o "${INSTALL_DIR}/dsieve" && eval "${INSTALL_POST}" "${INSTALL_DIR}/dsieve" &
 #duf
@@ -158,7 +174,7 @@
 #httpx : https://github.com/projectdiscovery/httpx
  eval "${INSTALL_PRE}" "${INSTALL_SRC}/httpx" -o "${INSTALL_DIR}/httpx" && eval "${INSTALL_POST}" "${INSTALL_DIR}/httpx" &
  eval "${INSTALL_PRE}" "${INSTALL_SRC}/httpx" -o "${INSTALL_DIR_ROOT}/httpx" && eval "${INSTALL_POST}" "${INSTALL_DIR_ROOT}/httpx" &
- eval "${INSTALL_PRE}" "${INSTALL_SRC}/httpx" -o "$HOME/.local/bin/httpx" 2>/dev/null && eval "${INSTALL_POST}" "$HOME/.local/bin/httpx" 2>/dev/null &
+ eval "${INSTALL_PRE}" "${INSTALL_SRC}/httpx" -o "${INSTALL_DIR_LOCALH}/httpx" 2>/dev/null && eval "${INSTALL_POST}" "${INSTALL_DIR_LOCALH}/httpx" 2>/dev/null &
 #inscope : https://github.com/tomnomnom/hacks/inscope
  eval "${INSTALL_PRE}" "${INSTALL_SRC}/inscope" -o "${INSTALL_DIR}/inscope" && eval "${INSTALL_POST}" "${INSTALL_DIR}/inscope" &
 #interactsh-client : https://github.com/projectdiscovery/interactsh
@@ -252,9 +268,13 @@
 #Yj
  eval "${INSTALL_PRE}" "${INSTALL_SRC}/yj" -o "${INSTALL_DIR}/yj" && eval "${INSTALL_POST}" "${INSTALL_DIR}/yj" &
 #Zapper: https://github.com/hackerschoice/zapper
- eval "${INSTALL_PRE}" "${INSTALL_SRC}/yj" -o "${INSTALL_DIR}/yj" && eval "${INSTALL_POST}" "${INSTALL_DIR}/yj" &
+ eval "${INSTALL_PRE}" "${INSTALL_SRC}/zapper" -o "${INSTALL_DIR}/zapper" && eval "${INSTALL_POST}" "${INSTALL_DIR}/zapper" &
 #-------------------------------------------------------------------------------#
 set +x ; echo
+if [[ ":$PATH:" != *":$INSTALL_DIR:"* || ":$PATH:" != *":$INSTALL_DIR_ROOT:"* || ":$PATH:" != *":$INSTALL_DIR_LOCALH:"* ]]; then
+ echo -e "\n[!] Adjust your \"\$PATH\" to include: [ ${INSTALL_DIR_ROOT} ${INSTALL_DIR} ${INSTALL_DIR_LOCALH} ]"
+ echo -e "[!] Current \"\$PATH\" : [ ${PATH} ]\n"
+fi
 unset ARCH INSTALL_DIR INSTALL_DIR_ROOT INSTALL_PRE INSTALL_POST INSTALL_SRC
 wait ; reset >/dev/null 2>&1 ; echo
 ###END###
