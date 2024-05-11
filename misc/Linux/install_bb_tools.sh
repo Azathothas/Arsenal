@@ -1,11 +1,12 @@
 #!/usr/bin/env bash
 
+##Requires: coreutils + curl
+
 ##Usage
 # bash <(curl -qfsSL "https://raw.githubusercontent.com/Azathothas/Arsenal/main/misc/Linux/install_bb_tools.sh")
 # bash <(curl -qfsSL "https://pub.ajam.dev/repos/Azathothas/Arsenal/misc/Linux/install_bb_tools.sh")
 ##Vars
 # INSTALL_DIR="/tmp" "${other vars}" bash <(curl -qfsSL "https://pub.ajam.dev/repos/Azathothas/Arsenal/misc/Linux/install_bb_tools.sh")
-
 
 #-------------------------------------------------------------------------------#
 ##Setup ENV & Sanity Checks
@@ -57,6 +58,8 @@
  else
      echo -e "\n[+] Using Bins from (Specified) :: ${INSTALL_SRC}\n"
  fi
+#Get size
+INSTALL_DIR_SIZE_PRE="$(du -sh ${INSTALL_DIR} | cut -f1)" && export INSTALL_DIR_SIZE_PRE="${INSTALL_DIR_SIZE_PRE}"
 #-------------------------------------------------------------------------------# 
 
 #-------------------------------------------------------------------------------#
@@ -79,7 +82,7 @@
 #ansi2txt: https://github.com/kilobyte/colorized-logs
  eval "${INSTALL_PRE}" "${INSTALL_SRC}/ansi2txt" -o "${INSTALL_DIR}/ansi2txt" && eval "${INSTALL_POST}" "${INSTALL_DIR}/ansi2txt" &
 #archey: https://github.com/HorlogeSkynet/archey4
- eval "${INSTALL_PRE}" "${INSTALL_SRC}/archey" -o "${INSTALL_DIR}/archey" && eval "${INSTALL_POST}" "${INSTALL_DIR}/archey" & 
+ eval "${INSTALL_PRE}" "${INSTALL_SRC}/archey" -o "${INSTALL_DIR}/archey" && eval "${INSTALL_POST}" "${INSTALL_DIR}/archey" &
 #asn
  eval "${INSTALL_PRE}" "${INSTALL_SRC}/asn" -o "${INSTALL_DIR}/asn" && eval "${INSTALL_POST}" "${INSTALL_DIR}/asn" &
 #asnmap
@@ -94,7 +97,9 @@
 #cdncheck
  eval "${INSTALL_PRE}" "${INSTALL_SRC}/cdncheck" -o "${INSTALL_DIR}/cdncheck" && eval "${INSTALL_POST}" "${INSTALL_DIR}/cdncheck" &
 #cent
- eval "${INSTALL_PRE}" "${INSTALL_SRC}/cent" -o "${INSTALL_DIR}/cent" && eval "${INSTALL_POST}" "${INSTALL_DIR}/cent" & 
+ eval "${INSTALL_PRE}" "${INSTALL_SRC}/cent" -o "${INSTALL_DIR}/cent" && eval "${INSTALL_POST}" "${INSTALL_DIR}/cent" &
+#certstream-server-go: https://github.com/d-Rickyy-b/certstream-server-go
+ eval "${INSTALL_PRE}" "${INSTALL_SRC}/certstream-server-go" -o "${INSTALL_DIR}/certstream-server-go" && eval "${INSTALL_POST}" "${INSTALL_DIR}/certstream-server-go" & 
 #crlfuzz : https://github.com/dwisiswant0/crlfuzz
  eval "${INSTALL_PRE}" "${INSTALL_SRC}/crlfuzz" -o "${INSTALL_DIR}/crlfuzz" && eval "${INSTALL_POST}" "${INSTALL_DIR}/crlfuzz" &
 #croc : https://github.com/schollz/croc
@@ -104,7 +109,9 @@
 #csvtk
  eval "${INSTALL_PRE}" "${INSTALL_SRC}/csvtk" -o "${INSTALL_DIR}/csvtk" && eval "${INSTALL_POST}" "${INSTALL_DIR}/csvtk" &
 #cut-cdn
- eval "${INSTALL_PRE}" "${INSTALL_SRC}/cut-cdn" -o "${INSTALL_DIR}/cut-cdn" && eval "${INSTALL_POST}" "${INSTALL_DIR}/cut-cdn" & 
+ eval "${INSTALL_PRE}" "${INSTALL_SRC}/cut-cdn" -o "${INSTALL_DIR}/cut-cdn" && eval "${INSTALL_POST}" "${INSTALL_DIR}/cut-cdn" &
+#cutlines: https://github.com/Azathothas/Arsenal/tree/main/cutlines
+ eval "${INSTALL_PRE}" "${INSTALL_SRC}/cutlines" -o "${INSTALL_DIR}/cutlines" && eval "${INSTALL_POST}" "${INSTALL_DIR}/cutlines" & 
 #dalfox : https://github.com/hahwul/dalfox
  eval "${INSTALL_PRE}" "${INSTALL_SRC}/dalfox" -o "${INSTALL_DIR}/dalfox" && eval "${INSTALL_POST}" "${INSTALL_DIR}/dalfox" &
 #delta
@@ -143,6 +150,8 @@
  eval "${INSTALL_PRE}" "${INSTALL_SRC}/freeze" -o "${INSTALL_DIR}/freeze" && eval "${INSTALL_POST}" "${INSTALL_DIR}/freeze" &
 #gau : https://github.com/lc/gau
  eval "${INSTALL_PRE}" "${INSTALL_SRC}/gau" -o "${INSTALL_DIR}/gau" && eval "${INSTALL_POST}" "${INSTALL_DIR}/gau" &
+#gdu : https://github.com/dundee/gdu
+ eval "${INSTALL_PRE}" "${INSTALL_SRC}/gdu" -o "${INSTALL_DIR}/gdu" && eval "${INSTALL_POST}" "${INSTALL_DIR}/gdu" & 
 #getJS
  eval "${INSTALL_PRE}" "${INSTALL_SRC}/getJS" -o "${INSTALL_DIR}/getJS" && eval "${INSTALL_POST}" "${INSTALL_DIR}/getJS" &
 #gf : https://github.com/tomnomnom/gf
@@ -191,6 +200,8 @@
  eval "${INSTALL_PRE}" "${INSTALL_SRC}/micro" -o "${INSTALL_DIR}/micro" && eval "${INSTALL_POST}" "${INSTALL_DIR}/micro" &
 #mksub
  eval "${INSTALL_PRE}" "${INSTALL_SRC}/mksub" -o "${INSTALL_DIR}/mksub" && eval "${INSTALL_POST}" "${INSTALL_DIR}/mksub" &
+#ncdu : https://dev.yorhel.nl/ncdu
+ eval "${INSTALL_PRE}" "${INSTALL_SRC}/ncdu" -o "${INSTALL_DIR}/ncdu" && eval "${INSTALL_POST}" "${INSTALL_DIR}/ncdu" & 
 #nmapurls : https://github.com/sdcampbell/nmapurls
  eval "${INSTALL_PRE}" "${INSTALL_SRC}/nmapurls" -o "${INSTALL_DIR}/nmapurls" && eval "${INSTALL_POST}" "${INSTALL_DIR}/nmapurls" &
 #nomore403 : https://github.com/devploit/nomore403
@@ -271,10 +282,15 @@
  eval "${INSTALL_PRE}" "${INSTALL_SRC}/zapper" -o "${INSTALL_DIR}/zapper" && eval "${INSTALL_POST}" "${INSTALL_DIR}/zapper" &
 #-------------------------------------------------------------------------------#
 set +x ; echo
+wait ; reset >/dev/null 2>&1 ; echo
+#Check $PATH
 if [[ ":$PATH:" != *":$INSTALL_DIR:"* || ":$PATH:" != *":$INSTALL_DIR_ROOT:"* || ":$PATH:" != *":$INSTALL_DIR_LOCALH:"* ]]; then
  echo -e "\n[!] Adjust your \"\$PATH\" to include: [ ${INSTALL_DIR_ROOT} ${INSTALL_DIR} ${INSTALL_DIR_LOCALH} ]"
  echo -e "[!] Current \"\$PATH\" : [ ${PATH} ]\n"
 fi
-unset ARCH INSTALL_DIR INSTALL_DIR_ROOT INSTALL_PRE INSTALL_POST INSTALL_SRC
-wait ; reset >/dev/null 2>&1 ; echo
+#Print Stats
+INSTALL_DIR_SIZE_POST="$(du -sh ${INSTALL_DIR} | cut -f1)" && export INSTALL_DIR_SIZE_POST="${INSTALL_DIR_SIZE_POST}"
+echo -e "\n[+] Disk Size (${INSTALL_DIR}) :: ${INSTALL_DIR_SIZE_PRE} --> ${INSTALL_DIR_SIZE_POST}\n"
+#Cleanup & Exit
+unset ARCH INSTALL_DIR INSTALL_DIR_ROOT INSTALL_DIR_SIZE_PRE INSTALL_DIR_SIZE_POST INSTALL_PRE INSTALL_POST INSTALL_SRC
 ###END###
