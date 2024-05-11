@@ -25,6 +25,7 @@
          export INSTALL_PRE="sudo curl -qfsSL"
          export INSTALL_POST="sudo chmod +x"
          sudo mkdir -p "${INSTALL_DIR}" "${INSTALL_DIR_ROOT}" "${INSTALL_DIR_LOCALH}"
+         sudo chmod 777 -R "${HOME}/.local"
          echo -e "\n[+] Setting Install Dir (ROOT) :: ${INSTALL_DIR}\n"
      else
          export INSTALL_DIR="$HOME/bin"
@@ -42,6 +43,7 @@
          export INSTALL_PRE="sudo curl -qfsSL"
          export INSTALL_POST="sudo chmod +x"
          sudo mkdir -p "${INSTALL_DIR}" "${INSTALL_DIR_ROOT}" "${INSTALL_DIR_LOCALH}"
+         sudo chmod 777 -R "${HOME}/.local"
      else
          export INSTALL_DIR_ROOT="$HOME/bin"
          export INSTALL_DIR_LOCALH="${HOME}/.local/bin"
@@ -291,6 +293,10 @@ INSTALL_DIR_SIZE_PRE="$(du -sh ${INSTALL_DIR} | cut -f1)" && export INSTALL_DIR_
 #-------------------------------------------------------------------------------#
 set +x ; echo
 wait ; reset >/dev/null 2>&1 ; echo
+#Fix Perms
+if command -v sudo &> /dev/null && sudo -n true 2>/dev/null; then
+   sudo chmod 777 -R "${HOME}/.local"
+fi
 #Check $PATH
 if [[ ":$PATH:" != *":$INSTALL_DIR:"* || ":$PATH:" != *":$INSTALL_DIR_ROOT:"* || ":$PATH:" != *":$INSTALL_DIR_LOCALH:"* ]]; then
  echo -e "\n[!] Adjust your \"\$PATH\" to include: [ ${INSTALL_DIR_ROOT} ${INSTALL_DIR} ${INSTALL_DIR_LOCALH} ]"
