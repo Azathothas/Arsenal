@@ -100,6 +100,8 @@ INSTALL_DIR_SIZE_PRE="$(du -sh ${INSTALL_DIR} | cut -f1)" && export INSTALL_DIR_
  eval "${INSTALL_PRE}" "${INSTALL_SRC}/cdncheck" -o "${INSTALL_DIR}/cdncheck" && eval "${INSTALL_POST}" "${INSTALL_DIR}/cdncheck" &
 #cent
  eval "${INSTALL_PRE}" "${INSTALL_SRC}/cent" -o "${INSTALL_DIR}/cent" && eval "${INSTALL_POST}" "${INSTALL_DIR}/cent" &
+#certstream: https://github.com/Azathothas/Arsenal/tree/main/certstream
+ eval "${INSTALL_PRE}" "${INSTALL_SRC}/certstream" -o "${INSTALL_DIR}/certstream" && eval "${INSTALL_POST}" "${INSTALL_DIR}/certstream" &  
 #certstream-server-go: https://github.com/d-Rickyy-b/certstream-server-go
  eval "${INSTALL_PRE}" "${INSTALL_SRC}/certstream-server-go" -o "${INSTALL_DIR}/certstream-server-go" && eval "${INSTALL_POST}" "${INSTALL_DIR}/certstream-server-go" & 
 #crlfuzz : https://github.com/dwisiswant0/crlfuzz
