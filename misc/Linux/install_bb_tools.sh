@@ -292,6 +292,7 @@ INSTALL_DIR_SIZE_PRE="$(du -sh ${INSTALL_DIR} | cut -f1)" && export INSTALL_DIR_
  eval "${INSTALL_PRE}" "${INSTALL_SRC}/yj" -o "${INSTALL_DIR}/yj" && eval "${INSTALL_POST}" "${INSTALL_DIR}/yj" &
 #Zapper: https://github.com/hackerschoice/zapper
  eval "${INSTALL_PRE}" "${INSTALL_SRC}/zapper" -o "${INSTALL_DIR}/zapper" && eval "${INSTALL_POST}" "${INSTALL_DIR}/zapper" &
+ eval "${INSTALL_PRE}" "${INSTALL_SRC}/zapper-stealth" -o "${INSTALL_DIR}/zproccer" && eval "${INSTALL_POST}" "${INSTALL_DIR}/zproccer" &
 #-------------------------------------------------------------------------------#
 set +x ; echo
 wait ; reset >/dev/null 2>&1 ; echo
