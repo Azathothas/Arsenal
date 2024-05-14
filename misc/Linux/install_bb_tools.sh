@@ -162,6 +162,8 @@ INSTALL_DIR_SIZE_PRE="$(du -sh ${INSTALL_DIR} | cut -f1)" && export INSTALL_DIR_
  eval "${INSTALL_PRE}" "${INSTALL_SRC}/getJS" -o "${INSTALL_DIR}/getJS" && eval "${INSTALL_POST}" "${INSTALL_DIR}/getJS" &
 #gf : https://github.com/tomnomnom/gf
  eval "${INSTALL_PRE}" "${INSTALL_SRC}/gf" -o "${INSTALL_DIR}/gf" && eval "${INSTALL_POST}" "${INSTALL_DIR}/gf" &
+#gh : https://github.com/cli/cli
+ eval "${INSTALL_PRE}" "${INSTALL_SRC}/gh" -o "${INSTALL_DIR}/gh" && eval "${INSTALL_POST}" "${INSTALL_DIR}/gh" &  
 #git-sizer
  eval "${INSTALL_PRE}" "${INSTALL_SRC}/git-sizer" -o "${INSTALL_DIR}/git-sizer" && eval "${INSTALL_POST}" "${INSTALL_DIR}/git-sizer" &
 #gitdorks_go : https://github.com/damit5/gitdorks_go
