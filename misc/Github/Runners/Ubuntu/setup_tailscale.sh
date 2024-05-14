@@ -59,6 +59,7 @@ else
      ##Sanity checks
       #If using s6-svc (in a container), attempt to restart
        if command -v s6-svc &>/dev/null && [ -d "/command" ]; then
+          sudo "$(command -v s6-svc)" -u "/etc/s6-overlay/s6-rc.d/tailscaled" 2>/dev/null
           sudo "$(command -v s6-svc)" -r "/etc/s6-overlay/s6-rc.d/tailscaled" 2>/dev/null
        fi
       #If a proc already exists 
