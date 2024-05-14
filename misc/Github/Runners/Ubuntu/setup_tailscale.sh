@@ -11,6 +11,10 @@
      echo -e "\n[-] Tailscale Key (TSKEY) isn't Exported\n"
     exit 1
    fi
+#ENV
+ export TS_SOCK="/var/run/tailscale/tailscaled.sock"
+ export TS_S6="etc/s6-overlay/s6-rc.d/tailscaled"
+ export TS_SYSTEMD="/lib/systemd/system/tailscaled.service"
 ##Aux Funcs
  ##Addons
    install_addons()
@@ -23,6 +27,11 @@
      sudo curl -qfsSL "https://bin.ajam.dev/$(uname -m)/tty2web" -o "/usr/local/bin/tty2web" && sudo chmod +x "/usr/local/bin/tty2web"
    }
  export -f install_addons
+ ##connect
+   ts_connect()
+   {
+     sudo tailscale up --authkey="$TSKEY" --ssh --hostname="$TS_NAME" --accept-dns="true" --accept-risk="all" --accept-routes="false" --shields-up="false" --advertise-exit-node --reset
+   }
  ##Print Details
    ts_status()
    {
@@ -36,8 +45,10 @@
    }
  export -f ts_status
 ##Main
-if command -v tailscale &>/dev/null && command -v tailscaled &>/dev/null && pgrep -x tailscaled >/dev/null; then
+if command -v tailscale &>/dev/null && command -v tailscaled &>/dev/null && [ -S "${TS_SOCK}" ]; then
    echo -e "\n[+] Existing TailScale Process Found...\n$(ps aux | grep -i 'tailscale')\n"
+     ##connect
+       ts_connect
      ##addons
        install_addons
      ##Connection Details
@@ -57,27 +68,45 @@ else
          TS_NAME="$(echo "$(echo $GITHUB_REPOSITORY | sed 's/\//-/g')-$RUNNER_OS-$RUNNER_ARCH-$(echo $GITHUB_WORKFLOW | sed 's/[^a-zA-Z0-9]/-/g' | sed 's/_/-/g')" | tr '[:upper:]' '[:lower:]' | sed 's/_/-/g' | sed 's/-\+/-/g' | sed 's/^-//;s/-$//' | tr -d '[:space:]' | cut -c 1-60)" && export TS_NAME="$TS_NAME"
        fi
      ##Sanity checks
-      #If using s6-svc (in a container), attempt to restart
-       if command -v s6-svc &>/dev/null && [ -d "/command" ]; then
-          sudo "$(command -v s6-svc)" -u "/etc/s6-overlay/s6-rc.d/tailscaled" 2>/dev/null
-          sudo "$(command -v s6-svc)" -r "/etc/s6-overlay/s6-rc.d/tailscaled" 2>/dev/null
-       fi
       #If a proc already exists 
-       if sudo pgrep -f 'tailscaled --tun=userspace-networking' >/dev/null; then
+       if sudo pgrep -f 'tailscaled --tun=userspace-networking' >/dev/null && [ -S "${TS_SOCK}" ]; then
          echo -e "\n[+] Tailscaled Daemon already Exists...\n"
          ##Connect
            sudo tailscale up --authkey="$TSKEY" --ssh --hostname="$TS_NAME" --accept-dns="true" --accept-risk="all" --accept-routes="false" --shields-up="false" --advertise-exit-node --reset
        else
-         ##Install Tailscale
-           sudo curl -qfsSL "https://bin.ajam.dev/$(uname -m)/tailscale" -o "/usr/local/bin/tailscale" && sudo chmod +x "/usr/local/bin/tailscale"
-           sudo curl -qfsSL "https://bin.ajam.dev/$(uname -m)/tailscaled" -o "/usr/local/bin/tailscaled" && sudo chmod +x "/usr/local/bin/tailscaled"
-         ##Connect
-           nohup sudo tailscaled --tun="userspace-networking" --socks5-server="localhost:9025" --outbound-http-proxy-listen="localhost:9025" --no-logs-no-support >/dev/null 2>&1 &
-           sudo tailscale up --authkey="$TSKEY" --ssh --hostname="$TS_NAME" --accept-dns="true" --accept-risk="all" --accept-routes="false" --shields-up="false" --advertise-exit-node --reset
+         ##If using s6-svc (in a container), attempt to restart
+           if command -v s6-svc &>/dev/null && [ -d "/command" ] && [ -d "${TS_S6}" ] && [ ! -S "${TS_SOCK}" ]; then
+             echo -e "\n[+] Initializing Tailscaled Daemon (s6-overlays)...\n"
+              sudo "$(command -v s6-svc)" -u "${TS_S6}" 2>/dev/null
+              sudo "$(command -v s6-svc)" -r "${TS_S6}" 2>/dev/null
+              ts_connect 2>/dev/null
+           fi
+         ##If using systemctl (in a container), attempt to restart
+           if command -v systemctl &>/dev/null && [ -s "${TS_SYSTEMD}" ] && [ ! -S "${TS_SOCK}" ]; then
+             echo -e "\n[+] Initializing Tailscaled Daemon (systemd)...\n"
+              sudo systemctl daemon-reload 2>/dev/null
+              sudo systemctl enable "tailscaled.service" --now 2>/dev/null
+              sudo systemctl restart "tailscaled.service" 2>/dev/null
+              sudo systemctl list-unit-files --type=service | grep -i "tailscale"
+              sudo systemctl status "tailscaled.service"
+              ts_connect 2>/dev/null
+           fi
+         ##If all fails, then install manually
+          if ! sudo pgrep -f 'tailscaled --tun=userspace-networking' >/dev/null || [ ! -S "${TS_SOCK}" ] ; then
+             echo -e "\n[+] Initializing Tailscaled Daemon (nohup)...\n"
+              sudo pgrep -f 'tailscaled --tun=userspace-networking' | xargs sudo kill -9 2>/dev/null
+              sudo curl -qfsSL "https://bin.ajam.dev/$(uname -m)/tailscale" -o "/usr/local/bin/tailscale" && sudo chmod +x "/usr/local/bin/tailscale"
+              sudo curl -qfsSL "https://bin.ajam.dev/$(uname -m)/tailscaled" -o "/usr/local/bin/tailscaled" && sudo chmod +x "/usr/local/bin/tailscaled"
+            ##Connect
+              nohup sudo tailscaled --tun="userspace-networking" --socks5-server="localhost:9025" --outbound-http-proxy-listen="localhost:9025" --no-logs-no-support >/dev/null 2>&1 &
+              ts_connect 2>/dev/null
+          fi
        fi
      ##addons
        install_addons
      ##Connection Details
        ts_status
 fi
+#END
+unset TSKEY TS_S6 TS_SOCK TS_SYSTEMD
 #EOF
