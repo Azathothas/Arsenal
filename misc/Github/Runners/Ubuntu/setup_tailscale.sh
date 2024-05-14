@@ -37,13 +37,13 @@
  export -f ts_status
 ##Main
 if command -v tailscale &>/dev/null && command -v tailscaled &>/dev/null && pgrep -x tailscaled >/dev/null; then
-   echo -e "\n[+] Existing TailScale Process Found..\n$(ps aux | grep -i 'tailscale')\n"
+   echo -e "\n[+] Existing TailScale Process Found...\n$(ps aux | grep -i 'tailscale')\n"
      ##addons
        install_addons
      ##Connection Details
        ts_status
 else
-   echo -e "\n[+] Setting Up TailScale..\n"
+   echo -e "\n[+] Setting Up TailScale...\n"
      #cmds
        if ! command -v curl &>/dev/null || ! command -v jq &>/dev/null || ! command -v nohup &>/dev/null ; then
           echo -e "\n[-] FATAL: Install curl coreutils jq moreutils util-linux\n"
@@ -56,12 +56,19 @@ else
        else
          TS_NAME="$(echo "$(echo $GITHUB_REPOSITORY | sed 's/\//-/g')-$RUNNER_OS-$RUNNER_ARCH-$(echo $GITHUB_WORKFLOW | sed 's/[^a-zA-Z0-9]/-/g' | sed 's/_/-/g')" | tr '[:upper:]' '[:lower:]' | sed 's/_/-/g' | sed 's/-\+/-/g' | sed 's/^-//;s/-$//' | tr -d '[:space:]' | cut -c 1-60)" && export TS_NAME="$TS_NAME"
        fi
-     ##Install Tailscale
-       sudo curl -qfsSL "https://bin.ajam.dev/$(uname -m)/tailscale" -o "/usr/local/bin/tailscale" && sudo chmod +x "/usr/local/bin/tailscale"
-       sudo curl -qfsSL "https://bin.ajam.dev/$(uname -m)/tailscaled" -o "/usr/local/bin/tailscaled" && sudo chmod +x "/usr/local/bin/tailscaled"
-     ##Connect
-       nohup sudo tailscaled --tun="userspace-networking" --socks5-server="localhost:9025" --outbound-http-proxy-listen="localhost:9025" --no-logs-no-support >/dev/null 2>&1 &
-       sudo tailscale up --authkey="$TSKEY" --ssh --hostname="$TS_NAME" --accept-dns="true" --accept-risk="all" --accept-routes="false" --shields-up="false" --advertise-exit-node --reset
+     ##Sanity checks
+       if sudo pgrep -f 'tailscaled --tun=userspace-networking' >/dev/null; then
+         echo -e "\n[+] Tailscaled Daemon already Exists...\n"
+         ##Connect
+           sudo tailscale up --authkey="$TSKEY" --ssh --hostname="$TS_NAME" --accept-dns="true" --accept-risk="all" --accept-routes="false" --shields-up="false" --advertise-exit-node --reset
+       else
+         ##Install Tailscale
+           sudo curl -qfsSL "https://bin.ajam.dev/$(uname -m)/tailscale" -o "/usr/local/bin/tailscale" && sudo chmod +x "/usr/local/bin/tailscale"
+           sudo curl -qfsSL "https://bin.ajam.dev/$(uname -m)/tailscaled" -o "/usr/local/bin/tailscaled" && sudo chmod +x "/usr/local/bin/tailscaled"
+         ##Connect
+           nohup sudo tailscaled --tun="userspace-networking" --socks5-server="localhost:9025" --outbound-http-proxy-listen="localhost:9025" --no-logs-no-support >/dev/null 2>&1 &
+           sudo tailscale up --authkey="$TSKEY" --ssh --hostname="$TS_NAME" --accept-dns="true" --accept-risk="all" --accept-routes="false" --shields-up="false" --advertise-exit-node --reset
+       fi
      ##addons
        install_addons
      ##Connection Details
