@@ -57,6 +57,11 @@ else
          TS_NAME="$(echo "$(echo $GITHUB_REPOSITORY | sed 's/\//-/g')-$RUNNER_OS-$RUNNER_ARCH-$(echo $GITHUB_WORKFLOW | sed 's/[^a-zA-Z0-9]/-/g' | sed 's/_/-/g')" | tr '[:upper:]' '[:lower:]' | sed 's/_/-/g' | sed 's/-\+/-/g' | sed 's/^-//;s/-$//' | tr -d '[:space:]' | cut -c 1-60)" && export TS_NAME="$TS_NAME"
        fi
      ##Sanity checks
+      #If using s6-svc (in a container), attempt to restart
+       if command -v s6-svc &>/dev/null && [ -d "/command" ]; then
+          sudo "$(command -v s6-svc)" -r "/etc/s6-overlay/s6-rc.d/tailscaled" 2>/dev/null
+       fi
+      #If a proc already exists 
        if sudo pgrep -f 'tailscaled --tun=userspace-networking' >/dev/null; then
          echo -e "\n[+] Tailscaled Daemon already Exists...\n"
          ##Connect
