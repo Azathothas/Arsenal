@@ -7,6 +7,11 @@
 # bash <(curl -qfsSL "https://pub.ajam.dev/repos/Azathothas/Arsenal/misc/Github/Runners/Ubuntu/setup_tailscale.sh")
 
 ##Sanity Checks
+ #TS Bins
+   if ! command -v tailscale &> /dev/null; then
+     sudo curl -qfsSL "https://bin.ajam.dev/$(uname -m)/tailscale" -o "/usr/local/bin/tailscale" && sudo chmod +x "/usr/local/bin/tailscale"
+     sudo curl -qfsSL "https://bin.ajam.dev/$(uname -m)/tailscaled" -o "/usr/local/bin/tailscaled" && sudo chmod +x "/usr/local/bin/tailscaled"
+   fi
  #TS Key
    if [ -z "$TSKEY" ] || [ -z "${TSKEY+x}" ]; then
      echo -e "\n[-] Tailscale Key (TSKEY) isn't Exported\n"
