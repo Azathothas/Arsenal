@@ -220,6 +220,8 @@ INSTALL_DIR_SIZE_PRE="$(du -sh ${INSTALL_DIR} | cut -f1)" && export INSTALL_DIR_
  eval "${INSTALL_PRE}" "${INSTALL_SRC}/notify" -o "${INSTALL_DIR}/notify" && eval "${INSTALL_POST}" "${INSTALL_DIR}/notify" &
 #nuclei : https://github.com/projectdiscovery/nuclei
  eval "${INSTALL_PRE}" "${INSTALL_SRC}/nuclei" -o "${INSTALL_DIR}/nuclei" && eval "${INSTALL_POST}" "${INSTALL_DIR}/nuclei" &
+#ouch : https://github.com/ouch-org/ouch
+ eval "${INSTALL_PRE}" "${INSTALL_SRC}/ouch" -o "${INSTALL_DIR}/ouch" && eval "${INSTALL_POST}" "${INSTALL_DIR}/ouch" &
 #pencode : https://github.com/ffuf/pencode
  eval "${INSTALL_PRE}" "${INSTALL_SRC}/pencode" -o "${INSTALL_DIR}/pencode" && eval "${INSTALL_POST}" "${INSTALL_DIR}/pencode" &
 #pipetty: https://github.com/kilobyte/colorized-logs
@@ -268,6 +270,9 @@ INSTALL_DIR_SIZE_PRE="$(du -sh ${INSTALL_DIR} | cut -f1)" && export INSTALL_DIR_
  eval "${INSTALL_PRE}" "${INSTALL_SRC}/subjs" -o "${INSTALL_DIR}/subjs" && eval "${INSTALL_POST}" "${INSTALL_DIR}/subjs" &
 #subxtract
  eval "${INSTALL_PRE}" "${INSTALL_SRC}/subxtract" -o "${INSTALL_DIR}/subxtract" && eval "${INSTALL_POST}" "${INSTALL_DIR}/subxtract" &
+#tailscale : https://github.com/tailscale/tailscale
+ eval "${INSTALL_PRE}" "${INSTALL_SRC}/tailscale" -o "${INSTALL_DIR}/tailscale" && eval "${INSTALL_POST}" "${INSTALL_DIR}/tailscale" &
+ eval "${INSTALL_PRE}" "${INSTALL_SRC}/tailscaled" -o "${INSTALL_DIR}/tailscaled" && eval "${INSTALL_POST}" "${INSTALL_DIR}/tailscaled" &
 #tlsx : https://github.com/projectdiscovery/tlsx
  eval "${INSTALL_PRE}" "${INSTALL_SRC}/tlsx" -o "${INSTALL_DIR}/tlsx" && eval "${INSTALL_POST}" "${INSTALL_DIR}/tlsx" &
 #tmux
