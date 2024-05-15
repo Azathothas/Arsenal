@@ -242,6 +242,8 @@ INSTALL_DIR_SIZE_PRE="$(du -sh ${INSTALL_DIR} | cut -f1)" && export INSTALL_DIR_
  eval "${INSTALL_PRE}" "${INSTALL_SRC}/rga" -o "${INSTALL_DIR}/rga" && eval "${INSTALL_POST}" "${INSTALL_DIR}/rga" &
 #roboxtractor : https://github.com/Josue87/roboxtractor
  eval "${INSTALL_PRE}" "${INSTALL_SRC}/roboxtractor" -o "${INSTALL_DIR}/roboxtractor" && eval "${INSTALL_POST}" "${INSTALL_DIR}/roboxtractor" &
+#rsync : https://github.com/RsyncProject/rsync
+ eval "${INSTALL_PRE}" "${INSTALL_SRC}/rsync" -o "${INSTALL_DIR}/rsync" && eval "${INSTALL_POST}" "${INSTALL_DIR}/rsync" & 
 #s3scanner : https://github.com/sa7mon/s3scanner
  eval "${INSTALL_PRE}" "${INSTALL_SRC}/s3scanner" -o "${INSTALL_DIR}/s3scanner" && eval "${INSTALL_POST}" "${INSTALL_DIR}/s3scanner" &
 #scopegen
