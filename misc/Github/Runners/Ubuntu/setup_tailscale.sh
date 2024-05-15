@@ -1,5 +1,6 @@
 #!/usr/bin/env bash
 
+##Requirements: bash coreutils curl findutils jq moreutils tailscale tailscaled 
 
 ##Usage:
 # bash <(curl -qfsSL "https://raw.githubusercontent.com/Azathothas/Arsenal/main/misc/Github/Runners/Ubuntu/setup_tailscale.sh")
@@ -37,9 +38,11 @@
    {
     #Get env
      TS_IP="$(sudo tailscale ip -4 2>/dev/null | tr -d '\n' | tr -d '[:space:]')" && export TS_IP="$TS_IP"
-     TS_DNS="$(sudo tailscale status --json | jq -r '.Self.DNSName' | sed 's/\.$//' | tr -d '\n' | tr -d '[:space:]')" && export TS_DNS="$TS_DNS"
+     TS_DNS="$(sudo tailscale status --json 2>/dev/null | jq -r '.Self.DNSName' | sed 's/\.$//' | tr -d '\n' | tr -d '[:space:]')" && export TS_DNS="$TS_DNS"
+     TS_DAEMON_JSON="$(sudo tailscale status --peers=false --json 2>&1 | awk '/{/{found=1} found{print}')" && export TS_DAEMON_JSON="$TS_DAEMON_JSON"
     #Print 
      echo -e "\n\n[+] TailScale Host : $(sudo tailscale status --self=true --peers=false --json | jq -r '.Self.HostName')"
+     sudo tailscale status --peers=false --json 2>/dev/null | jq -r '"Daemon: \(.BackendState)\nConnected: \(.Self.Online)"'
      echo -e "[+] TailScale IP : $TS_IP"
      echo -e "[+] TailScale DNS : $TS_DNS\n\n"
    }
@@ -78,7 +81,7 @@ else
            if command -v s6-svc &>/dev/null && [ -d "/command" ] && [ -d "${TS_S6}" ] && [ ! -S "${TS_SOCK}" ]; then
              echo -e "\n[+] Initializing Tailscaled Daemon (s6-overlays)...\n"
               sudo "$(command -v s6-svc)" -u "${TS_S6}" 2>/dev/null
-              sudo "$(command -v s6-svc)" -r "${TS_S6}" 2>/dev/null
+              sudo "$(command -v s6-svc)" -r "${TS_S6}" 2>/dev/null ; sleep 05
               ts_connect 2>/dev/null
            fi
          ##If using systemctl (in a container), attempt to restart
@@ -86,13 +89,14 @@ else
              echo -e "\n[+] Initializing Tailscaled Daemon (systemd)...\n"
               sudo systemctl daemon-reload 2>/dev/null
               sudo systemctl enable "tailscaled.service" --now 2>/dev/null
-              sudo systemctl restart "tailscaled.service" 2>/dev/null
+              sudo systemctl restart "tailscaled.service" 2>/dev/null ; sleep 05
               sudo systemctl list-unit-files --type=service | grep -i "tailscale"
               sudo systemctl status "tailscaled.service"
               ts_connect 2>/dev/null
            fi
          ##If all fails, then install manually
-          if ! sudo pgrep -f 'tailscaled --tun=userspace-networking' >/dev/null || [ ! -S "${TS_SOCK}" ] ; then
+          TS_DAEMON_STAT="$(sudo tailscale status --peers=false --json 2>&1 | awk '{ if (!found && !/{/) print; if (!found && /{/) found=1 }')" && export TS_DAEMON_STAT="$TS_DAEMON_STAT"
+          if echo "$TS_DAEMON_STAT" | grep -qiE 'failed|systemctl|connect'; then
              echo -e "\n[+] Initializing Tailscaled Daemon (nohup)...\n"
               sudo pgrep -f 'tailscaled --tun=userspace-networking' | xargs sudo kill -9 2>/dev/null
               sudo curl -qfsSL "https://bin.ajam.dev/$(uname -m)/tailscale" -o "/usr/local/bin/tailscale" && sudo chmod +x "/usr/local/bin/tailscale"
