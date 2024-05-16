@@ -118,6 +118,8 @@ INSTALL_DIR_SIZE_PRE="$(du -sh ${INSTALL_DIR} | cut -f1)" && export INSTALL_DIR_
  eval "${INSTALL_PRE}" "${INSTALL_SRC}/cutlines" -o "${INSTALL_DIR}/cutlines" && eval "${INSTALL_POST}" "${INSTALL_DIR}/cutlines" & 
 #dalfox : https://github.com/hahwul/dalfox
  eval "${INSTALL_PRE}" "${INSTALL_SRC}/dalfox" -o "${INSTALL_DIR}/dalfox" && eval "${INSTALL_POST}" "${INSTALL_DIR}/dalfox" &
+#dasel: https://github.com/TomWright/dasel
+ eval "${INSTALL_PRE}" "${INSTALL_SRC}/dasel" -o "${INSTALL_DIR}/dasel" && eval "${INSTALL_POST}" "${INSTALL_DIR}/dasel" & 
 #delta
  eval "${INSTALL_PRE}" "${INSTALL_SRC}/delta" -o "${INSTALL_DIR}/delta" && eval "${INSTALL_POST}" "${INSTALL_DIR}/delta" &
 #dirstat-rs
