@@ -78,9 +78,8 @@ stat -c "%s" "$TESTFILE" | numfmt --to="iec" --suffix="B"
 ❯ (< "/dev/urandom" tr -cd '[:graph:]' | tr -d '\\`' | head -c 42) && echo
 
 !# Using moac :: https://github.com/Seirdy/moac
-#arm64 Linux : sudo curl -qfsSL "https://bin.ajam.dev/aarch64_arm64_Linux//moac-pwgen" -o "/usr/local/bin/moac-pwgen" && sudo chmod +x "/usr/local/bin/moac-pwgen"
-#x86_64 Linux : sudo curl -qfsSL "https://bin.ajam.dev/x86_64_Linux/moac-pwgen" -o "/usr/local/bin/moac-pwgen" && sudo chmod +x "/usr/local/bin/moac-pwgen"
-#Generate with a min/max length of 42
+#Install: sudo curl -qfsSL "https://bin.ajam.dev/$(uname -m)/moac-pwgen" -o "/usr/local/bin/moac-pwgen" && sudo chmod +x "/usr/local/bin/moac-pwgen"
+#Generate with a min/max length of 42 & enable Quantum Resistance
 ❯ moac-pwgen -q -l 42 -L 42 && echo
 ```
 ---
