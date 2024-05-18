@@ -42,6 +42,8 @@ jobs:
           sudo apt update -y
           sudo apt install bc coreutils curl dos2unix fdupes jq moreutils wget -y
           sudo apt-get install apt-transport-https apt-utils ca-certificates coreutils dos2unix gnupg2 jq moreutils p7zip-full rename rsync software-properties-common texinfo tmux util-linux wget -y 2>/dev/null ; sudo apt-get update -y 2>/dev/null
+          #binutils
+          sudo apt install binutils-aarch64-linux-gnu -y
           #libguestfs-tools
           sudo apt install libguestfs-tools -y
           #qemu
@@ -333,6 +335,7 @@ jobs:
           eget "https://github.com/kata-containers/kata-containers" --asset "static" --asset "amd64" --asset "tar" --download-only
           ouch decompress "./"* --yes
           find . -type d -name '*bin*' ! -name 'build-bins' -print0 | xargs -0 -I {} sh -c 'mkdir -p ./build-bins && cp -r {}/* ./build-bins/'
+          find . -type f -exec strip {} \; 2>/dev/null
           file "./build-bins/"* && du -sh "./build-bins/"*
           #copy
           rsync -av --copy-links "./build-bins/" "./kata-bins"
@@ -351,6 +354,7 @@ jobs:
           eget "https://github.com/kata-containers/kata-containers" --asset "static" --asset "arm64" --asset "tar" --download-only
           ouch decompress "./"* --yes
           find . -type d -name '*bin*' ! -name 'build-bins' -print0 | xargs -0 -I {} sh -c 'mkdir -p ./build-bins && cp -r {}/* ./build-bins/'
+          find . -type f -exec aarch64-linux-gnu-strip {} \; 2>/dev/null
           file "./build-bins/"* && du -sh "./build-bins/"*
           #copy
           rsync -av --copy-links "./build-bins/" "./kata-bins"
