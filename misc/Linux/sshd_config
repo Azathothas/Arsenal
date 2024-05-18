@@ -1,0 +1,149 @@
+##REFS:
+# https://linux.die.net/man/5/sshd_config
+# https://github.com/k4yt3x/sshd_config/blob/master/sshd_config
+# /usr/share/openssh/sshd_config
+
+Include /etc/ssh/sshd_config.d/*.conf
+
+#-------------------------------------------------------#
+########## Address ##########
+Port 22
+#AddressFamily any
+#ListenAddress 0.0.0.0
+#ListenAddress ::
+#-------------------------------------------------------#
+
+#-------------------------------------------------------#
+########## Features ##########
+#Accept locale-related environment variables
+AcceptEnv LANG LC_*
+#Disallow ssh-agent forwarding to prevent lateral movement
+AllowAgentForwarding no
+#Prevent TCP ports from being forwarded over SSH tunnels
+# **please be aware that disabling TCP forwarding does not prevent port forwarding**
+# any user with an interactive login shell can spin up his/her own instance of sshd
+AllowTcpForwarding no
+#Prevent StreamLocal (Unix-domain socket) forwarding
+AllowStreamLocalForwarding no
+#Disallow remote hosts from connecting to forwarded ports
+# i.e. forwarded ports are forced to bind to 127.0.0.1 instead of 0.0.0.0
+GatewayPorts no
+#Prevent tun device forwarding
+PermitTunnel no
+#Specifies whether sshd(8) should print /etc/motd when a user logs in interactively. [Default: yes]
+PrintMotd yes
+#Specifies whether X11 forwarding is permitted. [Default: no]
+X11Forwarding yes
+#-------------------------------------------------------#
+
+#-------------------------------------------------------#
+########## Authentication ##########
+#Permit only the specified users to login
+#AllowUsers k4yt3x
+#Permit only users within the specified groups to login
+#AllowGroups k4yt3x
+#Specifies the file that contains the public keys that can be used for user authentication. AuthorizedKeysFile may contain tokens of the form %T which are substituted during connection setup. The following tokens are defined: %% is replaced by a literal '%', %h is replaced by the home directory of the user being authenticated, and %u is replaced by the username of that user. After expansion, AuthorizedKeysFile is taken to be an absolute path or one relative to the user's home directory. The default is ''.ssh/authorized_keys''. 
+# chmod 700 $HOME/.ssh
+# chmod 600 $HOME/.ssh/authorized_keys /etc/ssh/authorized_keys
+AuthorizedKeysFile %h/.ssh/authorized_keys /etc/ssh/authorized_keys
+#Uncomment the following options to permit only pubkey authentication
+#Be aware that this will disable password authentication
+#   - AuthenticationMethods: permitted authentication methods
+#   - PasswordAuthentication: set to no to disable password authentication
+#   - UsePAM: set to no to disable all PAM authentication, also disables PasswordAuthentication when set to no
+#AuthenticationMethods publickey
+PasswordAuthentication yes
+#PAM authentication enabled to make password authentication available
+#Remove this if password authentication is not needed
+UsePAM yes
+#Challenge-response authentication backend it not configured by default
+# therefore, it is set to "no" by default to avoid the use of an unconfigured backend
+ChallengeResponseAuthentication no
+#Set maximum authentication retries to prevent brute force attacks
+MaxAuthTries 3
+#Disallow connecting using empty passwords
+PermitEmptyPasswords no
+#Prevent root from being logged in via SSH
+PermitRootLogin no
+#Enable pubkey authentication
+PubkeyAuthentication yes
+#-------------------------------------------------------#
+
+#-------------------------------------------------------#
+########## Cryptography ##########
+#Explicitly define cryptography algorithms to avoid the use of weak algorithms
+# AES-CTR and Chacha20-Poly1305 modes have been removed to mitigate the Terrapin attack
+#   https://terrapin-attack.com/
+#Ciphers aes256-gcm@openssh.com,aes128-gcm@openssh.com
+#HostKeyAlgorithms rsa-sha2-512,rsa-sha2-256,ssh-ed25519
+#MACs hmac-sha2-512-etm@openssh.com,hmac-sha2-256-etm@openssh.com,umac-128-etm@openssh.com
+#---KEYS---#
+##Only use host keys with secure HostKeyAlgorithms
+#https://www.ssh.com/academy/ssh/keygen#sec-Choosing-an-Algorithm-and-Key-Size
+##dsa - an old US government Digital Signature Algorithm. It is based on the difficulty of computing discrete logarithms. A key size of 1024 would normally be used with it. DSA in its original form is no longer recommended.
+#HostKey /etc/ssh/ssh_host_dsa_key
+##rsa - an old algorithm based on the difficulty of factoring large numbers. A key size of at least 2048 bits is recommended for RSA; 4096 bits is better. RSA is getting old and significant advances are being made in factoring. Choosing a different algorithm may be advisable. It is quite possible the RSA algorithm will become practically breakable in the foreseeable future. All SSH clients support this algorithm.
+HostKey /etc/ssh/ssh_host_rsa_key
+##ecdsa - a new Digital Signature Algorithm standarized by the US government, using elliptic curves. This is probably a good algorithm for current applications. Only three key sizes are supported: 256, 384, and 521 (sic!) bits. We would recommend always using it with 521 bits, since the keys are still small and probably more secure than the smaller keys (even though they should be safe as well). Most SSH clients now support this algorithm.
+HostKey /etc/ssh/ssh_host_ecdsa_key
+##ed25519 - this is a new algorithm added in OpenSSH. Support for it in clients is not yet universal. Thus its use in general purpose applications may not yet be advisable.
+HostKey /etc/ssh/ssh_host_ed25519_key
+# short moduli should be deactivated before enabling the use of diffie-hellman-group-exchange-sha256
+#   see this link for more details: https://github.com/k4yt3x/sshd_config#deactivating-short-diffie-hellman-moduli
+# AES-CTR and Chacha20-Poly1305 modes have been removed to mitigate the Terrapin attack
+#   https://terrapin-attack.com/
+# ecdh-sha2-nistp* algorithms have been removed due to concerns around NIST P-curves' design
+#   https://github.com/jtesta/ssh-audit/issues/213#issuecomment-1774204745
+#KexAlgorithms sntrup761x25519-sha512@openssh.com,curve25519-sha256,curve25519-sha256@libssh.org,diffie-hellman-group18-sha512,diffie-hellman-group16-sha512
+#-------------------------------------------------------#
+
+#-------------------------------------------------------#
+########## Connection Preferences ##########
+# Debian-based distributions only
+# hide the Debian banner to prevent information disclosure
+# (e.g., `SSH-2.0-OpenSSH_8.4p1 Debian-5+deb11u3`)
+#DebianBanner no
+#Number of client alive messages sent without client responding [Default: 3]
+ClientAliveCountMax 6
+#Send a keepalive message to the client when the session has been idle for 300 seconds
+#Disconnects if no response [Default: 0]
+ClientAliveInterval 0
+#Compression before encryption might cause security issues
+Compression yes
+# prevent SSH trust relationships from allowing lateral movements
+IgnoreRhosts yes
+# log verbosely for additional information
+#LogLevel VERBOSE
+#Allow a maximum of two multiplexed sessions over a single TCP connection [Default: 10]
+MaxSessions 20
+#Enforce SSH server to only use SSH protocol version 2
+# SSHv1 contains security issues and should be avoided at all costs
+# SSHv1 is disabled by default after OpenSSH 7.0, but this option is
+#   specified anyways to ensure this configuration file's compatibility
+#   with older versions of OpenSSH server
+Protocol 2
+#Override default of no subsystems [Only one entry is permitted]
+# path to the sftp-server binary depends on your distribution
+#Subsystem sftp /usr/lib/openssh/sftp-server
+#Subsystem sftp /usr/libexec/openssh/sftp-server
+Subsystem sftp internal-sftp
+#let ClientAliveInterval handle keepalive
+#Specifies whether the system should send TCP keepalive messages to the other side. If they are sent, death of the connection or crash of one of the machines will be properly noticed. However, this means that connections will die if the route is down temporarily, and some people find it annoying. On the other hand, if TCP keepalives are not sent, sessions may hang indefinitely on the server, leaving ''ghost'' users and consuming server resources.
+#The default is ''yes'' (to send TCP keepalive messages), and the server will notice if the network goes down or the client host crashes. This avoids infinitely hanging sessions.
+#To disable TCP keepalive messages, the value should be set to ''no''. 
+TCPKeepAlive yes
+#Specifies whether sshd(8) should look up the remote host name and check that the resolved host name for the remote IP address maps back to the very same IP address. The default is ''yes''. 
+#Set no to disable reverse DNS lookups
+UseDNS no
+#-------------------------------------------------------#
+
+#-------------------------------------------------------#
+########## Logging ##########
+# sudo less "/var/log/auth.log"
+# sudo less "/var/log/syslog"
+# sudo less "/var/log/fail2ban.log"
+#Gives the verbosity level that is used when logging messages from sshd(8). The possible values are: QUIET, FATAL, ERROR, INFO, VERBOSE, DEBUG, DEBUG1, DEBUG2, and DEBUG3. The default is INFO. DEBUG and DEBUG1 are equivalent. DEBUG2 and DEBUG3 each specify higher levels of debugging output. Logging with a DEBUG level violates the privacy of users and is not recommended. 
+LogLevel VERBOSE
+#Gives the facility code that is used when logging messages from sshd(8). The possible values are: DAEMON, USER, AUTH, AUTHPRIV, LOCAL0, LOCAL1, LOCAL2, LOCAL3, LOCAL4, LOCAL5, LOCAL6, LOCAL7. The default is AUTH.
+SyslogFacility AUTH
+#-------------------------------------------------------#
