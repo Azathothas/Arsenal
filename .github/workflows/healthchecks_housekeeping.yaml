@@ -6,9 +6,8 @@ on:
   workflow_dispatch:
   schedule:
   #  - cron: "45 02 * * *"  # 02:45 AM UTC --> 08:30 AM Morning NPT
-    - cron: "*/30 * * * *"  # Every 30 Mins
+    - cron: "*/55 * * * *"  # Every 55 Mins
 env:
-  USER_AGENT: "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) obsidian/1.5.3 Chrome/114.0.5735.289 Electron/25.8.1 Safari/537.36"
   RCLONE_CF_R2_PUB: "${{ secrets.RCLONE_CF_R2_PUB }}"
 #------------------------------------------------------------------------------------#
 jobs:
@@ -19,6 +18,15 @@ jobs:
       contents: write
       
     steps:
+
+      - name: Debloat
+        run: |
+          ##presets
+          set +x ; set +e
+          #-------------#
+          bash <(curl -qfsSL "https://pub.ajam.dev/repos/Azathothas/Arsenal/misc/Github/Runners/Ubuntu/debloat.sh")
+        continue-on-error: true
+
       - name: Checkout repository
         uses: actions/checkout@v4
         with:
@@ -27,8 +35,17 @@ jobs:
 
       - name: Setup Env
         run: |
-          #presets
+          ##presets
           set +x ; set +e
+          #-------------#
+          ##CoreUtils
+          sudo apt update -y
+          sudo apt install bc coreutils curl dos2unix fdupes jq moreutils wget -y
+          sudo apt-get install apt-transport-https apt-utils ca-certificates coreutils dos2unix gnupg2 jq moreutils p7zip-full rename rsync software-properties-common texinfo tmux util-linux wget -y 2>/dev/null ; sudo apt-get update -y 2>/dev/null
+          #libguestfs-tools
+          sudo apt install libguestfs-tools -y
+          #qemu
+          sudo apt install qemu qemu-user-static qemu-utils -y
           #temp
           SYSTMP="$(dirname $(mktemp -u))" && export SYSTMP="$SYSTMP"
           echo "SYSTMP=$SYSTMP" >> "$GITHUB_ENV"
@@ -37,38 +54,21 @@ jobs:
           export GIT_TERMINAL_PROMPT="0" ; echo "GIT_TERMINAL_PROMPT=$GIT_TERMINAL_PROMPT" >> "$GITHUB_ENV"
           #https://git-scm.com/docs/git#Documentation/git.txt-codeGITASKPASScode
           export GIT_ASKPASS="/bin/echo" ; echo "GIT_ASKPASS=$GIT_ASKPASS" >> "$GITHUB_ENV"
-          #-------------#
-          ##Misc
-          sudo apt update -y
-          sudo apt install dos2unix -y
-          pip install ansi2txt --upgrade
           ##Setup rClone
-          echo "${{ secrets.RCLONE_CF_R2_PUB }}" > "$HOME/.rclone.conf"
+          mkdir -p "$HOME/.config/rclone"
+          echo "${{ secrets.RCLONE_CF_R2_PUB }}" > "$HOME/.config/rclone/rclone.conf"
+          export RCLONE_STATS="120s" ; echo "RCLONE_STATS=$RCLONE_STATS" >> "$GITHUB_ENV"
+          ##User-Agent
+          USER_AGENT="$(curl -qfsSL 'https://pub.ajam.dev/repos/Azathothas/Wordlists/Misc/User-Agents/ua_chrome_macos_latest.txt')" && export USER_AGENT="$USER_AGENT"
+          echo "USER_AGENT=$USER_AGENT" >> "$GITHUB_ENV"
         continue-on-error: true
 
       - name: Install Addons
         run: |
-          set +e
-          #action-lint
-          sudo curl -qfsSL "https://bin.ajam.dev/x86_64_Linux/actionlint" -o "/usr/local/bin/actionlint" && sudo chmod +xwr "/usr/local/bin/actionlint"
-          #delta
-          sudo curl -qfsSL "https://bin.ajam.dev/x86_64_Linux/delta" -o "/usr/local/bin/delta" && sudo chmod +xwr "/usr/local/bin/delta"
-          #dust
-          sudo curl -qfsSL "https://bin.ajam.dev/x86_64_Linux/dust" -o "/usr/local/bin/dust" && sudo chmod +xwr "/usr/local/bin/dust"
-          #eget
-          sudo curl -qfsSL "https://bin.ajam.dev/x86_64_Linux/eget" -o "/usr/local/bin/eget" && sudo chmod +xwr "/usr/local/bin/eget"
-          #git-sizer
-          sudo curl -qfsSL "https://bin.ajam.dev/x86_64_Linux/git-sizer" -o "/usr/local/bin/git-sizer" && sudo chmod +xwr "/usr/local/bin/git-sizer"
-          #jq
-          sudo curl -qfsSL "https://bin.ajam.dev/x86_64_Linux/jq" -o "/usr/local/bin/jq" && sudo chmod +xwr "/usr/local/bin/jq"
-          #rclone
-          sudo curl -qfsSL "https://bin.ajam.dev/x86_64_Linux/rclone" -o "/usr/local/bin/rclone" && sudo chmod +xwr "/usr/local/bin/rclone"
-          #validtoml
-          sudo curl -qfsSL "https://bin.ajam.dev/x86_64_Linux/validtoml" -o "/usr/local/bin/validtoml" && sudo chmod +xwr "/usr/local/bin/validtoml"
-          #Yq
-          sudo curl -qfsSL "https://bin.ajam.dev/x86_64_Linux/yq" -o "/usr/local/bin/yq" && sudo chmod +xwr "/usr/local/bin/yq"
-          #Yj
-          sudo curl -qfsSL "https://bin.ajam.dev/x86_64_Linux/yj" -o "/usr/local/bin/yj" && sudo chmod +xwr "/usr/local/bin/yj"
+          ##presets
+          set +x ; set +e
+          #-------------#
+          bash <(curl -qfsSL "https://pub.ajam.dev/repos/Azathothas/Arsenal/misc/Linux/install_bb_tools.sh")
         continue-on-error: true
 
       - name: Fetch gh workflows
@@ -130,16 +130,21 @@ jobs:
           echo '```' >> "$GITHUB_WORKSPACE/main/.github/SIZE.md"
         continue-on-error: true
 
+      - name: Git Pull
+        run: |
+          cd "$GITHUB_WORKSPACE/main" && git pull origin main
+        continue-on-error: true
+
       - name: Ensure Healthy Commit Nums (RESET ON >= 1000)
         run: |
           #Presets
           set +x ; set +e
           #--------------#
-          pushd "$(mktemp -d)" > /dev/null 2>&1 && git clone --filter="blob:none" "$GITHUB_SERVER_URL/$GITHUB_REPOSITORY"
+          pushd "$(mktemp -d)" >/dev/null 2>&1 && git clone --filter="blob:none" "$GITHUB_SERVER_URL/$GITHUB_REPOSITORY"
           cd "$(find . -maxdepth 1 -type d -exec basename {} \; | grep -Ev '^\.$' | xargs -I {} realpath {})"
           CLONED_DIR="$(realpath .)" && export CLONED_DIR="$CLONED_DIR"
           COMMIT_NUMS="$(git rev-list --count HEAD)" && export COMMIT_NUMS="$COMMIT_NUMS"
-          popd > /dev/null 2>&1 ; rm -rf "$CLONED_DIR" 2>/dev/null
+          popd >/dev/null 2>&1 ; rm -rf "$CLONED_DIR" 2>/dev/null
           cd "$GITHUB_WORKSPACE/main"
           if [ "$COMMIT_NUMS" -gt 1000 ]; then
               echo -e "\n[+] Total number of commits exceeds 1000. ($COMMIT_NUMS)\n"
@@ -166,11 +171,6 @@ jobs:
           echo "NEPALI_TIME=$NEPALI_TIME" >> $GITHUB_ENV
         continue-on-error: true
 
-      - name: Git Pull
-        run: |
-          cd "$GITHUB_WORKSPACE/main" && git pull origin main
-        continue-on-error: true
-
       - uses: stefanzweifel/git-auto-commit-action@v5
         with:
           repository: ./main        
@@ -183,7 +183,7 @@ jobs:
       - name: rClone BackUp Repo ("https://pub.ajam.dev/repos/$GITHUB_REPOSITORY")
         run: |
           # Presets
-          set -x ; set +e
+          set +x ; set +e
           #--------------#
           #touch "$HOME/.rclone.conf"
           echo "${{ secrets.RCLONE_CF_R2_PUB }}" > "$HOME/.rclone.conf"
@@ -201,43 +201,43 @@ jobs:
       - name: rClone BackUp Repo (Alts)
         run: |
           # Presets
-          set -x ; set +e
+          set +x ; set +e
           #--------------#
           #touch "$HOME/.rclone.conf"
           echo "${{ secrets.RCLONE_CF_R2_PUB }}" > "$HOME/.rclone.conf"
           ##metis-os/hysp-pkgs
-           pushd "$(mktemp -d)" > /dev/null 2>&1 && git clone --depth="1" --filter="blob:none" "https://github.com/metis-os/hysp-pkgs" && cd "./hysp-pkgs"
+           pushd "$(mktemp -d)" >/dev/null 2>&1 && git clone --depth="1" --filter="blob:none" "https://github.com/metis-os/hysp-pkgs" && cd "./hysp-pkgs"
            GITHUB_REPOSITORY="$(git config --get remote.origin.url | awk -F'/' '{print $(NF-1) "/" $NF}' | sed 's/\.git$//')" && export GITHUB_REPOSITORY="$GITHUB_REPOSITORY"
            rm -rf "$(pwd)/.git"
            echo -e "\n[+] Syncing $GITHUB_REPOSITORY to https://pub.ajam.dev/repos/$GITHUB_REPOSITORY\n" && du -sh "$(pwd)"
-           rclone sync "." "r2:/pub/repos/$GITHUB_REPOSITORY/" --user-agent="$USER_AGENT" --buffer-size="100M" --s3-upload-concurrency="500" --s3-chunk-size="100M" --multi-thread-streams="500" --checkers="2000" --transfers="1000" --check-first --checksum --copy-links --fast-list --progress ; popd > /dev/null 2>&1
+           rclone sync "." "r2:/pub/repos/$GITHUB_REPOSITORY/" --user-agent="$USER_AGENT" --buffer-size="100M" --s3-upload-concurrency="500" --s3-chunk-size="100M" --multi-thread-streams="500" --checkers="2000" --transfers="1000" --check-first --checksum --copy-links --fast-list --progress ; popd >/dev/null 2>&1
           ##PasseiDireto/gh-runner
-           pushd "$(mktemp -d)" > /dev/null 2>&1 && git clone --depth="1" --filter="blob:none" "https://github.com/PasseiDireto/gh-runner" && cd "./gh-runner"
+           pushd "$(mktemp -d)" >/dev/null 2>&1 && git clone --depth="1" --filter="blob:none" "https://github.com/PasseiDireto/gh-runner" && cd "./gh-runner"
            GITHUB_REPOSITORY="$(git config --get remote.origin.url | awk -F'/' '{print $(NF-1) "/" $NF}' | sed 's/\.git$//')" && export GITHUB_REPOSITORY="$GITHUB_REPOSITORY"
            rm -rf "$(pwd)/.git"
            echo -e "\n[+] Syncing $GITHUB_REPOSITORY to https://pub.ajam.dev/repos/$GITHUB_REPOSITORY\n" && du -sh "$(pwd)"
-           rclone sync "." "r2:/pub/repos/$GITHUB_REPOSITORY/" --user-agent="$USER_AGENT" --buffer-size="100M" --s3-upload-concurrency="500" --s3-chunk-size="100M" --multi-thread-streams="500" --checkers="2000" --transfers="1000" --check-first --checksum --copy-links --fast-list --progress ; popd > /dev/null 2>&1           
+           rclone sync "." "r2:/pub/repos/$GITHUB_REPOSITORY/" --user-agent="$USER_AGENT" --buffer-size="100M" --s3-upload-concurrency="500" --s3-chunk-size="100M" --multi-thread-streams="500" --checkers="2000" --transfers="1000" --check-first --checksum --copy-links --fast-list --progress ; popd >/dev/null 2>&1           
           ##xplshn/Handyscripts
-           pushd "$(mktemp -d)" > /dev/null 2>&1 && git clone --depth="1" --filter="blob:none" "https://github.com/xplshn/Handyscripts" && cd "./Handyscripts"
+           pushd "$(mktemp -d)" >/dev/null 2>&1 && git clone --depth="1" --filter="blob:none" "https://github.com/xplshn/Handyscripts" && cd "./Handyscripts"
            GITHUB_REPOSITORY="$(git config --get remote.origin.url | awk -F'/' '{print $(NF-1) "/" $NF}' | sed 's/\.git$//')" && export GITHUB_REPOSITORY="$GITHUB_REPOSITORY"
            rm -rf "$(pwd)/.git"
            echo -e "\n[+] Syncing $GITHUB_REPOSITORY to https://pub.ajam.dev/repos/$GITHUB_REPOSITORY\n" && du -sh "$(pwd)"
-           rclone sync "." "r2:/pub/repos/$GITHUB_REPOSITORY/" --user-agent="$USER_AGENT" --buffer-size="100M" --s3-upload-concurrency="500" --s3-chunk-size="100M" --multi-thread-streams="500" --checkers="2000" --transfers="1000" --check-first --checksum --copy-links --fast-list --progress ; popd > /dev/null 2>&1
+           rclone sync "." "r2:/pub/repos/$GITHUB_REPOSITORY/" --user-agent="$USER_AGENT" --buffer-size="100M" --s3-upload-concurrency="500" --s3-chunk-size="100M" --multi-thread-streams="500" --checkers="2000" --transfers="1000" --check-first --checksum --copy-links --fast-list --progress ; popd >/dev/null 2>&1
         continue-on-error: true
 #------------------------------------------------------------------------------------#
       - name: rClone Generate Dynamic (https://pub.ajam.dev/utils/)
         run: |
           # Presets
-          set -x ; set +e
+          set +x ; set +e
           #--------------#        
           ##Mullvad 
           #arm64 deb
-          pushd "$(mktemp -d)" > /dev/null 2>&1
+          pushd "$(mktemp -d)" >/dev/null 2>&1
           wget --quiet --show-progress "$(curl -qfsSL "https://api.github.com/repos/mullvad/mullvadvpn-app/releases" | jq -r '.[] | select(.prerelease == true) | .assets[] | select(.name | test("arm64.deb")) | .browser_download_url' | grep -iv '\.asc$' | head -n 1)" -O "./mullvad.deb"
           rclone copyto "./mullvad.deb" "r2:/pub/utils/mullvad/mullvad_linux_arm64.deb" --user-agent="$USER_AGENT" --buffer-size="100M" --s3-upload-concurrency="500" --s3-chunk-size="100M" --multi-thread-streams="500" --checkers="2000" --transfers="1000" --check-first --checksum --copy-links --fast-list --progress
-          popd "$(mktemp -d)" > /dev/null 2>&1
+          popd "$(mktemp -d)" >/dev/null 2>&1
           #x86_64 deb
-          pushd "$(mktemp -d)" > /dev/null 2>&1
+          pushd "$(mktemp -d)" >/dev/null 2>&1
           wget --quiet --show-progress "$(curl -qfsSL "https://api.github.com/repos/mullvad/mullvadvpn-app/releases" | jq -r '.[] | select(.prerelease == true) | .assets[] | select(.name | test("amd64.deb")) | .browser_download_url' | grep -iv '\.asc$' | head -n 1)" -O "./mullvad.deb"
           rclone copyto "./mullvad.deb" "r2:/pub/utils/mullvad/mullvad_linux_x86_64.deb" --user-agent="$USER_AGENT" --buffer-size="100M" --s3-upload-concurrency="500" --s3-chunk-size="100M" --multi-thread-streams="500" --checkers="2000" --transfers="1000" --check-first --checksum --copy-links --fast-list --progress
           #Install
@@ -254,7 +254,115 @@ jobs:
           #Proxies : https://mullvad.net/en/help/socks5-proxy (https://github.com/maximko/mullvad-socks-lis)
           curl -qfsSL "https://raw.githubusercontent.com/maximko/mullvad-socks-list/list/mullvad-socks-list.txt" -o "./proxies.txt"
           rclone copyto "./proxies.txt" "r2:/pub/utils/mullvad/proxies.txt" --user-agent="$USER_AGENT" --buffer-size="100M" --s3-upload-concurrency="500" --s3-chunk-size="100M" --multi-thread-streams="500" --checkers="2000" --transfers="1000" --check-first --checksum --copy-links --fast-list --progress
-          popd "$(mktemp -d)" > /dev/null 2>&1
+          popd "$(mktemp -d)" >/dev/null 2>&1
+          #--------------#
+        continue-on-error: true
+#------------------------------------------------------------------------------------#
+      - name: rClone Generate Dynamic (https://pub.ajam.dev/utils/debian)
+        run: |
+          # Presets
+          set +x ; set +e
+          #--------------#
+          ##Fetch (Cloud Images: https://cloud.debian.org/images/cloud/)
+          pushd "$(mktemp -d)" >/dev/null 2>&1
+          CLOUD_DIR_DEBIAN="$(realpath .)" && export CLOUD_DIR_DEBIAN="$CLOUD_DIR_DEBIAN"
+          ##amd64 
+          wget --quiet --show-progress --progress="dot:giga" --user-agent="$USER_AGENT" "https://cloud.debian.org/images/cloud/bookworm/latest/debian-12-genericcloud-amd64.json" -O "$CLOUD_DIR_DEBIAN/debian-12-cloud-amd64.json" &
+          wget --quiet --show-progress --progress="dot:giga" --user-agent="$USER_AGENT" "https://cloud.debian.org/images/cloud/bookworm/latest/debian-12-genericcloud-amd64.qcow2" -O "$CLOUD_DIR_DEBIAN/debian-12-cloud-amd64.qcow2" &
+          wget --quiet --show-progress --progress="dot:giga" --user-agent="$USER_AGENT" "https://cloud.debian.org/images/cloud/bookworm/latest/debian-12-genericcloud-amd64.raw" -O "$CLOUD_DIR_DEBIAN/debian-12-cloud-amd64.raw" &
+          wget --quiet --show-progress --progress="dot:giga" --user-agent="$USER_AGENT" "https://cloud.debian.org/images/cloud/bookworm/latest/debian-12-genericcloud-amd64.tar.xz" -O "$CLOUD_DIR_DEBIAN/debian-12-cloud-amd64.tar.xz" &
+          wget --quiet --show-progress --progress="dot:giga" --user-agent="$USER_AGENT" "https://cloud.debian.org/images/cloud/bookworm/latest/debian-12-generic-amd64.json" -O "$CLOUD_DIR_DEBIAN/debian-12-cloud-baremetal-amd64.json" &
+          wget --quiet --show-progress --progress="dot:giga" --user-agent="$USER_AGENT" "https://cloud.debian.org/images/cloud/bookworm/latest/debian-12-generic-amd64.qcow2" -O "$CLOUD_DIR_DEBIAN/debian-12-cloud-baremetal-amd64.qcow2" &
+          wget --quiet --show-progress --progress="dot:giga" --user-agent="$USER_AGENT" "https://cloud.debian.org/images/cloud/bookworm/latest/debian-12-generic-amd64.raw" -O "$CLOUD_DIR_DEBIAN/debian-12-cloud-baremetal-amd64.raw" &
+          wget --quiet --show-progress --progress="dot:giga" --user-agent="$USER_AGENT" "https://cloud.debian.org/images/cloud/bookworm/latest/debian-12-generic-amd64.tar.xz" -O "$CLOUD_DIR_DEBIAN/debian-12-cloud-baremetal-amd64.tar.xz" &
+          ##arm64
+          wget --quiet --show-progress --progress="dot:giga" --user-agent="$USER_AGENT" "https://cloud.debian.org/images/cloud/bookworm/latest/debian-12-genericcloud-arm64.json" -O "$CLOUD_DIR_DEBIAN/debian-12-cloud-arm64.json" &
+          wget --quiet --show-progress --progress="dot:giga" --user-agent="$USER_AGENT" "https://cloud.debian.org/images/cloud/bookworm/latest/debian-12-genericcloud-arm64.qcow2" -O "$CLOUD_DIR_DEBIAN/debian-12-cloud-arm64.qcow2" &
+          wget --quiet --show-progress --progress="dot:giga" --user-agent="$USER_AGENT" "https://cloud.debian.org/images/cloud/bookworm/latest/debian-12-genericcloud-arm64.raw" -O "$CLOUD_DIR_DEBIAN/debian-12-cloud-arm64.raw" &
+          wget --quiet --show-progress --progress="dot:giga" --user-agent="$USER_AGENT" "https://cloud.debian.org/images/cloud/bookworm/latest/debian-12-genericcloud-arm64.tar.xz" -O "$CLOUD_DIR_DEBIAN/debian-12-cloud-arm64.tar.xz" &
+          wget --quiet --show-progress --progress="dot:giga" --user-agent="$USER_AGENT" "https://cloud.debian.org/images/cloud/bookworm/latest/debian-12-generic-arm64.json" -O "$CLOUD_DIR_DEBIAN/debian-12-cloud-baremetal-arm64.json" &
+          wget --quiet --show-progress --progress="dot:giga" --user-agent="$USER_AGENT" "https://cloud.debian.org/images/cloud/bookworm/latest/debian-12-generic-arm64.qcow2" -O "$CLOUD_DIR_DEBIAN/debian-12-cloud-baremetal-arm64.qcow2" &
+          wget --quiet --show-progress --progress="dot:giga" --user-agent="$USER_AGENT" "https://cloud.debian.org/images/cloud/bookworm/latest/debian-12-generic-arm64.raw" -O "$CLOUD_DIR_DEBIAN/debian-12-cloud-baremetal-arm64.raw" &
+          wget --quiet --show-progress --progress="dot:giga" --user-agent="$USER_AGENT" "https://cloud.debian.org/images/cloud/bookworm/latest/debian-12-generic-arm64.tar.xz" -O "$CLOUD_DIR_DEBIAN/debian-12-cloud-baremetal-arm64.tar.xz" &
+          ##Info          
+          echo -e "[+] Source: https://cloud.debian.org/images/cloud/" > "$CLOUD_DIR_DEBIAN/INFO.txt"
+          echo -e "cloud --> Cloud Image without drivers for physical hardware" >> "$CLOUD_DIR_DEBIAN/INFO.txt"
+          echo -e "cloud-baremetal --> Cloud Image including drivers for physical hardware" >> "$CLOUD_DIR_DEBIAN/INFO.txt"
+          wait ; echo ; du -sh * ; du -sh "$CLOUD_DIR_DEBIAN"
+          cd "$CLOUD_DIR_DEBIAN" && rclone sync "." "r2:/pub/utils/debian/cloud" --user-agent="$USER_AGENT" --buffer-size="100M" --s3-upload-concurrency="500" --s3-chunk-size="100M" --multi-thread-streams="500" --checkers="2000" --transfers="1000" --check-first --checksum --copy-links --fast-list --progress
+          popd "$(mktemp -d)" >/dev/null 2>&1 ; rm -rf "$CLOUD_DIR_DEBIAN"
+          #--------------#
+        continue-on-error: true
+#------------------------------------------------------------------------------------#
+      - name: rClone Generate Dynamic (https://pub.ajam.dev/utils/ubuntu)
+        run: |
+          # Presets
+          set +x ; set +e
+          #--------------#
+          ##Fetch (Cloud Images: https://cloud-images.ubuntu.com/noble/current/)
+          pushd "$(mktemp -d)" >/dev/null 2>&1
+          CLOUD_DIR_UBUNTU="$(realpath .)" && export CLOUD_DIR_UBUNTU="$CLOUD_DIR_UBUNTU"
+          ##amd64
+          wget --quiet --show-progress --progress="dot:giga" --user-agent="$USER_AGENT" "https://cloud-images.ubuntu.com/noble/current/noble-server-cloudimg-amd64.manifest" -O "$CLOUD_DIR_UBUNTU/ubuntu-24.04-lts-amd64.txt" &
+          wget --quiet --show-progress --progress="dot:giga" --user-agent="$USER_AGENT" "https://cloud-images.ubuntu.com/noble/current/noble-server-cloudimg-amd64.img" -O "$CLOUD_DIR_UBUNTU/ubuntu-24.04-lts-amd64.qcow2" &
+          wget --quiet --show-progress --progress="dot:giga" --user-agent="$USER_AGENT" "https://cloud-images.ubuntu.com/noble/current/noble-server-cloudimg-amd64.tar.gz" -O "$CLOUD_DIR_UBUNTU/ubuntu-24.04-lts-amd64.tar.gz" &
+          ##arm64
+          wget --quiet --show-progress --progress="dot:giga" --user-agent="$USER_AGENT" "https://cloud-images.ubuntu.com/noble/current/noble-server-cloudimg-arm64.manifest" -O "$CLOUD_DIR_UBUNTU/ubuntu-24.04-lts-arm64.txt" &
+          wget --quiet --show-progress --progress="dot:giga" --user-agent="$USER_AGENT" "https://cloud-images.ubuntu.com/noble/current/noble-server-cloudimg-arm64.img" -O "$CLOUD_DIR_UBUNTU/ubuntu-24.04-lts-arm64.qcow2" &
+          
+          wget --quiet --show-progress --progress="dot:giga" --user-agent="$USER_AGENT" "https://cloud-images.ubuntu.com/noble/current/noble-server-cloudimg-arm64.tar.gz" -O "$CLOUD_DIR_UBUNTU/ubuntu-24.04-lts-arm64.tar.gz" &          
+          ##Info
+          echo -e "[+] Source: https://cloud-images.ubuntu.com/noble/current/" > "$CLOUD_DIR_UBUNTU/INFO.txt"
+          echo -e "Distro --> Ubuntu Server 24.04 LTS (Noble Numbat)" >> "$CLOUD_DIR_UBUNTU/INFO.txt"
+          wait ; echo 
+          qemu-img convert -p -f qcow2 "$CLOUD_DIR_UBUNTU/ubuntu-24.04-lts-amd64.qcow2" -O raw "$CLOUD_DIR_UBUNTU/ubuntu-24.04-lts-amd64.raw"
+          qemu-img convert -p -f qcow2 "$CLOUD_DIR_UBUNTU/ubuntu-24.04-lts-arm64.qcow2" -O raw "$CLOUD_DIR_UBUNTU/ubuntu-24.04-lts-arm64.raw"
+          du -sh * ; du -sh "$CLOUD_DIR_UBUNTU"
+          cd "$CLOUD_DIR_UBUNTU" && rclone sync "." "r2:/pub/utils/ubuntu/cloud" --user-agent="$USER_AGENT" --buffer-size="100M" --s3-upload-concurrency="500" --s3-chunk-size="100M" --multi-thread-streams="500" --checkers="2000" --transfers="1000" --check-first --checksum --copy-links --fast-list --progress
+          popd "$(mktemp -d)" >/dev/null 2>&1 ; rm -rf "$CLOUD_DIR_UBUNTU"
+          #--------------#
+        continue-on-error: true        
+#------------------------------------------------------------------------------------#
+      - name: rClone Generate Dynamic (https://pub.ajam.dev/utils/kata-containers)
+        run: |
+          # Presets
+          set +x ; set +e
+          #--------------#
+          ##Fetch (amd64)
+          pushd "$(mktemp -d)" >/dev/null 2>&1
+          eget "https://github.com/kata-containers/kata-containers" --asset "static" --asset "amd64" --asset "tar" --download-only
+          ouch decompress "./"* --yes
+          find . -type d -name '*bin*' ! -name 'build-bins' -print0 | xargs -0 -I {} sh -c 'mkdir -p ./build-bins && cp -r {}/* ./build-bins/'
+          file "./build-bins/"* && du -sh "./build-bins/"*
+          #copy
+          rsync -av --copy-links "./build-bins/" "./kata-bins"
+          rsync -av --copy-links "$(find . -type d -path '*/opt/kata' -print -quit)/" "./kata-x86_64-Linux"
+          #Archive
+          7z a -ttar -mx="9" -mmt="$(($(nproc)+1))" -bt "$SYSTMP/kata-bins.tar" "./kata-bins" 2>/dev/null
+          7z a -ttar -mx="9" -mmt="$(($(nproc)+1))" -bt "$SYSTMP/kata-x86_64-Linux.tar" "./kata-x86_64-Linux" 2>/dev/null
+          #rClone
+          rclone sync "./kata-x86_64-Linux/" "r2:/pub/utils/kata-x86_64-Linux/" --user-agent="$USER_AGENT" --buffer-size="100M" --s3-upload-concurrency="500" --s3-chunk-size="100M" --multi-thread-streams="500" --checkers="2000" --transfers="1000" --check-first --checksum --copy-links --fast-list --progress
+          rclone copyto "$SYSTMP/kata-bins.tar" "r2:/pub/utils/kata-x86_64-Linux/kata-bins.tar" --user-agent="$USER_AGENT" --buffer-size="100M" --s3-upload-concurrency="500" --s3-chunk-size="100M" --multi-thread-streams="500" --checkers="2000" --transfers="1000" --check-first --checksum --copy-links --fast-list --progress
+          rclone copyto "$SYSTMP/kata-x86_64-Linux.tar" "r2:/pub/utils/kata-x86_64-Linux/kata-x86_64-Linux.tar" --user-agent="$USER_AGENT" --buffer-size="100M" --s3-upload-concurrency="500" --s3-chunk-size="100M" --multi-thread-streams="500" --checkers="2000" --transfers="1000" --check-first --checksum --copy-links --fast-list --progress
+          popd "$(mktemp -d)" >/dev/null 2>&1 ; find "$SYSTMP" -type d -name '*kata*' -exec rm -rf {} \; 2>/dev/null
+          #--------------#
+          ##Fetch (arm64)
+          pushd "$(mktemp -d)" >/dev/null 2>&1
+          eget "https://github.com/kata-containers/kata-containers" --asset "static" --asset "arm64" --asset "tar" --download-only
+          ouch decompress "./"* --yes
+          find . -type d -name '*bin*' ! -name 'build-bins' -print0 | xargs -0 -I {} sh -c 'mkdir -p ./build-bins && cp -r {}/* ./build-bins/'
+          file "./build-bins/"* && du -sh "./build-bins/"*
+          #copy
+          rsync -av --copy-links "./build-bins/" "./kata-bins"
+          rsync -av --copy-links "$(find . -type d -path '*/opt/kata' -print -quit)/" "./kata-aarch64-Linux"
+          #Archive
+          7z a -ttar -mx="9" -mmt="$(($(nproc)+1))" -bt "$SYSTMP/kata-bins.tar" "./kata-bins" 2>/dev/null
+          7z a -ttar -mx="9" -mmt="$(($(nproc)+1))" -bt "$SYSTMP/kata-aarch64-Linux.tar" "./kata-aarch64-Linux" 2>/dev/null
+          #rClone
+          rclone sync "./kata-aarch64-Linux/" "r2:/pub/utils/kata-aarch64-Linux/" --user-agent="$USER_AGENT" --buffer-size="100M" --s3-upload-concurrency="500" --s3-chunk-size="100M" --multi-thread-streams="500" --checkers="2000" --transfers="1000" --check-first --checksum --copy-links --fast-list --progress
+          rclone copyto "$SYSTMP/kata-bins.tar" "r2:/pub/utils/kata-aarch64-Linux/kata-bins.tar" --user-agent="$USER_AGENT" --buffer-size="100M" --s3-upload-concurrency="500" --s3-chunk-size="100M" --multi-thread-streams="500" --checkers="2000" --transfers="1000" --check-first --checksum --copy-links --fast-list --progress
+          rclone copyto "$SYSTMP/kata-aarch64-Linux.tar" "r2:/pub/utils/kata-aarch64-Linux/kata-aarch64-Linux.tar" --user-agent="$USER_AGENT" --buffer-size="100M" --s3-upload-concurrency="500" --s3-chunk-size="100M" --multi-thread-streams="500" --checkers="2000" --transfers="1000" --check-first --checksum --copy-links --fast-list --progress
+          popd "$(mktemp -d)" >/dev/null 2>&1 ; find "$SYSTMP" -type d -name '*kata*' -exec rm -rf {} \; 2>/dev/null
           #--------------#
         continue-on-error: true
 #------------------------------------------------------------------------------------#
