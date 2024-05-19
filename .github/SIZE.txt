@@ -1,4 +1,4 @@
-2.7M └─┬ main
+2.8M └─┬ main
 932K   ├─┬ wordium
 904K   │ ├─┬ Deps
 440K   │ │ ├── g_api.txt
@@ -12,9 +12,9 @@
 744K   │ └─┬ nmap
 732K   │   ├── Services.md
 8.0K   │   └── README.md
-536K   ├─┬ misc
-180K   │ ├─┬ Github
-176K   │ │ └─┬ Runners
+540K   ├─┬ misc
+184K   │ ├─┬ Github
+180K   │ │ └─┬ Runners
  68K   │ │   ├─┬ Ubuntu
  20K   │ │   │ ├── 0xf_gh_runner_ubuntu_debug.yaml
  16K   │ │   │ ├── 0xf_gh_runner_ubuntu_ng_no_ts_debug.yaml
@@ -22,10 +22,10 @@
 8.0K   │ │   │ ├── ngrok_tg_ssh.sh
 8.0K   │ │   │ ├── debloat.sh
 4.0K   │ │   │ └── ipv6_warp.sh
- 64K   │ │   ├─┬ Self-Hosted
+ 68K   │ │   ├─┬ Self-Hosted
  16K   │ │   │ ├── x86_64-ubuntu.dockerfile
  16K   │ │   │ ├── aarch64-ubuntu.dockerfile
-8.0K   │ │   │ ├── ubuntu-systemd-base.dockerfile
+ 12K   │ │   │ ├── ubuntu-systemd-base.dockerfile
 8.0K   │ │   │ ├── run.sh
 4.0K   │ │   │ ├── startup.sh
 4.0K   │ │   │ ├── cron_README.md
