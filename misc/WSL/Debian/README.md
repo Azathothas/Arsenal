@@ -4,6 +4,7 @@
  echo -e "$USER ALL=(ALL) NOPASSWD:ALL" | sudo tee -a "/etc/sudoers"
  sudo apt-get update -y -qq
  ```
+
 > - **Upgrade**
 ```bash
 !#Upgrade PKGs & Deps
@@ -57,6 +58,15 @@
 #After Reboot
  sudo mount -l "/lib/modules/"
  lsb_release -a || cat "/etc/os-release"
+```
+
+> - **TimeZone**
+```bash
+!# Replace Asia/Kathmandu with yours
+ sudo apt-get update -y && sudo DEBIAN_FRONTEND="noninteractive" apt-get install -y tzdata
+ sudo ln -fs "/usr/share/zoneinfo/Asia/Kathmandu" "/etc/localtime"
+ sudo dpkg-reconfigure --frontend noninteractive tzdata
+ sudo apt-get update -y
 ```
 
 > - **CoreUtils**
