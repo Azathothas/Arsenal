@@ -137,7 +137,12 @@ sudo ufw status numbered
  ```
 ---
 - #### Install Addons & Utils
-- ##### [**Static-Bins**](https://github.com/Azathothas/Toolpacks) (Essential)
+- ##### Minimal (Recommended)
+```bash
+# bash <(curl -qfsSL "https://raw.githubusercontent.com/Azathothas/Arsenal/main/misc/Linux/install_bb_tools.sh")
+bash <(curl -qfsSL "https://pub.ajam.dev/repos/Azathothas/Arsenal/misc/Linux/install_bb_tools.sh")
+```
+- ##### [**Static-Bins**](https://github.com/Azathothas/Toolpacks) (Optional)
  ```bash
  !# SKIP THIS IF YOU INTEND TO ALSO RUN THE CUSTOMIZE SCRIPT (BELOW)
 !# eget & 7z (DEPS)
