@@ -2,13 +2,71 @@
 > - **Passwordless**
  ```bash
  echo -e "$USER ALL=(ALL) NOPASSWD:ALL" | sudo tee -a "/etc/sudoers"
- sudo apt-get update -y
+ sudo apt-get update -y -qq
  ```
+> - **Upgrade**
+```bash
+!#Upgrade PKGs & Deps
+ sudo apt-get update -y -qq ; sudo apt-get dist-upgrade -y -qq ; sudo apt-get upgrade -y -qq
+ sudo apt install \
+ apt-transport-https apt-utils bash bash-completion build-essential ca-certificates coreutils curl fakeroot file fuse git gnupg2 gpg-agent htop jq kmod less lsof moreutils nano ntp pciutils procps psmisc rsync software-properties-common sudo supervisor tar tmux util-linux xterm wget zip -y -qq
+ sudo apt full-upgrade -y -qq
+
+!#Cleanup
+ sudo apt autoremove -y -qq
+ sudo apt autoclean -y -qq
+
+!#Upgrade Distro
+ sudo nano "/etc/apt/sources.list"
+ #https://www.debian.org/releases/
+ `
+ #Change bookworm to whatever is he newest version, and also replace http with https (ca-certificates)
+ deb https://deb.debian.org/debian bookworm main
+ deb https://deb.debian.org/debian bookworm-updates main
+ deb https://security.debian.org/debian-security bookworm-security main
+ deb https://ftp.debian.org/debian bookworm-backports main
+ `
+
+!#Upgrade PKGs & Deps (again)
+ sudo umount -l "/lib/modules/"
+ sudo apt-get update -y -qq ; sudo apt-get dist-upgrade -y -qq ; sudo apt-get upgrade -y -qq
+ sudo apt full-upgrade -y -qq ; sudo apt autoremove -y -qq ; sudo apt autoclean -y -qq
+
+!#Check
+ sudo reboot # or wsl --terminate "Debian"
+#After Reboot
+ sudo mount -l "/lib/modules/"
+ lsb_release -a || cat "/etc/os-release"
+
+!#If Stable packages are too old
+#Switch to Testing (Good Enough) or Unstable (Dangerous)
+ sudo nano "/etc/apt/sources.list"
+ #https://www.debian.org/releases/
+ `
+ #Change bookworm to testing
+ deb https://deb.debian.org/debian testing main
+ deb https://deb.debian.org/debian testing-updates main
+ deb https://security.debian.org/debian-security testing-security main
+ deb https://ftp.debian.org/debian testing-backports main
+ `
+ sudo umount -l "/lib/modules/"
+ sudo apt-get update -y -qq ; sudo apt-get dist-upgrade -y -qq ; sudo apt-get upgrade -y -qq
+ sudo apt full-upgrade -y -qq ; sudo apt autoremove -y -qq ; sudo apt autoclean -y -qq
+!#Check
+ sudo reboot # or wsl --terminate "Debian"
+#After Reboot
+ sudo mount -l "/lib/modules/"
+ lsb_release -a || cat "/etc/os-release"
+```
+
 > - **CoreUtils**
  ```bash
- sudo apt-get update -y ; sudo apt-get dist-upgrade -y ; sudo apt-get upgrade -y
  !# May need to run this Twice
- sudo apt install autoconf automake autopoint binutils bison build-essential ca-certificates coreutils curl dos2unix git gcc htop flex file jq moreutils wget -y
+ sudo apt install \
+ apt-transport-https apt-utils bash bash-completion build-essential ca-certificates coreutils curl dos2unix \
+ fakeroot file fuse git gnupg2 gpg-agent htop jq kmod less lsof moreutils nano ntp pciutils procps psmisc \
+ rsync software-properties-common sudo supervisor tar tmux util-linux xterm wget zip -y -qq
+
  !# Networking
  sudo apt-get install dnsutils 'inetutils*' net-tools netcat-traditional -y
  sudo apt-get install 'iputils*' -y
