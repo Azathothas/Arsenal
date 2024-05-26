@@ -12,7 +12,7 @@
 744K   │ └─┬ nmap
 732K   │   ├── Services.md
 8.0K   │   └── README.md
-540K   ├─┬ misc
+544K   ├─┬ misc
 184K   │ ├─┬ Github
 180K   │ │ └─┬ Runners
  68K   │ │   ├─┬ Ubuntu
@@ -50,10 +50,10 @@
  12K   │ │ ├── sshd_config_passwordless
  12K   │ │ ├── sshd_config
 4.0K   │ │ └── TIPS_TRICKS.md
- 36K   │ ├─┬ WSL
- 24K   │ │ ├─┬ Debian
+ 40K   │ ├─┬ WSL
+ 28K   │ │ ├─┬ Debian
+ 12K   │ │ │ ├── README.md
 8.0K   │ │ │ ├── customize.sh
-8.0K   │ │ │ ├── README.md
 4.0K   │ │ │ └── starship.toml
 8.0K   │ │ └── README.md
  32K   │ ├─┬ Windows
