@@ -1,11 +1,25 @@
+- #### Index
+> - [**Setup**](https://github.com/Azathothas/Arsenal/tree/main/misc/WSL/Debian#setup)
+> > - [**` PASSWORDLESS`**](https://github.com/Azathothas/Toolpacks/tree/main/Docs#how-does-it-all-work)
+> > - [**` Request a new PKG/Tool`**](https://github.com/Azathothas/Toolpacks/tree/main/Docs#how-to-add-request-a-new-a-pkgtool)
+> > - [**` Notes On Building`**](https://github.com/Azathothas/Toolpacks/blob/main/Docs/BUILD_NOTES.md)
+> > - [**` How To Contribute`**](https://github.com/Azathothas/Toolpacks/tree/main/Docs#how-to-contribute)
+> - [**🔽 Download 🔽**](https://github.com/Azathothas/Toolpacks/tree/main#-download-)
+> > - [**`📦Linux x86_64📦`**](https://bin.ajam.dev/x86_64_Linux/) 
+> > - [**`📦Linux aarch64📦`**](https://bin.ajam.dev/aarch64_arm64_Linux/)
+> > - [**`📦Windows_NT AMD64📦`**](https://bin.ajam.dev/x64_Windows/)
+> > - [**`📦Android arm64-v8a📦`**](https://bin.ajam.dev/arm64_v8a_Android/)
+> - [**📦 Status 🔖**](https://github.com/Azathothas/Toolpacks/tree/main#-status-)
+> - [**🚧 Security ⚙️**](https://github.com/Azathothas/Toolpacks#-security-%EF%B8%8F)
+---
 - #### Setup
-> - **Passwordless**
+> - ##### **Passwordless**
  ```bash
  echo -e "$USER ALL=(ALL) NOPASSWD:ALL" | sudo tee -a "/etc/sudoers"
  sudo apt-get update -y -qq
  ```
 
-> - **Upgrade**
+> - ##### **Upgrade**
 ```bash
 !#Upgrade PKGs & Deps
  sudo apt-get update -y -qq ; sudo apt-get dist-upgrade -y -qq ; sudo apt-get upgrade -y -qq
@@ -60,7 +74,7 @@
  lsb_release -a || cat "/etc/os-release"
 ```
 
-> - **TimeZone**
+> - ##### **TimeZone**
 ```bash
 !# Replace Asia/Kathmandu with yours
  sudo apt-get update -y && sudo DEBIAN_FRONTEND="noninteractive" apt-get install -y tzdata
@@ -69,7 +83,7 @@
  sudo apt-get update -y
 ```
 
-> - **CoreUtils**
+> - ##### **CoreUtils**
  ```bash
  !# May need to run this Twice
  sudo apt install \
@@ -83,13 +97,13 @@
  !# Fix Perms for ping
  sudo setcap cap_net_raw+ep "$(which ping)"
  ```
-> - **IP Forwarding**
+> - ##### **IP Forwarding**
 ```bash
  echo 'net.ipv4.ip_forward = 1' | sudo tee -a "/etc/sysctl.conf"
  echo 'net.ipv6.conf.all.forwarding = 1' | sudo tee -a "/etc/sysctl.conf"
  sudo sysctl -p "/etc/sysctl.conf"
 ```
-> - **ufw Firewall**
+> - ##### **ufw Firewall**
 ```bash
 !# Install ufw
 sudo apt-get -y install ufw
@@ -118,7 +132,7 @@ sudo ufw allow out 7332/udp
 sudo ufw reload
 sudo ufw status numbered
 ```
-> - **Systemd**
+> - ##### **Systemd**
  ```bash
  !# Enable SystemD : https://devblogs.microsoft.com/commandline/systemd-support-is-now-available-in-wsl/
  echo -e "[boot]\nsystemd=true" | sudo tee "/etc/wsl.conf"
@@ -220,4 +234,24 @@ wget "https://raw.githubusercontent.com/Azathothas/Arsenal/main/misc/WSL/Debian/
  export GOPATH="$HOME/go"
  export PATH="$HOME/bin:$HOME/.cargo/bin:$HOME/.cargo/env:$GOROOT/bin:$GOPATH/bin:$HOME/miniconda3/bin:$HOME/miniconda3/condabin:/usr/local/zig:/usr/local/zig/lib:/usr/local/zig/lib/include:$PATH"
  ```
+---
+- #### `DE/XRDP`
+> - [Cinnamon](https://projects.linuxmint.com/cinnamon/) (Bloated)
+> - [GNOME](https://www.gnome.org/) (Bloated)
+> - [KDE Plasma](https://kde.org/plasma-desktop/) (Bloated)
+> - [LXDE](http://www.lxde.org/) (Minimal)
+> - [LXQT](https://lxqt-project.org/) (Minimal)
+> - [MATE](https://mate-desktop.org/) (Balanced)
+> - [XFCE](https://www.xfce.org/) (Minimal)
+```bash
+#This will take a long time and you may not see any output
+sudo apt-get install tasksel -y -qq
+sudo tasksel install xfce-desktop --new-install
+#Install & enable rdp
+sudo apt-get install xrdp -y
+sudo systemctl enable xrdp --now
+sudo systemctl restart xrdp
+sudo systemctl status xrdp
+#Use a RDP client to connect to $WSL_VM_IP:3389
+```
 ---
