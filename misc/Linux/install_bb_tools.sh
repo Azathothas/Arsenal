@@ -103,7 +103,9 @@ INSTALL_DIR_SIZE_PRE="$(du -sh ${INSTALL_DIR} | cut -f1)" && export INSTALL_DIR_
 #certstream: https://github.com/Azathothas/Arsenal/tree/main/certstream
  eval "${INSTALL_PRE}" "${INSTALL_SRC}/certstream" -o "${INSTALL_DIR}/certstream" && eval "${INSTALL_POST}" "${INSTALL_DIR}/certstream" &  
 #certstream-server-go: https://github.com/d-Rickyy-b/certstream-server-go
- eval "${INSTALL_PRE}" "${INSTALL_SRC}/certstream-server-go" -o "${INSTALL_DIR}/certstream-server-go" && eval "${INSTALL_POST}" "${INSTALL_DIR}/certstream-server-go" & 
+ eval "${INSTALL_PRE}" "${INSTALL_SRC}/certstream-server-go" -o "${INSTALL_DIR}/certstream-server-go" && eval "${INSTALL_POST}" "${INSTALL_DIR}/certstream-server-go" &
+#cloudflared: https://github.com/cloudflare/cloudflared
+ eval "${INSTALL_PRE}" "${INSTALL_SRC}/cloudflared" -o "${INSTALL_DIR}/cloudflared" && eval "${INSTALL_POST}" "${INSTALL_DIR}/cloudflared" &
 #crlfuzz : https://github.com/dwisiswant0/crlfuzz
  eval "${INSTALL_PRE}" "${INSTALL_SRC}/crlfuzz" -o "${INSTALL_DIR}/crlfuzz" && eval "${INSTALL_POST}" "${INSTALL_DIR}/crlfuzz" &
 #croc : https://github.com/schollz/croc
