@@ -13,7 +13,7 @@
 744K   │ └─┬ nmap
 732K   │   ├── Services.md
 8.0K   │   └── README.md
-544K   ├─┬ misc
+548K   ├─┬ misc
 184K   │ ├─┬ Github
 180K   │ │ └─┬ Runners
  68K   │ │   ├─┬ Ubuntu
@@ -35,7 +35,7 @@
  28K   │ │   │ └── 0xf_gh_runner_windows_debug.yaml
 8.0K   │ │   └─┬ macOS
 4.0K   │ │     └── 0xf_gh_runner_macos_debug.yaml
-144K   │ ├─┬ Linux
+148K   │ ├─┬ Linux
  88K   │ │ ├─┬ Debian
  20K   │ │ │ ├── install_bb_tools_x86_64.sh
  20K   │ │ │ ├── install_bb_tools_aarch64.sh
@@ -47,7 +47,7 @@
 4.0K   │ │ │ ├── install_chrome_x86_64.sh
 4.0K   │ │ │ ├── install_chrome_aarch64.sh
 4.0K   │ │ │ └── bootstrap.sh
- 24K   │ │ ├── install_bb_tools.sh
+ 28K   │ │ ├── install_bb_tools.sh
  12K   │ │ ├── sshd_config_passwordless
  12K   │ │ ├── sshd_config
 4.0K   │ │ └── TIPS_TRICKS.md
