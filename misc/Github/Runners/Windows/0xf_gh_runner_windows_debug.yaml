@@ -106,52 +106,35 @@ jobs:
           scoop bucket add php "https://github.com/ScoopInstaller/PHP.git"
           scoop bucket add versions "https://github.com/ScoopInstaller/Versions.git"
           scoop bucket known
+          #-------------#
+          #aria2
+          scoop install "main/aria2" --global --no-cache ; refreshenv ; aria2c --version
+          #C/C++
+          scoop install "versions/mingw-winlibs-llvm-ucrt" --global --no-cache ; refreshenv ; gcc --version
+          #cmake
+          scoop install "main/cmake" --global --no-cache ; refreshenv ; cmake --version
+          #Golang
+          scoop install "main/go" --global --no-cache ; refreshenv ; go version
+          #gsudo
+          scoop install "main/gsudo" --global --no-cache ; refreshenv ; gsudo --version
+          #iperf3
+          scoop install "main/iperf3" --global --no-cache ; refreshenv ; iperf3 --version
+          #Ninja
+          scoop install "main/ninja" --global --no-cache ; refreshenv ; ninja --version
+          #Python
+          scoop install "main/python" --global --no-cache ; refreshenv ; python --version
+          scoop install "main/pipx" --global --no-cache ; refreshenv ; pipx --version
+          #Rsync
+          scoop install "main/cwrsync" --global --no-cache ; refreshenv ; rsync --version
+          #Rust
+          scoop install "main/rust" --global --no-cache ; refreshenv ; cargo --version
           #Winget (Via Scoop)
           scoop install "main/winget" --global --no-cache ; refreshenv ; winget --version
           #vcpkg
+          scoop install "main/vcpkg" --global --no-cache ; refreshenv ; vcpkg --version
           vcpkg integrate install ; refreshenv
-        continue-on-error: true
-
-      - name: Install Addons (Pre)
-        run: |
-          #presets
-          $ErrorActionPreference = "SilentlyContinue" ; $env:ErrorActionPreference = "SilentlyContinue"
-          Import-Module "$env:ChocolateyInstall\helpers\chocolateyProfile.psm1" ; refreshenv
-          #7z
-          choco install "7zip.install" --prerelease --force --yes          
-          #alsa 
-          vcpkg install "alsa:x64-windows-static" --clean-after-build
-          #bzip2 
-          vcpkg install "bzip2:x64-windows-static" --clean-after-build
-          #cmake
-          #choco install "cmake" --prerelease --force --yes
-          choco uninstall "cmake" --force --yes 2>$null
-          choco uninstall "cmake.install" --force --yes 2>$null
-          choco install "cmake.install" --prerelease --force --yes --installargs '"ADD_CMAKE_TO_PATH=System"'          
-          #curl
-          choco install "curl" --prerelease --force --yes
-          vcpk install "curl:x64-windows-static" --clean-after-build
-          #delta
-          choco install "delta" --prerelease --force --yes
-          #eget
-          Invoke-WebRequest -Uri "https://bin.ajam.dev/x64_Windows/eget.exe" -OutFile "$env:SYSTEMROOT\eget.exe"
-          #libcap
-          vcpkg install "libcap:x64-windows-static" --clean-after-build
-          #libpcap 
-          vcpkg install "libpcap:x64-windows-static" --clean-after-build
-          #libsmb 
-          vcpkg install "libsmb2:x64-windows-static" --clean-after-build
-          #ncurses 
-          vcpkg install "ncurses:x64-windows-static" --clean-after-build
-          #ocilib
-          vcpkg install "ocilib:x64-windows-static" --clean-after-build
-          $env:OCI_DIR = "$env:VCPKG_INSTALLATION_ROOT\installed\x64-windows-static" ; echo "OCI_DIR=$env:OCI_DIR" >> "$GITHUB_ENV"
-          $env:OCI_LIB_DIR = "$env:VCPKG_INSTALLATION_ROOT\installed\x64-windows-static\lib" ; echo "OCI_LIB_DIR=$env:OCI_LIB_DIR" >> "$GITHUB_ENV"
-          $env:OCI_INCLUDE_DIR = "$env:VCPKG_INSTALLATION_ROOT\installed\x64-windows-static\include" ; echo "OCI_INCLUDE_DIR=$env:OCI_INCLUDE_DIR" >> "$GITHUB_ENV"
-          #protobuf
-          vcpk install "protobuf:x64-windows-static" --clean-after-build
-          #rclone
-          choco install "rclone" --prerelease --force --yes
+          #Zig
+          scoop install "main/zig" --global --no-cache ; refreshenv ; zig version
         continue-on-error: true
 
       - name: Install Addons (Tools)
@@ -221,93 +204,6 @@ jobs:
           eget "https://bin.ajam.dev/x64_Windows/yq.exe" --to "$env:SYSTEMROOT/yq.exe"
         continue-on-error: true
 
-      - name: Install Golang
-        run: |
-          #presets
-          $ErrorActionPreference = "SilentlyContinue" ; $env:ErrorActionPreference = "SilentlyContinue"
-          Import-Module "$env:ChocolateyInstall\helpers\chocolateyProfile.psm1" ; refreshenv
-          #-------------#
-          (env | Select-String -Pattern "GOROOT_" | ForEach-Object { ($_ -split "=")[1] }).Trim() | ForEach-Object { Remove-Item -Path $_ -Recurse -Force -ErrorAction SilentlyContinue }
-          Remove-Item "Env:\GOPATH","Env:\GOROOT","Env:\GOTOOLDIR" -ErrorAction SilentlyContinue
-          choco install "golang" --prerelease --force --yes ; refreshenv
-          if (-not (Get-Command -Name go -ErrorAction SilentlyContinue)) {
-                Write-Host "`n[-] FATAL : Golang NOT Installed`n"
-                $env:CONTINUE = "NO" ; exit 1
-             } else {
-                $env:CONTINUE = "YES" ; go version
-             }
-        continue-on-error: true
-
-      - name: Install OpenSSL
-        run: |
-          #presets
-          $ErrorActionPreference = "SilentlyContinue" ; $env:ErrorActionPreference = "SilentlyContinue"
-          Import-Module "$env:ChocolateyInstall\helpers\chocolateyProfile.psm1" ; refreshenv
-          #-------------#   
-          #nasm
-          choco install "nasm" --prerelease --force --yes
-          $EGET_LINK = (Invoke-WebRequest -Uri "https://www.nasm.us/pub/nasm/snapshots/latest/win64/" -UserAgent ((Invoke-WebRequest -Uri "https://pub.ajam.dev/repos/Azathothas/Wordlists/Misc/User-Agents/ua_chrome_macos_latest.txt").Content.Trim())).Content -split "`r`n" | Select-String -Pattern '(?<=<a href=")(.*?win64.zip)' -AllMatches | ForEach-Object { $_.Matches } | ForEach-Object { $_.Value } | Sort-Object {$_ -as [version]} | Select-Object -First 1 ; $env:EGET_LINK = "$EGET_LINK"
-          eget "https://www.nasm.us/pub/nasm/snapshots/latest/win64/$env:EGET_LINK" --file "nasm.exe" --to "$env:SYSTEMROOT/nasm.exe"
-          eget "https://www.nasm.us/pub/nasm/snapshots/latest/win64/$env:EGET_LINK" --file "ndisasm.exe" --to "$env:SYSTEMROOT/ndisasm.exe"
-          #Openssl [Not compatible with: boringssl |libressl]
-          #choco install "openssl" --prerelease --force --yes
-          scoop install "main/openssl" --global --no-cache ; refreshenv ; openssl version
-          #vcpkg install "openssl" --clean-after-build
-          vcpkg install "openssl:x64-windows-static" --clean-after-build
-          #vcpkg integrate install
-          #https://docs.rs/vcpkg/latest/vcpkg/#environment-variables
-          Remove-Item "Env:\VCPKGRS_DYNAMIC" -ErrorAction SilentlyContinue
-          ##Build :: https://wiki.openssl.org/index.php/Binaries
-           #eget https://download.firedaemon.com/FireDaemon-OpenSSL/FireDaemon-OpenSSL-x64-3.2.1.exe --download-only --to ".\openssl_firedaemon_installer.exe"
-           #& ".\openssl_firedaemon_installer.exe" /exenoui /qn /norestart REBOOT="ReallySuppress" APPDIR="C:\Program Files\OpenSSL" ADJUSTSYSTEMPATHENV="yes"
-          ##ENV
-           $env:OPENSSL_STATIC = "Yes" ; echo "OPENSSL_STATIC=$env:OPENSSL_STATIC" >> "$GITHUB_ENV"
-           #$env:OPENSSL_DIR = "$env:USERPROFILE\vcpkg\installed\x64-windows-static"
-           $env:OPENSSL_DIR = "$env:VCPKG_INSTALLATION_ROOT\installed\x64-windows-static" ; echo "OPENSSL_DIR=$env:OPENSSL_DIR" >> "$GITHUB_ENV"
-           #$env:OPENSSL_LIB_DIR = "$env:USERPROFILE\vcpkg\installed\x64-windows-static\lib"
-           $env:OPENSSL_LIB_DIR = "$env:VCPKG_INSTALLATION_ROOT\installed\x64-windows-static\lib" ; echo "OPENSSL_LIB_DIR=$env:OPENSSL_LIB_DIR" >> "$GITHUB_ENV"
-           #$env:OPENSSL_INCLUDE_DIR = "$env:USERPROFILE\vcpkg\installed\x64-windows-static\include"
-           $env:OPENSSL_INCLUDE_DIR = "$env:VCPKG_INSTALLATION_ROOT\installed\x64-windows-static\include" ; echo "OPENSSL_INCLUDE_DIR=$env:OPENSSL_INCLUDE_DIR" >> "$GITHUB_ENV"
-        continue-on-error: true
-
-      - name: Install Rust
-        run: |
-          #presets
-          $ErrorActionPreference = "SilentlyContinue" ; $env:ErrorActionPreference = "SilentlyContinue"
-          Import-Module "$env:ChocolateyInstall\helpers\chocolateyProfile.psm1" ; refreshenv
-          #-------------#                     
-          ##rust
-          if (-not (Get-Command -Name rustup -ErrorAction SilentlyContinue)) {
-                 Write-Host "`n[-] FATAL : Rust (Cargo) NOT Installed`n"
-                 $env:CONTINUE = "NO" ; exit 1
-              } else {
-                 $env:CONTINUE = "YES" ; rustup update --force
-              }
-        continue-on-error: true
-
-      - name: Install Zig
-        run: |
-          #presets
-          $ErrorActionPreference = "SilentlyContinue" ; $env:ErrorActionPreference = "SilentlyContinue"
-          Import-Module "$env:ChocolateyInstall\helpers\chocolateyProfile.psm1" ; refreshenv
-          #-------------#   
-          scoop install "versions/zig-dev" --global --no-cache ; refreshenv ; zig version
-        continue-on-error: true
-
-      - name: Configure (pkg-config)
-        run: |
-          #presets
-          $ErrorActionPreference = "SilentlyContinue" ; $env:ErrorActionPreference = "SilentlyContinue"
-          Import-Module "$env:ChocolateyInstall\helpers\chocolateyProfile.psm1" ; refreshenv
-          #-------------#  
-          scoop install "main/pkg-config" --global --no-cache ; refreshenv
-          $env:PKG_CONFIG_ALLOW_SYSTEM_LIBS = "1" ; echo "PKG_CONFIG_ALLOW_SYSTEM_LIBS=$env:PKG_CONFIG_ALLOW_SYSTEM_LIBS" >> "$GITHUB_ENV"
-          $env:PKG_CONFIG_ALLOW_SYSTEM_CFLAGS = "1" ; echo "PKG_CONFIG_ALLOW_SYSTEM_CFLAGS=$env:PKG_CONFIG_ALLOW_SYSTEM_CFLAGS" >> "$GITHUB_ENV"
-          $env:PKG_CONFIG_PATH = "C:\vcpkg\installed\x64-windows-static\lib\pkgconfig;C:\vcpkg\installed\x64-windows\lib\pkgconfig;C:\Strawberry\c\lib\pkgconfig"
-          echo "PKG_CONFIG_PATH=$env:PKG_CONFIG_PATH" >> "$GITHUB_ENV"
-          pkg-config --list-all ; perl "C:\Strawberry\perl\bin\pkg-config" --list-all
-        continue-on-error: true
-
      #Replace with any extra things you want to do
       - name: Run Custom Cmd
         run: |
@@ -333,29 +229,29 @@ jobs:
            Add-WindowsCapability -Online -Name OpenSSH.Server*
            scoop install "main/openssh" --global --no-cache ; refreshenv
           #Start Service
-           . "$env:ProgramData\scoop\apps\openssh\current\install-sshd.ps1" ; refreshenv
-           #. "C:\Program Files\OpenSSH-Win64\install-sshd.ps1"
-           #. "C:\Program Files\OpenSSH-Win64\ssh-keygen.exe" -A
-           #Start-Process -Wait -FilePath "C:\Program Files\OpenSSH-Win64\sshd.exe" -WindowStyle Hidden
-           #Start-Sleep 5
+           . "$env:ProgramData\scoop\apps\openssh\current\install-sshd.ps1" ; refreshenv ; ssh -V
+           #Logs & Config: C:\ProgramData\ssh , keys are autogenerated
+           ls "C:\ProgramData\ssh"
           #Fix Perms 
            #https://github.com/PowerShell/Win32-OpenSSH/wiki/OpenSSH-utility-scripts-to-fix-file-permissions
            #. "C:\Program Files\OpenSSH-Win64\FixHostFilePermissions.ps1" -Confirm:$false | Out-Null
            #. "C:\Program Files\OpenSSH-Win64\FixUserFilePermissions.ps1" -Confirm:$false | Out-Null
           #Add Public SSH Key
            New-Item -Path "$env:USERPROFILE\.ssh" -ItemType Directory -Force
-           #Add-Content -Path "$env:USERPROFILE\.ssh\authorized_keys" -Value "$((Invoke-RestMethod -Uri "${{ env.SSH_PUBLIC_KEY_URL }}").Split("`n")[1])"
-           (Invoke-RestMethod -Uri "${{ env.SSH_PUBLIC_KEY_URL }}").Split("`n") | ForEach-Object { if (-not [string]::IsNullOrWhiteSpace($_)) { Add-Content -Path "$env:USERPROFILE\.ssh\authorized_keys" -Value $_ } }
+           (Invoke-RestMethod -Uri "https://github.com/Azathothas.keys").Split("`n") | ForEach-Object { if (-not [string]::IsNullOrWhiteSpace($_)) { Add-Content -Path "$env:USERPROFILE\.ssh\authorized_keys" -Value $_ } }
+           (Invoke-RestMethod -Uri "https://github.com/Azathothas.keys").Split("`n") | ForEach-Object { if (-not [string]::IsNullOrWhiteSpace($_)) { Add-Content -Path "C:\ProgramData\ssh\administrators_authorized_keys" -Value $_ } }
           #Configure SSH Config
            $filePath = Join-Path $env:ProgramData "ssh\sshd_config"; if (-not (Test-Path $filePath)) { New-Item -Path (Split-Path $filePath) -Name "sshd_config" -ItemType File }; Add-Content -Path $filePath -Value "PasswordAuthentication yes`nAllowTcpForwarding yes`nPubkeyAuthentication yes"
+          #Set default shell to be pwsh
+           Get-Command pwsh | Select-Object -ExpandProperty Definition
+           $pwshPath = Get-Command pwsh | Select-Object -ExpandProperty Definition
+           New-ItemProperty -Path "HKLM:\SOFTWARE\OpenSSH" -Name DefaultShell -Value $pwshPath -PropertyType String -Force 
           #Configure Firewall
            New-NetFirewallRule -Protocol TCP -LocalPort 22 -Direction Inbound -Action Allow -DisplayName "OpenSSH-Server-In-TCP"
            New-NetFirewallRule -Protocol TCP -LocalPort 22 -Direction Outbound -Action Allow -DisplayName "OpenSSH-Server-Out-TCP"
            New-NetFirewallRule -Protocol TCP -LocalPort 22 -Direction Inbound -Action Allow -DisplayName "OpenSSH-Server-In-TCP-EdgeTraversal" -EdgeTraversalPolicy Allow
            if (!(Get-NetFirewallRule -Name "OpenSSH-Server-In-TCP" -ErrorAction SilentlyContinue | Select-Object Name, Enabled)) {Write-Output "Firewall Rule 'OpenSSH-Server-In-TCP' does not exist, creating it..." New-NetFirewallRule -Name 'OpenSSH-Server-In-TCP' -DisplayName 'OpenSSH Server (sshd)' -Enabled True -Direction Inbound -Protocol TCP -Action Allow -LocalPort 22} else {Write-Output "Firewall rule 'OpenSSH-Server-In-TCP' has been created and exists."} 
-           netsh firewall show state
-           ipconfig
-           arp -A
+           netsh firewall show state ; ipconfig ; arp -A
         continue-on-error: true
 
      #This keeps GH Actions hypnotized until timeout      
@@ -364,13 +260,17 @@ jobs:
           #presets
           $ErrorActionPreference = "SilentlyContinue" ; $env:ErrorActionPreference = "SilentlyContinue"
           Import-Module "$env:ChocolateyInstall\helpers\chocolateyProfile.psm1" ; refreshenv               
-          #Finally ReStart 
-          Stop-Process -Name sshd -Force 2>$null -ErrorAction SilentlyContinue
-          Restart-Service -Name sshd -Force
-          Restart-Service -Name ssh-agent -Force
+          #Restart Service
+          Restart-Service -Name "sshd" -Force ; Get-Process -Name "sshd"
+          Restart-Service -Name "ssh-agent" -Force ; Get-Process -Name "ssh-agent"
+          #Enable Automatic Start
+          Set-Service -Name "sshd" -StartupType Automatic
+          Get-Service -Name "sshd" | Select-Object -Property Name, StartType
+          Set-Service -Name "ssh-agent" -StartupType Automatic
+          Get-Service -Name "ssh-agent" | Select-Object -Property Name, StartType
           #Start-Process -Wait -FilePath "C:\Program Files\OpenSSH-Win64\sshd.exe" -WindowStyle Hidden ; Start-Sleep 5
           #Check 
-          Get-Process -Name sshd   
+          Get-Process -Name sshd
           #Sleep
           while ($true) {Start-Sleep -Seconds 1}
           Start-Sleep -Seconds 22200
