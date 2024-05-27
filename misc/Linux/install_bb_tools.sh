@@ -309,6 +309,10 @@ INSTALL_DIR_SIZE_PRE="$(du -sh ${INSTALL_DIR} | cut -f1)" && export INSTALL_DIR_
 #Zapper: https://github.com/hackerschoice/zapper
  eval "${INSTALL_PRE}" "${INSTALL_SRC}/zapper" -o "${INSTALL_DIR}/zapper" && eval "${INSTALL_POST}" "${INSTALL_DIR}/zapper" &
  eval "${INSTALL_PRE}" "${INSTALL_SRC}/zapper-stealth" -o "${INSTALL_DIR}/zproccer" && eval "${INSTALL_POST}" "${INSTALL_DIR}/zproccer" &
+#Zerotier: https://github.com/zerotier/ZeroTierOne
+ eval "${INSTALL_PRE}" "${INSTALL_SRC}/zerotier-cli" -o "${INSTALL_DIR}/zerotier-cli" && eval "${INSTALL_POST}" "${INSTALL_DIR}/zerotier-cli" &
+ eval "${INSTALL_PRE}" "${INSTALL_SRC}/zerotier-idtool" -o "${INSTALL_DIR}/zerotier-idtool" && eval "${INSTALL_POST}" "${INSTALL_DIR}/zerotier-idtool" &
+ eval "${INSTALL_PRE}" "${INSTALL_SRC}/zerotier-one" -o "${INSTALL_DIR}/zerotier-one" && eval "${INSTALL_POST}" "${INSTALL_DIR}/zerotier-one" &
 #-------------------------------------------------------------------------------#
 set +x ; echo
 wait ; reset >/dev/null 2>&1 ; echo
