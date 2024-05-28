@@ -13,7 +13,7 @@
 744K   │ └─┬ nmap
 732K   │   ├── Services.md
 8.0K   │   └── README.md
-540K   ├─┬ misc
+548K   ├─┬ misc
 176K   │ ├─┬ Github
 172K   │ │ └─┬ Runners
  68K   │ │   ├─┬ Ubuntu
@@ -35,7 +35,7 @@
  20K   │ │   │ └── 0xf_gh_runner_windows_debug.yaml
 8.0K   │ │   └─┬ macOS
 4.0K   │ │     └── 0xf_gh_runner_macos_debug.yaml
-148K   │ ├─┬ Linux
+156K   │ ├─┬ Linux
  88K   │ │ ├─┬ Debian
  20K   │ │ │ ├── install_bb_tools_x86_64.sh
  20K   │ │ │ ├── install_bb_tools_aarch64.sh
@@ -50,7 +50,9 @@
  28K   │ │ ├── install_bb_tools.sh
  12K   │ │ ├── sshd_config_passwordless
  12K   │ │ ├── sshd_config
-4.0K   │ │ └── TIPS_TRICKS.md
+4.0K   │ │ ├── TIPS_TRICKS.md
+4.0K   │ │ ├── DAGU_CRON_EXAMPLE.yaml
+4.0K   │ │ └── DAGU_CRON.md
  40K   │ ├─┬ WSL
  28K   │ │ ├─┬ Debian
  12K   │ │ │ ├── README.md
