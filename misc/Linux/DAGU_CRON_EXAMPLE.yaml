@@ -1,0 +1,29 @@
+##REF: https://dagu.readthedocs.io/en/latest/yaml_format.html
+#Syntax follows usual cron :: https://crontab.guru/
+schedule: "09 21 * * *"
+#Description
+description: 'Run Example DAG (https://github.com/Azathothas/Arsenal/blob/main/misc/Linux/DAGU_CRON.md) [DAGU Test] @ 09:15 PM UTC --> 03:00 AM Mrng'
+#Tags
+tags: dagu-test,test,some-other-tag
+#ENV VARS (Accessible by DAGU & Steps)
+env: 
+  - EXAMPLE_ENV_A: 'test-01'
+  - EXAMPLE_ENV_B: 'test-02/001'
+#Steps  
+steps:
+  - name: Run
+    description: 'Run Test (https://github.com/Azathothas/Arsenal/blob/main/misc/Linux/DAGU_CRON_EXAMPLE.yaml)'
+    command: "bash"
+    script: |
+      ##Presets
+      set +x ; set +e
+      ##Setup ENV
+      USER="$(whoami)" && export USER="${USER}"
+      HOME="$(getent passwd $USER | cut -d: -f6)" && export HOME="${HOME}"
+      SYSTMP="$(dirname $(mktemp -u))" && export SYSTMP="${SYSTMP}"
+      #Main script
+      echo -e "\n[+] Testing an Example DAG\n"
+      echo -e "\nTest A: ${EXAMPLE_ENV_A}"
+      echo -e "Test B: ${EXAMPLE_ENV_B}"
+      echo "${EXAMPLE_ENV_A} ${EXAMPLE_ENV_B}" > "${SYSTMP}/test.txt"
+      cat "${SYSTMP}/test.txt"
