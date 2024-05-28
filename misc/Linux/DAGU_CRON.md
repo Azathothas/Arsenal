@@ -39,6 +39,7 @@ Environment="DAGU_IS_BASICAUTH=1"
 Environment="DAGU_BASICAUTH_USERNAME=DG_SUSER"
 Environment="DAGU_BASICAUTH_PASSWORD=DG_SPASSWD"
 ExecStartPre=/bin/mkdir -p DG_HOME/.dagu/syslog
+ExecStartPre=/bin/sleep 10
 ExecStart=/usr/bin/dagu start-all
 StandardOutput=DG_HOME/.dagu/syslog/dagu_ts.log
 StandardError=DG_HOME/.dagu/syslog/dagu_ts.log
