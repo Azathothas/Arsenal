@@ -27,14 +27,6 @@ jobs:
     timeout-minutes: 390
     
     steps:
-    
-      - name: Debloat
-        run: |
-          #presets
-          $ErrorActionPreference = "SilentlyContinue" ; $env:ErrorActionPreference = "SilentlyContinue"
-          #-------------#
-          Invoke-Expression ((Invoke-WebRequest -Uri "https://raw.githubusercontent.com/Azathothas/Arsenal/main/misc/Github/Runners/Windows/debloat.ps1").Content)
-        continue-on-error: true
         
      #Sys Info, primarily for debug
       - name: Get Sys-Info || Set User
@@ -104,6 +96,14 @@ jobs:
           Write-Host "`n"
           (Invoke-WebRequest -Uri 'http://ip-api.com/json/' -UseBasicParsing).Content | ConvertFrom-Json
           Write-Host "`n"
+        continue-on-error: true
+
+      - name: Debloat
+        run: |
+          #presets
+          $ErrorActionPreference = "SilentlyContinue" ; $env:ErrorActionPreference = "SilentlyContinue"
+          #-------------#
+          Invoke-Expression ((Invoke-WebRequest -Uri "https://raw.githubusercontent.com/Azathothas/Arsenal/main/misc/Github/Runners/Windows/debloat.ps1").Content)
         continue-on-error: true
 
       - name: Setup Build Env
