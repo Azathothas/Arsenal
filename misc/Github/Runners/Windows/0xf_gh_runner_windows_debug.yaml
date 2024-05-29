@@ -98,14 +98,6 @@ jobs:
           Write-Host "`n"
         continue-on-error: true
 
-      - name: Debloat
-        run: |
-          #presets
-          $ErrorActionPreference = "SilentlyContinue" ; $env:ErrorActionPreference = "SilentlyContinue"
-          #-------------#
-          Invoke-Expression ((Invoke-WebRequest -Uri "https://raw.githubusercontent.com/Azathothas/Arsenal/main/misc/Github/Runners/Windows/debloat.ps1").Content)
-        continue-on-error: true
-
       - name: Setup Build Env
         run: |
           #presets
@@ -274,10 +266,11 @@ jobs:
         continue-on-error: true
 
      #This keeps GH Actions hypnotized until timeout      
-      - name: SSH (Breakpoint) || Sleep ∞
+      - name: SSH
         run: | 
           #presets
           $ErrorActionPreference = "SilentlyContinue" ; $env:ErrorActionPreference = "SilentlyContinue"
+          #-------------#
           Import-Module "$env:ChocolateyInstall\helpers\chocolateyProfile.psm1" ; refreshenv               
           #Restart Service
           Restart-Service -Name "sshd" -Force ; Get-Process -Name "sshd"
@@ -290,7 +283,24 @@ jobs:
           #Start-Process -Wait -FilePath "C:\Program Files\OpenSSH-Win64\sshd.exe" -WindowStyle Hidden ; Start-Sleep 5
           #Check 
           Get-Process -Name sshd
+        continue-on-error: true
+
+      - name: Debloat
+        run: |
+          #presets
+          $ErrorActionPreference = "SilentlyContinue" ; $env:ErrorActionPreference = "SilentlyContinue"
+          #-------------#
+          Invoke-Expression ((Invoke-WebRequest -Uri "https://raw.githubusercontent.com/Azathothas/Arsenal/main/misc/Github/Runners/Windows/debloat.ps1").Content)
+          #Start-Job -ScriptBlock { Invoke-Expression ((Invoke-WebRequest -Uri "https://raw.githubusercontent.com/Azathothas/Arsenal/main/misc/Github/Runners/Windows/debloat.ps1").Content) }
+        continue-on-error: true
+
+      - name: (Breakpoint) || Sleep ∞
+        run: |
+          #presets
+          $ErrorActionPreference = "SilentlyContinue" ; $env:ErrorActionPreference = "SilentlyContinue"
+          #-------------#
           #Sleep
           while ($true) {Start-Sleep -Seconds 1}
           Start-Sleep -Seconds 22200
         continue-on-error: true
+        
