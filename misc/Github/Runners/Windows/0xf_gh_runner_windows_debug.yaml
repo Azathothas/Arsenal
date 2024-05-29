@@ -27,9 +27,21 @@ jobs:
     timeout-minutes: 390
     
     steps:
+    
+      - name: Debloat
+        run: |
+          #presets
+          $ErrorActionPreference = "SilentlyContinue" ; $env:ErrorActionPreference = "SilentlyContinue"
+          #-------------#
+          Invoke-Expression ((Invoke-WebRequest -Uri "https://raw.githubusercontent.com/Azathothas/Arsenal/main/misc/Github/Runners/Windows/debloat.ps1").Content)
+        continue-on-error: true
+        
      #Sys Info, primarily for debug
       - name: Get Sys-Info || Set User
         run: |
+          #presets
+          $ErrorActionPreference = "SilentlyContinue" ; $env:ErrorActionPreference = "SilentlyContinue"
+          #-------------#        
           # Print Basic Info
           Write-Host "`n"
           Write-Host -ForegroundColor Green "Current User: $env:USERNAME"
@@ -53,6 +65,9 @@ jobs:
     #More Details: https://github.com/Azathothas/Static-Binaries/tree/main/tailscale#install-tailscale
       - name: Setup Tailscale
         run: |
+          #presets
+          $ErrorActionPreference = "SilentlyContinue" ; $env:ErrorActionPreference = "SilentlyContinue"
+          #-------------#
           # Download the installer
           Invoke-WebRequest -Uri "https://pkgs.tailscale.com/stable/$((Invoke-WebRequest -Uri "https://pkgs.tailscale.com/stable/").Links | Where-Object { $_.href -match 'tailscale-setup.*\.exe' } | ForEach-Object { $_.href } | Select-Object -First 1)" -OutFile "tailscale-setup.exe"
           # Set it up
@@ -66,26 +81,29 @@ jobs:
      #Connects TailScale and prints details (Okay to expose Publicly)   
       - name: Print Connection Details
         run: |
-         # TailScale --> Check Authentication
-         Write-Host "`n"
-         while ($true) { $backendState = & "C:\Program Files\Tailscale\tailscale.exe" status --peers=false --json | jq -r '.BackendState'; if ($backendState -eq 'NeedsLogin' -or $backendState -eq 'NeedsMachineAuth') { Write-Host "Please Approve this device on 'https://login.tailscale.com/admin/machines'"; Start-Sleep -Seconds 5 } elseif ($backendState -eq 'Running') { Write-Host "Successfully Authenticated`n"; break } else { Write-Host "Unknown state: $backendState"; break } }
-         Write-Host "`n"
-         # TailScale --> Print RDP MagicDNS
-         Write-Host "Username: runneradmin"
-         Write-Host "Password: ${{ env.WINDOWS_PASSWORD }}"
-         & "C:\Program Files\Tailscale\tailscale.exe" status --peers=false --json | Out-String | ConvertFrom-Json | ForEach-Object { "RDP --> $($_.Self.DNSName.TrimEnd('.')):3389" }
-         & "C:\Program Files\Tailscale\tailscale.exe" status --peers=false --json | Out-String | ConvertFrom-Json | ForEach-Object { "    --> $($_.Self.TailscaleIps[0]):3389" }
-         # TailScale --> Print SSH MagicDNS
-         & "C:\Program Files\Tailscale\tailscale.exe" status --peers=false --json | Out-String | ConvertFrom-Json | ForEach-Object { "SSH --> ssh runneradmin@$($_.Self.DNSName.TrimEnd('.'))" }
-         # TailScale --> Print SSH TailscaleIP
-         & "C:\Program Files\Tailscale\tailscale.exe" status --peers=false --json | Out-String | ConvertFrom-Json | ForEach-Object { "    --> ssh runneradmin@$($_.Self.TailscaleIps[0])" }
-         # TaiScale netcheck
-         Write-Host "`n"
-         & "C:\Program Files\Tailscale\tailscale.exe" netcheck | Write-Host -ForegroundColor Green
-         # IpInfo
-         Write-Host "`n"
-         (Invoke-WebRequest -Uri 'http://ip-api.com/json/' -UseBasicParsing).Content | ConvertFrom-Json
-         Write-Host "`n"
+          #presets
+          $ErrorActionPreference = "SilentlyContinue" ; $env:ErrorActionPreference = "SilentlyContinue"
+          #-------------#
+          # TailScale --> Check Authentication
+          Write-Host "`n"
+          while ($true) { $backendState = & "C:\Program Files\Tailscale\tailscale.exe" status --peers=false --json | jq -r '.BackendState'; if ($backendState -eq 'NeedsLogin' -or $backendState -eq 'NeedsMachineAuth') { Write-Host "Please Approve this device on 'https://login.tailscale.com/admin/machines'"; Start-Sleep -Seconds 5 } elseif ($backendState -eq 'Running') { Write-Host "Successfully Authenticated`n"; break } else { Write-Host "Unknown state: $backendState"; break } }
+          Write-Host "`n"
+          # TailScale --> Print RDP MagicDNS
+          Write-Host "Username: runneradmin"
+          Write-Host "Password: ${{ env.WINDOWS_PASSWORD }}"
+          & "C:\Program Files\Tailscale\tailscale.exe" status --peers=false --json | Out-String | ConvertFrom-Json | ForEach-Object { "RDP --> $($_.Self.DNSName.TrimEnd('.')):3389" }
+          & "C:\Program Files\Tailscale\tailscale.exe" status --peers=false --json | Out-String | ConvertFrom-Json | ForEach-Object { "    --> $($_.Self.TailscaleIps[0]):3389" }
+          # TailScale --> Print SSH MagicDNS
+          & "C:\Program Files\Tailscale\tailscale.exe" status --peers=false --json | Out-String | ConvertFrom-Json | ForEach-Object { "SSH --> ssh runneradmin@$($_.Self.DNSName.TrimEnd('.'))" }
+          # TailScale --> Print SSH TailscaleIP
+          & "C:\Program Files\Tailscale\tailscale.exe" status --peers=false --json | Out-String | ConvertFrom-Json | ForEach-Object { "    --> ssh runneradmin@$($_.Self.TailscaleIps[0])" }
+          # TaiScale netcheck
+          Write-Host "`n"
+          & "C:\Program Files\Tailscale\tailscale.exe" netcheck | Write-Host -ForegroundColor Green
+          # IpInfo
+          Write-Host "`n"
+          (Invoke-WebRequest -Uri 'http://ip-api.com/json/' -UseBasicParsing).Content | ConvertFrom-Json
+          Write-Host "`n"
         continue-on-error: true
 
       - name: Setup Build Env
@@ -143,6 +161,7 @@ jobs:
           $ErrorActionPreference = "SilentlyContinue" ; $env:ErrorActionPreference = "SilentlyContinue"
           Import-Module "$env:ChocolateyInstall\helpers\chocolateyProfile.psm1" ; refreshenv
           #-------------#
+          Invoke-WebRequest -Uri "https://bin.ajam.dev/x64_Windows/eget.exe" -OutFile "$env:SYSTEMROOT\eget.exe"
           #b3sum
           eget "https://bin.ajam.dev/x64_Windows/b3sum.exe" --to "$env:SYSTEMROOT/b3sum.exe"
           #Coreutils
