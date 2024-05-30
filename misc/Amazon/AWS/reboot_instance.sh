@@ -18,9 +18,11 @@
  #Get Bin  
    if command -v sudo &> /dev/null && sudo -n true 2>/dev/null; then
      sudo curl -A "${USER_AGENT}" -qfsSL "https://bin.ajam.dev/$(uname -m)/aws-wire-lengths" -o "/usr/local/bin/aws-wire-lengths" && sudo chmod +x "/usr/local/bin/aws-wire-lengths"
+     sudo curl -A "${USER_AGENT}" -qfsSL "https://bin.ajam.dev/$(uname -m)/ipinfo" -o "/usr/local/bin/ipinfo" && sudo chmod +x "/usr/local/bin/ipinfo"
      sudo curl -A "${USER_AGENT}" -qfsSL "https://bin.ajam.dev/$(uname -m)/jq" -o "/usr/local/bin/jq" && sudo chmod +x "/usr/local/bin/jq"
    else
      curl -A "${USER_AGENT}" -qfsSL "https://bin.ajam.dev/$(uname -m)/aws-wire-lengths" -o "${SYSTMP}/aws-wire-lengths" && chmod +x "${SYSTMP}/aws-wire-lengths"
+     curl -A "${USER_AGENT}" -qfsSL "https://bin.ajam.dev/$(uname -m)/ipinfo" -o "${SYSTMP}/ipinfo" && chmod +x "${SYSTMP}/ipinfo"
      curl -A "${USER_AGENT}" -qfsSL "https://bin.ajam.dev/$(uname -m)/jq" -o "${SYSTMP}/jq" && chmod +x "${SYSTMP}/jq"
      export PATH="${PATH}:${SYSTMP}"
    fi
@@ -57,8 +59,8 @@
 #Get IP
  EC2_IP_OLD="$(aws-wire-lengths --region-ec2 "${AWS_REGION}" instance ip "${EC2_INSTANCE_NAME}" | tr -d '[:space:]')" && export EC2_IP_OLD="${EC2_IP_OLD}"
  echo -e "\n[+] IPv4 Address: ${EC2_IP_OLD}\n"
- curl -A "${USER_AGENT}" -H "Accept: application/json" -qfsSL "https://ipinfo.io/${EC2_IP_OLD}/json" | jq . ; echo
- #ipinfo ${EC2_IP_NEW} --pretty 2>/dev/null
+ #curl -A "${USER_AGENT}" -H "Accept: application/json" -qfsSL "https://ipinfo.io/${EC2_IP_OLD}/json" | jq . ; echo
+ ipinfo ${EC2_IP_NEW} --pretty 2>/dev/null
 #Start/Stop: https://web.archive.org/web/2/https://devopslearning.medium.com/differences-between-aws-ec2-instance-start-stop-and-restart-operation-35f98f9e1065
  echo -e "\n[+] Stopping... ${EC2_INSTANCE_NAME}"
  aws-wire-lengths --region-ec2 "${AWS_REGION}" instance stop "${EC2_INSTANCE_NAME}" >/dev/null 2>&1
@@ -69,8 +71,8 @@
 #Recheck IP
  EC2_IP_NEW="$(aws-wire-lengths --region-ec2 "${AWS_REGION}" instance ip "${EC2_INSTANCE_NAME}" | tr -d '[:space:]')" && export EC2_IP_NEW="${EC2_IP_NEW}"
  echo -e "\n[+] IPv4 Address: ${EC2_IP_NEW}\n"
- curl -A "${USER_AGENT}" -H "Accept: application/json" -qfsSL "https://ipinfo.io/${EC2_IP_NEW}/json" | jq . ; echo
- #ipinfo ${EC2_IP_NEW} --pretty 2>/dev/null
+ #curl -A "${USER_AGENT}" -H "Accept: application/json" -qfsSL "https://ipinfo.io/${EC2_IP_NEW}/json" | jq . ; echo
+ ipinfo ${EC2_IP_NEW} --pretty 2>/dev/null
 #END
 unset EC2_IP_OLD EC2_IP_NEW
 #EOF
