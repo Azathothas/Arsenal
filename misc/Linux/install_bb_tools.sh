@@ -54,8 +54,12 @@
  fi
 #check install src 
  if [ -z "${INSTALL_SRC}" ]; then
-     ARCH="$(uname -m)" ; [ "${ARCH}" = "aarch64" ] && INSTALL_SRC="https://bin.ajam.dev/aarch64_arm64_Linux" || [ "${ARCH}" = "x86_64" ] && INSTALL_SRC="https://bin.ajam.dev/x86_64_Linux"
-     export INSTALL_SRC="${INSTALL_SRC}"
+     ARCH="$(uname -m)" && export ARCH="${ARCH}"
+     if [ "${ARCH}" == "aarch64" ]; then
+         INSTALL_SRC="https://bin.ajam.dev/aarch64_arm64_Linux" ; export INSTALL_SRC="${INSTALL_SRC}"
+     elif [ "${ARCH}" == "x86_64" ]; then
+         INSTALL_SRC="https://bin.ajam.dev/x86_64_Linux" ; export INSTALL_SRC="${INSTALL_SRC}"
+     fi
      echo -e "\n[+] Fetching Bins from (Default) :: ${INSTALL_SRC}\n"
  else
      echo -e "\n[+] Using Bins from (Specified) :: ${INSTALL_SRC}\n"
