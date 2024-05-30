@@ -13,7 +13,7 @@
 744K   │ └─┬ nmap
 732K   │   ├── Services.md
 8.0K   │   └── README.md
-572K   ├─┬ misc
+576K   ├─┬ misc
 188K   │ ├─┬ Github
 184K   │ │ └─┬ Runners
  68K   │ │   ├─┬ Ubuntu
@@ -86,11 +86,11 @@
 4.0K   │ │   ├── devsetup.sh
 4.0K   │ │   ├── debloat.sh
 4.0K   │ │   └── change_hostname.sh
+ 16K   │ ├─┬ Amazon
+ 12K   │ │ └─┬ AWS
+8.0K   │ │   └── reboot_instance.sh
  12K   │ ├─┬ Segfault
 8.0K   │ │ └── debloat.sh
- 12K   │ ├─┬ Amazon
-8.0K   │ │ └─┬ AWS
-4.0K   │ │   └── reboot_instance.sh
 8.0K   │ └─┬ uBlock
 4.0K   │   └── redirects_disable.txt
 312K   ├─┬ aki
