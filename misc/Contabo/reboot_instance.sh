@@ -62,7 +62,8 @@
 
 #----------------------------------------------------------------------------#
 #Set config [ "$HOME/.cntb.yaml" || "/etc/cntb/.cntb.yaml" ]
- cntb config set-credentials --oauth2-clientid="${CONTABO_CLIENT_ID}" --oauth2-client-secret="${CONTABO_CLIENT_SECRET}" --oauth2-user="${CONTABO_API_USERNAME}" --oauth2-password="${CONTABO_API_PASSWORD}" --debug="info"
+ #cntb config set-credentials --oauth2-clientid="${CONTABO_CLIENT_ID}" --oauth2-client-secret="${CONTABO_CLIENT_SECRET}" --oauth2-user="${CONTABO_API_USERNAME}" --oauth2-password="${CONTABO_API_PASSWORD}" --debug="info"
+ rm -rf "$HOME/.cntb.yaml" 2>/dev/null ; sudo rm -rf "/etc/cntb/.cntb.yaml" 2>/dev/null
 #List
  cntb get instances --oauth2-clientid="${CONTABO_CLIENT_ID}" --oauth2-client-secret="${CONTABO_CLIENT_SECRET}" --oauth2-user="${CONTABO_API_USERNAME}" --oauth2-password="${CONTABO_API_PASSWORD}" --debug="info"
 #Get Instance_ID
@@ -81,6 +82,6 @@
  ipinfo "${CONTABO_INSTANCE_IP}" --pretty 2>/dev/null
 #END
 unset CONTABO_INSTANCE_ID
-rm -rf "$HOME/.cntb.yaml" ; sudo rm -rf "/etc/cntb/.cntb.yaml" 2>/dev/null
+rm -rf "$HOME/.cntb.yaml" 2>/dev/null ; sudo rm -rf "/etc/cntb/.cntb.yaml" 2>/dev/null
 #EOF
 #----------------------------------------------------------------------------#
