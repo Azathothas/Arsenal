@@ -63,20 +63,19 @@
 #----------------------------------------------------------------------------#
 #Set config [ "$HOME/.cntb.yaml" || "/etc/cntb/.cntb.yaml" ]
  cntb config set-credentials --oauth2-clientid="${CONTABO_CLIENT_ID}" --oauth2-client-secret="${CONTABO_CLIENT_SECRET}" --oauth2-user="${CONTABO_API_USERNAME}" --oauth2-password="${CONTABO_API_PASSWORD}" --debug="info"
- sed "s/'//g" -i "$HOME/.cntb.yaml" ; sudo sed "s/'//g" -i "/etc/cntb/.cntb.yaml" 2>/dev/null
 #List
- cntb get instances
+ cntb get instances --oauth2-clientid="${CONTABO_CLIENT_ID}" --oauth2-client-secret="${CONTABO_CLIENT_SECRET}" --oauth2-user="${CONTABO_API_USERNAME}" --oauth2-password="${CONTABO_API_PASSWORD}" --debug="info"
 #Get Instance_ID
- CONTABO_INSTANCE_ID="$(cntb get instances --output="json" | jq --arg HN "$HOST_NUMBER" '.[] | select(.vHostNumber == ($HN | tonumber))' | jq -r '.instanceId')" && export CONTABO_INSTANCE_ID="${CONTABO_INSTANCE_ID}"
- CONTABO_INSTANCE_IP="$(cntb get instances --output="json" | jq --arg HN "$HOST_NUMBER" '.[] | select(.vHostNumber == ($HN | tonumber))' | jq -r '.ipv4')" && export CONTABO_INSTANCE_IP="${CONTABO_INSTANCE_IP}"
+ CONTABO_INSTANCE_ID="$(cntb get instances --oauth2-clientid="${CONTABO_CLIENT_ID}" --oauth2-client-secret="${CONTABO_CLIENT_SECRET}" --oauth2-user="${CONTABO_API_USERNAME}" --oauth2-password="${CONTABO_API_PASSWORD}" --debug="info" | jq --arg HN "$HOST_NUMBER" '.[] | select(.vHostNumber == ($HN | tonumber))' | jq -r '.instanceId')" && export CONTABO_INSTANCE_ID="${CONTABO_INSTANCE_ID}"
+ CONTABO_INSTANCE_IP="$(cntb get instances --oauth2-clientid="${CONTABO_CLIENT_ID}" --oauth2-client-secret="${CONTABO_CLIENT_SECRET}" --oauth2-user="${CONTABO_API_USERNAME}" --oauth2-password="${CONTABO_API_PASSWORD}" --debug="info" | jq --arg HN "$HOST_NUMBER" '.[] | select(.vHostNumber == ($HN | tonumber))' | jq -r '.ipv4')" && export CONTABO_INSTANCE_IP="${CONTABO_INSTANCE_IP}"
 #Reboot
  echo -e "\n[+] Stopping... ${CONTABO_INSTANCE_ID} (${INSTANCE_HOST_NUMBER})"
- cntb stop instance "${CONTABO_INSTANCE_ID}" && sleep 10
- cntb get instance "${CONTABO_INSTANCE_ID}"
+ cntb stop instance "${CONTABO_INSTANCE_ID}" --oauth2-clientid="${CONTABO_CLIENT_ID}" --oauth2-client-secret="${CONTABO_CLIENT_SECRET}" --oauth2-user="${CONTABO_API_USERNAME}" --oauth2-password="${CONTABO_API_PASSWORD}" --debug="info" && sleep 10
+ cntb get instance "${CONTABO_INSTANCE_ID}" --oauth2-clientid="${CONTABO_CLIENT_ID}" --oauth2-client-secret="${CONTABO_CLIENT_SECRET}" --oauth2-user="${CONTABO_API_USERNAME}" --oauth2-password="${CONTABO_API_PASSWORD}" --debug="info"
  echo -e "\n[+] Starting... ${CONTABO_INSTANCE_ID} (${INSTANCE_HOST_NUMBER})"
- cntb start instance "${CONTABO_INSTANCE_ID}" && sleep 10
- cntb get instance "${CONTABO_INSTANCE_ID}"
- cntb get instance "${CONTABO_INSTANCE_ID}" --output="yaml"
+ cntb start instance "${CONTABO_INSTANCE_ID}" --oauth2-clientid="${CONTABO_CLIENT_ID}" --oauth2-client-secret="${CONTABO_CLIENT_SECRET}" --oauth2-user="${CONTABO_API_USERNAME}" --oauth2-password="${CONTABO_API_PASSWORD}" --debug="info" && sleep 10
+ cntb get instance "${CONTABO_INSTANCE_ID}" --oauth2-clientid="${CONTABO_CLIENT_ID}" --oauth2-client-secret="${CONTABO_CLIENT_SECRET}" --oauth2-user="${CONTABO_API_USERNAME}" --oauth2-password="${CONTABO_API_PASSWORD}" --debug="info"
+ cntb get instance "${CONTABO_INSTANCE_ID}" --oauth2-clientid="${CONTABO_CLIENT_ID}" --oauth2-client-secret="${CONTABO_CLIENT_SECRET}" --oauth2-user="${CONTABO_API_USERNAME}" --oauth2-password="${CONTABO_API_PASSWORD}" --debug="info" --output="yaml"
 #Get IP Info
  #curl -A "${USER_AGENT}" -H "Accept: application/json" -qfsSL "https://ipinfo.io/${CONTABO_INSTANCE_IP}/json" | jq . ; echo
  ipinfo "${CONTABO_INSTANCE_IP}" --pretty 2>/dev/null
