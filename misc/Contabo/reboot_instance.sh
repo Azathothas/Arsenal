@@ -37,26 +37,36 @@
    if [ -z "$CONTABO_CLIENT_ID" ] || [ -z "${CONTABO_CLIENT_ID+x}" ]; then
      echo -e "\n[-] CONTABO_CLIENT_ID isn't Exported: https://my.contabo.com/api/details\n"
     exit 1
+   else
+     export CONTABO_CLIENT_ID="$(echo ${CONTABO_CLIENT_ID} | sed "s/['\"]//g" | tr -d '[:space:]')" && export CONTABO_CLIENT_ID="${CONTABO_CLIENT_ID}"
    fi
  #CONTABO_CLIENT_SECRET
    if [ -z "$CONTABO_CLIENT_SECRET" ] || [ -z "${CONTABO_CLIENT_SECRET+x}" ]; then
      echo -e "\n[-] CONTABO_CLIENT_SECRET isn't Exported: https://my.contabo.com/api/details\n"
     exit 1
+   else
+     export CONTABO_CLIENT_SECRET="$(echo ${CONTABO_CLIENT_SECRET} | sed "s/['\"]//g" | tr -d '[:space:]')" && export CONTABO_CLIENT_SECRET="${CONTABO_CLIENT_SECRET}"
    fi
  #CONTABO_API_USERNAME
    if [ -z "$CONTABO_API_USERNAME" ] || [ -z "${CONTABO_API_USERNAME+x}" ]; then
      echo -e "\n[-] CONTABO_API_USERNAME isn't Exported: https://my.contabo.com/api/details\n"
     exit 1
+   else
+     export CONTABO_API_USERNAME="$(echo ${CONTABO_API_USERNAME} | sed "s/['\"]//g" | tr -d '[:space:]')" && export CONTABO_API_USERNAME="${CONTABO_API_USERNAME}"
    fi
  #CONTABO_API_PASSWORD
    if [ -z "$CONTABO_API_PASSWORD" ] || [ -z "${CONTABO_API_PASSWORD+x}" ]; then
      echo -e "\n[-] CONTABO_API_PASSWORD isn't Exported: https://my.contabo.com/api/details\n"
     exit 1
+   else
+     export CONTABO_API_PASSWORD="$(echo ${CONTABO_API_PASSWORD} | sed "s/['\"]//g" | tr -d '[:space:]')" && export CONTABO_API_PASSWORD="${CONTABO_API_PASSWORD}"
    fi
  #INSTANCE_HOST_NUMBER
    if [ -z "$INSTANCE_HOST_NUMBER" ] || [ -z "${INSTANCE_HOST_NUMBER+x}" ]; then
      echo -e "\n[-] INSTANCE_HOST_NUMBER isn't Exported: https://my.contabo.com/api/details\n"
     exit 1
+   else
+     export INSTANCE_HOST_NUMBER="$(echo ${INSTANCE_HOST_NUMBER} | sed "s/['\"]//g" | tr -d '[:space:]')" && export INSTANCE_HOST_NUMBER="${INSTANCE_HOST_NUMBER}"
    fi
 #----------------------------------------------------------------------------#
 
