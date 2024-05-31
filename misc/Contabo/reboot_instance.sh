@@ -10,8 +10,8 @@
 # export INSTANCE_HOST_NUMBER="Host Number from: https://my.contabo.com/vps/0#"
 
 ##Usage:
-# bash <(curl -qfsSL "https://raw.githubusercontent.com/Azathothas/Arsenal/main/misc/Amazon/Contabo/reboot_instance.sh")
-# bash <(curl -qfsSL "https://pub.ajam.dev/repos/Azathothas/Arsenal/misc/Amazon/Contabo/reboot_instance.sh")
+# bash <(curl -qfsSL "https://raw.githubusercontent.com/Azathothas/Arsenal/main/misc/Contabo/reboot_instance.sh")
+# bash <(curl -qfsSL "https://pub.ajam.dev/repos/Azathothas/Arsenal/misc/Contabo/reboot_instance.sh")
 
 #----------------------------------------------------------------------------#
 ##Sanity Checks
