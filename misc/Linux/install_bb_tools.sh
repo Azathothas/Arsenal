@@ -271,6 +271,8 @@ INSTALL_DIR_SIZE_PRE="$(du -sh ${INSTALL_DIR} | cut -f1)" && export INSTALL_DIR_
  eval "${INSTALL_PRE}" "${INSTALL_SRC}/smap" -o "${INSTALL_DIR}/smap" && eval "${INSTALL_POST}" "${INSTALL_DIR}/smap" &
 #sns : https://github.com/sw33tLie/sns
  eval "${INSTALL_PRE}" "${INSTALL_SRC}/sns" -o "${INSTALL_DIR}/sns" && eval "${INSTALL_POST}" "${INSTALL_DIR}/sns" &
+#speedtest-go : https://github.com/showwin/speedtest-go
+ eval "${INSTALL_PRE}" "${INSTALL_SRC}/speedtest-go" -o "${INSTALL_DIR}/speedtest-go" && eval "${INSTALL_POST}" "${INSTALL_DIR}/speedtest-go" &
 #spk
  eval "${INSTALL_PRE}" "${INSTALL_SRC}/spk" -o "${INSTALL_DIR}/spk" && eval "${INSTALL_POST}" "${INSTALL_DIR}/spk" &
 #sttr: https://github.com/abhimanyu003/sttr
