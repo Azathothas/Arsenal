@@ -13,7 +13,7 @@
 744K   │ └─┬ nmap
 732K   │   ├── Services.md
 8.0K   │   └── README.md
-592K   ├─┬ misc
+596K   ├─┬ misc
 192K   │ ├─┬ Github
 188K   │ │ └─┬ Runners
  72K   │ │   ├─┬ Self-Hosted
@@ -86,13 +86,13 @@
 4.0K   │ │   ├── devsetup.sh
 4.0K   │ │   ├── debloat.sh
 4.0K   │ │   └── change_hostname.sh
+ 16K   │ ├─┬ Contabo
+ 12K   │ │ └── reboot_instance.sh
  16K   │ ├─┬ Amazon
  12K   │ │ └─┬ AWS
 8.0K   │ │   └── reboot_instance.sh
  12K   │ ├─┬ Segfault
 8.0K   │ │ └── debloat.sh
- 12K   │ ├─┬ Contabo
-8.0K   │ │ └── reboot_instance.sh
 8.0K   │ └─┬ uBlock
 4.0K   │   └── redirects_disable.txt
 312K   ├─┬ aki
