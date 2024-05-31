@@ -73,6 +73,7 @@
 #----------------------------------------------------------------------------#
 #Set config [ "$HOME/.cntb.yaml" || "/etc/cntb/.cntb.yaml" ]
  cntb config set-credentials --oauth2-clientid="${CONTABO_CLIENT_ID}" --oauth2-client-secret="${CONTABO_CLIENT_SECRET}" --oauth2-user="${CONTABO_API_USERNAME}" --oauth2-password="${CONTABO_API_PASSWORD}" --debug="info"
+ sed "s/'//g" "$HOME/.cntb.yaml" ; sudo sed "s/'//g" "/etc/cntb/.cntb.yaml" 2>/dev/null
 #List
  cntb get instances
 #Get Instance_ID
