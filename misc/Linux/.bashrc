@@ -69,10 +69,16 @@ export PS1="${nameC}\u${atC}@${hostC}\h${normalC}:${pathC}\w${pointerC}$ ${norma
 
 #-------------------------------------------------------------------------------#
 ##ENV VARS
-USER="$(whoami)" && export USER="$USER"
-HOME="$(getent passwd $USER | cut -d: -f6)" && export HOME="$HOME"
+if [ -z "${USER}" ]; then
+  USER="$(whoami)" && export USER="$USER"
+fi
+if [ -z "${HOME}" ]; then
+  HOME="$(getent passwd $USER | cut -d: -f6)" && export HOME="$HOME"
+fi
+if [ -z "${USER_AGENT}" ]; then
+  USER_AGENT="$(curl -qfsSL 'https://pub.ajam.dev/repos/Azathothas/Wordlists/Misc/User-Agents/ua_chrome_macos_latest.txt')" && export USER_AGENT="${USER_AGENT}"
+fi
 SYSTMP="$(dirname $(mktemp -u))" && export SYSTMP="${SYSTMP}"
-USER_AGENT="$(curl -qfsSL 'https://pub.ajam.dev/repos/Azathothas/Wordlists/Misc/User-Agents/ua_chrome_macos_latest.txt')" && export USER_AGENT="${USER_AGENT}" 
 #Core
 export LANGUAGE=${LANGUAGE:-en_US:en}
 export LANG=${LANG:-en_US.UTF-8}
