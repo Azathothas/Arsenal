@@ -70,12 +70,13 @@ stat -c "%s" "$TESTFILE" | numfmt --to="iec" --suffix="B"
 # tr -cd '[:graph:]' --> deletes non ASCII PRINTABLE (only [:graph:]) printable characters
 # tr -d '\\`' --> deletes \ and ` as they cause shell escapes
 # head -c $N --> prints the first N char, change this to change the password length
+# sed "s/[\"']//g" --> deletes ' and " as they cause shell escapes
 
 !# Test Strength here: https://www.uic.edu/apps/strong-password/
 
-❯ (< "/dev/urandom" tr -cd '[:graph:]' | tr -d '\\`' | head -c $N) && echo
+❯ (< "/dev/urandom" tr -cd '[:graph:]' | tr -d '\\`' | head -c $N) | sed "s/[\"']//g" && echo
 #Example to generate a 42 length password
-❯ (< "/dev/urandom" tr -cd '[:graph:]' | tr -d '\\`' | head -c 42) && echo
+❯ (< "/dev/urandom" tr -cd '[:graph:]' | tr -d '\\`' | head -c 42) | sed "s/[\"']//g" && echo
 
 !# Using moac :: https://github.com/Seirdy/moac
 #Install: sudo curl -qfsSL "https://bin.ajam.dev/$(uname -m)/moac-pwgen" -o "/usr/local/bin/moac-pwgen" && sudo chmod +x "/usr/local/bin/moac-pwgen"
