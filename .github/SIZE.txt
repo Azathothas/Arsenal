@@ -12,7 +12,7 @@
 744K   │ └─┬ nmap
 732K   │   ├── Services.md
 8.0K   │   └── README.md
-596K   ├─┬ misc
+600K   ├─┬ misc
 192K   │ ├─┬ Github
 188K   │ │ └─┬ Runners
  72K   │ │   ├─┬ Self-Hosted
@@ -53,9 +53,9 @@
 4.0K   │ │ ├── TIPS_TRICKS.md
 4.0K   │ │ ├── DAGU_CRON_EXAMPLE.yaml
 4.0K   │ │ └── DAGU_CRON.md
- 40K   │ ├─┬ WSL
- 28K   │ │ ├─┬ Debian
- 12K   │ │ │ ├── README.md
+ 44K   │ ├─┬ WSL
+ 32K   │ │ ├─┬ Debian
+ 16K   │ │ │ ├── README.md
 8.0K   │ │ │ ├── customize.sh
 4.0K   │ │ │ └── starship.toml
 8.0K   │ │ └── README.md
