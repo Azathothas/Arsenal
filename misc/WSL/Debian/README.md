@@ -112,7 +112,7 @@
 > - ##### **ufw Firewall**
 ```bash
 !# Install ufw
-sudo apt-get -y install ufw
+sudo apt-get -y install iptables ufw
 
 !# Enable ufw
 sudo ufw enable && sudo ufw status
@@ -120,20 +120,35 @@ sudo ufw enable && sudo ufw status
 !# Check Rules
 sudo ufw status numbered
 
-!# Add new rules
-# Example: Allow 7330/7331/7332 Ports
-sudo ufw allow 7330/tcp
-sudo ufw allow out 7330/tcp
-sudo ufw allow 7330/udp
-sudo ufw allow out 7330/udp
-sudo ufw allow 7331/tcp
-sudo ufw allow out 7331/tcp
-sudo ufw allow 7331/udp
-sudo ufw allow out 7331/udp
-sudo ufw allow 7332/tcp
-sudo ufw allow out 7332/tcp
-sudo ufw allow 7332/udp
-sudo ufw allow out 7332/udp
+#https://github.com/imthenachoman/How-To-Secure-A-Linux-Server?tab=readme-ov-file#the-network
+ #Allow All tcp/udp traffic
+ sudo ufw default allow outgoing from any to any comment 'Allow ALL Outgoing Traffic'
+ #Deny all Incoming traffic
+ sudo ufw default deny incoming from any to any comment 'Deny ALL Incoming Traffic'
+ #Allow SSH
+ sudo ufw allow ssh comment 'Enable SSH (Default)'
+ sudo ufw allow 8022 comment 'Enable SSH (8022)'
+ sudo ufw limit ssh comment 'Enable SSH RateLimit (Default)'
+ sudo ufw limit 8022 comment 'Enable SSH RateLimit (8022)'
+ sudo ufw reload
+ sudo ufw enable
+ sudo ufw status verbose
+
+#Check Listening Ports
+ sudo netstat -lntup
+ #Check Connections & Programs
+ sudo netstat -atulpen
+ #List All Active Hosts + Ports
+ sudo lsof -i -l -R
+ #List All Active IP + Ports
+ sudo lsof -i -l -R -n
+ #Test
+ echo -e "\n[+] Check: http://$(curl --ipv4 -qfsSL 'http://ipv4.whatismyip.akamai.com'):8080"
+ echo -e "[+] Check: http://[$(curl --ipv6 -qfsSL 'http://ipv6.whatismyip.akamai.com')]:8080\n"
+ python -m http.server 8080 --bind ::
+ #nmap
+ sudo nmap -A -p1-65535 -Pn -v --min-rate 2000 '$IPV4'
+
 !# Recheck
 sudo ufw reload
 sudo ufw status numbered
