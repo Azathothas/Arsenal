@@ -1,3 +1,9 @@
+- #### **Get MAX** Supported **`RAM`**
+```powershell
+#RECOMMENDED: https://github.com/a1ive/nwinfo
+(wmic memphysical get maxcapacity | Select-Object -Skip 1 | ForEach-Object { [int]$_ } | Measure-Object -Sum | Select-Object -ExpandProperty Sum) / 1MB
+```
+---
 - #### **Generate/Create** a ***`TEST_FILE`*** of `nKB|MB|GB|TB` Size
 ```powershell
 !# $PWD --> Current Dir, replace with `$env:TEMP` to use C:\Users\Username\AppData\Local\Temp
