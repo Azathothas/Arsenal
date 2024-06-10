@@ -227,146 +227,146 @@ jobs:
            rclone sync "." "r2:/pub/repos/$GITHUB_REPOSITORY/" --user-agent="$USER_AGENT" --buffer-size="100M" --s3-upload-concurrency="500" --s3-chunk-size="100M" --multi-thread-streams="500" --checkers="2000" --transfers="1000" --check-first --checksum --copy-links --fast-list --progress ; popd >/dev/null 2>&1
         continue-on-error: true
 #------------------------------------------------------------------------------------#
-      - name: rClone Generate Dynamic (https://pub.ajam.dev/utils/)
-        run: |
-          # Presets
-          set +x ; set +e
-          #--------------#        
-          ##Mullvad 
-          #arm64 deb
-          pushd "$(mktemp -d)" >/dev/null 2>&1
-          wget --quiet --show-progress "$(curl -qfsSL "https://api.github.com/repos/mullvad/mullvadvpn-app/releases" | jq -r '.[] | select(.prerelease == true) | .assets[] | select(.name | test("arm64.deb")) | .browser_download_url' | grep -iv '\.asc$' | head -n 1)" -O "./mullvad.deb"
-          rclone copyto "./mullvad.deb" "r2:/pub/utils/mullvad/mullvad_linux_arm64.deb" --user-agent="$USER_AGENT" --buffer-size="100M" --s3-upload-concurrency="500" --s3-chunk-size="100M" --multi-thread-streams="500" --checkers="2000" --transfers="1000" --check-first --checksum --copy-links --fast-list --progress
-          popd "$(mktemp -d)" >/dev/null 2>&1
-          #x86_64 deb
-          pushd "$(mktemp -d)" >/dev/null 2>&1
-          wget --quiet --show-progress "$(curl -qfsSL "https://api.github.com/repos/mullvad/mullvadvpn-app/releases" | jq -r '.[] | select(.prerelease == true) | .assets[] | select(.name | test("amd64.deb")) | .browser_download_url' | grep -iv '\.asc$' | head -n 1)" -O "./mullvad.deb"
-          rclone copyto "./mullvad.deb" "r2:/pub/utils/mullvad/mullvad_linux_x86_64.deb" --user-agent="$USER_AGENT" --buffer-size="100M" --s3-upload-concurrency="500" --s3-chunk-size="100M" --multi-thread-streams="500" --checkers="2000" --transfers="1000" --check-first --checksum --copy-links --fast-list --progress
-          #Install
-          sudo dpkg -i "./mullvad.deb"
-          #Generate relays file
-          mullvad relay update && sleep 10
-          mullvad relay list > "./relays_cli.txt"
-          rclone copyto "./relays_cli.txt" "r2:/pub/utils/mullvad/relays_cli.txt" --user-agent="$USER_AGENT" --buffer-size="100M" --s3-upload-concurrency="500" --s3-chunk-size="100M" --multi-thread-streams="500" --checkers="2000" --transfers="1000" --check-first --checksum --copy-links --fast-list --progress
-          cat "/opt/Mullvad VPN/resources/relays.json" | jq . > "./relays_cli.json"
-          rclone copyto "./relays_cli.json" "r2:/pub/utils/mullvad/relays_cli.json" --user-agent="$USER_AGENT" --buffer-size="100M" --s3-upload-concurrency="500" --s3-chunk-size="100M" --multi-thread-streams="500" --checkers="2000" --transfers="1000" --check-first --checksum --copy-links --fast-list --progress
-          #From api
-          curl -qfsSL "https://api.mullvad.net/app/v1/relays" | jq . > "./relays_api.json"
-          rclone copyto "./relays_api.json" "r2:/pub/utils/mullvad/relays_api.json" --user-agent="$USER_AGENT" --buffer-size="100M" --s3-upload-concurrency="500" --s3-chunk-size="100M" --multi-thread-streams="500" --checkers="2000" --transfers="1000" --check-first --checksum --copy-links --fast-list --progress
-          #Proxies : https://mullvad.net/en/help/socks5-proxy (https://github.com/maximko/mullvad-socks-lis)
-          curl -qfsSL "https://raw.githubusercontent.com/maximko/mullvad-socks-list/list/mullvad-socks-list.txt" -o "./proxies.txt"
-          rclone copyto "./proxies.txt" "r2:/pub/utils/mullvad/proxies.txt" --user-agent="$USER_AGENT" --buffer-size="100M" --s3-upload-concurrency="500" --s3-chunk-size="100M" --multi-thread-streams="500" --checkers="2000" --transfers="1000" --check-first --checksum --copy-links --fast-list --progress
-          popd "$(mktemp -d)" >/dev/null 2>&1
-          #--------------#
-        continue-on-error: true
-#------------------------------------------------------------------------------------#
-      - name: rClone Generate Dynamic (https://pub.ajam.dev/utils/debian)
-        run: |
-          # Presets
-          set +x ; set +e
-          #--------------#
-          ##Fetch (Cloud Images: https://cloud.debian.org/images/cloud/)
-          pushd "$(mktemp -d)" >/dev/null 2>&1
-          CLOUD_DIR_DEBIAN="$(realpath .)" && export CLOUD_DIR_DEBIAN="$CLOUD_DIR_DEBIAN"
-          ##amd64 
-          wget --quiet --show-progress --progress="dot:giga" --user-agent="$USER_AGENT" "https://cloud.debian.org/images/cloud/bookworm/latest/debian-12-genericcloud-amd64.json" -O "$CLOUD_DIR_DEBIAN/debian-12-cloud-amd64.json" &
-          wget --quiet --show-progress --progress="dot:giga" --user-agent="$USER_AGENT" "https://cloud.debian.org/images/cloud/bookworm/latest/debian-12-genericcloud-amd64.qcow2" -O "$CLOUD_DIR_DEBIAN/debian-12-cloud-amd64.qcow2" &
-          wget --quiet --show-progress --progress="dot:giga" --user-agent="$USER_AGENT" "https://cloud.debian.org/images/cloud/bookworm/latest/debian-12-genericcloud-amd64.raw" -O "$CLOUD_DIR_DEBIAN/debian-12-cloud-amd64.raw" &
-          wget --quiet --show-progress --progress="dot:giga" --user-agent="$USER_AGENT" "https://cloud.debian.org/images/cloud/bookworm/latest/debian-12-genericcloud-amd64.tar.xz" -O "$CLOUD_DIR_DEBIAN/debian-12-cloud-amd64.tar.xz" &
-          wget --quiet --show-progress --progress="dot:giga" --user-agent="$USER_AGENT" "https://cloud.debian.org/images/cloud/bookworm/latest/debian-12-generic-amd64.json" -O "$CLOUD_DIR_DEBIAN/debian-12-cloud-baremetal-amd64.json" &
-          wget --quiet --show-progress --progress="dot:giga" --user-agent="$USER_AGENT" "https://cloud.debian.org/images/cloud/bookworm/latest/debian-12-generic-amd64.qcow2" -O "$CLOUD_DIR_DEBIAN/debian-12-cloud-baremetal-amd64.qcow2" &
-          wget --quiet --show-progress --progress="dot:giga" --user-agent="$USER_AGENT" "https://cloud.debian.org/images/cloud/bookworm/latest/debian-12-generic-amd64.raw" -O "$CLOUD_DIR_DEBIAN/debian-12-cloud-baremetal-amd64.raw" &
-          wget --quiet --show-progress --progress="dot:giga" --user-agent="$USER_AGENT" "https://cloud.debian.org/images/cloud/bookworm/latest/debian-12-generic-amd64.tar.xz" -O "$CLOUD_DIR_DEBIAN/debian-12-cloud-baremetal-amd64.tar.xz" &
-          ##arm64
-          wget --quiet --show-progress --progress="dot:giga" --user-agent="$USER_AGENT" "https://cloud.debian.org/images/cloud/bookworm/latest/debian-12-genericcloud-arm64.json" -O "$CLOUD_DIR_DEBIAN/debian-12-cloud-arm64.json" &
-          wget --quiet --show-progress --progress="dot:giga" --user-agent="$USER_AGENT" "https://cloud.debian.org/images/cloud/bookworm/latest/debian-12-genericcloud-arm64.qcow2" -O "$CLOUD_DIR_DEBIAN/debian-12-cloud-arm64.qcow2" &
-          wget --quiet --show-progress --progress="dot:giga" --user-agent="$USER_AGENT" "https://cloud.debian.org/images/cloud/bookworm/latest/debian-12-genericcloud-arm64.raw" -O "$CLOUD_DIR_DEBIAN/debian-12-cloud-arm64.raw" &
-          wget --quiet --show-progress --progress="dot:giga" --user-agent="$USER_AGENT" "https://cloud.debian.org/images/cloud/bookworm/latest/debian-12-genericcloud-arm64.tar.xz" -O "$CLOUD_DIR_DEBIAN/debian-12-cloud-arm64.tar.xz" &
-          wget --quiet --show-progress --progress="dot:giga" --user-agent="$USER_AGENT" "https://cloud.debian.org/images/cloud/bookworm/latest/debian-12-generic-arm64.json" -O "$CLOUD_DIR_DEBIAN/debian-12-cloud-baremetal-arm64.json" &
-          wget --quiet --show-progress --progress="dot:giga" --user-agent="$USER_AGENT" "https://cloud.debian.org/images/cloud/bookworm/latest/debian-12-generic-arm64.qcow2" -O "$CLOUD_DIR_DEBIAN/debian-12-cloud-baremetal-arm64.qcow2" &
-          wget --quiet --show-progress --progress="dot:giga" --user-agent="$USER_AGENT" "https://cloud.debian.org/images/cloud/bookworm/latest/debian-12-generic-arm64.raw" -O "$CLOUD_DIR_DEBIAN/debian-12-cloud-baremetal-arm64.raw" &
-          wget --quiet --show-progress --progress="dot:giga" --user-agent="$USER_AGENT" "https://cloud.debian.org/images/cloud/bookworm/latest/debian-12-generic-arm64.tar.xz" -O "$CLOUD_DIR_DEBIAN/debian-12-cloud-baremetal-arm64.tar.xz" &
-          ##Info          
-          echo -e "[+] Source: https://cloud.debian.org/images/cloud/" > "$CLOUD_DIR_DEBIAN/INFO.txt"
-          echo -e "cloud --> Cloud Image without drivers for physical hardware" >> "$CLOUD_DIR_DEBIAN/INFO.txt"
-          echo -e "cloud-baremetal --> Cloud Image including drivers for physical hardware" >> "$CLOUD_DIR_DEBIAN/INFO.txt"
-          wait ; echo ; du -sh * ; du -sh "$CLOUD_DIR_DEBIAN"
-          cd "$CLOUD_DIR_DEBIAN" && rclone sync "." "r2:/pub/utils/debian/cloud" --user-agent="$USER_AGENT" --buffer-size="100M" --s3-upload-concurrency="500" --s3-chunk-size="100M" --multi-thread-streams="500" --checkers="2000" --transfers="1000" --check-first --checksum --copy-links --fast-list --progress
-          popd "$(mktemp -d)" >/dev/null 2>&1 ; rm -rf "$CLOUD_DIR_DEBIAN"
-          #--------------#
-        continue-on-error: true
-#------------------------------------------------------------------------------------#
-      - name: rClone Generate Dynamic (https://pub.ajam.dev/utils/ubuntu)
-        run: |
-          # Presets
-          set +x ; set +e
-          #--------------#
-          ##Fetch (Cloud Images: https://cloud-images.ubuntu.com/noble/current/)
-          pushd "$(mktemp -d)" >/dev/null 2>&1
-          CLOUD_DIR_UBUNTU="$(realpath .)" && export CLOUD_DIR_UBUNTU="$CLOUD_DIR_UBUNTU"
-          ##amd64
-          wget --quiet --show-progress --progress="dot:giga" --user-agent="$USER_AGENT" "https://cloud-images.ubuntu.com/noble/current/noble-server-cloudimg-amd64.manifest" -O "$CLOUD_DIR_UBUNTU/ubuntu-24.04-lts-amd64.txt" &
-          wget --quiet --show-progress --progress="dot:giga" --user-agent="$USER_AGENT" "https://cloud-images.ubuntu.com/noble/current/noble-server-cloudimg-amd64.img" -O "$CLOUD_DIR_UBUNTU/ubuntu-24.04-lts-amd64.qcow2" &
-          wget --quiet --show-progress --progress="dot:giga" --user-agent="$USER_AGENT" "https://cloud-images.ubuntu.com/noble/current/noble-server-cloudimg-amd64.tar.gz" -O "$CLOUD_DIR_UBUNTU/ubuntu-24.04-lts-amd64.tar.gz" &
-          ##arm64
-          wget --quiet --show-progress --progress="dot:giga" --user-agent="$USER_AGENT" "https://cloud-images.ubuntu.com/noble/current/noble-server-cloudimg-arm64.manifest" -O "$CLOUD_DIR_UBUNTU/ubuntu-24.04-lts-arm64.txt" &
-          wget --quiet --show-progress --progress="dot:giga" --user-agent="$USER_AGENT" "https://cloud-images.ubuntu.com/noble/current/noble-server-cloudimg-arm64.img" -O "$CLOUD_DIR_UBUNTU/ubuntu-24.04-lts-arm64.qcow2" &
+#       - name: rClone Generate Dynamic (https://pub.ajam.dev/utils/)
+#         run: |
+#           # Presets
+#           set +x ; set +e
+#           #--------------#        
+#           ##Mullvad 
+#           #arm64 deb
+#           pushd "$(mktemp -d)" >/dev/null 2>&1
+#           wget --quiet --show-progress "$(curl -qfsSL "https://api.github.com/repos/mullvad/mullvadvpn-app/releases" | jq -r '.[] | select(.prerelease == true) | .assets[] | select(.name | test("arm64.deb")) | .browser_download_url' | grep -iv '\.asc$' | head -n 1)" -O "./mullvad.deb"
+#           rclone copyto "./mullvad.deb" "r2:/pub/utils/mullvad/mullvad_linux_arm64.deb" --user-agent="$USER_AGENT" --buffer-size="100M" --s3-upload-concurrency="500" --s3-chunk-size="100M" --multi-thread-streams="500" --checkers="2000" --transfers="1000" --check-first --checksum --copy-links --fast-list --progress
+#           popd "$(mktemp -d)" >/dev/null 2>&1
+#           #x86_64 deb
+#           pushd "$(mktemp -d)" >/dev/null 2>&1
+#           wget --quiet --show-progress "$(curl -qfsSL "https://api.github.com/repos/mullvad/mullvadvpn-app/releases" | jq -r '.[] | select(.prerelease == true) | .assets[] | select(.name | test("amd64.deb")) | .browser_download_url' | grep -iv '\.asc$' | head -n 1)" -O "./mullvad.deb"
+#           rclone copyto "./mullvad.deb" "r2:/pub/utils/mullvad/mullvad_linux_x86_64.deb" --user-agent="$USER_AGENT" --buffer-size="100M" --s3-upload-concurrency="500" --s3-chunk-size="100M" --multi-thread-streams="500" --checkers="2000" --transfers="1000" --check-first --checksum --copy-links --fast-list --progress
+#           #Install
+#           sudo dpkg -i "./mullvad.deb"
+#           #Generate relays file
+#           mullvad relay update && sleep 10
+#           mullvad relay list > "./relays_cli.txt"
+#           rclone copyto "./relays_cli.txt" "r2:/pub/utils/mullvad/relays_cli.txt" --user-agent="$USER_AGENT" --buffer-size="100M" --s3-upload-concurrency="500" --s3-chunk-size="100M" --multi-thread-streams="500" --checkers="2000" --transfers="1000" --check-first --checksum --copy-links --fast-list --progress
+#           cat "/opt/Mullvad VPN/resources/relays.json" | jq . > "./relays_cli.json"
+#           rclone copyto "./relays_cli.json" "r2:/pub/utils/mullvad/relays_cli.json" --user-agent="$USER_AGENT" --buffer-size="100M" --s3-upload-concurrency="500" --s3-chunk-size="100M" --multi-thread-streams="500" --checkers="2000" --transfers="1000" --check-first --checksum --copy-links --fast-list --progress
+#           #From api
+#           curl -qfsSL "https://api.mullvad.net/app/v1/relays" | jq . > "./relays_api.json"
+#           rclone copyto "./relays_api.json" "r2:/pub/utils/mullvad/relays_api.json" --user-agent="$USER_AGENT" --buffer-size="100M" --s3-upload-concurrency="500" --s3-chunk-size="100M" --multi-thread-streams="500" --checkers="2000" --transfers="1000" --check-first --checksum --copy-links --fast-list --progress
+#           #Proxies : https://mullvad.net/en/help/socks5-proxy (https://github.com/maximko/mullvad-socks-lis)
+#           curl -qfsSL "https://raw.githubusercontent.com/maximko/mullvad-socks-list/list/mullvad-socks-list.txt" -o "./proxies.txt"
+#           rclone copyto "./proxies.txt" "r2:/pub/utils/mullvad/proxies.txt" --user-agent="$USER_AGENT" --buffer-size="100M" --s3-upload-concurrency="500" --s3-chunk-size="100M" --multi-thread-streams="500" --checkers="2000" --transfers="1000" --check-first --checksum --copy-links --fast-list --progress
+#           popd "$(mktemp -d)" >/dev/null 2>&1
+#           #--------------#
+#         continue-on-error: true
+# #------------------------------------------------------------------------------------#
+#       - name: rClone Generate Dynamic (https://pub.ajam.dev/utils/debian)
+#         run: |
+#           # Presets
+#           set +x ; set +e
+#           #--------------#
+#           ##Fetch (Cloud Images: https://cloud.debian.org/images/cloud/)
+#           pushd "$(mktemp -d)" >/dev/null 2>&1
+#           CLOUD_DIR_DEBIAN="$(realpath .)" && export CLOUD_DIR_DEBIAN="$CLOUD_DIR_DEBIAN"
+#           ##amd64 
+#           wget --quiet --show-progress --progress="dot:giga" --user-agent="$USER_AGENT" "https://cloud.debian.org/images/cloud/bookworm/latest/debian-12-genericcloud-amd64.json" -O "$CLOUD_DIR_DEBIAN/debian-12-cloud-amd64.json" &
+#           wget --quiet --show-progress --progress="dot:giga" --user-agent="$USER_AGENT" "https://cloud.debian.org/images/cloud/bookworm/latest/debian-12-genericcloud-amd64.qcow2" -O "$CLOUD_DIR_DEBIAN/debian-12-cloud-amd64.qcow2" &
+#           wget --quiet --show-progress --progress="dot:giga" --user-agent="$USER_AGENT" "https://cloud.debian.org/images/cloud/bookworm/latest/debian-12-genericcloud-amd64.raw" -O "$CLOUD_DIR_DEBIAN/debian-12-cloud-amd64.raw" &
+#           wget --quiet --show-progress --progress="dot:giga" --user-agent="$USER_AGENT" "https://cloud.debian.org/images/cloud/bookworm/latest/debian-12-genericcloud-amd64.tar.xz" -O "$CLOUD_DIR_DEBIAN/debian-12-cloud-amd64.tar.xz" &
+#           wget --quiet --show-progress --progress="dot:giga" --user-agent="$USER_AGENT" "https://cloud.debian.org/images/cloud/bookworm/latest/debian-12-generic-amd64.json" -O "$CLOUD_DIR_DEBIAN/debian-12-cloud-baremetal-amd64.json" &
+#           wget --quiet --show-progress --progress="dot:giga" --user-agent="$USER_AGENT" "https://cloud.debian.org/images/cloud/bookworm/latest/debian-12-generic-amd64.qcow2" -O "$CLOUD_DIR_DEBIAN/debian-12-cloud-baremetal-amd64.qcow2" &
+#           wget --quiet --show-progress --progress="dot:giga" --user-agent="$USER_AGENT" "https://cloud.debian.org/images/cloud/bookworm/latest/debian-12-generic-amd64.raw" -O "$CLOUD_DIR_DEBIAN/debian-12-cloud-baremetal-amd64.raw" &
+#           wget --quiet --show-progress --progress="dot:giga" --user-agent="$USER_AGENT" "https://cloud.debian.org/images/cloud/bookworm/latest/debian-12-generic-amd64.tar.xz" -O "$CLOUD_DIR_DEBIAN/debian-12-cloud-baremetal-amd64.tar.xz" &
+#           ##arm64
+#           wget --quiet --show-progress --progress="dot:giga" --user-agent="$USER_AGENT" "https://cloud.debian.org/images/cloud/bookworm/latest/debian-12-genericcloud-arm64.json" -O "$CLOUD_DIR_DEBIAN/debian-12-cloud-arm64.json" &
+#           wget --quiet --show-progress --progress="dot:giga" --user-agent="$USER_AGENT" "https://cloud.debian.org/images/cloud/bookworm/latest/debian-12-genericcloud-arm64.qcow2" -O "$CLOUD_DIR_DEBIAN/debian-12-cloud-arm64.qcow2" &
+#           wget --quiet --show-progress --progress="dot:giga" --user-agent="$USER_AGENT" "https://cloud.debian.org/images/cloud/bookworm/latest/debian-12-genericcloud-arm64.raw" -O "$CLOUD_DIR_DEBIAN/debian-12-cloud-arm64.raw" &
+#           wget --quiet --show-progress --progress="dot:giga" --user-agent="$USER_AGENT" "https://cloud.debian.org/images/cloud/bookworm/latest/debian-12-genericcloud-arm64.tar.xz" -O "$CLOUD_DIR_DEBIAN/debian-12-cloud-arm64.tar.xz" &
+#           wget --quiet --show-progress --progress="dot:giga" --user-agent="$USER_AGENT" "https://cloud.debian.org/images/cloud/bookworm/latest/debian-12-generic-arm64.json" -O "$CLOUD_DIR_DEBIAN/debian-12-cloud-baremetal-arm64.json" &
+#           wget --quiet --show-progress --progress="dot:giga" --user-agent="$USER_AGENT" "https://cloud.debian.org/images/cloud/bookworm/latest/debian-12-generic-arm64.qcow2" -O "$CLOUD_DIR_DEBIAN/debian-12-cloud-baremetal-arm64.qcow2" &
+#           wget --quiet --show-progress --progress="dot:giga" --user-agent="$USER_AGENT" "https://cloud.debian.org/images/cloud/bookworm/latest/debian-12-generic-arm64.raw" -O "$CLOUD_DIR_DEBIAN/debian-12-cloud-baremetal-arm64.raw" &
+#           wget --quiet --show-progress --progress="dot:giga" --user-agent="$USER_AGENT" "https://cloud.debian.org/images/cloud/bookworm/latest/debian-12-generic-arm64.tar.xz" -O "$CLOUD_DIR_DEBIAN/debian-12-cloud-baremetal-arm64.tar.xz" &
+#           ##Info          
+#           echo -e "[+] Source: https://cloud.debian.org/images/cloud/" > "$CLOUD_DIR_DEBIAN/INFO.txt"
+#           echo -e "cloud --> Cloud Image without drivers for physical hardware" >> "$CLOUD_DIR_DEBIAN/INFO.txt"
+#           echo -e "cloud-baremetal --> Cloud Image including drivers for physical hardware" >> "$CLOUD_DIR_DEBIAN/INFO.txt"
+#           wait ; echo ; du -sh * ; du -sh "$CLOUD_DIR_DEBIAN"
+#           cd "$CLOUD_DIR_DEBIAN" && rclone sync "." "r2:/pub/utils/debian/cloud" --user-agent="$USER_AGENT" --buffer-size="100M" --s3-upload-concurrency="500" --s3-chunk-size="100M" --multi-thread-streams="500" --checkers="2000" --transfers="1000" --check-first --checksum --copy-links --fast-list --progress
+#           popd "$(mktemp -d)" >/dev/null 2>&1 ; rm -rf "$CLOUD_DIR_DEBIAN"
+#           #--------------#
+#         continue-on-error: true
+# #------------------------------------------------------------------------------------#
+#       - name: rClone Generate Dynamic (https://pub.ajam.dev/utils/ubuntu)
+#         run: |
+#           # Presets
+#           set +x ; set +e
+#           #--------------#
+#           ##Fetch (Cloud Images: https://cloud-images.ubuntu.com/noble/current/)
+#           pushd "$(mktemp -d)" >/dev/null 2>&1
+#           CLOUD_DIR_UBUNTU="$(realpath .)" && export CLOUD_DIR_UBUNTU="$CLOUD_DIR_UBUNTU"
+#           ##amd64
+#           wget --quiet --show-progress --progress="dot:giga" --user-agent="$USER_AGENT" "https://cloud-images.ubuntu.com/noble/current/noble-server-cloudimg-amd64.manifest" -O "$CLOUD_DIR_UBUNTU/ubuntu-24.04-lts-amd64.txt" &
+#           wget --quiet --show-progress --progress="dot:giga" --user-agent="$USER_AGENT" "https://cloud-images.ubuntu.com/noble/current/noble-server-cloudimg-amd64.img" -O "$CLOUD_DIR_UBUNTU/ubuntu-24.04-lts-amd64.qcow2" &
+#           wget --quiet --show-progress --progress="dot:giga" --user-agent="$USER_AGENT" "https://cloud-images.ubuntu.com/noble/current/noble-server-cloudimg-amd64.tar.gz" -O "$CLOUD_DIR_UBUNTU/ubuntu-24.04-lts-amd64.tar.gz" &
+#           ##arm64
+#           wget --quiet --show-progress --progress="dot:giga" --user-agent="$USER_AGENT" "https://cloud-images.ubuntu.com/noble/current/noble-server-cloudimg-arm64.manifest" -O "$CLOUD_DIR_UBUNTU/ubuntu-24.04-lts-arm64.txt" &
+#           wget --quiet --show-progress --progress="dot:giga" --user-agent="$USER_AGENT" "https://cloud-images.ubuntu.com/noble/current/noble-server-cloudimg-arm64.img" -O "$CLOUD_DIR_UBUNTU/ubuntu-24.04-lts-arm64.qcow2" &
           
-          wget --quiet --show-progress --progress="dot:giga" --user-agent="$USER_AGENT" "https://cloud-images.ubuntu.com/noble/current/noble-server-cloudimg-arm64.tar.gz" -O "$CLOUD_DIR_UBUNTU/ubuntu-24.04-lts-arm64.tar.gz" &          
-          ##Info
-          echo -e "[+] Source: https://cloud-images.ubuntu.com/noble/current/" > "$CLOUD_DIR_UBUNTU/INFO.txt"
-          echo -e "Distro --> Ubuntu Server 24.04 LTS (Noble Numbat)" >> "$CLOUD_DIR_UBUNTU/INFO.txt"
-          wait ; echo 
-          qemu-img convert -p -f qcow2 "$CLOUD_DIR_UBUNTU/ubuntu-24.04-lts-amd64.qcow2" -O raw "$CLOUD_DIR_UBUNTU/ubuntu-24.04-lts-amd64.raw"
-          qemu-img convert -p -f qcow2 "$CLOUD_DIR_UBUNTU/ubuntu-24.04-lts-arm64.qcow2" -O raw "$CLOUD_DIR_UBUNTU/ubuntu-24.04-lts-arm64.raw"
-          du -sh * ; du -sh "$CLOUD_DIR_UBUNTU"
-          cd "$CLOUD_DIR_UBUNTU" && rclone sync "." "r2:/pub/utils/ubuntu/cloud" --user-agent="$USER_AGENT" --buffer-size="100M" --s3-upload-concurrency="500" --s3-chunk-size="100M" --multi-thread-streams="500" --checkers="2000" --transfers="1000" --check-first --checksum --copy-links --fast-list --progress
-          popd "$(mktemp -d)" >/dev/null 2>&1 ; rm -rf "$CLOUD_DIR_UBUNTU"
-          #--------------#
-        continue-on-error: true        
-#------------------------------------------------------------------------------------#
-      - name: rClone Generate Dynamic (https://pub.ajam.dev/utils/kata-containers)
-        run: |
-          # Presets
-          set +x ; set +e
-          #--------------#
-          ##Fetch (amd64)
-          pushd "$(mktemp -d)" >/dev/null 2>&1
-          eget "https://github.com/kata-containers/kata-containers" --asset "static" --asset "amd64" --asset "tar" --download-only
-          ouch decompress "./"* --yes
-          find . -type d -name '*bin*' ! -name 'build-bins' -print0 | xargs -0 -I {} sh -c 'mkdir -p ./build-bins && cp -r {}/* ./build-bins/'
-          find . -type f -exec strip {} \; 2>/dev/null
-          file "./build-bins/"* && du -sh "./build-bins/"*
-          #copy
-          rsync -av --copy-links "./build-bins/" "./kata-bins"
-          rsync -av --copy-links "$(find . -type d -path '*/opt/kata' -print -quit)/" "./kata-x86_64-Linux"
-          #Archive
-          7z a -ttar -mx="9" -mmt="$(($(nproc)+1))" -bt "$SYSTMP/kata-bins.tar" "./kata-bins" 2>/dev/null
-          7z a -ttar -mx="9" -mmt="$(($(nproc)+1))" -bt "$SYSTMP/kata-x86_64-Linux.tar" "./kata-x86_64-Linux" 2>/dev/null
-          #rClone
-          rclone sync "./kata-x86_64-Linux/" "r2:/pub/utils/kata-x86_64-Linux/" --user-agent="$USER_AGENT" --buffer-size="100M" --s3-upload-concurrency="500" --s3-chunk-size="100M" --multi-thread-streams="500" --checkers="2000" --transfers="1000" --check-first --checksum --copy-links --fast-list --progress
-          rclone copyto "$SYSTMP/kata-bins.tar" "r2:/pub/utils/kata-x86_64-Linux/kata-bins.tar" --user-agent="$USER_AGENT" --buffer-size="100M" --s3-upload-concurrency="500" --s3-chunk-size="100M" --multi-thread-streams="500" --checkers="2000" --transfers="1000" --check-first --checksum --copy-links --fast-list --progress
-          rclone copyto "$SYSTMP/kata-x86_64-Linux.tar" "r2:/pub/utils/kata-x86_64-Linux/kata-x86_64-Linux.tar" --user-agent="$USER_AGENT" --buffer-size="100M" --s3-upload-concurrency="500" --s3-chunk-size="100M" --multi-thread-streams="500" --checkers="2000" --transfers="1000" --check-first --checksum --copy-links --fast-list --progress
-          popd "$(mktemp -d)" >/dev/null 2>&1 ; find "$SYSTMP" -type d -name '*kata*' -exec rm -rf {} \; 2>/dev/null
-          #--------------#
-          ##Fetch (arm64)
-          pushd "$(mktemp -d)" >/dev/null 2>&1
-          eget "https://github.com/kata-containers/kata-containers" --asset "static" --asset "arm64" --asset "tar" --download-only
-          ouch decompress "./"* --yes
-          find . -type d -name '*bin*' ! -name 'build-bins' -print0 | xargs -0 -I {} sh -c 'mkdir -p ./build-bins && cp -r {}/* ./build-bins/'
-          find . -type f -exec aarch64-linux-gnu-strip {} \; 2>/dev/null
-          file "./build-bins/"* && du -sh "./build-bins/"*
-          #copy
-          rsync -av --copy-links "./build-bins/" "./kata-bins"
-          rsync -av --copy-links "$(find . -type d -path '*/opt/kata' -print -quit)/" "./kata-aarch64-Linux"
-          #Archive
-          7z a -ttar -mx="9" -mmt="$(($(nproc)+1))" -bt "$SYSTMP/kata-bins.tar" "./kata-bins" 2>/dev/null
-          7z a -ttar -mx="9" -mmt="$(($(nproc)+1))" -bt "$SYSTMP/kata-aarch64-Linux.tar" "./kata-aarch64-Linux" 2>/dev/null
-          #rClone
-          rclone sync "./kata-aarch64-Linux/" "r2:/pub/utils/kata-aarch64-Linux/" --user-agent="$USER_AGENT" --buffer-size="100M" --s3-upload-concurrency="500" --s3-chunk-size="100M" --multi-thread-streams="500" --checkers="2000" --transfers="1000" --check-first --checksum --copy-links --fast-list --progress
-          rclone copyto "$SYSTMP/kata-bins.tar" "r2:/pub/utils/kata-aarch64-Linux/kata-bins.tar" --user-agent="$USER_AGENT" --buffer-size="100M" --s3-upload-concurrency="500" --s3-chunk-size="100M" --multi-thread-streams="500" --checkers="2000" --transfers="1000" --check-first --checksum --copy-links --fast-list --progress
-          rclone copyto "$SYSTMP/kata-aarch64-Linux.tar" "r2:/pub/utils/kata-aarch64-Linux/kata-aarch64-Linux.tar" --user-agent="$USER_AGENT" --buffer-size="100M" --s3-upload-concurrency="500" --s3-chunk-size="100M" --multi-thread-streams="500" --checkers="2000" --transfers="1000" --check-first --checksum --copy-links --fast-list --progress
-          popd "$(mktemp -d)" >/dev/null 2>&1 ; find "$SYSTMP" -type d -name '*kata*' -exec rm -rf {} \; 2>/dev/null
-          #--------------#
-        continue-on-error: true
+#           wget --quiet --show-progress --progress="dot:giga" --user-agent="$USER_AGENT" "https://cloud-images.ubuntu.com/noble/current/noble-server-cloudimg-arm64.tar.gz" -O "$CLOUD_DIR_UBUNTU/ubuntu-24.04-lts-arm64.tar.gz" &          
+#           ##Info
+#           echo -e "[+] Source: https://cloud-images.ubuntu.com/noble/current/" > "$CLOUD_DIR_UBUNTU/INFO.txt"
+#           echo -e "Distro --> Ubuntu Server 24.04 LTS (Noble Numbat)" >> "$CLOUD_DIR_UBUNTU/INFO.txt"
+#           wait ; echo 
+#           qemu-img convert -p -f qcow2 "$CLOUD_DIR_UBUNTU/ubuntu-24.04-lts-amd64.qcow2" -O raw "$CLOUD_DIR_UBUNTU/ubuntu-24.04-lts-amd64.raw"
+#           qemu-img convert -p -f qcow2 "$CLOUD_DIR_UBUNTU/ubuntu-24.04-lts-arm64.qcow2" -O raw "$CLOUD_DIR_UBUNTU/ubuntu-24.04-lts-arm64.raw"
+#           du -sh * ; du -sh "$CLOUD_DIR_UBUNTU"
+#           cd "$CLOUD_DIR_UBUNTU" && rclone sync "." "r2:/pub/utils/ubuntu/cloud" --user-agent="$USER_AGENT" --buffer-size="100M" --s3-upload-concurrency="500" --s3-chunk-size="100M" --multi-thread-streams="500" --checkers="2000" --transfers="1000" --check-first --checksum --copy-links --fast-list --progress
+#           popd "$(mktemp -d)" >/dev/null 2>&1 ; rm -rf "$CLOUD_DIR_UBUNTU"
+#           #--------------#
+#         continue-on-error: true        
+# #------------------------------------------------------------------------------------#
+#       - name: rClone Generate Dynamic (https://pub.ajam.dev/utils/kata-containers)
+#         run: |
+#           # Presets
+#           set +x ; set +e
+#           #--------------#
+#           ##Fetch (amd64)
+#           pushd "$(mktemp -d)" >/dev/null 2>&1
+#           eget "https://github.com/kata-containers/kata-containers" --asset "static" --asset "amd64" --asset "tar" --download-only
+#           ouch decompress "./"* --yes
+#           find . -type d -name '*bin*' ! -name 'build-bins' -print0 | xargs -0 -I {} sh -c 'mkdir -p ./build-bins && cp -r {}/* ./build-bins/'
+#           find . -type f -exec strip {} \; 2>/dev/null
+#           file "./build-bins/"* && du -sh "./build-bins/"*
+#           #copy
+#           rsync -av --copy-links "./build-bins/" "./kata-bins"
+#           rsync -av --copy-links "$(find . -type d -path '*/opt/kata' -print -quit)/" "./kata-x86_64-Linux"
+#           #Archive
+#           7z a -ttar -mx="9" -mmt="$(($(nproc)+1))" -bt "$SYSTMP/kata-bins.tar" "./kata-bins" 2>/dev/null
+#           7z a -ttar -mx="9" -mmt="$(($(nproc)+1))" -bt "$SYSTMP/kata-x86_64-Linux.tar" "./kata-x86_64-Linux" 2>/dev/null
+#           #rClone
+#           rclone sync "./kata-x86_64-Linux/" "r2:/pub/utils/kata-x86_64-Linux/" --user-agent="$USER_AGENT" --buffer-size="100M" --s3-upload-concurrency="500" --s3-chunk-size="100M" --multi-thread-streams="500" --checkers="2000" --transfers="1000" --check-first --checksum --copy-links --fast-list --progress
+#           rclone copyto "$SYSTMP/kata-bins.tar" "r2:/pub/utils/kata-x86_64-Linux/kata-bins.tar" --user-agent="$USER_AGENT" --buffer-size="100M" --s3-upload-concurrency="500" --s3-chunk-size="100M" --multi-thread-streams="500" --checkers="2000" --transfers="1000" --check-first --checksum --copy-links --fast-list --progress
+#           rclone copyto "$SYSTMP/kata-x86_64-Linux.tar" "r2:/pub/utils/kata-x86_64-Linux/kata-x86_64-Linux.tar" --user-agent="$USER_AGENT" --buffer-size="100M" --s3-upload-concurrency="500" --s3-chunk-size="100M" --multi-thread-streams="500" --checkers="2000" --transfers="1000" --check-first --checksum --copy-links --fast-list --progress
+#           popd "$(mktemp -d)" >/dev/null 2>&1 ; find "$SYSTMP" -type d -name '*kata*' -exec rm -rf {} \; 2>/dev/null
+#           #--------------#
+#           ##Fetch (arm64)
+#           pushd "$(mktemp -d)" >/dev/null 2>&1
+#           eget "https://github.com/kata-containers/kata-containers" --asset "static" --asset "arm64" --asset "tar" --download-only
+#           ouch decompress "./"* --yes
+#           find . -type d -name '*bin*' ! -name 'build-bins' -print0 | xargs -0 -I {} sh -c 'mkdir -p ./build-bins && cp -r {}/* ./build-bins/'
+#           find . -type f -exec aarch64-linux-gnu-strip {} \; 2>/dev/null
+#           file "./build-bins/"* && du -sh "./build-bins/"*
+#           #copy
+#           rsync -av --copy-links "./build-bins/" "./kata-bins"
+#           rsync -av --copy-links "$(find . -type d -path '*/opt/kata' -print -quit)/" "./kata-aarch64-Linux"
+#           #Archive
+#           7z a -ttar -mx="9" -mmt="$(($(nproc)+1))" -bt "$SYSTMP/kata-bins.tar" "./kata-bins" 2>/dev/null
+#           7z a -ttar -mx="9" -mmt="$(($(nproc)+1))" -bt "$SYSTMP/kata-aarch64-Linux.tar" "./kata-aarch64-Linux" 2>/dev/null
+#           #rClone
+#           rclone sync "./kata-aarch64-Linux/" "r2:/pub/utils/kata-aarch64-Linux/" --user-agent="$USER_AGENT" --buffer-size="100M" --s3-upload-concurrency="500" --s3-chunk-size="100M" --multi-thread-streams="500" --checkers="2000" --transfers="1000" --check-first --checksum --copy-links --fast-list --progress
+#           rclone copyto "$SYSTMP/kata-bins.tar" "r2:/pub/utils/kata-aarch64-Linux/kata-bins.tar" --user-agent="$USER_AGENT" --buffer-size="100M" --s3-upload-concurrency="500" --s3-chunk-size="100M" --multi-thread-streams="500" --checkers="2000" --transfers="1000" --check-first --checksum --copy-links --fast-list --progress
+#           rclone copyto "$SYSTMP/kata-aarch64-Linux.tar" "r2:/pub/utils/kata-aarch64-Linux/kata-aarch64-Linux.tar" --user-agent="$USER_AGENT" --buffer-size="100M" --s3-upload-concurrency="500" --s3-chunk-size="100M" --multi-thread-streams="500" --checkers="2000" --transfers="1000" --check-first --checksum --copy-links --fast-list --progress
+#           popd "$(mktemp -d)" >/dev/null 2>&1 ; find "$SYSTMP" -type d -name '*kata*' -exec rm -rf {} \; 2>/dev/null
+#           #--------------#
+#         continue-on-error: true
 #------------------------------------------------------------------------------------#
