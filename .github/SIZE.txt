@@ -12,29 +12,30 @@
 744K   │ └─┬ nmap
 732K   │   ├── Services.md
 8.0K   │   └── README.md
-612K   ├─┬ misc
-204K   │ ├─┬ Github
-200K   │ │ └─┬ Runners
- 84K   │ │   ├─┬ Self-Hosted
- 16K   │ │   │ ├── x86_64-ubuntu.dockerfile
- 16K   │ │   │ ├── ubuntu-systemd-base.dockerfile
- 16K   │ │   │ ├── aarch64-ubuntu.dockerfile
- 12K   │ │   │ ├── README.md
-8.0K   │ │   │ ├── startup.sh
-8.0K   │ │   │ ├── run.sh
-4.0K   │ │   │ └── cron_README.md
- 68K   │ │   ├─┬ Ubuntu
- 20K   │ │   │ ├── 0xf_gh_runner_ubuntu_debug.yaml
- 16K   │ │   │ ├── 0xf_gh_runner_ubuntu_ng_no_ts_debug.yaml
-8.0K   │ │   │ ├── setup_tailscale.sh
-8.0K   │ │   │ ├── ngrok_tg_ssh.sh
-8.0K   │ │   │ ├── debloat.sh
-4.0K   │ │   │ └── ipv6_warp.sh
- 36K   │ │   ├─┬ Windows
- 24K   │ │   │ ├── 0xf_gh_runner_windows_debug.yaml
-8.0K   │ │   │ └── debloat.ps1
-8.0K   │ │   └─┬ macOS
-4.0K   │ │     └── 0xf_gh_runner_macos_debug.yaml
+616K   ├─┬ misc
+208K   │ ├─┬ Github
+200K   │ │ ├─┬ Runners
+ 84K   │ │ │ ├─┬ Self-Hosted
+ 16K   │ │ │ │ ├── x86_64-ubuntu.dockerfile
+ 16K   │ │ │ │ ├── ubuntu-systemd-base.dockerfile
+ 16K   │ │ │ │ ├── aarch64-ubuntu.dockerfile
+ 12K   │ │ │ │ ├── README.md
+8.0K   │ │ │ │ ├── startup.sh
+8.0K   │ │ │ │ ├── run.sh
+4.0K   │ │ │ │ └── cron_README.md
+ 68K   │ │ │ ├─┬ Ubuntu
+ 20K   │ │ │ │ ├── 0xf_gh_runner_ubuntu_debug.yaml
+ 16K   │ │ │ │ ├── 0xf_gh_runner_ubuntu_ng_no_ts_debug.yaml
+8.0K   │ │ │ │ ├── setup_tailscale.sh
+8.0K   │ │ │ │ ├── ngrok_tg_ssh.sh
+8.0K   │ │ │ │ ├── debloat.sh
+4.0K   │ │ │ │ └── ipv6_warp.sh
+ 36K   │ │ │ ├─┬ Windows
+ 24K   │ │ │ │ ├── 0xf_gh_runner_windows_debug.yaml
+8.0K   │ │ │ │ └── debloat.ps1
+8.0K   │ │ │ └─┬ macOS
+4.0K   │ │ │   └── 0xf_gh_runner_macos_debug.yaml
+4.0K   │ │ └── GIT.md
 156K   │ ├─┬ Linux
  88K   │ │ ├─┬ Debian
  20K   │ │ │ ├── install_bb_tools_x86_64.sh
