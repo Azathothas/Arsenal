@@ -157,6 +157,7 @@
 4.0K   │ ├── main.go
 4.0K   │ └── README.md
  12K   ├── README.md
-8.0K   └─┬ tldgen
-4.0K     └── tldgen.sh
+8.0K   ├─┬ tldgen
+4.0K   │ └── tldgen.sh
+4.0K   └── LICENSE
 ```
