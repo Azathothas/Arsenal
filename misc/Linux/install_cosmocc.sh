@@ -25,23 +25,24 @@
      sudo curl -qfsSL "https://bin.ajam.dev/$(uname -m)/rsync" -o "/usr/local/bin/rsync" && sudo chmod +x "/usr/local/bin/rsync"
    fi
    sudo rsync --archive --checksum --human-readable --mkpath --progress --quiet "./" "/opt/toolchains/cosmocc/"
-   sudo rsync --archive --checksum --human-readable --mkpath --progress --quiet "./bin/" "/usr/local/bin/"
+   #sudo rsync --archive --checksum --human-readable --mkpath --progress --quiet "./bin/" "/usr/local/bin/"
    popd >/dev/null 2>&1
  #Cleanup  
   find "$(dirname $(mktemp -u))" -type d -name "*cosmo*" 2>/dev/null -exec rm -rf {} \; >/dev/null 2>&1
  #Check
-  command -v cosmocc cosmoc++
+  PATH="${PATH}:/opt/toolchains/cosmocc/bin" command -v cosmocc cosmoc++
   du -sh "/opt/toolchains/cosmocc/"*
   echo -e "\n[+] DOCS: /opt/toolchains/cosmocc/README.md"
   echo -e "\n[+] EXAMPLE:"
-  echo 'export CC="cosmocc -I/opt/toolchains/cosmocc/include -L/opt/toolchains/cosmocc/lib"'
-  echo 'export CXX="cosmoc++ -I/opt/toolchains/cosmocc/include -L/opt/toolchains/cosmocc/lib"'
-  echo 'export CPP="cosmoc++ -I/opt/toolchains/cosmocc/include -L/opt/toolchains/cosmocc/lib"'
-  echo 'export AR="cosmoar"'
-  echo 'export CFLAGS="-O2 -flto=auto -w -pipe ${CFLAGS}"'
+  echo 'export CC="/opt/toolchains/cosmocc/bin/cosmocc -I/opt/toolchains/cosmocc/include -L/opt/toolchains/cosmocc/lib"'
+  echo 'export CXX="/opt/toolchains/cosmocc/bin/cosmoc++ -I/opt/toolchains/cosmocc/include -L/opt/toolchains/cosmocc/lib"'
+  echo 'export CPP="${CXX}"'
+  echo 'export AR="/opt/toolchains/cosmocc/bin/cosmoar"'
+  echo 'export CFLAGS="-O2 -w -pipe ${CFLAGS}"'
   echo 'export CXXFLAGS="${CFLAGS}"'
   echo 'export CPPFLAGS="${CFLAGS}"'
   echo 'export LDFLAGS="-s -Wl,-S -Wl,--build-id=none ${LDFLAGS}"'
   echo 'make --jobs="$(($(nproc)+1))"'
+  echo 'OR: eval "${CC}" "./$PROG.c" -o "./$PROG"'
   echo -e "\n[+] More Example & Build Scripts: https://github.com/ahgamut/superconfigure/\n"
 ##END
