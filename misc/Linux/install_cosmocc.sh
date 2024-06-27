@@ -42,6 +42,7 @@
   echo 'export CXXFLAGS="${CFLAGS}"'
   echo 'export CPPFLAGS="${CFLAGS}"'
   echo 'export LDFLAGS="-s -Wl,-S -Wl,--build-id=none ${LDFLAGS}"'
+  echo '$CONFIGURE_CMD $CONFIGURE_FLAGS --prefix="/opt/toolchains/cosmocc"'
   echo 'make --jobs="$(($(nproc)+1))"'
   echo 'OR: eval "${CC}" "./$PROG.c" -o "./$PROG"'
   echo -e "\n[+] More Example & Build Scripts: https://github.com/ahgamut/superconfigure/\n"
