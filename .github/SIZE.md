@@ -13,7 +13,7 @@
 744K   │ └─┬ nmap
 732K   │   ├── Services.md
 8.0K   │   └── README.md
-616K   ├─┬ misc
+620K   ├─┬ misc
 208K   │ ├─┬ Github
 200K   │ │ ├─┬ Runners
  84K   │ │ │ ├─┬ Self-Hosted
@@ -37,7 +37,7 @@
 8.0K   │ │ │ └─┬ macOS
 4.0K   │ │ │   └── 0xf_gh_runner_macos_debug.yaml
 4.0K   │ │ └── GIT.md
-156K   │ ├─┬ Linux
+160K   │ ├─┬ Linux
  88K   │ │ ├─┬ Debian
  20K   │ │ │ ├── install_bb_tools_x86_64.sh
  20K   │ │ │ ├── install_bb_tools_aarch64.sh
@@ -52,6 +52,7 @@
  28K   │ │ ├── install_bb_tools.sh
  12K   │ │ ├── sshd_config_passwordless
  12K   │ │ ├── sshd_config
+4.0K   │ │ ├── install_cosmocc.sh
 4.0K   │ │ ├── TIPS_TRICKS.md
 4.0K   │ │ ├── DAGU_CRON_EXAMPLE.yaml
 4.0K   │ │ └── DAGU_CRON.md
