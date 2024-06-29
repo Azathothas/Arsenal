@@ -88,6 +88,8 @@ jobs:
           curl -qfsSL "https://raw.githubusercontent.com/Azathothas/Runners/main/.github/workflows/0xf_gh_runner_macos_debug.yaml" -o "$GITHUB_WORKSPACE/main/misc/Github/Runners/macOS/0xf_gh_runner_macos_debug.yaml"
           #Ubuntu
           curl -qfsSL "https://raw.githubusercontent.com/Azathothas/Runners/main/.github/workflows/0xf_gh_runner_ubuntu_debug.yaml" -o "$GITHUB_WORKSPACE/main/misc/Github/Runners/Ubuntu/0xf_gh_runner_ubuntu_debug.yaml"
+          curl -qfsSL "https://raw.githubusercontent.com/Azathothas/Runners/main/.github/workflows/0xf_gh_runner_ubuntu_toolpacker.yaml" -o "$GITHUB_WORKSPACE/main/misc/Github/Runners/Ubuntu/0xf_gh_runner_ubuntu_toolpacker.yaml"
+          curl -qfsSL "https://raw.githubusercontent.com/Azathothas/Runners/main/.github/workflows/0xf_gh_runner_ubuntu_vanilla.yaml" -o "$GITHUB_WORKSPACE/main/misc/Github/Runners/Ubuntu/0xf_gh_runner_ubuntu_vanilla.yaml"
           curl -qfsSL "https://raw.githubusercontent.com/Aseem0xff/Aseem0xff-Runners/main/.github/workflows/0xf_gh_runner_ubuntu_ng_no_ts_debug.yaml" -o "$GITHUB_WORKSPACE/main/misc/Github/Runners/Ubuntu/0xf_gh_runner_ubuntu_ng_no_ts_debug.yaml"
           #Windows
           curl -qfsSL "https://raw.githubusercontent.com/Azathothas/Runners/main/.github/workflows/0xf_gh_runner_windows_debug.yaml" -o "$GITHUB_WORKSPACE/main/misc/Github/Runners/Windows/0xf_gh_runner_windows_debug.yaml"
