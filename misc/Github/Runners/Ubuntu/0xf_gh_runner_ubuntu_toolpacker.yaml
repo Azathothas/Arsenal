@@ -1,0 +1,85 @@
+name: 0xf ➼ Toolpacker (gh-runner) Ubuntu-22.04
+#Image: https://github.com/actions/runner-images/blob/main/images/linux/Ubuntu2204-Readme.md
+on:
+  workflow_dispatch:
+env:
+  THOST: "gh-runner-ubuntu-toolpacker"
+  TUSER: "runner"
+  TSKEY: "${{ secrets.TSKEY }}"
+  
+jobs:
+  connect:
+    runs-on: ubuntu-latest
+    timeout-minutes: 355 
+    permissions:
+      contents: write
+      
+    steps:
+        
+      - name: Setup Tailscale
+        run: |
+          # Presets
+          set +x ; set +e
+          #--------------#
+          sudo curl -qfsSL "https://bin.ajam.dev/x86_64_Linux/tailscale" -o "/usr/local/bin/tailscale"
+          sudo curl -qfsSL "https://bin.ajam.dev/x86_64_Linux/tailscaled" -o "/usr/local/bin/tailscaled"
+          sudo chmod +xwr /usr/local/bin/tailscale*
+          sudo tailscaled --tun=userspace-networking --socks5-server=localhost:9025 --outbound-http-proxy-listen=localhost:9025 >/dev/null 2>&1 &
+          sudo tailscale up --ssh --hostname="${{ env.THOST }}" --authkey="${{ secrets.TSKEY }}" 
+          sudo tailscale status --peers=false
+          SSH_IP="$(sudo tailscale ip -4 | tr -d '\n')" && export SSH_IP="$SSH_IP"
+          TS_DNS="$(sudo tailscale status --json | jq -r '.Self.DNSName' | sed 's/\.$//')" && export TS_DNS="$TS_DNS"
+          export GREEN='\033[32m' ; export BLUE='\033[34m' ; export YELLOW='\033[33m' ; export PURPLE='\033[35m' ; export VIOLET='\033[0;35m' ; export NC='\033[0m'
+          echo -e "${GREEN}SSH: ${YELLOW}ssh "$USER@$SSH_IP" -o "StrictHostKeyChecking=no${NC}"\n     ${YELLOW}ssh "$USER@$TS_DNS" -o "StrictHostKeyChecking=no${NC}""
+          echo -e "\n [+] ${GREEN}openvscode-server: ${BLUE}http://$TS_DNS:8080${NC}\n"
+           
+      - name: Debloat
+        run: |
+          # Presets
+          set -x ; set +e
+          #--------------#
+          bash <(curl -qfsSL "https://pub.ajam.dev/repos/Azathothas/Arsenal/misc/Github/Runners/Ubuntu/debloat.sh")
+          bash <(curl -qfsSL "https://pub.ajam.dev/repos/Azathothas/Arsenal/misc/Github/Runners/Ubuntu/debloat.sh") 2>/dev/null
+        continue-on-error: true
+
+      - name: Install Addons
+        run: |
+          # Presets
+          set +x ; set +e
+          #--------------#
+          bash <(curl -qfsSL "https://pub.ajam.dev/repos/Azathothas/Arsenal/misc/Linux/install_bb_tools.sh")
+        continue-on-error: true
+
+      - name: Run Container
+        run: |
+          # Presets
+          set +x ; set +e
+          #--------------#
+          sudo mkdir -p "/var/lib/containers/tmp"
+          sudo podman run --detach --rm --privileged --network="bridge" --publish "22222:22" --systemd="always" --volume="/var/lib/containers/tmp:/tmp" --tz="UTC" --pull="always" --name="toolpacker-dbg" "docker.io/azathothas/ubuntu-systemd-base:latest"
+          sleep 10 ; sudo podman exec -it -u "runner" "$(sudo podman ps --filter "name=toolpacker-dbg" --format json | jq -r '.[] | select(.Image == "docker.io/azathothas/ubuntu-systemd-base:latest") | .Id')" bash -c 'sudo curl -qfsSL "https://github.com/Azathothas.keys" | sudo sort -u -o "/etc/ssh/authorized_keys" ; sudo systemctl restart sshd'
+          SSH_IP="$(sudo tailscale ip -4 | tr -d '\n')" && export SSH_IP="$SSH_IP"
+          TS_DNS="$(sudo tailscale status --json | jq -r '.Self.DNSName' | sed 's/\.$//')" && export TS_DNS="$TS_DNS"
+          export GREEN='\033[32m' ; export BLUE='\033[34m' ; export YELLOW='\033[33m' ; export PURPLE='\033[35m' ; export VIOLET='\033[0;35m' ; export NC='\033[0m'
+          echo -e "${GREEN}SSH: ${YELLOW}ssh "$USER@$SSH_IP" -o "StrictHostKeyChecking=no${NC}" -p "22222" \n     ${YELLOW}ssh "$USER@$TS_DNS" -o "StrictHostKeyChecking=no${NC}" -p "22222""
+        continue-on-error: true
+
+     #Replace with any extra things you want to do             
+      - name: Run Custom Cmd
+        run: |
+           # Presets
+           set -x ; set +e
+           #--------------#        
+           echo "Hellow"
+        continue-on-error: true
+
+     #This keeps GH Actions hypnotized until timeout                
+      - name: Breakpoint || Sleep ∞
+        run: |
+          # Presets
+          set -x ; set +e
+          #--------------#
+          #sleep infinity
+          #while :; do sleep 1; done
+          sleep 345m
+        continue-on-error: true

@@ -13,9 +13,18 @@
 744K   │ └─┬ nmap
 732K   │   ├── Services.md
 8.0K   │   └── README.md
-620K   ├─┬ misc
-208K   │ ├─┬ Github
-200K   │ │ ├─┬ Runners
+636K   ├─┬ misc
+224K   │ ├─┬ Github
+216K   │ │ ├─┬ Runners
+ 84K   │ │ │ ├─┬ Ubuntu
+ 20K   │ │ │ │ ├── 0xf_gh_runner_ubuntu_debug.yaml
+ 16K   │ │ │ │ ├── 0xf_gh_runner_ubuntu_ng_no_ts_debug.yaml
+8.0K   │ │ │ │ ├── setup_tailscale.sh
+8.0K   │ │ │ │ ├── ngrok_tg_ssh.sh
+8.0K   │ │ │ │ ├── debloat.sh
+8.0K   │ │ │ │ ├── 0xf_gh_runner_ubuntu_vanilla.yaml
+8.0K   │ │ │ │ ├── 0xf_gh_runner_ubuntu_toolpacker.yaml
+4.0K   │ │ │ │ └── ipv6_warp.sh
  84K   │ │ │ ├─┬ Self-Hosted
  16K   │ │ │ │ ├── x86_64-ubuntu.dockerfile
  16K   │ │ │ │ ├── ubuntu-systemd-base.dockerfile
@@ -24,13 +33,6 @@
 8.0K   │ │ │ │ ├── startup.sh
 8.0K   │ │ │ │ ├── run.sh
 4.0K   │ │ │ │ └── cron_README.md
- 68K   │ │ │ ├─┬ Ubuntu
- 20K   │ │ │ │ ├── 0xf_gh_runner_ubuntu_debug.yaml
- 16K   │ │ │ │ ├── 0xf_gh_runner_ubuntu_ng_no_ts_debug.yaml
-8.0K   │ │ │ │ ├── setup_tailscale.sh
-8.0K   │ │ │ │ ├── ngrok_tg_ssh.sh
-8.0K   │ │ │ │ ├── debloat.sh
-4.0K   │ │ │ │ └── ipv6_warp.sh
  36K   │ │ │ ├─┬ Windows
  24K   │ │ │ │ ├── 0xf_gh_runner_windows_debug.yaml
 8.0K   │ │ │ │ └── debloat.ps1

@@ -1,0 +1,86 @@
+name: 0xf ➼ Vanilla (gh-runner) Ubuntu-22.04
+#Image: https://github.com/actions/runner-images/blob/main/images/linux/Ubuntu2204-Readme.md
+on:
+  workflow_dispatch:
+env:
+  #Authenticate with [ Pre-Approved: Yes(No, if you intend to expose key publicly) | Ephemeral:Yes | ReUsable: Yes] Key: https://login.tailscale.com/admin/settings/keys
+  #DO NOT PUT A PRE_APPROVED HIGH PRIVILEGED KEY
+  # Use a secret [ ${{ secrets.TSKEY }} ] instead: https://github.com/Azathothas/Runners/settings/secrets/actions >> New Repository Secret >> Name = TSKEY
+  #If it's least privileged, NOT Pre-Approved and you don't care bots sshing into your machines, uncomment and replace with yours.
+  #TSKEY: "tskey-auth-k99X9C6CNTRL-9vLLaJWxZBShRvNFSifuBSwvm3fijbBAE"
+  #This is the machine name
+  THOST: "gh-runner-ubuntu-vanilla"
+  #The Username for Runners
+  TUSER: "runner"
+  TSKEY: "${{ secrets.TSKEY }}"
+  
+jobs:
+  connect:
+    runs-on: ubuntu-latest
+    #Default Timeout= 6 Hr (360 Mins) : https://nesin.io/blog/github-action-timeout
+    #Docs: https://docs.github.com/en/actions/learn-github-actions/usage-limits-billing-and-administration
+    #It's best to cause this timeout from your own side (Low to No chance of GH Disabling your repo) rather than gh (High Chance of them disabling your repo)
+    timeout-minutes: 355 
+    permissions:
+      contents: write
+      
+    steps:
+        
+      - name: Setup Tailscale
+        run: |
+          # Presets
+          set +x ; set +e
+          #--------------#
+          ##Enable a proper sshd (Must be executed before tailscale can setup, else won't work) [Apply only when needed]
+          #curl -qfsSL "https://raw.githubusercontent.com/Azathothas/Arsenal/main/misc/Linux/Debian/setup_ssh_x86_64.sh" | sudo bash -s -- -f
+          #Download & Chmod
+          sudo curl -qfsSL "https://bin.ajam.dev/x86_64_Linux/tailscale" -o "/usr/local/bin/tailscale"
+          sudo curl -qfsSL "https://bin.ajam.dev/x86_64_Linux/tailscaled" -o "/usr/local/bin/tailscaled"
+          sudo chmod +xwr /usr/local/bin/tailscale*
+          #Enable Userspace Networking
+          sudo tailscaled --tun=userspace-networking --socks5-server=localhost:9025 --outbound-http-proxy-listen=localhost:9025 >/dev/null 2>&1 &
+          #Authenticate with Ephemeral Key: https://login.tailscale.com/admin/settings/keys
+          sudo tailscale up --ssh --hostname="${{ env.THOST }}" --authkey="${{ secrets.TSKEY }}" 
+          #Check Status
+          sudo tailscale status --peers=false
+          #Get SSH String
+          SSH_IP="$(sudo tailscale ip -4 | tr -d '\n')" && export SSH_IP="$SSH_IP"
+          TS_DNS="$(sudo tailscale status --json | jq -r '.Self.DNSName' | sed 's/\.$//')" && export TS_DNS="$TS_DNS"
+          #PRINT Details
+          export GREEN='\033[32m' ; export BLUE='\033[34m' ; export YELLOW='\033[33m' ; export PURPLE='\033[35m' ; export VIOLET='\033[0;35m' ; export NC='\033[0m'
+          echo -e "${GREEN}SSH: ${YELLOW}ssh "$USER@$SSH_IP" -o "StrictHostKeyChecking=no${NC}"\n     ${YELLOW}ssh "$USER@$TS_DNS" -o "StrictHostKeyChecking=no${NC}""
+          echo -e "\n [+] ${GREEN}openvscode-server: ${BLUE}http://$TS_DNS:8080${NC}\n"
+          #In case of debug
+          #sleep 60s
+          #Also shows up on: https://login.tailscale.com/admin/machines
+          
+      #Removes certain pre-installed libs & bins : https://github.com/Azathothas/Arsenal/blob/main/misc/Github/Runners/Ubuntu/debloat.sh   
+      - name: Debloat
+        run: |
+          # Presets
+          set -x ; set +e
+          #--------------#
+          #oneliner
+          bash <(curl -qfsSL "https://pub.ajam.dev/repos/Azathothas/Arsenal/misc/Github/Runners/Ubuntu/debloat.sh")
+          bash <(curl -qfsSL "https://pub.ajam.dev/repos/Azathothas/Arsenal/misc/Github/Runners/Ubuntu/debloat.sh") 2>/dev/null
+        continue-on-error: true
+
+     #Replace with any extra things you want to do             
+      - name: Run Custom Cmd
+        run: |
+           # Presets
+           set -x ; set +e
+           #--------------#        
+           echo "Hellow"
+        continue-on-error: true
+
+     #This keeps GH Actions hypnotized until timeout                
+      - name: Breakpoint || Sleep ∞
+        run: |
+          # Presets
+          set -x ; set +e
+          #--------------#
+          #sleep infinity
+          #while :; do sleep 1; done
+          sleep 340m
+        continue-on-error: true
