@@ -22,6 +22,7 @@ fi
 #------------------------------------------------------------------------------------#
 #Sanity Check
 if ! command -v podman &> /dev/null; then
+   #If this doesn't work with sudo: sudo ln -s "$(which podman)" "/usr/local/bin/podman"
    echo -e "\n[-] Podman is NOT Installed/Configured"
    echo -e "[-] Install ALL Dependencies && Configure ENV VARS|PATH\n"
    echo -e "\n[-] READ: https://github.com/Azathothas/Toolpacks/blob/main/.github/runners/README.md#additional-notes--refs\n"
