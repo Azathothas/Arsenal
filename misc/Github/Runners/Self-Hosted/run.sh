@@ -4,14 +4,18 @@
 
 #------------------------------------------------------------------------------------#
 #Requires passwordless sudo 
-if sudo -n -l | grep -q NOPASSWD; then
-   echo -e "\n[+] Passwordless sudo is Configured"
-   sudo -n -l 2>/dev/null
+if [ "$(id -u)" -eq 0 ]; then
+    echo -e "\n[+] USER:$(whoami) Running as root, skipping passwordless Sudo Checks"
 else
-   echo -e "\n[-] Passwordless sudo is NOT Configured"
-   echo -e "\n[-] READ: https://web.archive.org/web/20230614212916/https://linuxhint.com/setup-sudo-no-password-linux/\n"
-   #exit
-   exit 1
+    if sudo -n -l | grep -q NOPASSWD; then
+       echo -e "\n[+] Passwordless sudo is Configured"
+       sudo -n -l 2>/dev/null
+    else
+       echo -e "\n[-] Passwordless sudo is NOT Configured"
+       echo -e "\n[-] READ: https://web.archive.org/web/20230614212916/https://linuxhint.com/setup-sudo-no-password-linux/\n"
+       #exit
+       exit 1
+    fi
 fi
 #------------------------------------------------------------------------------------#
 
