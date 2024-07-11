@@ -298,6 +298,8 @@ INSTALL_DIR_SIZE_PRE="$(du -sh ${INSTALL_DIR} | cut -f1)" && export INSTALL_DIR_
  eval "${INSTALL_PRE}" "${INSTALL_SRC}/trurl" -o "${INSTALL_DIR}/trurl" && eval "${INSTALL_POST}" "${INSTALL_DIR}/trurl" &
 #unfurl : https://github.com/tomnomnom/unfurl 
  eval "${INSTALL_PRE}" "${INSTALL_SRC}/unfurl" -o "${INSTALL_DIR}/unfurl" && eval "${INSTALL_POST}" "${INSTALL_DIR}/unfurl" &
+#upx : https://github.com/upx/upx
+ eval "${INSTALL_PRE}" "${INSTALL_SRC}/upx" -o "${INSTALL_DIR}/upx" && eval "${INSTALL_POST}" "${INSTALL_DIR}/upx" & 
 #validtoml
  eval "${INSTALL_PRE}" "${INSTALL_SRC}/validtoml" -o "${INSTALL_DIR}/validtoml" && eval "${INSTALL_POST}" "${INSTALL_DIR}/validtoml" &
 #Web-Cache-Vulnerability-Scanner : https://github.com/Hackmanit/Web-Cache-Vulnerability-Scanner
