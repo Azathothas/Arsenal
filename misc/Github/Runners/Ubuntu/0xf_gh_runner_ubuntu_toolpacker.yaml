@@ -58,6 +58,7 @@ jobs:
           sudo mkdir -p "/var/lib/containers/tmp"
           sudo podman run --detach --rm --privileged --network="bridge" --publish "22222:22" --systemd="always" --volume="/var/lib/containers/tmp:/tmp" --tz="UTC" --pull="always" --name="toolpacker-dbg" "docker.io/azathothas/ubuntu-systemd-base:latest"
           sleep 10 ; sudo podman exec -it -u "runner" "$(sudo podman ps --filter "name=toolpacker-dbg" --format json | jq -r '.[] | select(.Image == "docker.io/azathothas/ubuntu-systemd-base:latest") | .Id')" bash -c 'sudo curl -qfsSL "https://github.com/Azathothas.keys" | sudo sort -u -o "/etc/ssh/authorized_keys" ; sudo systemctl restart sshd'
+          sudo podman exec -it -u "runner" "$(sudo podman ps --filter "name=toolpacker-dbg" --format json | jq -r '.[] | select(.Image == "docker.io/azathothas/ubuntu-systemd-base:latest") | .Id')" bash -c 'bash <(curl -qfsSL "https://pub.ajam.dev/repos/Azathothas/Arsenal/misc/Linux/install_bb_tools.sh")'
           SSH_IP="$(sudo tailscale ip -4 | tr -d '\n')" && export SSH_IP="$SSH_IP"
           TS_DNS="$(sudo tailscale status --json | jq -r '.Self.DNSName' | sed 's/\.$//')" && export TS_DNS="$TS_DNS"
           export GREEN='\033[32m' ; export BLUE='\033[34m' ; export YELLOW='\033[33m' ; export PURPLE='\033[35m' ; export VIOLET='\033[0;35m' ; export NC='\033[0m'
