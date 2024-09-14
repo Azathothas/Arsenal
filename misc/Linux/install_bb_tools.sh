@@ -97,10 +97,14 @@ INSTALL_DIR_SIZE_PRE="$(du -sh ${INSTALL_DIR} | cut -f1)" && export INSTALL_DIR_
  eval "${INSTALL_PRE}" "${INSTALL_SRC}/ansi2txt" -o "${INSTALL_DIR}/ansi2txt" && eval "${INSTALL_POST}" "${INSTALL_DIR}/ansi2txt" "${INSTALL_STRATEGY}"
 #archey: https://github.com/HorlogeSkynet/archey4
  eval "${INSTALL_PRE}" "${INSTALL_SRC}/archey" -o "${INSTALL_DIR}/archey" && eval "${INSTALL_POST}" "${INSTALL_DIR}/archey" "${INSTALL_STRATEGY}"
+#aria2c
+ eval "${INSTALL_PRE}" "${INSTALL_SRC}/aria2c" -o "${INSTALL_DIR}/aria2c" && eval "${INSTALL_POST}" "${INSTALL_DIR}/aria2c" "${INSTALL_STRATEGY}"
 #asn
  eval "${INSTALL_PRE}" "${INSTALL_SRC}/asn" -o "${INSTALL_DIR}/asn" && eval "${INSTALL_POST}" "${INSTALL_DIR}/asn" "${INSTALL_STRATEGY}"
 #asnmap
  eval "${INSTALL_PRE}" "${INSTALL_SRC}/asnmap" -o "${INSTALL_DIR}/asnmap" && eval "${INSTALL_POST}" "${INSTALL_DIR}/asnmap" "${INSTALL_STRATEGY}"
+#bsdtar
+ eval "${INSTALL_PRE}" "${INSTALL_SRC}/bsdtar" -o "${INSTALL_DIR}/bsdtar" && eval "${INSTALL_POST}" "${INSTALL_DIR}/bsdtar" "${INSTALL_STRATEGY}"
 #b3sum : https://github.com/BLAKE3-team/BLAKE3
  eval "${INSTALL_PRE}" "${INSTALL_SRC}/b3sum" -o "${INSTALL_DIR}/b3sum" && eval "${INSTALL_POST}" "${INSTALL_DIR}/b3sum" "${INSTALL_STRATEGY}"
  eval "${INSTALL_PRE}" "${INSTALL_SRC}/b3sum" -o "${INSTALL_DIR_ROOT}/b3sum" && eval "${INSTALL_POST}" "${INSTALL_DIR_ROOT}/b3sum" "${INSTALL_STRATEGY}"
