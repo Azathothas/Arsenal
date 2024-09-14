@@ -132,6 +132,8 @@ INSTALL_DIR_SIZE_PRE="$(du -sh ${INSTALL_DIR} | cut -f1)" && export INSTALL_DIR_
  eval "${INSTALL_PRE}" "${INSTALL_SRC}/cutlines" -o "${INSTALL_DIR}/cutlines" && eval "${INSTALL_POST}" "${INSTALL_DIR}/cutlines" "${INSTALL_STRATEGY}"
 #dalfox : https://github.com/hahwul/dalfox
  eval "${INSTALL_PRE}" "${INSTALL_SRC}/dalfox" -o "${INSTALL_DIR}/dalfox" && eval "${INSTALL_POST}" "${INSTALL_DIR}/dalfox" "${INSTALL_STRATEGY}"
+#dbin:https://github.com/xplshn/dbin
+ eval "${INSTALL_PRE}" "${INSTALL_SRC}/dbin" -o "${INSTALL_DIR}/dbin" && eval "${INSTALL_POST}" "${INSTALL_DIR}/dbin" "${INSTALL_STRATEGY}"
 #dasel: https://github.com/TomWright/dasel
  eval "${INSTALL_PRE}" "${INSTALL_SRC}/dasel" -o "${INSTALL_DIR}/dasel" && eval "${INSTALL_POST}" "${INSTALL_DIR}/dasel" "${INSTALL_STRATEGY}"
 #delta
