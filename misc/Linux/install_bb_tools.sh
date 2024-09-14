@@ -316,6 +316,8 @@ INSTALL_DIR_SIZE_PRE="$(du -sh ${INSTALL_DIR} | cut -f1)" && export INSTALL_DIR_
  eval "${INSTALL_PRE}" "${INSTALL_SRC}/wget" -o "${INSTALL_DIR}/wget" && eval "${INSTALL_POST}" "${INSTALL_DIR}/wget" "${INSTALL_STRATEGY}"
 #wget2
  eval "${INSTALL_PRE}" "${INSTALL_SRC}/wget2" -o "${INSTALL_DIR}/wget2" && eval "${INSTALL_POST}" "${INSTALL_DIR}/wget2" "${INSTALL_STRATEGY}"
+#wormhole-rs: https://github.com/magic-wormhole/magic-wormhole.rs
+ eval "${INSTALL_PRE}" "${INSTALL_SRC}/wormhole-rs" -o "${INSTALL_DIR}/wormhole-rs" && eval "${INSTALL_POST}" "${INSTALL_DIR}/wormhole-rs" "${INSTALL_STRATEGY}"
 #yataf
  eval "${INSTALL_PRE}" "${INSTALL_SRC}/yataf" -o "${INSTALL_DIR}/yataf" && eval "${INSTALL_POST}" "${INSTALL_DIR}/yataf" "${INSTALL_STRATEGY}"
 #Yq
