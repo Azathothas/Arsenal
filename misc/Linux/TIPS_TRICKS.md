@@ -45,16 +45,16 @@ cd "$(find . -maxdepth 1 -type d -exec basename {} \; | grep -Ev '^\.$' | xargs 
 #bs --> read and write up to BYTES bytes at a time (default: 512)
 #count --> copy only N input blocks
 
-#Generate a 100KB File
+#Generate a 100KB File (count=N to generate N{KB} File)
 dd if="/dev/zero" of="$(pwd)/TEST100KB" bs="100KiB" count="1"
 
-#Generate a 1MB File
+#Generate a 1MB File (count=N to generate N{MB} File)
 dd if="/dev/zero" of="$(pwd)/TEST1MB" bs="1MiB" count="1"
 
-#Generate a 1GB File
+#Generate a 1GB File (count=N to generate N{GB} File)
 dd if="/dev/zero" of="$(pwd)/TEST1GB" bs="1GiB" count="1"
 
-#Just replace with `n{GB|TB|PB}` etc
+#Just replace with `n{GB|TB|PB}` etc (count=N to generate N{GB|TB|PB} File)
 dd if="/dev/zero" of="$(pwd)/TESTn{KiB|MiB|GiB|TiB|PiB}" bs="n{KiB|MiB|GiB|TiB|PiB}" count="1"
 
 #Use /dev/urandom , resource intensive but avoids compression when uploading to certain remotes
