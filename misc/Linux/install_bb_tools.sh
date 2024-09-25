@@ -214,6 +214,8 @@ INSTALL_DIR_SIZE_PRE="$(du -sh ${INSTALL_DIR} | cut -f1)" && export INSTALL_DIR_
  eval "${INSTALL_PRE}" "${INSTALL_SRC}/httpx" -o "${INSTALL_DIR}/httpx" && eval "${INSTALL_POST}" "${INSTALL_DIR}/httpx" "${INSTALL_STRATEGY}"
  eval "${INSTALL_PRE}" "${INSTALL_SRC}/httpx" -o "${INSTALL_DIR_ROOT}/httpx" && eval "${INSTALL_POST}" "${INSTALL_DIR_ROOT}/httpx" "${INSTALL_STRATEGY}"
  eval "${INSTALL_PRE}" "${INSTALL_SRC}/httpx" -o "${INSTALL_DIR_LOCALH}/httpx" 2>/dev/null && eval "${INSTALL_POST}" "${INSTALL_DIR_LOCALH}/httpx" 2>/dev/null "${INSTALL_STRATEGY}"
+#huggingface-cli: https://github.com/huggingface/huggingface_hub
+ eval "${INSTALL_PRE}" "${INSTALL_SRC}/huggingface-cli" -o "${INSTALL_DIR}/huggingface-cli" && eval "${INSTALL_POST}" "${INSTALL_DIR}/huggingface-cli" "${INSTALL_STRATEGY}"
 #husarnet: https://github.com/husarnet/husarnet
  eval "${INSTALL_PRE}" "${INSTALL_SRC}/husarnet" -o "${INSTALL_DIR}/husarnet" && eval "${INSTALL_POST}" "${INSTALL_DIR}/husarnet" "${INSTALL_STRATEGY}"
  eval "${INSTALL_PRE}" "${INSTALL_SRC}/husarnet-daemon" -o "${INSTALL_DIR}/husarnet-daemon" && eval "${INSTALL_POST}" "${INSTALL_DIR}/husarnet-daemon" "${INSTALL_STRATEGY}"
