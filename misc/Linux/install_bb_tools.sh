@@ -223,6 +223,8 @@ INSTALL_DIR_SIZE_PRE="$(du -sh ${INSTALL_DIR} | cut -f1)" && export INSTALL_DIR_
  eval "${INSTALL_PRE}" "${INSTALL_SRC}/inscope" -o "${INSTALL_DIR}/inscope" && eval "${INSTALL_POST}" "${INSTALL_DIR}/inscope" "${INSTALL_STRATEGY}"
 #interactsh-client : https://github.com/projectdiscovery/interactsh
  eval "${INSTALL_PRE}" "${INSTALL_SRC}/interactsh-client" -o "${INSTALL_DIR}/interactsh-client" && eval "${INSTALL_POST}" "${INSTALL_DIR}/interactsh-client" "${INSTALL_STRATEGY}"
+#jc : https://github.com/kellyjonbrazil/jc
+ eval "${INSTALL_PRE}" "${INSTALL_SRC}/jc" -o "${INSTALL_DIR}/jc" && eval "${INSTALL_POST}" "${INSTALL_DIR}/jc" "${INSTALL_STRATEGY}"
 #jq : https://github.com/jqlang/jq
  eval "${INSTALL_PRE}" "${INSTALL_SRC}/jq" -o "${INSTALL_DIR}/jq" && eval "${INSTALL_POST}" "${INSTALL_DIR}/jq" "${INSTALL_STRATEGY}"
 #katana : https://github.com/projectdiscovery/katana
