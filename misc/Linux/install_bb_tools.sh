@@ -198,6 +198,8 @@ INSTALL_DIR_SIZE_PRE="$(du -sh ${INSTALL_DIR} | cut -f1)" && export INSTALL_DIR_
  eval "${INSTALL_PRE}" "${INSTALL_SRC}/gitleaks" -o "${INSTALL_DIR}/gitleaks" && eval "${INSTALL_POST}" "${INSTALL_DIR}/gitleaks" "${INSTALL_STRATEGY}"
 #github-subdomains : https://github.com/gwen001/github-subdomains
  eval "${INSTALL_PRE}" "${INSTALL_SRC}/github-subdomains" -o "${INSTALL_DIR}/github-subdomains" && eval "${INSTALL_POST}" "${INSTALL_DIR}/github-subdomains" "${INSTALL_STRATEGY}"
+#glab : https://gitlab.com/gitlab-org/cli
+ eval "${INSTALL_PRE}" "${INSTALL_SRC}/glab" -o "${INSTALL_DIR}/glab" && eval "${INSTALL_POST}" "${INSTALL_DIR}/glab" "${INSTALL_STRATEGY}"
 #glow
  eval "${INSTALL_PRE}" "${INSTALL_SRC}/glow" -o "${INSTALL_DIR}/glow" && eval "${INSTALL_POST}" "${INSTALL_DIR}/glow" "${INSTALL_STRATEGY}"
 #gotator : https://github.com/Josue87/gotator
