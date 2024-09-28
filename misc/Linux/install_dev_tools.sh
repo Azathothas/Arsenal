@@ -159,6 +159,8 @@ INSTALL_DIR_SIZE_PRE="$(du -sh ${INSTALL_DIR} | cut -f1)" && export INSTALL_DIR_
  eval "${INSTALL_PRE}" "${INSTALL_SRC}/jc" -o "${INSTALL_DIR}/jc" && eval "${INSTALL_POST}" "${INSTALL_DIR}/jc" "${INSTALL_STRATEGY}"
 #jq : https://github.com/jqlang/jq
  eval "${INSTALL_PRE}" "${INSTALL_SRC}/jq" -o "${INSTALL_DIR}/jq" && eval "${INSTALL_POST}" "${INSTALL_DIR}/jq" "${INSTALL_STRATEGY}"
+#logdy: https://github.com/logdyhq/logdy-core
+ eval "${INSTALL_PRE}" "${INSTALL_SRC}/logdy" -o "${INSTALL_DIR}/logdy" && eval "${INSTALL_POST}" "${INSTALL_DIR}/logdy" "${INSTALL_STRATEGY}"
 #micro
  eval "${INSTALL_PRE}" "${INSTALL_SRC}/micro" -o "${INSTALL_DIR}/micro" && eval "${INSTALL_POST}" "${INSTALL_DIR}/micro" "${INSTALL_STRATEGY}"
 #ncdu : https://dev.yorhel.nl/ncdu
