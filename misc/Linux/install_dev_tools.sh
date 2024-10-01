@@ -184,6 +184,8 @@ INSTALL_DIR_SIZE_PRE="$(du -sh ${INSTALL_DIR} | cut -f1)" && export INSTALL_DIR_
 #tailscale : https://github.com/tailscale/tailscale
  eval "${INSTALL_PRE}" "${INSTALL_SRC}/tailscale" -o "${INSTALL_DIR}/tailscale" && eval "${INSTALL_POST}" "${INSTALL_DIR}/tailscale" "${INSTALL_STRATEGY}"
  eval "${INSTALL_PRE}" "${INSTALL_SRC}/tailscaled" -o "${INSTALL_DIR}/tailscaled" && eval "${INSTALL_POST}" "${INSTALL_DIR}/tailscaled" "${INSTALL_STRATEGY}"
+#taplo: https://github.com/tamasfe/taplo
+ eval "${INSTALL_PRE}" "${INSTALL_SRC}/taplo" -o "${INSTALL_DIR}/taplo" && eval "${INSTALL_POST}" "${INSTALL_DIR}/taplo" "${INSTALL_STRATEGY}" 
 #tmux
  eval "${INSTALL_PRE}" "${INSTALL_SRC}/tmux" -o "${INSTALL_DIR}/tmux" && eval "${INSTALL_POST}" "${INSTALL_DIR}/tmux" "${INSTALL_STRATEGY}"
 #tok
