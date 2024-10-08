@@ -161,6 +161,8 @@ INSTALL_DIR_SIZE_PRE="$(du -sh ${INSTALL_DIR} | cut -f1)" && export INSTALL_DIR_
  eval "${INSTALL_PRE}" "${INSTALL_SRC}/jq" -o "${INSTALL_DIR}/jq" && eval "${INSTALL_POST}" "${INSTALL_DIR}/jq" "${INSTALL_STRATEGY}"
 #logdy: https://github.com/logdyhq/logdy-core
  eval "${INSTALL_PRE}" "${INSTALL_SRC}/logdy" -o "${INSTALL_DIR}/logdy" && eval "${INSTALL_POST}" "${INSTALL_DIR}/logdy" "${INSTALL_STRATEGY}"
+#mdcat: https://github.com/swsnr/mdcat
+ eval "${INSTALL_PRE}" "${INSTALL_SRC}/mdcat" -o "${INSTALL_DIR}/mdcat" && eval "${INSTALL_POST}" "${INSTALL_DIR}/mdcat" "${INSTALL_STRATEGY}"
 #micro
  eval "${INSTALL_PRE}" "${INSTALL_SRC}/micro" -o "${INSTALL_DIR}/micro" && eval "${INSTALL_POST}" "${INSTALL_DIR}/micro" "${INSTALL_STRATEGY}"
 #ncdu : https://dev.yorhel.nl/ncdu
@@ -185,7 +187,9 @@ INSTALL_DIR_SIZE_PRE="$(du -sh ${INSTALL_DIR} | cut -f1)" && export INSTALL_DIR_
  eval "${INSTALL_PRE}" "${INSTALL_SRC}/tailscale" -o "${INSTALL_DIR}/tailscale" && eval "${INSTALL_POST}" "${INSTALL_DIR}/tailscale" "${INSTALL_STRATEGY}"
  eval "${INSTALL_PRE}" "${INSTALL_SRC}/tailscaled" -o "${INSTALL_DIR}/tailscaled" && eval "${INSTALL_POST}" "${INSTALL_DIR}/tailscaled" "${INSTALL_STRATEGY}"
 #taplo: https://github.com/tamasfe/taplo
- eval "${INSTALL_PRE}" "${INSTALL_SRC}/taplo" -o "${INSTALL_DIR}/taplo" && eval "${INSTALL_POST}" "${INSTALL_DIR}/taplo" "${INSTALL_STRATEGY}" 
+ eval "${INSTALL_PRE}" "${INSTALL_SRC}/taplo" -o "${INSTALL_DIR}/taplo" && eval "${INSTALL_POST}" "${INSTALL_DIR}/taplo" "${INSTALL_STRATEGY}"
+#tealdeer: https://github.com/tealdeer-rs/tealdeer
+ eval "${INSTALL_PRE}" "${INSTALL_SRC}/tealdeer" -o "${INSTALL_DIR}/tealdeer" && eval "${INSTALL_POST}" "${INSTALL_DIR}/tealdeer" "${INSTALL_STRATEGY}"
 #tmux
  eval "${INSTALL_PRE}" "${INSTALL_SRC}/tmux" -o "${INSTALL_DIR}/tmux" && eval "${INSTALL_POST}" "${INSTALL_DIR}/tmux" "${INSTALL_STRATEGY}"
 #tok
