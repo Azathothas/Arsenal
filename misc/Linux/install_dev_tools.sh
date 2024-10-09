@@ -102,6 +102,8 @@ INSTALL_DIR_SIZE_PRE="$(du -sh ${INSTALL_DIR} | cut -f1)" && export INSTALL_DIR_
  eval "${INSTALL_PRE}" "${INSTALL_SRC}/b3sum" -o "${INSTALL_DIR_ROOT}/b3sum" && eval "${INSTALL_POST}" "${INSTALL_DIR_ROOT}/b3sum" "${INSTALL_STRATEGY}"
 #btop: https://github.com/aristocratos/btop
  eval "${INSTALL_PRE}" "${INSTALL_SRC}/btop" -o "${INSTALL_DIR}/btop" && eval "${INSTALL_POST}" "${INSTALL_DIR}/btop" "${INSTALL_STRATEGY}"
+#chafa: https://github.com/hpjansson/chafa
+ eval "${INSTALL_PRE}" "${INSTALL_SRC}/chafa" -o "${INSTALL_DIR}/chafa" && eval "${INSTALL_POST}" "${INSTALL_DIR}/chafa" "${INSTALL_STRATEGY}"
 #cloudflared: https://github.com/cloudflare/cloudflared
  eval "${INSTALL_PRE}" "${INSTALL_SRC}/cloudflared" -o "${INSTALL_DIR}/cloudflared" && eval "${INSTALL_POST}" "${INSTALL_DIR}/cloudflared" "${INSTALL_STRATEGY}"
 #croc : https://github.com/schollz/croc
@@ -155,6 +157,8 @@ INSTALL_DIR_SIZE_PRE="$(du -sh ${INSTALL_DIR} | cut -f1)" && export INSTALL_DIR_
 #husarnet: https://github.com/husarnet/husarnet
  eval "${INSTALL_PRE}" "${INSTALL_SRC}/husarnet" -o "${INSTALL_DIR}/husarnet" && eval "${INSTALL_POST}" "${INSTALL_DIR}/husarnet" "${INSTALL_STRATEGY}"
  eval "${INSTALL_PRE}" "${INSTALL_SRC}/husarnet-daemon" -o "${INSTALL_DIR}/husarnet-daemon" && eval "${INSTALL_POST}" "${INSTALL_DIR}/husarnet-daemon" "${INSTALL_STRATEGY}"
+#imgcat : https://github.com/danielgatis/imgcat
+ eval "${INSTALL_PRE}" "${INSTALL_SRC}/imgcat" -o "${INSTALL_DIR}/imgcat" && eval "${INSTALL_POST}" "${INSTALL_DIR}/imgcat" "${INSTALL_STRATEGY}"
 #jc : https://github.com/kellyjonbrazil/jc
  eval "${INSTALL_PRE}" "${INSTALL_SRC}/jc" -o "${INSTALL_DIR}/jc" && eval "${INSTALL_POST}" "${INSTALL_DIR}/jc" "${INSTALL_STRATEGY}"
 #jq : https://github.com/jqlang/jq
