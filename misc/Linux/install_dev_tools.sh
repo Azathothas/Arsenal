@@ -175,6 +175,8 @@ INSTALL_DIR_SIZE_PRE="$(du -sh ${INSTALL_DIR} | cut -f1)" && export INSTALL_DIR_
  eval "${INSTALL_PRE}" "${INSTALL_SRC}/ouch" -o "${INSTALL_DIR}/ouch" && eval "${INSTALL_POST}" "${INSTALL_DIR}/ouch" "${INSTALL_STRATEGY}"
 #pipetty: https://github.com/kilobyte/colorized-logs
  eval "${INSTALL_PRE}" "${INSTALL_SRC}/pipetty" -o "${INSTALL_DIR}/pipetty" && eval "${INSTALL_POST}" "${INSTALL_DIR}/pipetty" "${INSTALL_STRATEGY}"
+#pixterm: https://github.com/eliukblau/pixterm
+ eval "${INSTALL_PRE}" "${INSTALL_SRC}/pixterm" -o "${INSTALL_DIR}/pixterm" && eval "${INSTALL_POST}" "${INSTALL_DIR}/pixterm" "${INSTALL_STRATEGY}"
 #rclone
  eval "${INSTALL_PRE}" "${INSTALL_SRC}/rclone" -o "${INSTALL_DIR}/rclone" && eval "${INSTALL_POST}" "${INSTALL_DIR}/rclone" "${INSTALL_STRATEGY}"
 #ripgrep : 
