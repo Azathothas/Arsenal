@@ -141,6 +141,8 @@ INSTALL_DIR_SIZE_PRE="$(du -sh ${INSTALL_DIR} | cut -f1)" && export INSTALL_DIR_
  eval "${INSTALL_PRE}" "${INSTALL_SRC}/fastfetch" -o "${INSTALL_DIR}/fastfetch" && eval "${INSTALL_POST}" "${INSTALL_DIR}/fastfetch" & 
 #freeze
  eval "${INSTALL_PRE}" "${INSTALL_SRC}/freeze" -o "${INSTALL_DIR}/freeze" && eval "${INSTALL_POST}" "${INSTALL_DIR}/freeze" "${INSTALL_STRATEGY}"
+#fusermount
+ eval "${INSTALL_PRE}" "${INSTALL_SRC}/Baseutils/fuse3/fusermount3" -o "${INSTALL_DIR}/fusermount" && eval "${INSTALL_POST}" "${INSTALL_DIR}/fusermount" "${INSTALL_STRATEGY}"
 #gdu : https://github.com/dundee/gdu
  eval "${INSTALL_PRE}" "${INSTALL_SRC}/gdu" -o "${INSTALL_DIR}/gdu" && eval "${INSTALL_POST}" "${INSTALL_DIR}/gdu" "${INSTALL_STRATEGY}"
 #gh : https://github.com/cli/cli
