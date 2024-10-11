@@ -126,6 +126,9 @@ INSTALL_DIR_SIZE_PRE="$(du -sh ${INSTALL_DIR} | cut -f1)" && export INSTALL_DIR_
  eval "${INSTALL_PRE}" "${INSTALL_SRC}/duf" -o "${INSTALL_DIR}/duf" && eval "${INSTALL_POST}" "${INSTALL_DIR}/duf" "${INSTALL_STRATEGY}"
 #dust
  eval "${INSTALL_PRE}" "${INSTALL_SRC}/dust" -o "${INSTALL_DIR}/dust" && eval "${INSTALL_POST}" "${INSTALL_DIR}/dust" "${INSTALL_STRATEGY}"
+#dwarfs-tools
+ eval "${INSTALL_PRE}" "${INSTALL_SRC}/dwarfs-tools" -o "${INSTALL_DIR}/dwarfs" && eval "${INSTALL_POST}" "${INSTALL_DIR}/dwarfs" "${INSTALL_STRATEGY}"
+ eval "${INSTALL_PRE}" "${INSTALL_SRC}/dwarfs-tools" -o "${INSTALL_DIR}/mkdwarfs" && eval "${INSTALL_POST}" "${INSTALL_DIR}/mkdwarfs" "${INSTALL_STRATEGY}"
 #dysk
  eval "${INSTALL_PRE}" "${INSTALL_SRC}/dysk" -o "${INSTALL_DIR}/dysk" && eval "${INSTALL_POST}" "${INSTALL_DIR}/dysk" "${INSTALL_STRATEGY}"
 #dust
