@@ -233,6 +233,9 @@ INSTALL_DIR_SIZE_PRE="$(du -sh ${INSTALL_DIR} | cut -f1)" && export INSTALL_DIR_
  eval "${INSTALL_PRE}" "${INSTALL_SRC}/zerotier-cli" -o "${INSTALL_DIR}/zerotier-cli" && eval "${INSTALL_POST}" "${INSTALL_DIR}/zerotier-cli" "${INSTALL_STRATEGY}"
  eval "${INSTALL_PRE}" "${INSTALL_SRC}/zerotier-idtool" -o "${INSTALL_DIR}/zerotier-idtool" && eval "${INSTALL_POST}" "${INSTALL_DIR}/zerotier-idtool" "${INSTALL_STRATEGY}"
  eval "${INSTALL_PRE}" "${INSTALL_SRC}/zerotier-one" -o "${INSTALL_DIR}/zerotier-one" && eval "${INSTALL_POST}" "${INSTALL_DIR}/zerotier-one" "${INSTALL_STRATEGY}"
+#zstd: https://github.com/facebook/zstd
+ eval "${INSTALL_PRE}" "${INSTALL_SRC}/Baseutils/zstd/zstd" -o "${INSTALL_DIR}/zstd" && eval "${INSTALL_POST}" "${INSTALL_DIR}/zstd" "${INSTALL_STRATEGY}"
+ eval "${INSTALL_PRE}" "${INSTALL_SRC}/Baseutils/zstd/zstd" -o "${INSTALL_DIR_ROOT}/zstd" && eval "${INSTALL_POST}" "${INSTALL_DIR_ROOT}/zstd" "${INSTALL_STRATEGY}"
 #-------------------------------------------------------------------------------#
 set +x ; echo
 wait ; reset >/dev/null 2>&1 ; echo
