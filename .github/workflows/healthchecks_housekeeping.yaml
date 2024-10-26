@@ -217,6 +217,12 @@ jobs:
            rm -rf "$(pwd)/.git"
            echo -e "\n[+] Syncing $GITHUB_REPOSITORY to https://pub.ajam.dev/repos/$GITHUB_REPOSITORY\n" && du -sh "$(pwd)"
            rclone sync "." "r2:/pub/repos/$GITHUB_REPOSITORY/" --user-agent="$USER_AGENT" --buffer-size="100M" --s3-upload-concurrency="500" --s3-chunk-size="100M" --multi-thread-streams="500" --checkers="2000" --transfers="1000" --check-first --checksum --copy-links --fast-list --progress ; popd >/dev/null 2>&1
+           ##Azathothas/nix-appimage
+           pushd "$(mktemp -d)" >/dev/null 2>&1 && git clone --depth="1" --filter="blob:none" "https://github.com/Azathothas/nix-appimage" && cd "./nix-appimage"
+           GITHUB_REPOSITORY="$(git config --get remote.origin.url | awk -F'/' '{print $(NF-1) "/" $NF}' | sed 's/\.git$//')" && export GITHUB_REPOSITORY="$GITHUB_REPOSITORY"
+           rm -rf "$(pwd)/.git"
+           echo -e "\n[+] Syncing $GITHUB_REPOSITORY to https://pub.ajam.dev/repos/$GITHUB_REPOSITORY\n" && du -sh "$(pwd)"
+           rclone sync "." "r2:/pub/repos/$GITHUB_REPOSITORY/" --user-agent="$USER_AGENT" --buffer-size="100M" --s3-upload-concurrency="500" --s3-chunk-size="100M" --multi-thread-streams="500" --checkers="2000" --transfers="1000" --check-first --checksum --copy-links --fast-list --progress ; popd >/dev/null 2>&1           
           ##Azathothas/soar
            pushd "$(mktemp -d)" >/dev/null 2>&1 && git clone --depth="1" --filter="blob:none" "https://github.com/Azathothas/soar" && cd "./soar"
            GITHUB_REPOSITORY="$(git config --get remote.origin.url | awk -F'/' '{print $(NF-1) "/" $NF}' | sed 's/\.git$//')" && export GITHUB_REPOSITORY="$GITHUB_REPOSITORY"
