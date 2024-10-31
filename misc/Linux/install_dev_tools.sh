@@ -165,8 +165,8 @@ INSTALL_DIR_SIZE_PRE="$(du -sh ${INSTALL_DIR} | cut -f1)" && export INSTALL_DIR_
 #imgcat : https://github.com/danielgatis/imgcat
  eval "${INSTALL_PRE}" "${INSTALL_SRC}/imgcat" -o "${INSTALL_DIR}/imgcat" && eval "${INSTALL_POST}" "${INSTALL_DIR}/imgcat" "${INSTALL_STRATEGY}"
 #imagemagick : https://github.com/ImageMagick/ImageMagick
- eval "${INSTALL_PRE}" "${INSTALL_SRC}/magick_appbundle.no_strip" -o "${INSTALL_DIR}/magick" && eval "${INSTALL_POST}" "${INSTALL_DIR}/magick" "${INSTALL_STRATEGY}"
- eval "${INSTALL_PRE}" "${INSTALL_SRC}/magick_appbundle.no_strip" -o "${INSTALL_DIR_ROOT}/magick" && eval "${INSTALL_POST}" "${INSTALL_DIR_ROOT}/magick" "${INSTALL_STRATEGY}"
+ #eval "${INSTALL_PRE}" "${INSTALL_SRC}/magick_appbundle.no_strip" -o "${INSTALL_DIR}/magick" && eval "${INSTALL_POST}" "${INSTALL_DIR}/magick" "${INSTALL_STRATEGY}"
+ #eval "${INSTALL_PRE}" "${INSTALL_SRC}/magick_appbundle.no_strip" -o "${INSTALL_DIR_ROOT}/magick" && eval "${INSTALL_POST}" "${INSTALL_DIR_ROOT}/magick" "${INSTALL_STRATEGY}"
 #jc : https://github.com/kellyjonbrazil/jc
  eval "${INSTALL_PRE}" "${INSTALL_SRC}/jc" -o "${INSTALL_DIR}/jc" && eval "${INSTALL_POST}" "${INSTALL_DIR}/jc" "${INSTALL_STRATEGY}"
 #jq : https://github.com/jqlang/jq
