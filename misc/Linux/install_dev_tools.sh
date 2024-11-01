@@ -179,6 +179,8 @@ INSTALL_DIR_SIZE_PRE="$(du -sh ${INSTALL_DIR} | cut -f1)" && export INSTALL_DIR_
  eval "${INSTALL_PRE}" "${INSTALL_SRC}/mdcat" -o "${INSTALL_DIR}/mdcat" && eval "${INSTALL_POST}" "${INSTALL_DIR}/mdcat" "${INSTALL_STRATEGY}"
 #micro
  eval "${INSTALL_PRE}" "${INSTALL_SRC}/micro" -o "${INSTALL_DIR}/micro" && eval "${INSTALL_POST}" "${INSTALL_DIR}/micro" "${INSTALL_STRATEGY}"
+#miniserve: https://github.com/svenstaro/miniserve
+ eval "${INSTALL_PRE}" "${INSTALL_SRC}/ncdu" -o "${INSTALL_DIR}/ncdu" && eval "${INSTALL_POST}" "${INSTALL_DIR}/ncdu" "${INSTALL_STRATEGY}"
 #ncdu : https://dev.yorhel.nl/ncdu
  eval "${INSTALL_PRE}" "${INSTALL_SRC}/ncdu" -o "${INSTALL_DIR}/ncdu" && eval "${INSTALL_POST}" "${INSTALL_DIR}/ncdu" "${INSTALL_STRATEGY}"
 #ouch : https://github.com/ouch-org/ouch
