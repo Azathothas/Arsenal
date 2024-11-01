@@ -147,6 +147,8 @@ INSTALL_DIR_SIZE_PRE="$(du -sh ${INSTALL_DIR} | cut -f1)" && export INSTALL_DIR_
  eval "${INSTALL_PRE}" "${INSTALL_SRC}/gdu" -o "${INSTALL_DIR}/gdu" && eval "${INSTALL_POST}" "${INSTALL_DIR}/gdu" "${INSTALL_STRATEGY}"
 #gh : https://github.com/cli/cli
  eval "${INSTALL_PRE}" "${INSTALL_SRC}/gh" -o "${INSTALL_DIR}/gh" && eval "${INSTALL_POST}" "${INSTALL_DIR}/gh" "${INSTALL_STRATEGY}"
+#gitleaks: https://github.com/gitleaks/gitleaks
+ eval "${INSTALL_PRE}" "${INSTALL_SRC}/gitleaks" -o "${INSTALL_DIR}/gitleaks" && eval "${INSTALL_POST}" "${INSTALL_DIR}/gitleaks" "${INSTALL_STRATEGY}"
 #git-sizer
  eval "${INSTALL_PRE}" "${INSTALL_SRC}/git-sizer" -o "${INSTALL_DIR}/git-sizer" && eval "${INSTALL_POST}" "${INSTALL_DIR}/git-sizer" "${INSTALL_STRATEGY}"
 #glab : https://gitlab.com/gitlab-org/cli
@@ -208,6 +210,8 @@ INSTALL_DIR_SIZE_PRE="$(du -sh ${INSTALL_DIR} | cut -f1)" && export INSTALL_DIR_
  eval "${INSTALL_PRE}" "${INSTALL_SRC}/tmux" -o "${INSTALL_DIR}/tmux" && eval "${INSTALL_POST}" "${INSTALL_DIR}/tmux" "${INSTALL_STRATEGY}"
 #tok
  eval "${INSTALL_PRE}" "${INSTALL_SRC}/tok" -o "${INSTALL_DIR}/tok" && eval "${INSTALL_POST}" "${INSTALL_DIR}/tok" "${INSTALL_STRATEGY}"
+#trufflehog : https://github.com/trufflesecurity/trufflehog
+ eval "${INSTALL_PRE}" "${INSTALL_SRC}/trufflehog" -o "${INSTALL_DIR}/trufflehog" && eval "${INSTALL_POST}" "${INSTALL_DIR}/trufflehog" "${INSTALL_STRATEGY}"
 #trurl : https://github.com/curl/trurl
  eval "${INSTALL_PRE}" "${INSTALL_SRC}/trurl" -o "${INSTALL_DIR}/trurl" && eval "${INSTALL_POST}" "${INSTALL_DIR}/trurl" "${INSTALL_STRATEGY}"
 #unfurl : https://github.com/tomnomnom/unfurl 
