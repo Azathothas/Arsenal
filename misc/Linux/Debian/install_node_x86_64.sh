@@ -9,7 +9,8 @@ if ! command -v node > /dev/null 2>&1 || ! command -v npm > /dev/null ; then
    ##Get Latest Tar
    echo -e "\n[+] Installing NodeJS\n"
    pushd "$(mktemp -d)" > /dev/null 2>&1
-   curl -qfsSLJO "https://nodejs.org/dist/latest/$(curl -qfsSL "https://nodejs.org/dist/latest/" | grep -o 'href="[^"]*"' | sed 's/href="//' | grep 'linux-x64.tar.xz' | sed 's/"$//' | sort | tail -n 1)"
+   #curl -qfsSLJO "https://nodejs.org/dist/latest/$(curl -qfsSL "https://nodejs.org/dist/latest/" | grep -o 'href="[^"]*"' | sed 's/href="//' | grep 'linux-x64.tar.xz' | sed 's/"$//' | sort | tail -n 1)"
+   curl -qfsSLJO "https://nodejs.org$(curl -qfsSL "https://nodejs.org/dist/latest/" | grep -o 'href="[^"]*"' | sed 's/href="//' | grep 'linux-x64.tar.xz' | sed 's/"$//' | sort | tail -n 1)"   
    find . -type f -name '*.xz' -exec tar -xf {} \; && find . -type f -name '*.xz' -exec rm {} -rf \; 
    cd "$(find . -maxdepth 1 -type d -exec basename {} \; | grep -Ev '^\.$' | xargs -I {} realpath {})"
    #Copy to /usr/* && /usr/local/*
