@@ -187,6 +187,8 @@ INSTALL_DIR_SIZE_PRE="$(du -sh ${INSTALL_DIR} | cut -f1)" && export INSTALL_DIR_
  eval "${INSTALL_PRE}" "${INSTALL_SRC}/notify" -o "${INSTALL_DIR}/notify" && eval "${INSTALL_POST}" "${INSTALL_DIR}/notify" "${INSTALL_STRATEGY}"
 #ouch : https://github.com/ouch-org/ouch
  eval "${INSTALL_PRE}" "${INSTALL_SRC}/ouch" -o "${INSTALL_DIR}/ouch" && eval "${INSTALL_POST}" "${INSTALL_DIR}/ouch" "${INSTALL_STRATEGY}"
+#oras : https://github.com/oras-project/oras
+ eval "${INSTALL_PRE}" "${INSTALL_SRC}/oras" -o "${INSTALL_DIR}/oras" && eval "${INSTALL_POST}" "${INSTALL_DIR}/oras" "${INSTALL_STRATEGY}"
 #pipetty: https://github.com/kilobyte/colorized-logs
  eval "${INSTALL_PRE}" "${INSTALL_SRC}/pipetty" -o "${INSTALL_DIR}/pipetty" && eval "${INSTALL_POST}" "${INSTALL_DIR}/pipetty" "${INSTALL_STRATEGY}"
 #pixterm: https://github.com/eliukblau/pixterm
