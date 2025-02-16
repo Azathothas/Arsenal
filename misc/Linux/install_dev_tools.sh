@@ -13,7 +13,7 @@
  set +e ; set -x
 #Check curl 
  if ! command -v curl &> /dev/null; then
-     echo -e "\n[-] FATAL: Install Curl (https://bin.ajam.dev/$(uname -m)/curl)\n"
+     echo -e "\n[-] FATAL: Install Curl (https://bin.pkgforge.dev/$(uname -m)/curl)\n"
    exit 1
  fi
 #Check install dirs & sudo
@@ -56,9 +56,9 @@
  if [ -z "${INSTALL_SRC}" ]; then
      ARCH="$(uname -m)" && export ARCH="${ARCH}"
      if [ "${ARCH}" == "aarch64" ]; then
-         INSTALL_SRC="https://bin.ajam.dev/aarch64_arm64_Linux" ; export INSTALL_SRC="${INSTALL_SRC}"
+         INSTALL_SRC="https://bin.pkgforge.dev/aarch64-Linux" ; export INSTALL_SRC="${INSTALL_SRC}"
      elif [ "${ARCH}" == "x86_64" ]; then
-         INSTALL_SRC="https://bin.ajam.dev/x86_64_Linux" ; export INSTALL_SRC="${INSTALL_SRC}"
+         INSTALL_SRC="https://bin.pkgforge.dev/x86_64-Linux" ; export INSTALL_SRC="${INSTALL_SRC}"
      fi
      echo -e "\n[+] Fetching Bins from (Default) :: ${INSTALL_SRC}\n"
  else
@@ -96,7 +96,7 @@ INSTALL_DIR_SIZE_PRE="$(du -sh ${INSTALL_DIR} | cut -f1)" && export INSTALL_DIR_
 #aria2c
  eval "${INSTALL_PRE}" "${INSTALL_SRC}/aria2c" -o "${INSTALL_DIR}/aria2c" && eval "${INSTALL_POST}" "${INSTALL_DIR}/aria2c" "${INSTALL_STRATEGY}"
 #bsdtar
- eval "${INSTALL_PRE}" "${INSTALL_SRC}/Baseutils/libarchive/bsdtar" -o "${INSTALL_DIR}/bsdtar" && eval "${INSTALL_POST}" "${INSTALL_DIR}/bsdtar" "${INSTALL_STRATEGY}"
+ eval "${INSTALL_PRE}" "${INSTALL_SRC}/bsdtar" -o "${INSTALL_DIR}/bsdtar" && eval "${INSTALL_POST}" "${INSTALL_DIR}/bsdtar" "${INSTALL_STRATEGY}"
 #b3sum : https://github.com/BLAKE3-team/BLAKE3
  eval "${INSTALL_PRE}" "${INSTALL_SRC}/b3sum" -o "${INSTALL_DIR}/b3sum" && eval "${INSTALL_POST}" "${INSTALL_DIR}/b3sum" "${INSTALL_STRATEGY}"
  eval "${INSTALL_PRE}" "${INSTALL_SRC}/b3sum" -o "${INSTALL_DIR_ROOT}/b3sum" && eval "${INSTALL_POST}" "${INSTALL_DIR_ROOT}/b3sum" "${INSTALL_STRATEGY}"
@@ -142,7 +142,7 @@ INSTALL_DIR_SIZE_PRE="$(du -sh ${INSTALL_DIR} | cut -f1)" && export INSTALL_DIR_
 #freeze
  eval "${INSTALL_PRE}" "${INSTALL_SRC}/freeze" -o "${INSTALL_DIR}/freeze" && eval "${INSTALL_POST}" "${INSTALL_DIR}/freeze" "${INSTALL_STRATEGY}"
 #fusermount
- eval "${INSTALL_PRE}" "${INSTALL_SRC}/Baseutils/fuse3/fusermount3" -o "${INSTALL_DIR}/fusermount" && eval "${INSTALL_POST}" "${INSTALL_DIR}/fusermount" "${INSTALL_STRATEGY}"
+ eval "${INSTALL_PRE}" "${INSTALL_SRC}/fusermount3" -o "${INSTALL_DIR}/fusermount" && eval "${INSTALL_POST}" "${INSTALL_DIR}/fusermount" "${INSTALL_STRATEGY}"
 #gdu : https://github.com/dundee/gdu
  eval "${INSTALL_PRE}" "${INSTALL_SRC}/gdu" -o "${INSTALL_DIR}/gdu" && eval "${INSTALL_POST}" "${INSTALL_DIR}/gdu" "${INSTALL_STRATEGY}"
 #gh : https://github.com/cli/cli
@@ -248,8 +248,8 @@ INSTALL_DIR_SIZE_PRE="$(du -sh ${INSTALL_DIR} | cut -f1)" && export INSTALL_DIR_
  eval "${INSTALL_PRE}" "${INSTALL_SRC}/zerotier-idtool" -o "${INSTALL_DIR}/zerotier-idtool" && eval "${INSTALL_POST}" "${INSTALL_DIR}/zerotier-idtool" "${INSTALL_STRATEGY}"
  eval "${INSTALL_PRE}" "${INSTALL_SRC}/zerotier-one" -o "${INSTALL_DIR}/zerotier-one" && eval "${INSTALL_POST}" "${INSTALL_DIR}/zerotier-one" "${INSTALL_STRATEGY}"
 #zstd: https://github.com/facebook/zstd
- eval "${INSTALL_PRE}" "${INSTALL_SRC}/Baseutils/zstd/zstd" -o "${INSTALL_DIR}/zstd" && eval "${INSTALL_POST}" "${INSTALL_DIR}/zstd" "${INSTALL_STRATEGY}"
- eval "${INSTALL_PRE}" "${INSTALL_SRC}/Baseutils/zstd/zstd" -o "${INSTALL_DIR_ROOT}/zstd" && eval "${INSTALL_POST}" "${INSTALL_DIR_ROOT}/zstd" "${INSTALL_STRATEGY}"
+ eval "${INSTALL_PRE}" "${INSTALL_SRC}/zstd" -o "${INSTALL_DIR}/zstd" && eval "${INSTALL_POST}" "${INSTALL_DIR}/zstd" "${INSTALL_STRATEGY}"
+ eval "${INSTALL_PRE}" "${INSTALL_SRC}/zstd" -o "${INSTALL_DIR_ROOT}/zstd" && eval "${INSTALL_POST}" "${INSTALL_DIR_ROOT}/zstd" "${INSTALL_STRATEGY}"
 #-------------------------------------------------------------------------------#
 set +x ; echo
 wait ; reset >/dev/null 2>&1 ; echo
